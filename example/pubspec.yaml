@@ -15,16 +15,24 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   build_runner:
-
   flutter_gen:
     path: ../
 
 flutter_gen:
-  color: 'color/colors.xml'
+  assets:
+    outputs: lib/gen/
+
+  colors:
+    outputs: lib/gen/
+    inputs:
+      - 'color/colors.xml'
+      - 'color/colors2.xml'
+      - 'color/colors3.xml'
+
 
 flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/images/chip/
