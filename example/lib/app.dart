@@ -1,3 +1,5 @@
+import 'package:example/asset.gen.dart';
+import 'package:example/font.gen.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -9,6 +11,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: FontFamily.raleway,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -37,17 +40,21 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(
+          widget.title,
+        ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset(
-              'assets/images/chip/chip3.jpg',
-            ),
+            Asset.chip1.image(),
             Text(
               'You have pushed the button this many times:',
+              style: TextStyle(
+                fontFamily: FontFamily.robotoMono,
+                fontFamilyFallback: [FontFamily.raleway],
+              ),
             ),
             Text(
               '$_counter',
