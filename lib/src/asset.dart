@@ -3,7 +3,7 @@ import 'package:mime/mime.dart';
 /// https://github.com/dart-lang/mime/blob/master/lib/src/default_extension_map.dart
 class Asset {
   Asset(this._path) {
-    this._mime = lookupMimeType(this._path);
+    _mime = lookupMimeType(_path);
   }
 
   final String _path;

@@ -1,16 +1,18 @@
 import 'dart:io';
 
-import 'package:flutter_gen/generator/asset.dart';
-import 'package:flutter_gen/generator/camel_case.dart';
+import 'package:build/build.dart';
+import 'package:flutter_gen/src/asset.dart';
+import 'package:flutter_gen/src/camel_case.dart';
 import 'package:yaml/yaml.dart';
 
 class AssetsGenerator {
-  static generate(YamlList assetsList) {
-    if (assetsList == null) return;
+  static String generate(YamlList assetsList) {
+    if (assetsList == null) {
+      throw InvalidInputException;
+    }
 
     final buffer = StringBuffer();
     buffer.writeln('/// GENERATED CODE - DO NOT MODIFY BY HAND');
-    buffer.writeln();
     buffer.writeln('/// *****************************************************');
     buffer.writeln('///  FlutterGen');
     buffer.writeln('/// *****************************************************');
@@ -19,7 +21,7 @@ class AssetsGenerator {
     buffer.writeln("import 'package:flutter/widgets.dart';");
     buffer.writeln();
     buffer.writeln('class AssetGenImage extends AssetImage {');
-    buffer.writeln('  AssetGenImage(String assetName)');
+    buffer.writeln('  const AssetGenImage(String assetName)');
     buffer.writeln('      : _assetName = assetName,');
     buffer.writeln('        super(assetName);');
     buffer.writeln('  final String _assetName;');
@@ -49,27 +51,27 @@ class AssetsGenerator {
     buffer.writeln();
     buffer.writeln('  String get path => _assetName;');
     buffer.writeln('}');
-
     buffer.writeln();
-
     buffer.writeln('class Asset {');
     buffer.writeln('  Asset._();');
 
-    var files = <Asset>[];
-    assetsList.forEach((element) {
-      if (FileSystemEntity.isDirectorySync(element)) {
-        Directory(element).listSync().forEach((entity) {
+    final files = <Asset>[];
+    for (final assetName in assetsList.cast<String>()) {
+      if (FileSystemEntity.isDirectorySync(assetName)) {
+        Directory(assetName).listSync().forEach((entity) {
           final asset = Asset(entity.path);
           if (asset.isImage) {
             buffer.writeln(
-                "  static AssetGenImage ${CamelCase.from(asset.path)} = AssetGenImage\(\"${asset.path}\"\);");
+                "  static AssetGenImage ${CamelCase.from(asset.path)} = const AssetGenImage\(\'${asset.path}\'\);");
           }
         });
       } else {
-        final asset = Asset(element);
-        if (asset.isImage) files.add(asset);
+        final asset = Asset(assetName);
+        if (asset.isImage) {
+          files.add(asset);
+        }
       }
-    });
+    }
 
     buffer.write('}');
     return buffer.toString();
