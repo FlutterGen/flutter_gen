@@ -22,14 +22,26 @@ dev_dependencies:
 flutter_gen:
   assets:
     outputs: lib/gen/
+    # Auto inputs from flutter/assets.
+
+  fonts:
+    outputs: lib/gen/
+    # Auto inputs from flutter/fonts.
+
+  #  intl:
+  #    outputs: lib/gen/
+  #    intputs:
+  #      - l10-arb/
+  #      # or
+  #      # - l10-arb/1ntl_messages_en.arb
+  #      # - l10-arb/intl_messages_ja.arb
 
   colors:
     outputs: lib/gen/
     inputs:
-      - 'color/colors.xml'
-      - 'color/colors2.xml'
-      - 'color/colors3.xml'
-
+      - color/colors.xml
+      - color/colors2.xml
+      - color/colors3.xml
 
 flutter:
   uses-material-design: true
