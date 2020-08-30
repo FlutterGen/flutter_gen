@@ -62,7 +62,8 @@ class AssetsGenerator {
           final asset = Asset(entity.path);
           if (asset.isImage) {
             buffer.writeln(
-                "  static AssetGenImage ${CamelCase.from(asset.path)} = const AssetGenImage\(\'${asset.path}\'\);");
+                '  static AssetGenImage ${CamelCase.from(asset.path)} = ');
+            buffer.writeln('      const AssetGenImage\(\'${asset.path}\'\);');
           }
         });
       } else {

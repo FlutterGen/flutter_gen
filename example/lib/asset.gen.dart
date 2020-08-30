@@ -38,9 +38,14 @@ class AssetGenImage extends AssetImage {
 
 class Asset {
   Asset._();
-  static AssetGenImage chip2 = const AssetGenImage('assets/images/chip2.jpg');
-  static AssetGenImage chip1 = const AssetGenImage('assets/images/chip1.jpg');
-  static AssetGenImage logo = const AssetGenImage('assets/images/logo.png');
-  static AssetGenImage profile = const AssetGenImage('assets/images/profile.jpg');
-  static AssetGenImage chip3 = const AssetGenImage('assets/images/chip/chip3.jpg');
+  static AssetGenImage chip2 = 
+      const AssetGenImage('assets/images/chip2.jpg');
+  static AssetGenImage chip1 = 
+      const AssetGenImage('assets/images/chip1.jpg');
+  static AssetGenImage logo = 
+      const AssetGenImage('assets/images/logo.png');
+  static AssetGenImage profile = 
+      const AssetGenImage('assets/images/profile.jpg');
+  static AssetGenImage chip3 = 
+      const AssetGenImage('assets/images/chip/chip3.jpg');
 }
