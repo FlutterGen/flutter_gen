@@ -1,10 +1,10 @@
 name: flutter_gen
-description: A new Flutter package project.
+description: The Flutter code generator for your assets, fonts, colors, localize, … — Get rid of all String-based APIs.
 version: 0.0.2
 homepage: https://github.com/wasabeef/FlutterGen
 
 environment:
-  sdk: '>=2.7.0 <3.0.0'
+  sdk: '>=2.9.0 <3.0.0'
   flutter: '>=1.20.0'
 
 dependencies:
@@ -19,3 +19,5 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  pedantic: ^1.9.0
