@@ -1,8 +1,8 @@
 library flutter_gen;
 
 import 'package:build/build.dart';
-import 'package:flutter_gen/assets_generator.dart';
-import 'package:flutter_gen/fonts_generator.dart';
+import 'package:flutter_gen/generator/assets_generator.dart';
+import 'package:flutter_gen/generator/fonts_generator.dart';
 import 'package:yaml/yaml.dart';
 
 Builder build(BuilderOptions options) {

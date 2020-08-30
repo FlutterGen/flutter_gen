@@ -1,4 +1,4 @@
-import 'package:flutter_gen/camel_case.dart';
+import 'package:flutter_gen/generator/camel_case.dart';
 import 'package:yaml/yaml.dart';
 
 class FontsGenerator {

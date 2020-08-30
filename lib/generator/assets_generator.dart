@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter_gen/asset.dart';
-import 'package:flutter_gen/camel_case.dart';
+import 'package:flutter_gen/generator/asset.dart';
+import 'package:flutter_gen/generator/camel_case.dart';
 import 'package:yaml/yaml.dart';
 
 class AssetsGenerator {
