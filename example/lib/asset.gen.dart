@@ -1,5 +1,4 @@
 /// GENERATED CODE - DO NOT MODIFY BY HAND
-
 /// *****************************************************
 ///  FlutterGen
 /// *****************************************************
@@ -7,7 +6,7 @@
 import 'package:flutter/widgets.dart';
 
 class AssetGenImage extends AssetImage {
-  AssetGenImage(String assetName)
+  const AssetGenImage(String assetName)
       : _assetName = assetName,
         super(assetName);
   final String _assetName;
@@ -39,9 +38,9 @@ class AssetGenImage extends AssetImage {
 
 class Asset {
   Asset._();
-  static AssetGenImage chip2 = AssetGenImage("assets/images/chip2.jpg");
-  static AssetGenImage chip1 = AssetGenImage("assets/images/chip1.jpg");
-  static AssetGenImage logo = AssetGenImage("assets/images/logo.png");
-  static AssetGenImage profile = AssetGenImage("assets/images/profile.jpg");
-  static AssetGenImage chip3 = AssetGenImage("assets/images/chip/chip3.jpg");
+  static AssetGenImage chip2 = const AssetGenImage('assets/images/chip2.jpg');
+  static AssetGenImage chip1 = const AssetGenImage('assets/images/chip1.jpg');
+  static AssetGenImage logo = const AssetGenImage('assets/images/logo.png');
+  static AssetGenImage profile = const AssetGenImage('assets/images/profile.jpg');
+  static AssetGenImage chip3 = const AssetGenImage('assets/images/chip/chip3.jpg');
 }
