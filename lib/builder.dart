@@ -1,8 +1,8 @@
 library flutter_gen;
 
 import 'package:build/build.dart';
-import 'package:flutter_gen/generator/assets_generator.dart';
-import 'package:flutter_gen/generator/fonts_generator.dart';
+import 'package:flutter_gen/src/assets_generator.dart';
+import 'package:flutter_gen/src/fonts_generator.dart';
 import 'package:yaml/yaml.dart';
 
 Builder build(BuilderOptions options) {
@@ -11,7 +11,7 @@ Builder build(BuilderOptions options) {
 
 class FlutterGenerator extends Builder {
   @override
-  get buildExtensions => {
+  Map<String, List<String>> get buildExtensions => {
         r'$lib$': ['asset.gen.dart', 'color.gen.dart', 'font.gen.dart']
       };
 
@@ -21,27 +21,28 @@ class FlutterGenerator extends Builder {
     final config = loadYaml(await buildStep.readAsString(assetId)) as YamlMap;
 
     // flutter/asset key
-    final flutter = config["flutter"] as YamlMap;
+    final flutter = config['flutter'] as YamlMap;
     if (flutter != null) {
       // Asset
-      if (flutter.containsKey("assets")) {
+      if (flutter.containsKey('assets')) {
         final output = AssetId(buildStep.inputId.package, 'lib/asset.gen.dart');
-        final generate = AssetsGenerator.generate(flutter["assets"]);
+        final generate =
+            AssetsGenerator.generate(flutter['assets'] as YamlList);
         await buildStep.writeAsString(output, generate);
       }
       // Font
-      if (flutter.containsKey("fonts")) {
+      if (flutter.containsKey('fonts')) {
         final output = AssetId(buildStep.inputId.package, 'lib/font.gen.dart');
-        final generate = FontsGenerator.generate(flutter["fonts"]);
+        final generate = FontsGenerator.generate(flutter['fonts'] as YamlList);
         await buildStep.writeAsString(output, generate);
       }
     }
 
     //  flutter_gen key
-    final flutterGen = config["flutter_gen"] as YamlMap;
+    final flutterGen = config['flutter_gen'] as YamlMap;
     if (flutterGen != null) {
-      if (flutterGen.containsKey("color")) {
-        // TODO(wasabeef):color
+      if (flutterGen.containsKey('color')) {
+        // TODO(wasabeef): color
       }
     }
   }
