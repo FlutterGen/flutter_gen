@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
-import 'package:flutter_gen/src/generators/generator.dart';
+import 'package:flutter_gen/src/generators/generator_helper.dart';
 import 'package:flutter_gen/src/settings/asset_path.dart';
 import 'package:flutter_gen/src/settings/flutter/flutter_assets.dart';
 import 'package:flutter_gen/src/utils/camel_case.dart';
@@ -15,7 +15,6 @@ class AssetsGenerator {
 
     final buffer = StringBuffer();
     buffer.writeln(header());
-    buffer.writeln();
     buffer.writeln('''
 import 'package:flutter/widgets.dart';
 

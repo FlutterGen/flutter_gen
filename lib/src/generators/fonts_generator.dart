@@ -1,6 +1,6 @@
 import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
-import 'package:flutter_gen/src/generators/generator.dart';
+import 'package:flutter_gen/src/generators/generator_helper.dart';
 import 'package:flutter_gen/src/settings/flutter/flutter_fonts.dart';
 import 'package:flutter_gen/src/utils/camel_case.dart';
 import 'package:yaml/yaml.dart';
@@ -13,7 +13,6 @@ class FontsGenerator {
 
     final buffer = StringBuffer();
     buffer.writeln(header());
-    buffer.writeln();
     buffer.writeln('class FontFamily {');
     buffer.writeln('  FontFamily._();');
     buffer.writeln();
