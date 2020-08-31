@@ -22,12 +22,7 @@ dev_dependencies:
 
 flutter_gen:
   assets:
-    outputs: lib/gen/
-    # Auto inputs from flutter/assets.
-
-  fonts:
-    outputs: lib/gen/
-    # Auto inputs from flutter/fonts.
+    fullPathName: false
 
   #  intl:
   #    outputs: lib/gen/
