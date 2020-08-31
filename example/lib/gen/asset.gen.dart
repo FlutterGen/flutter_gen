@@ -39,8 +39,6 @@ class AssetGenImage extends AssetImage {
 class Asset {
   Asset._();
 
-
-
   static const String paint = 'assets/images/paint.svg';
   static AssetGenImage chip2 = const AssetGenImage('assets/images/chip2.jpg');
   static AssetGenImage chip1 = const AssetGenImage('assets/images/chip1.jpg');
