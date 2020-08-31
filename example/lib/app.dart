@@ -1,5 +1,5 @@
-import 'package:example/asset.gen.dart';
-import 'package:example/font.gen.dart';
+import 'package:example/gen/asset.gen.dart';
+import 'package:example/gen/font.gen.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
