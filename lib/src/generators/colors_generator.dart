@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:build/build.dart';
+import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen/src/generators/generator.dart';
 import 'package:flutter_gen/src/settings/color_path.dart';
 import 'package:flutter_gen/src/settings/flutterGen/flutter_gen_colors.dart';
@@ -45,11 +46,6 @@ class ColorsGenerator {
     });
 
     buffer.writeln('}');
-    return buffer.toString();
+    return DartFormatter().format(buffer.toString());
   }
-}
-
-class ColorData {
-  String name;
-  String color;
 }

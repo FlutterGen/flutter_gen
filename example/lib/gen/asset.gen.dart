@@ -43,8 +43,11 @@ class Asset {
   static AssetGenImage chip2 = const AssetGenImage('assets/images/chip2.jpg');
   static AssetGenImage chip1 = const AssetGenImage('assets/images/chip1.jpg');
   static AssetGenImage logo = const AssetGenImage('assets/images/logo.png');
-  static AssetGenImage profile = const AssetGenImage('assets/images/profile.jpg');
-  static AssetGenImage chip3 = const AssetGenImage('assets/images/chip3/chip3.jpg');
-  static AssetGenImage chip4 = const AssetGenImage('assets/images/chip4/chip4.jpg');
+  static AssetGenImage profile =
+      const AssetGenImage('assets/images/profile.jpg');
+  static AssetGenImage chip3 =
+      const AssetGenImage('assets/images/chip3/chip3.jpg');
+  static AssetGenImage chip4 =
+      const AssetGenImage('assets/images/chip4/chip4.jpg');
   static const String fruits = 'assets/fruits.json';
 }
