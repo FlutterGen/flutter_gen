@@ -14,8 +14,12 @@ class Config {
 
   Future<Config> load() async {
     final assetId = AssetId(_buildStep.inputId.package, 'pubspec.yaml');
-    final properties =
-        loadYaml(await _buildStep.readAsString(assetId)) as YamlMap;
+    final pubspec = await _buildStep.readAsString(assetId);
+    
+    assert(pubspec != null, throw 'pubspec.yaml is empty');
+    assert(pubspec.isNotEmpty, throw 'Not found pubspec.yaml');
+
+    final properties = loadYaml(pubspec) as YamlMap;
     flutter = Flutter(properties['flutter'] as YamlMap);
     flutterGen = FlutterGen(properties['flutter_gen'] as YamlMap);
 
