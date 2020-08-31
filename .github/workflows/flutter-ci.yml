@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'beta'
+          channel: 'stable'
 
       - name: Cache Gradle modules
         uses: actions/cache@v2
@@ -24,9 +24,9 @@ jobs:
             ~/android/.gradle
             ~/.gradle/cache
             # ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ env.cache-number }}-${{ hashFiles('android/build.gradle') }}-${{ hashFiles('android/app/build.gradle') }}
+          key: ${{ runner.os }}-gradle-${{ env.cache-number }}-${{ hashFiles('example/android/build.gradle') }}-${{ hashFiles('example/android/app/build.gradle') }}
           restore-keys: |
-            ${{ runner.os }}-gradle-${{ env.cache-name }}-${{ hashFiles('android/build.gradle') }}
+            ${{ runner.os }}-gradle-${{ env.cache-name }}-${{ hashFiles('example/android/build.gradle') }}
             ${{ runner.os }}-gradle-${{ env.cache-name }}-
             ${{ runner.os }}-gradle-
             ${{ runner.os }}-
@@ -37,7 +37,7 @@ jobs:
           cache-number: ${{ secrets.CACHE_NUMBER }}
         with:
           path: Pods
-          key: ${{ runner.os }}-pods-${{ env.cache-number }}-${{ hashFiles('ios/Podfile.lock') }}
+          key: ${{ runner.os }}-pods-${{ env.cache-number }}-${{ hashFiles('example/ios/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-${{ env.cache-name }}-
             ${{ runner.os }}-pods-
