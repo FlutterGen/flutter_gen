@@ -1,9 +1,10 @@
 library flutter_gen;
 
 import 'package:build/build.dart';
-import 'package:flutter_gen/src/assets_generator.dart';
-import 'package:flutter_gen/src/fonts_generator.dart';
-import 'package:yaml/yaml.dart';
+import 'package:flutter_gen/src/generators/assets_generator.dart';
+import 'package:flutter_gen/src/generators/colors_generator.dart';
+import 'package:flutter_gen/src/generators/fonts_generator.dart';
+import 'package:flutter_gen/src/settings/config.dart';
 
 Builder build(BuilderOptions options) {
   return FlutterGenerator();
@@ -11,38 +12,44 @@ Builder build(BuilderOptions options) {
 
 class FlutterGenerator extends Builder {
   @override
-  Map<String, List<String>> get buildExtensions => {
-        r'$lib$': ['asset.gen.dart', 'color.gen.dart', 'font.gen.dart']
-      };
+  Map<String, List<String>> get buildExtensions {
+    return {
+      r'$lib$': [
+        'gen/asset.gen.dart',
+        'gen/font.gen.dart',
+        'gen/colors.gen.dart'
+      ]
+    };
+  }
 
   @override
   Future<void> build(BuildStep buildStep) async {
-    final assetId = AssetId(buildStep.inputId.package, 'pubspec.yaml');
-    final config = loadYaml(await buildStep.readAsString(assetId)) as YamlMap;
+    final config = await Config(buildStep).load();
 
-    // flutter/asset key
-    final flutter = config['flutter'] as YamlMap;
-    if (flutter != null) {
-      // Asset
-      if (flutter.containsKey('assets')) {
-        final output = AssetId(buildStep.inputId.package, 'lib/asset.gen.dart');
-        final generate =
-            AssetsGenerator.generate(flutter['assets'] as YamlList);
-        await buildStep.writeAsString(output, generate);
-      }
-      // Font
-      if (flutter.containsKey('fonts')) {
-        final output = AssetId(buildStep.inputId.package, 'lib/font.gen.dart');
-        final generate = FontsGenerator.generate(flutter['fonts'] as YamlList);
-        await buildStep.writeAsString(output, generate);
+    if (config.hasFlutterGen) {
+      if (config.flutterGen.colors.hasInputs) {
+        print(config.flutterGen.colors.inputs.toString());
+        final assetsId =
+            AssetId(buildStep.inputId.package, 'lib/gen/colors.gen.dart');
+        final generate = ColorsGenerator.generate(config.flutterGen.colors);
+        await buildStep.writeAsString(assetsId, generate);
       }
     }
 
-    //  flutter_gen key
-    final flutterGen = config['flutter_gen'] as YamlMap;
-    if (flutterGen != null) {
-      if (flutterGen.containsKey('color')) {
-        // TODO(wasabeef): color
+    if (config.hasFlutter) {
+      if (config.flutter.hasAssets) {
+        final assetsId =
+            AssetId(buildStep.inputId.package, 'lib/gen/asset.gen.dart');
+
+        final generate = AssetsGenerator.generate(config.flutter.assets);
+        await buildStep.writeAsString(assetsId, generate);
+      }
+
+      if (config.flutter.hasFonts) {
+        final assetsId =
+            AssetId(buildStep.inputId.package, 'lib/gen/font.gen.dart');
+        final generate = FontsGenerator.generate(config.flutter.fonts);
+        await buildStep.writeAsString(assetsId, generate);
       }
     }
   }

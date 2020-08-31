@@ -1,8 +1,10 @@
+import 'dart:io';
+
 import 'package:mime/mime.dart';
 
 /// https://github.com/dart-lang/mime/blob/master/lib/src/default_extension_map.dart
-class Asset {
-  Asset(this._path) {
+class AssetPath {
+  AssetPath(this._path) {
     _mime = lookupMimeType(_path);
   }
 
@@ -13,7 +15,7 @@ class Asset {
   String _mime;
 
   /// https://api.flutter.dev/flutter/widgets/Image-class.html
-  bool get isImage {
+  bool get isSupportedImage {
     switch (_mime) {
       case 'image/jpeg':
       case 'image/png':
@@ -26,4 +28,8 @@ class Asset {
         return false;
     }
   }
+
+  bool get isDirectory => FileSystemEntity.isDirectorySync(_path);
+
+  bool get isUnKnownMime => _mime == null;
 }

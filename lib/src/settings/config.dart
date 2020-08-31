@@ -1,6 +1,6 @@
 import 'package:build/build.dart';
-import 'package:flutter_gen/src/settings/flutter.dart';
-import 'package:flutter_gen/src/settings/flutter_gen.dart';
+import 'package:flutter_gen/src/settings/flutter/flutter.dart';
+import 'package:flutter_gen/src/settings/flutterGen/flutter_gen.dart';
 import 'package:yaml/yaml.dart';
 
 class Config {

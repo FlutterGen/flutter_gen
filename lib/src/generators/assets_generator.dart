@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:build/build.dart';
 import 'package:flutter_gen/src/generators/generator.dart';
-import 'package:flutter_gen/src/settings/asset.dart';
+import 'package:flutter_gen/src/settings/asset_path.dart';
+import 'package:flutter_gen/src/settings/flutter/flutter_assets.dart';
 import 'package:flutter_gen/src/utils/camel_case.dart';
-import 'package:yaml/yaml.dart';
 
 class AssetsGenerator {
-  static String generate(YamlList assetsList) {
-    if (assetsList == null) {
+  static String generate(FlutterAssets flutterAssets) {
+    if (flutterAssets == null) {
       throw InvalidInputException;
     }
 
@@ -53,20 +53,26 @@ class AssetGenImage extends AssetImage {
     buffer.writeln('  Asset._();');
     buffer.writeln();
 
-    final files = <Asset>[];
-    for (final assetName in assetsList.cast<String>()) {
-      if (FileSystemEntity.isDirectorySync(assetName)) {
+    for (final assetName in flutterAssets.assets) {
+      final asset = AssetPath(assetName);
+      if (asset.isDirectory) {
         Directory(assetName).listSync().forEach((entity) {
-          final asset = Asset(entity.path);
-          if (asset.isImage) {
+          final asset = AssetPath(entity.path);
+          if (asset.isSupportedImage) {
             buffer.writeln(
-                '  static AssetGenImage ${CamelCase.from(asset.path)} = const AssetGenImage\(\'${asset.path}\'\);');
+                '  static AssetGenImage ${camelCase(asset.path)} = const AssetGenImage\(\'${asset.path}\'\);');
+          } else if (!asset.isDirectory && !asset.isUnKnownMime) {
+            buffer.writeln(
+                '  static const String ${camelCase(asset.path)} = \'${asset.path}\'\;');
           }
         });
       } else {
-        final asset = Asset(assetName);
-        if (asset.isImage) {
-          files.add(asset);
+        if (asset.isSupportedImage) {
+          buffer.writeln(
+              '  static AssetGenImage ${camelCase(asset.path)} = const AssetGenImage\(\'${asset.path}\'\);');
+        } else {
+          buffer.writeln(
+              '  static const String ${camelCase(asset.path)} = \'${asset.path}\'\;');
         }
       }
     }
