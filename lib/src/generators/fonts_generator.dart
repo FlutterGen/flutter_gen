@@ -1,5 +1,6 @@
 import 'package:build/build.dart';
-import 'package:flutter_gen/src/camel_case.dart';
+import 'package:flutter_gen/src/generators/generator.dart';
+import 'package:flutter_gen/src/utils/camel_case.dart';
 import 'package:yaml/yaml.dart';
 
 class FontsGenerator {
@@ -9,13 +10,11 @@ class FontsGenerator {
     }
 
     final buffer = StringBuffer();
-    buffer.writeln('/// GENERATED CODE - DO NOT MODIFY BY HAND');
-    buffer.writeln('/// *****************************************************');
-    buffer.writeln('///  FlutterGen');
-    buffer.writeln('/// *****************************************************');
+    buffer.writeln(header());
     buffer.writeln();
     buffer.writeln('class FontFamily {');
     buffer.writeln('  FontFamily._();');
+    buffer.writeln();
 
     fontsList
         .cast<YamlMap>()

@@ -15,7 +15,7 @@ class CamelCase {
     final _symbolRegex = RegExp(r'[ ./_\-]');
     final _upperAlphaRegex = RegExp(r'[A-Z]');
     final _lowerAlphaRegex = RegExp(r'[a-z]');
-    final sb = StringBuffer();
+    final buffer = StringBuffer();
     final words = <String>[];
 
     for (var i = 0; i < path.length; i++) {
@@ -28,7 +28,7 @@ class CamelCase {
         continue;
       }
 
-      sb.write(char);
+      buffer.write(char);
 
       final isEndOfWord = nextChar == null ||
           (_upperAlphaRegex.hasMatch(nextChar) &&
@@ -36,8 +36,8 @@ class CamelCase {
           _symbolRegex.hasMatch(nextChar);
 
       if (isEndOfWord) {
-        words.add(sb.toString());
-        sb.clear();
+        words.add(buffer.toString());
+        buffer.clear();
       }
     }
 
