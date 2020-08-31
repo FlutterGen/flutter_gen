@@ -3,7 +3,7 @@
   "author": "wasabeef",
   "husky": {
     "hooks": {
-      "pre-push": "flutter format --set-exit-if-changed --dry-run lib example/lib && flutter analyze"
+      "pre-push": "make format-analyze"
     }
   },
   "devDependencies": {
