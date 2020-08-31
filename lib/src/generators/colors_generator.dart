@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen/src/generators/generator_helper.dart';
 import 'package:flutter_gen/src/settings/color_path.dart';
@@ -11,9 +10,10 @@ import 'package:xml/xml.dart';
 
 class ColorsGenerator {
   static String generate(FlutterGenColors flutterGenColors) {
-    if (flutterGenColors == null) {
-      throw InvalidInputException;
-    }
+    assert(flutterGenColors != null,
+        throw 'The value of "flutter_gen/colors:" is incorrect.');
+    assert(flutterGenColors.hasInputs,
+        throw 'The value of "flutter_gen/colors/inputs:" is incorrect.');
 
     final buffer = StringBuffer();
     buffer.writeln(header());

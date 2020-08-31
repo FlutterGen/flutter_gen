@@ -1,4 +1,3 @@
-import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen/src/generators/generator_helper.dart';
 import 'package:flutter_gen/src/settings/flutter/flutter_fonts.dart';
@@ -7,9 +6,8 @@ import 'package:yaml/yaml.dart';
 
 class FontsGenerator {
   static String generate(FlutterFonts flutterFonts) {
-    if (flutterFonts == null) {
-      throw InvalidInputException;
-    }
+    assert(flutterFonts != null && flutterFonts.hasFonts,
+        throw 'The value of "flutter/fonts:" is incorrect.');
 
     final buffer = StringBuffer();
     buffer.writeln(header());

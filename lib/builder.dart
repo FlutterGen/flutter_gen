@@ -27,8 +27,7 @@ class FlutterGenerator extends Builder {
     final config = await Config(buildStep).load();
 
     if (config.hasFlutterGen) {
-      if (config.flutterGen.colors.hasInputs) {
-        print(config.flutterGen.colors.inputs.toString());
+      if (config.flutterGen.hasColors) {
         final assetsId =
             AssetId(buildStep.inputId.package, 'lib/gen/colors.gen.dart');
         final generate = ColorsGenerator.generate(config.flutterGen.colors);

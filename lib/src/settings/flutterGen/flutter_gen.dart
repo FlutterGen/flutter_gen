@@ -5,11 +5,20 @@ import 'package:yaml/yaml.dart';
 class FlutterGen {
   FlutterGen(YamlMap flutterGenMap) {
     if (flutterGenMap != null) {
-      assets = FlutterGenAssets(flutterGenMap['assets'] as YamlMap);
-      colors = FlutterGenColors(flutterGenMap['colors'] as YamlMap);
+      _assets = FlutterGenAssets(flutterGenMap['assets'] as YamlMap);
+      _colors = FlutterGenColors(flutterGenMap['colors'] as YamlMap);
     }
   }
 
-  FlutterGenAssets assets;
-  FlutterGenColors colors;
+  FlutterGenAssets _assets;
+
+  FlutterGenAssets get assets => _assets;
+
+  FlutterGenColors _colors;
+
+  FlutterGenColors get colors => _colors;
+
+  bool get hasAssets => assets != null;
+
+  bool get hasColors => colors != null;
 }
