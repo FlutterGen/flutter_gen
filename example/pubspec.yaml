@@ -27,9 +27,9 @@ flutter_gen:
 
   colors:
     inputs:
-      - color/colors.xml
-      - color/colors2.json
-      - color/colors3.xml
+      - assets/color/colors.xml
+      - assets/color/colors2.json
+      - assets/color/colors3.xml
 
 flutter:
   uses-material-design: true
@@ -41,11 +41,11 @@ flutter:
   fonts:
     - family: Raleway
       fonts:
-        - asset: fonts/Raleway-Regular.ttf
-        - asset: fonts/Raleway-Italic.ttf
+        - asset: assets/fonts/Raleway-Regular.ttf
+        - asset: assets/fonts/Raleway-Italic.ttf
           style: italic
     - family: RobotoMono
       fonts:
-        - asset: fonts/RobotoMono-Regular.ttf
-        - asset: fonts/RobotoMono-Bold.ttf
+        - asset: assets/fonts/RobotoMono-Regular.ttf
+        - asset: assets/fonts/RobotoMono-Bold.ttf
           weight: 700
