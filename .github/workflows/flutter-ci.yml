@@ -60,9 +60,6 @@ jobs:
       - name: Get flutter dependencies.
         run: make dependencies
 
-      - name: Check for any formatting and statically analyze the code.
-        run: make format-analyze
-
       - name: Run tests for our flutter project.
         run: |
           make unit-test
@@ -71,4 +68,7 @@ jobs:
         run: |
           make build-runner
           make build
+
+      - name: Check for any formatting and statically analyze the code.
+        run: make format-analyze
 
