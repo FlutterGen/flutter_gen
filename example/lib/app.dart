@@ -1,4 +1,5 @@
 import 'package:example/gen/asset.gen.dart';
+import 'package:example/gen/colors.gen.dart';
 import 'package:example/gen/font.gen.dart';
 import 'package:flutter/material.dart';
 
@@ -49,11 +50,12 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Asset.chip1.image(),
-            const Text(
+            Text(
               'You have pushed the button this many times:',
               style: TextStyle(
+                color: ColorName.accentYellow,
                 fontFamily: FontFamily.robotoMono,
-                fontFamilyFallback: [FontFamily.raleway],
+                fontFamilyFallback: const [FontFamily.raleway],
               ),
             ),
             Text(

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="high_emphasis">#EEEEEE</color>
-    <color name="medium_emphasis">#979797</color>
-    <color name="disabled">#666666</color>
-    <color name="accent_red">#FF4D4D</color>
-    <color name="accent_yellow">#F2B756</color>
-</resources>

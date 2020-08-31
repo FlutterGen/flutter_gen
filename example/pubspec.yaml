@@ -22,28 +22,22 @@ dev_dependencies:
 
 flutter_gen:
   assets:
-    fullPathName: false
-
-  #  intl:
-  #    outputs: lib/gen/
-  #    intputs:
-  #      - l10-arb/
-  #      # or
-  #      # - l10-arb/1ntl_messages_en.arb
-  #      # - l10-arb/intl_messages_ja.arb
+    outputs:
+      fullPathName: false
 
   colors:
-    outputs: lib/gen/
     inputs:
       - color/colors.xml
-      - color/colors2.xml
+      - color/colors2.json
       - color/colors3.xml
 
 flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/images/chip/
+    - assets/images/chip3/chip3.jpg
+    - assets/images/chip4/
+    - assets/fruits.json
   fonts:
     - family: Raleway
       fonts:
