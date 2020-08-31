@@ -8,7 +8,7 @@ void main() {
   runApp(MaterialApp(
     title: 'Flutter Demo',
     theme: ThemeData(
-      // Auto generated image from FlutterGen.
+      // Auto generated font from FlutterGen.
       fontFamily: FontFamily.raleway,
     ),
     home: Scaffold(
@@ -30,7 +30,7 @@ void main() {
                 // Auto generated color from FlutterGen.
                 color: ColorName.denim,
 
-                // Auto generated image from FlutterGen.
+                // Auto generated font from FlutterGen.
                 fontFamily: FontFamily.robotoMono,
                 fontFamilyFallback: const [FontFamily.raleway],
               ),
