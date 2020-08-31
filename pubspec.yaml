@@ -4,8 +4,7 @@ version: 0.0.2
 homepage: https://github.com/wasabeef/FlutterGen
 
 environment:
-  sdk: '>=2.9.0 <3.0.0'
-  flutter: '>=1.20.0'
+  sdk: '>=2.7.0 <3.0.0'
 
 dependencies:
   flutter:
