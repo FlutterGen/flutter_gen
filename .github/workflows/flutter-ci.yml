@@ -67,7 +67,8 @@ jobs:
         run: |
           make unit-test
 
-      - name: Build ipa and apk
+      - name: Build
         run: |
+          make build-runner
           make build
 
