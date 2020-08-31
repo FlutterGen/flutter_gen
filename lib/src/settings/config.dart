@@ -15,13 +15,18 @@ class Config {
   Future<Config> load() async {
     final assetId = AssetId(_buildStep.inputId.package, 'pubspec.yaml');
     final pubspec = await _buildStep.readAsString(assetId);
-    
-    assert(pubspec != null, throw 'pubspec.yaml is empty');
-    assert(pubspec.isNotEmpty, throw 'Not found pubspec.yaml');
+
+    assert(pubspec != null, throw 'Not found pubspec.yaml');
+    assert(pubspec.isNotEmpty, throw 'pubspec.yaml is empty');
 
     final properties = loadYaml(pubspec) as YamlMap;
-    flutter = Flutter(properties['flutter'] as YamlMap);
-    flutterGen = FlutterGen(properties['flutter_gen'] as YamlMap);
+
+    if (properties.containsKey('flutter')) {
+      flutter = Flutter(properties['flutter'] as YamlMap);
+    }
+    if (properties.containsKey('flutter_gen')) {
+      flutterGen = FlutterGen(properties['flutter_gen'] as YamlMap);
+    }
 
     return this;
   }
