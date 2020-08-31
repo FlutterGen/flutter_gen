@@ -30,7 +30,26 @@ class AssetGenImage extends AssetImage {
     bool isAntiAlias = false,
     FilterQuality filterQuality = FilterQuality.low,
   }) {
-    return Image(image: this, frameBuilder: frameBuilder);
+    return Image(
+      image: this,
+      frameBuilder: frameBuilder,
+      loadingBuilder: loadingBuilder,
+      errorBuilder: errorBuilder,
+      semanticLabel: semanticLabel,
+      excludeFromSemantics: excludeFromSemantics,
+      width: width,
+      height: height,
+      color: color,
+      colorBlendMode: colorBlendMode,
+      fit: fit,
+      alignment: alignment,
+      repeat: repeat,
+      centerSlice: centerSlice,
+      matchTextDirection: matchTextDirection,
+      gaplessPlayback: gaplessPlayback,
+      isAntiAlias: isAntiAlias,
+      filterQuality: filterQuality,
+    );
   }
 
   String get path => _assetName;
