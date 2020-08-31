@@ -1,3 +1,4 @@
+[![pub package](https://img.shields.io/pub/v/flutter_gen.svg)](https://pub.dartlang.org/packages/flutter_gen)
 # flutter_gen
 
 A new Flutter package project.
