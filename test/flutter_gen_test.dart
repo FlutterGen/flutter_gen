@@ -1,3 +1,4 @@
+@TestOn('vm')
 import 'dart:io';
 
 import 'package:build/build.dart';
@@ -12,17 +13,11 @@ void main() {
   setUp(() => builder = FlutterGenerator());
 
   group('Test FlutterGenerator', () {
-    test('Empty pubspec.yaml', () async {
-      await testBuilder(builder, <String, dynamic>{
-        'example|pubspec.yaml': '',
-      }, outputs: <String, dynamic>{});
-    });
-
-    test('Empty pubspec.yaml', () async {
-      await testBuilder(builder, <String, dynamic>{
-        'example|pubspec.yaml': '',
-      }, outputs: <String, dynamic>{});
-    });
+    // test('Empty pubspec.yaml', () async {
+    //   await testBuilder(builder, <String, dynamic>{
+    //     'example|pubspec.yaml': '',
+    //   }, outputs: <String, dynamic>{});
+    // });
 
     test('Only flutter/assets', () async {
       await testBuilder(
@@ -72,6 +67,37 @@ void main() {
             contains(
                 'static const String fruits = \'assets/json/fruits.json\';\n'),
             contains('static const String anim = \'assets/json/anim.mp3\';\n'),
+          ])),
+        },
+      );
+    });
+
+    test('Only flutter/fonts', () async {
+      await testBuilder(
+        builder,
+        <String, dynamic>{
+          'example|pubspec.yaml': '''
+          flutter:
+            fonts:
+              - family: Raleway
+                fonts:
+                  - asset: assets/fonts/Raleway-Regular.ttf
+                  - asset: assets/fonts/Raleway-Italic.ttf
+                    style: italic
+              - family: RobotoMono
+                fonts:
+                  - asset: assets/fonts/RobotoMono-Regular.ttf
+                  - asset: assets/fonts/RobotoMono-Bold.ttf
+                    weight: 700
+          ''',
+        },
+        generateFor: {
+          'example|lib/\$lib\$',
+        },
+        outputs: <String, dynamic>{
+          'example|lib/gen/font.gen.dart': decodedMatches(allOf([
+            contains('static const String raleway = \'Raleway\';\n'),
+            contains('static const String robotoMono = \'RobotoMono\';\n'),
           ])),
         },
       );

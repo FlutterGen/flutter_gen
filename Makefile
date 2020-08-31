@@ -22,3 +22,6 @@ build-runner:
 
 build:
 	cd example && flutter build apk && cd ..
+
+unit-test:
+	flutter test --coverage --coverage-path=./coverage/lcov.info
