@@ -13,5 +13,44 @@
 
 The Flutter code generator for your assets, fonts, colors, localize, … — Get rid of all String-based APIs.
 
+Inspired by [SwiftGen](https://github.com/SwiftGen/SwiftGen).
 
-Not yet.
+## Motivation.
+
+When resources such as images are used on Dart code, they are not type-safe.
+
+```yaml
+# pubspec.yaml
+flutter:
+  assets:
+    - assets/images/logo.png
+```
+
+**Bad**  
+What would happen if you made a typo?
+```dart
+Widget build(BuildContext context) {
+  return Image(image: AssetImage('assets/images/logo.png'));
+}
+```
+
+**Good**  
+We need a way to make it safe.
+```dart
+Widget build(BuildContext context) {
+  return Asset.logo.image();
+}
+```
+
+## Configuration file
+
+All are generated based on pubspec.yaml.
+
+## Available Parsers
+
+### Assets
+
+### Fonts
+
+### Colors
+
