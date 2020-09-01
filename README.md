@@ -42,6 +42,21 @@ Widget build(BuildContext context) {
 }
 ```
 
+## Installation
+
+Using [`build_runner`](https://pub.dev/packages/build_runner).
+Run build_runner after the configuration pubspec.yaml.
+
+```yaml
+# pubspec.yaml
+dev_dependencies:
+  build_runner:
+  flutter_gen: 
+```
+```sh
+flutter packages pub run build_runner build
+```
+
 ## Configuration file
 
 All are generated based on [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
