@@ -44,7 +44,7 @@ Widget build(BuildContext context) {
 
 ## Configuration file
 
-All are generated based on pubspec.yaml.
+All are generated based on [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
 
 ## Available Parsers
 
