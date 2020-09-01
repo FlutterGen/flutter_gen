@@ -11,7 +11,7 @@
   </a>
 </p>
 
-The Flutter code generator for your assets, fonts, colors, localize, … — Get rid of all String-based APIs.
+The Flutter code generator for your assets, fonts, colors, … — Get rid of all String-based APIs.
 
 Inspired by [SwiftGen](https://github.com/SwiftGen/SwiftGen).
 
