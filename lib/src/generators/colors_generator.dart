@@ -30,8 +30,7 @@ class ColorsGenerator {
       final data = colorFile.file.readAsStringSync();
       if (colorFile.isXml) {
         final document = XmlDocument.parse(data);
-        final colors = document.findAllElements('color');
-        for (final color in colors) {
+        for (final color in document.findAllElements('color')) {
           buffer.writeln(
               "  static Color ${camelCase(color.getAttribute('name'))} = const Color(${colorFromHex(color.text)});");
         }
@@ -41,6 +40,8 @@ class ColorsGenerator {
           buffer.writeln(
               '  static Color ${camelCase(key)} = const Color(${colorFromHex(value)});');
         });
+      } else {
+        throw 'Not supported file type.';
       }
     });
 

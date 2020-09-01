@@ -39,7 +39,6 @@ class FlutterGenerator extends Builder {
       if (config.flutter.hasAssets) {
         final assetsId =
             AssetId(buildStep.inputId.package, 'lib/gen/asset.gen.dart');
-
         final generate = AssetsGenerator.generate(config.flutter.assets);
         await buildStep.writeAsString(assetsId, generate);
       }
