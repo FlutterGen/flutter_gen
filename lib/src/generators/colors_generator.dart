@@ -9,10 +9,10 @@ import 'package:flutter_gen/src/utils/color.dart';
 import 'package:xml/xml.dart';
 
 class ColorsGenerator {
-  static String generate(FlutterGenColors flutterGenColors) {
-    assert(flutterGenColors != null,
+  static String generate(DartFormatter formatter, FlutterGenColors colors) {
+    assert(colors != null,
         throw 'The value of "flutter_gen/colors:" is incorrect.');
-    assert(flutterGenColors.hasInputs,
+    assert(colors.hasInputs,
         throw 'The value of "flutter_gen/colors/inputs:" is incorrect.');
 
     final buffer = StringBuffer();
@@ -23,7 +23,7 @@ class ColorsGenerator {
     buffer.writeln('  ColorName._();');
     buffer.writeln();
 
-    flutterGenColors.inputs
+    colors.inputs
         .cast<String>()
         .map((file) => ColorPath(file))
         .forEach((colorFile) {
@@ -46,6 +46,6 @@ class ColorsGenerator {
     });
 
     buffer.writeln('}');
-    return DartFormatter().format(buffer.toString());
+    return formatter.format(buffer.toString());
   }
 }

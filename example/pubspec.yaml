@@ -21,6 +21,8 @@ dev_dependencies:
     path: ../
 
 flutter_gen:
+  lineLength: 80 # default value: 80
+
   colors:
     inputs:
       - assets/color/colors.xml
