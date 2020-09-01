@@ -80,7 +80,7 @@ All are generated based on [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
 
 ## Issues
 
-Please file FlutterGen specific issues, bugs, or feature requests in our [issue tracker](https://github.com/FirebaseExtended/flutterfire/issues/new).
+Please file FlutterGen specific issues, bugs, or feature requests in our [issue tracker](https://github.com/wasabeef/flutter_gen/issues/new).
 
 Plugin issues that are not specific to FlutterGen can be filed in the [Flutter issue tracker](https://github.com/flutter/flutter/issues/new).
 
@@ -89,6 +89,6 @@ Plugin issues that are not specific to FlutterGen can be filed in the [Flutter i
 Let's develop together.
 
 If you wish to contribute a change to any of the existing plugins in this repo,
-please review our [contribution guide](https://github.com/wasabeef/FlutterGen/blob/master/CONTRIBUTING.md)
-and open a [pull request](https://github.com/wasabeef/FlutterGen/pulls).
+please review our [contribution guide](https://github.com/wasabeef/flutter_gen/blob/master/CONTRIBUTING.md)
+and open a [pull request](https://github.com/wasabeef/flutter_gen/pulls).
 
