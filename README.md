@@ -44,7 +44,7 @@ Widget build(BuildContext context) {
 
 ## Installation
 
-Using [`build_runner`](https://pub.dev/packages/build_runner).
+Using [`build_runner`](https://pub.dev/packages/build_runner).  
 Run build_runner after the configuration pubspec.yaml.
 
 ```yaml
@@ -54,7 +54,8 @@ dev_dependencies:
   flutter_gen: 
 ```
 ```sh
-flutter packages pub run build_runner build
+$ flutter pub get
+$ flutter packages pub run build_runner build
 ```
 
 ## Configuration file
