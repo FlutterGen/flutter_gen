@@ -26,7 +26,7 @@ flutter:
     - assets/images/logo.png
 ```
 
-**Bad**  
+❌ **Bad**  
 What would happen if you made a typo?
 ```dart
 Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ Widget build(BuildContext context) {
 }
 ```
 
-**Good**  
+⭕️ **Good**  
 We need a way to make it safe.
 ```dart
 Widget build(BuildContext context) {
