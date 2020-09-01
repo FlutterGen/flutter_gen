@@ -46,6 +46,34 @@ Widget build(BuildContext context) {
 
 All are generated based on [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
 
+FlutterGen uses `flutter` key and `flutter_gen` key on pubspec.yaml.
+
+FlutterGen 
+```yaml
+# pubspec.yaml
+# ...
+
+flutter_gen:
+  lineLength: 100 # Default is 80
+
+  colors:
+    inputs:
+      - assets/color/colors.xml
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/Raleway-Regular.ttf
+        - asset: assets/fonts/Raleway-Italic.ttf
+          style: italic
+```
+
+
 ## Available Parsers
 
 ### Assets
