@@ -21,9 +21,7 @@ dev_dependencies:
     path: ../
 
 flutter_gen:
-  assets:
-    outputs:
-      fullPathName: false
+  lineLength: 80 # default value: 80
 
   colors:
     inputs:

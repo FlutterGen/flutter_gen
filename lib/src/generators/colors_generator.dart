@@ -9,10 +9,10 @@ import 'package:flutter_gen/src/utils/color.dart';
 import 'package:xml/xml.dart';
 
 class ColorsGenerator {
-  static String generate(FlutterGenColors flutterGenColors) {
-    assert(flutterGenColors != null,
+  static String generate(DartFormatter formatter, FlutterGenColors colors) {
+    assert(colors != null,
         throw 'The value of "flutter_gen/colors:" is incorrect.');
-    assert(flutterGenColors.hasInputs,
+    assert(colors.hasInputs,
         throw 'The value of "flutter_gen/colors/inputs:" is incorrect.');
 
     final buffer = StringBuffer();
@@ -23,15 +23,14 @@ class ColorsGenerator {
     buffer.writeln('  ColorName._();');
     buffer.writeln();
 
-    flutterGenColors.inputs
+    colors.inputs
         .cast<String>()
         .map((file) => ColorPath(file))
         .forEach((colorFile) {
       final data = colorFile.file.readAsStringSync();
       if (colorFile.isXml) {
         final document = XmlDocument.parse(data);
-        final colors = document.findAllElements('color');
-        for (final color in colors) {
+        for (final color in document.findAllElements('color')) {
           buffer.writeln(
               "  static Color ${camelCase(color.getAttribute('name'))} = const Color(${colorFromHex(color.text)});");
         }
@@ -41,10 +40,12 @@ class ColorsGenerator {
           buffer.writeln(
               '  static Color ${camelCase(key)} = const Color(${colorFromHex(value)});');
         });
+      } else {
+        throw 'Not supported file type.';
       }
     });
 
     buffer.writeln('}');
-    return DartFormatter().format(buffer.toString());
+    return formatter.format(buffer.toString());
   }
 }

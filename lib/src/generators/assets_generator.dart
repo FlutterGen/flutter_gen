@@ -7,8 +7,8 @@ import 'package:flutter_gen/src/settings/flutter/flutter_assets.dart';
 import 'package:flutter_gen/src/utils/camel_case.dart';
 
 class AssetsGenerator {
-  static String generate(FlutterAssets flutterAssets) {
-    assert(flutterAssets != null && flutterAssets.hasAssets,
+  static String generate(DartFormatter formatter, FlutterAssets assets) {
+    assert(assets != null && assets.hasAssets,
         throw 'The value of "flutter/assets:" is incorrect.');
 
     final buffer = StringBuffer();
@@ -70,7 +70,7 @@ class AssetGenImage extends AssetImage {
     buffer.writeln('  Asset._();');
     buffer.writeln();
 
-    for (final assetName in flutterAssets.assets) {
+    for (final assetName in assets.assets) {
       final asset = AssetPath(assetName);
       if (asset.isDirectory) {
         Directory(assetName).listSync().forEach((entity) {
@@ -95,6 +95,6 @@ class AssetGenImage extends AssetImage {
     }
 
     buffer.writeln('}');
-    return DartFormatter().format(buffer.toString());
+    return formatter.format(buffer.toString());
   }
 }

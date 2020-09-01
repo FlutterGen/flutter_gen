@@ -35,11 +35,27 @@ Widget build(BuildContext context) {
 ```
 
 ⭕️ **Good**  
-We need a way to make it safe.
+We want to use it safely.
 ```dart
 Widget build(BuildContext context) {
   return Asset.logo.image();
 }
+```
+
+## Installation
+
+Using [`build_runner`](https://pub.dev/packages/build_runner).  
+Run build_runner after the configuration pubspec.yaml.
+
+```yaml
+# pubspec.yaml
+dev_dependencies:
+  build_runner:
+  flutter_gen: 
+```
+```sh
+$ flutter pub get
+$ flutter packages pub run build_runner build
 ```
 
 ## Configuration file
@@ -387,3 +403,15 @@ If you wish to contribute a change to any of the existing plugins in this repo,
 please review our [contribution guide](https://github.com/wasabeef/flutter_gen/blob/master/CONTRIBUTING.md)
 and open a [pull request](https://github.com/wasabeef/flutter_gen/pulls).
 
+### Milestone
+
+- [ ] Documentation
+- [x] Assets generation
+- [x] Fonts generation
+- [x] Colors generation
+  - [x] Support json
+  - [x] Support xml
+  - [ ] Support clr?
+- [ ] Platforms channels generation
+- [ ] Not using build_runner.
+- [ ] Be able to change the output path.

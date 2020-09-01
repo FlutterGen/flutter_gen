@@ -5,8 +5,8 @@ import 'package:flutter_gen/src/utils/camel_case.dart';
 import 'package:yaml/yaml.dart';
 
 class FontsGenerator {
-  static String generate(FlutterFonts flutterFonts) {
-    assert(flutterFonts != null && flutterFonts.hasFonts,
+  static String generate(DartFormatter formatter, FlutterFonts fonts) {
+    assert(fonts != null && fonts.hasFonts,
         throw 'The value of "flutter/fonts:" is incorrect.');
 
     final buffer = StringBuffer();
@@ -15,7 +15,7 @@ class FontsGenerator {
     buffer.writeln('  FontFamily._();');
     buffer.writeln();
 
-    flutterFonts.fonts
+    fonts.fonts
         .cast<YamlMap>()
         .map((element) => element['family'] as String)
         .forEach((family) {
@@ -24,6 +24,6 @@ class FontsGenerator {
     });
 
     buffer.writeln('}');
-    return DartFormatter().format(buffer.toString());
+    return formatter.format(buffer.toString());
   }
 }

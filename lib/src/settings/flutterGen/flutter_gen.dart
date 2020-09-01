@@ -1,24 +1,21 @@
-import 'package:flutter_gen/src/settings/flutterGen/flutter_gen_assets.dart';
 import 'package:flutter_gen/src/settings/flutterGen/flutter_gen_colors.dart';
 import 'package:yaml/yaml.dart';
 
 class FlutterGen {
   FlutterGen(YamlMap flutterGenMap) {
     if (flutterGenMap != null) {
-      _assets = FlutterGenAssets(flutterGenMap['assets'] as YamlMap);
+      _lineLength = flutterGenMap['lineLength'] as int;
       _colors = FlutterGenColors(flutterGenMap['colors'] as YamlMap);
     }
   }
 
-  FlutterGenAssets _assets;
+  int _lineLength;
 
-  FlutterGenAssets get assets => _assets;
+  int get lineLength => _lineLength;
 
   FlutterGenColors _colors;
 
   FlutterGenColors get colors => _colors;
-
-  bool get hasAssets => assets != null;
 
   bool get hasColors => colors != null;
 }
