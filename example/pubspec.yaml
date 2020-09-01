@@ -21,10 +21,6 @@ dev_dependencies:
     path: ../
 
 flutter_gen:
-  assets:
-    outputs:
-      fullPathName: false
-
   colors:
     inputs:
       - assets/color/colors.xml
