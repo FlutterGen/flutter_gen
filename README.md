@@ -50,7 +50,45 @@ All are generated based on [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
 
 ### Assets
 
+```yaml
+# pubspec.yaml
+```
+
+```dart
+// dart
+```
+
 ### Fonts
 
+```yaml
+# pubspec.yaml
+```
+
+```dart
+// dart
+```
+
 ### Colors
+
+```yaml
+# pubspec.yaml
+```
+
+```dart
+// dart
+```
+
+## Issues
+
+Please file FlutterGen specific issues, bugs, or feature requests in our [issue tracker](https://github.com/FirebaseExtended/flutterfire/issues/new).
+
+Plugin issues that are not specific to FlutterGen can be filed in the [Flutter issue tracker](https://github.com/flutter/flutter/issues/new).
+
+## Contributing
+
+Let's develop together.
+
+If you wish to contribute a change to any of the existing plugins in this repo,
+please review our [contribution guide](https://github.com/wasabeef/FlutterGen/blob/master/CONTRIBUTING.md)
+and open a [pull request](https://github.com/wasabeef/FlutterGen/pulls).
 
