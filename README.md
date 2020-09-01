@@ -54,7 +54,7 @@ FlutterGen
 # ...
 
 flutter_gen:
-  lineLength: 100 # Default is 80
+  lineLength: 100 # default value: 80
 
   colors:
     inputs:
