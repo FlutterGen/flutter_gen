@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen/src/generators/generator_helper.dart';
 import 'package:flutter_gen/src/settings/color_path.dart';
+import 'package:flutter_gen/src/settings/color_set.dart';
 import 'package:flutter_gen/src/settings/flutterGen/flutter_gen_colors.dart';
 import 'package:flutter_gen/src/utils/camel_case.dart';
 import 'package:flutter_gen/src/utils/color.dart';
@@ -23,27 +24,31 @@ class ColorsGenerator {
     buffer.writeln('  ColorName._();');
     buffer.writeln();
 
+    final colorList = <Color>[];
     colors.inputs
         .cast<String>()
         .map((file) => ColorPath(file))
         .forEach((colorFile) {
       final data = colorFile.file.readAsStringSync();
       if (colorFile.isXml) {
-        final document = XmlDocument.parse(data);
-        for (final color in document.findAllElements('color')) {
-          buffer.writeln(
-              "  static Color ${camelCase(color.getAttribute('name'))} = const Color(${colorFromHex(color.text)});");
-        }
+        colorList.addAll(
+            XmlDocument.parse(data).findAllElements('color').map((element) {
+          return Color(element.getAttribute('name'), element.text);
+        }));
       } else if (colorFile.isJson) {
-        final map = jsonDecode(data) as Map<String, dynamic>;
-        map.cast<String, String>().forEach((key, value) {
-          buffer.writeln(
-              '  static Color ${camelCase(key)} = const Color(${colorFromHex(value)});');
-        });
+        (jsonDecode(data) as Map<String, dynamic>)
+            .cast<String, String>()
+            .forEach((key, value) => colorList.add(Color(key, value)));
       } else {
         throw 'Not supported file type.';
       }
     });
+
+    // to Set<> for remove duplicated item
+    for (final color in {...colorList}) {
+      buffer.writeln(
+          '  static Color ${camelCase(color.name)} = const Color(${colorFromHex(color.hex)});');
+    }
 
     buffer.writeln('}');
     return formatter.format(buffer.toString());

@@ -18,6 +18,7 @@ class FontsGenerator {
     fonts.fonts
         .cast<YamlMap>()
         .map((element) => element['family'] as String)
+        .toSet() // to Set<> for remove duplicated item
         .forEach((family) {
       buffer
           .writeln("  static const String ${camelCase(family)} = \'$family\';");
