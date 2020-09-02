@@ -397,7 +397,7 @@ Plugin issues that are not specific to FlutterGen can be filed in the [Flutter i
 
 ## Contributing
 
-Let's develop together.
+**We are looking for co-developers.**
 
 If you wish to contribute a change to any of the existing plugins in this repo,
 please review our [contribution guide](https://github.com/wasabeef/flutter_gen/blob/master/CONTRIBUTING.md)
