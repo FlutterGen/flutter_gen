@@ -64,7 +64,6 @@ All are generated based on [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
 
 FlutterGen uses `flutter` key and `flutter_gen` key on pubspec.yaml.
 
-FlutterGen 
 ```yaml
 # pubspec.yaml
 # ...
@@ -95,7 +94,8 @@ flutter:
 ### Assets
 
 No specific configurations for FlutterGen are required.  
-Check the: [Adding assets and images#Specifying assets](https://flutter.dev/docs/development/ui/assets-and-images#specifying-assets)
+Check the: [Adding assets and images#Specifying assets](https://flutter.dev/docs/development/ui/assets-and-images#specifying-assets)  
+_Ignore duplicated._  
 
 ```yaml
 # pubspec.yaml
@@ -217,7 +217,8 @@ class Asset {
 
 ### Fonts
 No specific configurations for FlutterGen are required.  
-Check the: [Use a custom font](https://flutter.dev/docs/cookbook/design/fonts)
+Check the: [Use a custom font](https://flutter.dev/docs/cookbook/design/fonts)  
+_Ignore duplicated._  
 
 ```yaml
 # pubspec.yaml
@@ -271,6 +272,8 @@ class FontFamily {
 </details>
 
 ### Colors
+
+_Ignore duplicated._  
 
 ```yaml
 # pubspec.yaml
