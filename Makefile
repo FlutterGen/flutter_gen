@@ -20,5 +20,8 @@ format-analyze:
 build:
 	cd example && flutter build apk && cd ..
 
+run-example:
+	dart bin/flutter_gen_command.dart --config example/pubspec.yaml
+
 unit-test:
 	pub run test --coverage --coverage-path=./coverage/lcov.info
