@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="flutter_gen_command.dart" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application" nameIsGenerated="true">
+    <option name="arguments" value="--config example/pubspec.yaml" />
+    <option name="filePath" value="$PROJECT_DIR$/bin/flutter_gen_command.dart" />
+    <method v="2" />
+  </configuration>
+</component>

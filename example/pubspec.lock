@@ -194,7 +194,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.9"
+    version: "0.0.10"
   flutter_test:
     dependency: "direct dev"
     description: flutter

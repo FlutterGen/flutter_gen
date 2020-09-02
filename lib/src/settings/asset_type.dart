@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:mime/mime.dart';
 
 /// https://github.com/dart-lang/mime/blob/master/lib/src/default_extension_map.dart
@@ -26,8 +24,6 @@ class AssetType {
         return false;
     }
   }
-
-  bool get isDirectory => FileSystemEntity.isDirectorySync(_path);
 
   bool get isUnKnownMime => mime == null;
 

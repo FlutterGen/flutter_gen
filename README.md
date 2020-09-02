@@ -69,7 +69,8 @@ FlutterGen uses `flutter` key and `flutter_gen` key on pubspec.yaml.
 # ...
 
 flutter_gen:
-  # lineLength: 80 
+  output: lib/gen/ # Optional (default: lib/gen)
+  lineLength: 80   # Optional (default: 80)
 
   colors:
     inputs:

@@ -1,23 +1,28 @@
-import 'package:build/build.dart';
+import 'dart:io';
+
 import 'package:flutter_gen/src/settings/flutter/flutter.dart';
 import 'package:flutter_gen/src/settings/flutterGen/flutter_gen.dart';
 import 'package:yaml/yaml.dart';
 
 class Config {
-  Config(this._buildStep);
+  Config(this.pubspecFile);
 
-  static const OUTPUT_BASE_DIR = 'lib/';
+  static const String DEFAULT_OUTPUT = 'lib/gen';
 
-  final BuildStep _buildStep;
+  final File pubspecFile;
   Flutter flutter;
   FlutterGen flutterGen;
 
   Future<Config> load() async {
-    final assetId = AssetId(_buildStep.inputId.package, 'pubspec.yaml');
-    final pubspec = await _buildStep.readAsString(assetId);
-
-    assert(pubspec != null, throw 'Not found pubspec.yaml');
-    assert(pubspec.isNotEmpty, throw 'pubspec.yaml is empty');
+    final pubspec =
+        await pubspecFile.readAsString().catchError((dynamic error) {
+      print('Cannot open pubspec.yaml: ${pubspecFile.absolute}');
+      exit(-1);
+    });
+    if (pubspec.isEmpty) {
+      print('pubspec.yaml is empty');
+      exit(-1);
+    }
 
     final properties = loadYaml(pubspec) as YamlMap;
 

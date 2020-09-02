@@ -5,9 +5,11 @@ import 'package:flutter_gen/src/generators/generator_helper.dart';
 import 'package:flutter_gen/src/settings/asset_type.dart';
 import 'package:flutter_gen/src/settings/flutter/flutter_assets.dart';
 import 'package:flutter_gen/src/utils/camel_case.dart';
+import 'package:path/path.dart';
 
 class AssetsGenerator {
-  static String generate(DartFormatter formatter, FlutterAssets assets) {
+  static String generate(
+      File pubspecFile, DartFormatter formatter, FlutterAssets assets) {
     assert(assets != null && assets.hasAssets,
         throw 'The value of "flutter/assets:" is incorrect.');
 
@@ -72,14 +74,15 @@ class AssetGenImage extends AssetImage {
 
     final assetList = <AssetType>[];
     for (final assetName in assets.assets) {
-      final asset = AssetType(assetName);
-      if (asset.isDirectory) {
-        assetList.addAll(Directory(assetName)
+      final assetPath = '${pubspecFile.parent.path}/$assetName';
+      if (FileSystemEntity.isDirectorySync(assetPath)) {
+        assetList.addAll(Directory(assetPath)
             .listSync()
-            .map((entity) => AssetType(entity.path))
+            .map((entity) => AssetType(entity.path
+                .replaceFirst('${pubspecFile.parent.path}$separator', '')))
             .toList());
       } else {
-        assetList.add(asset);
+        assetList.add(AssetType(assetName));
       }
     }
 
@@ -89,7 +92,7 @@ class AssetGenImage extends AssetImage {
       if (assetType.isSupportedImage) {
         buffer.writeln(
             '  static AssetGenImage ${camelCase(path)} = const AssetGenImage\(\'$path\'\);');
-      } else if (!assetType.isDirectory && !assetType.isUnKnownMime) {
+      } else if (!assetType.isUnKnownMime) {
         buffer
             .writeln('  static const String ${camelCase(path)} = \'$path\'\;');
       }
