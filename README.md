@@ -1,5 +1,7 @@
 <p align="center">
-  <img src="./art/logo.png" width="480px"/>
+  <a href="https://pub.dev/packages/flutter_gen">
+    <img src="./art/logo.png" width="480px"/>
+  </a>
 </p>
 <p align="center">
   <a href="https://pub.dartlang.org/packages/flutter_gen">
