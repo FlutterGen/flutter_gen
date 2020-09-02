@@ -408,7 +408,7 @@ and open a [pull request](https://github.com/wasabeef/flutter_gen/pulls).
 
 ### Milestone
 
-- [ ] Documentation
+- [ ] Documentation (English proofreading)
 - [x] Assets generation
 - [x] Fonts generation
 - [x] Colors generation
