@@ -83,9 +83,8 @@ class AssetGenImage extends AssetImage {
       }
     }
 
-    for (final assetType in [
-      ...{...assetList}
-    ]) {
+    // to Set<> for remove duplicated item
+    for (final assetType in {...assetList}) {
       final path = assetType.path;
       if (assetType.isSupportedImage) {
         buffer.writeln(

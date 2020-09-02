@@ -10,7 +10,7 @@ class AssetType {
 
   String get path => _path;
 
-  String get mime => lookupMimeType(path);
+  String get mime => lookupMimeType(_path);
 
   /// https://api.flutter.dev/flutter/widgets/Image-class.html
   bool get isSupportedImage {

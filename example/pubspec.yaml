@@ -28,13 +28,14 @@ flutter_gen:
       - assets/color/colors.xml
       - assets/color/colors2.json
       - assets/color/colors3.xml
+      - assets/color/colors3.xml # duplicated
 
 flutter:
   uses-material-design: true
   assets:
     - assets/images/
     - assets/images/chip3/chip3.jpg
-    - assets/images/chip3/chip3.jpg
+    - assets/images/chip3/chip3.jpg # duplicated
     - assets/images/chip4/
     - assets/fruits.json
   fonts:
@@ -48,3 +49,11 @@ flutter:
         - asset: assets/fonts/RobotoMono-Regular.ttf
         - asset: assets/fonts/RobotoMono-Bold.ttf
           weight: 700
+
+    # duplicated
+    - family: RobotoMono
+      fonts:
+        - asset: assets/fonts/RobotoMono-Regular.ttf
+        - asset: assets/fonts/RobotoMono-Bold.ttf
+          weight: 700
+
