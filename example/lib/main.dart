@@ -1,6 +1,6 @@
-import 'package:example/gen/asset.gen.dart';
-import 'package:example/gen/colors.gen.dart';
-import 'package:example/gen/font.gen.dart';
+import 'package:example/gen/assets.gen.dart';
+import 'package:example/gen/color.gen.dart';
+import 'package:example/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

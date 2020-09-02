@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen/src/generators/generator_helper.dart';
@@ -7,10 +8,12 @@ import 'package:flutter_gen/src/settings/color_set.dart';
 import 'package:flutter_gen/src/settings/flutterGen/flutter_gen_colors.dart';
 import 'package:flutter_gen/src/utils/camel_case.dart';
 import 'package:flutter_gen/src/utils/color.dart';
+import 'package:path/path.dart';
 import 'package:xml/xml.dart';
 
 class ColorsGenerator {
-  static String generate(DartFormatter formatter, FlutterGenColors colors) {
+  static String generate(
+      File pubspecFile, DartFormatter formatter, FlutterGenColors colors) {
     assert(colors != null,
         throw 'The value of "flutter_gen/colors:" is incorrect.');
     assert(colors.hasInputs,
@@ -27,7 +30,7 @@ class ColorsGenerator {
     final colorList = <Color>[];
     colors.inputs
         .cast<String>()
-        .map((file) => ColorPath(file))
+        .map((file) => ColorPath(join(pubspecFile.parent.path, file)))
         .forEach((colorFile) {
       final data = colorFile.file.readAsStringSync();
       if (colorFile.isXml) {

@@ -1,7 +1,7 @@
 name: Flutter CI
 
 on:
-  pull_request: {}
+  pull_request: { }
   push:
     branches:
       - '*'
@@ -68,8 +68,7 @@ jobs:
 
       - name: Build
         run: |
-          make build-runner
-          make build
+          make run-example
 
       - name: Check for any formatting and statically analyze the code.
         run: make format-analyze
