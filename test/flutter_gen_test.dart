@@ -1,16 +1,11 @@
-// TODO(wasabeef): later..
+import 'dart:io';
 
-// @TestOn('vm')
-// import 'dart:io';
-//
-// import 'package:build/build.dart';
-// import 'package:build_test/build_test.dart';
-// import 'package:flutter_gen/builder.dart';
-// import 'package:flutter_test/flutter_test.dart';
-//
-// Directory savedCurrentDirectory;
-//
-// void main() {
+import 'package:test/test.dart';
+
+Directory savedCurrentDirectory;
+
+@TestOn('vm')
+void main() {
 //   Builder builder;
 //   setUp(() => builder = FlutterGenerator());
 //
@@ -105,7 +100,7 @@
 //       );
 //     });
 //   });
-// }
+}
 //
 // // Matcher _equalsTextWithoutWhitespace(String expected) =>
 // //     decodedMatches(_IgnoringNewlinesAndWhitespaceMatcher(expected));
