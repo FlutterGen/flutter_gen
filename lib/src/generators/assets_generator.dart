@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen/src/generators/generator_helper.dart';
-import 'package:flutter_gen/src/settings/asset_path.dart';
+import 'package:flutter_gen/src/settings/asset_type.dart';
 import 'package:flutter_gen/src/settings/flutter/flutter_assets.dart';
 import 'package:flutter_gen/src/utils/camel_case.dart';
 
@@ -70,27 +70,29 @@ class AssetGenImage extends AssetImage {
     buffer.writeln('  Asset._();');
     buffer.writeln();
 
+    final assetList = <AssetType>[];
     for (final assetName in assets.assets) {
-      final asset = AssetPath(assetName);
+      final asset = AssetType(assetName);
       if (asset.isDirectory) {
-        Directory(assetName).listSync().forEach((entity) {
-          final asset = AssetPath(entity.path);
-          if (asset.isSupportedImage) {
-            buffer.writeln(
-                '  static AssetGenImage ${camelCase(asset.path)} = const AssetGenImage\(\'${asset.path}\'\);');
-          } else if (!asset.isDirectory && !asset.isUnKnownMime) {
-            buffer.writeln(
-                '  static const String ${camelCase(asset.path)} = \'${asset.path}\'\;');
-          }
-        });
+        assetList.addAll(Directory(assetName)
+            .listSync()
+            .map((entity) => AssetType(entity.path))
+            .toList());
       } else {
-        if (asset.isSupportedImage) {
-          buffer.writeln(
-              '  static AssetGenImage ${camelCase(asset.path)} = const AssetGenImage\(\'${asset.path}\'\);');
-        } else {
-          buffer.writeln(
-              '  static const String ${camelCase(asset.path)} = \'${asset.path}\'\;');
-        }
+        assetList.add(asset);
+      }
+    }
+
+    for (final assetType in [
+      ...{...assetList}
+    ]) {
+      final path = assetType.path;
+      if (assetType.isSupportedImage) {
+        buffer.writeln(
+            '  static AssetGenImage ${camelCase(path)} = const AssetGenImage\(\'$path\'\);');
+      } else if (!assetType.isDirectory && !assetType.isUnKnownMime) {
+        buffer
+            .writeln('  static const String ${camelCase(path)} = \'$path\'\;');
       }
     }
 

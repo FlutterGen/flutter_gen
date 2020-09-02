@@ -34,6 +34,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/chip3/chip3.jpg
+    - assets/images/chip3/chip3.jpg
     - assets/images/chip4/
     - assets/fruits.json
   fonts:
