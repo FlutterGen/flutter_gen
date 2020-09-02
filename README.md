@@ -415,6 +415,7 @@ and open a [pull request](https://github.com/wasabeef/flutter_gen/pulls).
   - [x] Support json
   - [x] Support xml
   - [ ] Support clr?
+- [ ] Support change output path
 - [ ] Support hierarchical generation  
    'assets/image/home/label.png' => Asset.image.home.label  
    'assets/image/detail/label.png' => Asset.image.detail.label  
