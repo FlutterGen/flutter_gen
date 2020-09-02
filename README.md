@@ -69,7 +69,7 @@ FlutterGen uses `flutter` key and `flutter_gen` key on pubspec.yaml.
 # ...
 
 flutter_gen:
-  lineLength: 100 # default value: 80
+  # lineLength: 80 
 
   colors:
     inputs:
@@ -408,13 +408,16 @@ and open a [pull request](https://github.com/wasabeef/flutter_gen/pulls).
 
 ### Milestone
 
-- [ ] Documentation
+- [ ] Documentation (English proofreading)
 - [x] Assets generation
 - [x] Fonts generation
 - [x] Colors generation
   - [x] Support json
   - [x] Support xml
   - [ ] Support clr?
+- [ ] Support hierarchical generation  
+   'assets/image/home/label.png' => Asset.image.home.label  
+   'assets/image/detail/label.png' => Asset.image.detail.label  
 - [ ] Platforms channels generation
 - [ ] Not using build_runner.
 - [ ] Be able to change the output path.
