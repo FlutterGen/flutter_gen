@@ -44,18 +44,14 @@ Widget build(BuildContext context) {
 
 ## Installation
 
-Using [`build_runner`](https://pub.dev/packages/build_runner).  
-Run build_runner after the configuration pubspec.yaml.
+Run `fluttergen` after the configuration pubspec.yaml.
 
-```yaml
-# pubspec.yaml
-dev_dependencies:
-  build_runner:
-  flutter_gen: 
-```
 ```sh
-$ flutter pub get
-$ flutter packages pub run build_runner build
+$ pub global activate flutter_gen
+
+$ fluttergen --help
+
+$ fluttergen --config example/pubspec.yaml
 ```
 
 ## Configuration file
@@ -420,5 +416,3 @@ and open a [pull request](https://github.com/wasabeef/flutter_gen/pulls).
    'assets/image/home/label.png' => Asset.image.home.label  
    'assets/image/detail/label.png' => Asset.image.detail.label  
 - [ ] Platforms channels generation
-- [ ] Not using build_runner.
-- [ ] Be able to change the output path.

@@ -5,34 +5,23 @@ _See also: [Contributor Covenant Code of Conduct](https://github.com/wasabeef/fl
 ## Things you will need
 
  * Linux, Mac OS X, or Windows.
- * git.
+ * Dart
+ * Git
 
-## Running the build_runner
+## Running the FlutterGen
 
-To run an example with build_runner, switch to that
-example's directory, run `flutter pub get` to make sure its dependencies have been
-downloaded, and use `build_runner`. 
+To run `pub get` to make sure its dependencies have been downloaded, and use `dart command`. 
 
 ```sh
-$ cd example 
-$ flutter packages pub run build_runner build --delete-conflicting-outputs
+$ dart bin/flutter_gen_command.dart --config example/pubspec.yaml
 ```
 
 ## Running the tests
 
-Flutter plugins have both unit tests of their Dart API and integration tests that run on a virtual or actual device.
-
 To run the unit tests:
 
 ```
-$ flutter test
-```
-
-To run the integration tests:
-
-```sh
-cd example
-flutter drive
+$ pub run test 
 ```
 
 ## Contributing code
