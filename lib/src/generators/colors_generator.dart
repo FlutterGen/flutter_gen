@@ -8,6 +8,7 @@ import 'package:flutter_gen/src/settings/color_set.dart';
 import 'package:flutter_gen/src/settings/flutterGen/flutter_gen_colors.dart';
 import 'package:flutter_gen/src/utils/camel_case.dart';
 import 'package:flutter_gen/src/utils/color.dart';
+import 'package:path/path.dart';
 import 'package:xml/xml.dart';
 
 class ColorsGenerator {
@@ -29,7 +30,7 @@ class ColorsGenerator {
     final colorList = <Color>[];
     colors.inputs
         .cast<String>()
-        .map((file) => ColorPath('${pubspecFile.parent.path}/$file'))
+        .map((file) => ColorPath(join(pubspecFile.parent.path, file)))
         .forEach((colorFile) {
       final data = colorFile.file.readAsStringSync();
       if (colorFile.isXml) {

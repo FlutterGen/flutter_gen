@@ -2,18 +2,22 @@ import 'dart:io';
 
 import 'package:flutter_gen/src/settings/flutter/flutter.dart';
 import 'package:flutter_gen/src/settings/flutterGen/flutter_gen.dart';
+import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
 
 class Config {
   Config(this.pubspecFile);
 
-  static const String DEFAULT_OUTPUT = 'lib/gen';
+  // ignore: non_constant_identifier_names
+  static String DEFAULT_OUTPUT = 'lib${separator}gen';
 
   final File pubspecFile;
   Flutter flutter;
   FlutterGen flutterGen;
 
   Future<Config> load() async {
+    print(
+        'Loading ... ${join(basename(pubspecFile.parent.path), basename(pubspecFile.path))}');
     final pubspec =
         await pubspecFile.readAsString().catchError((dynamic error) {
       print('Cannot open pubspec.yaml: ${pubspecFile.absolute}');
@@ -31,6 +35,10 @@ class Config {
     }
     if (properties.containsKey('flutter_gen')) {
       flutterGen = FlutterGen(properties['flutter_gen'] as YamlMap);
+    }
+
+    if (!hasFlutter && !hasFlutterGen) {
+      print('FlutterGen settings not founded.');
     }
 
     return this;

@@ -74,7 +74,7 @@ class AssetGenImage extends AssetImage {
 
     final assetList = <AssetType>[];
     for (final assetName in assets.assets) {
-      final assetPath = '${pubspecFile.parent.path}/$assetName';
+      final assetPath = join(pubspecFile.parent.path, assetName);
       if (FileSystemEntity.isDirectorySync(assetPath)) {
         assetList.addAll(Directory(assetPath)
             .listSync()
