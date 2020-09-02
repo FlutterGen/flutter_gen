@@ -5,7 +5,7 @@ setup:
 	npm install
 
 dependencies:
-	flutter pub get
+	pub get
 
 analyze:
 	flutter analyze
@@ -17,11 +17,8 @@ format-analyze:
 	flutter format --set-exit-if-changed --dry-run lib/
 	flutter analyze
 
-build-runner:
-	cd example && flutter packages pub run build_runner build --delete-conflicting-outputs cd ..
-
 build:
 	cd example && flutter build apk && cd ..
 
 unit-test:
-	flutter test --coverage --coverage-path=./coverage/lcov.info
+	pub run test --coverage --coverage-path=./coverage/lcov.info
