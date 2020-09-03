@@ -43,7 +43,7 @@ class FlutterGenerator {
         final generated = ColorsGenerator.generate(
             pubspecFile, formatter, config.flutterGen.colors);
         final colors =
-            File(join(pubspecFile.parent.path, output, 'color.gen.dart'));
+            File(join(pubspecFile.parent.path, output, 'colors.gen.dart'));
         writeAsString(generated, file: colors);
         print('Generated: ${colors.absolute.path}');
       }
