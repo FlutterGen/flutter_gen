@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen/src/generators/assets_generator.dart';
 import 'package:flutter_gen/src/generators/colors_generator.dart';
@@ -7,6 +8,20 @@ import 'package:flutter_gen/src/generators/fonts_generator.dart';
 import 'package:flutter_gen/src/settings/config.dart';
 import 'package:flutter_gen/src/utils/file.dart';
 import 'package:path/path.dart';
+
+Builder build(BuilderOptions options) {
+  return WrapBuilder();
+}
+
+class WrapBuilder extends Builder {
+  @override
+  Future<void> build(BuildStep buildStep) async {
+    await FlutterGenerator(File('pubspec.yaml')).build();
+  }
+
+  @override
+  Map<String, List<String>> get buildExtensions => {};
+}
 
 class FlutterGenerator {
   const FlutterGenerator(this.pubspecFile);

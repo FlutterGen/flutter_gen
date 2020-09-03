@@ -46,14 +46,41 @@ Widget build(BuildContext context) {
 
 ## Installation
 
+### Use this package as an executable
+
 Run `fluttergen` after the configuration pubspec.yaml.
 
+1. Install it
 ```sh
 $ pub global activate flutter_gen
 
+$ export PATH="$PATH":"$HOME/.pub-cache/bin"
+```
+
+2. Use it
+```sh
 $ fluttergen --help
 
 $ fluttergen --config example/pubspec.yaml
+```
+
+### Use this package as a part of build_runner 
+
+1. Depend on it
+Add this to your package's pubspec.yaml file:
+```
+dependencies:
+  flutter_gen: 
+```
+
+2. Install it
+```sh
+$ pub get
+```
+
+3. Use it
+```
+$ flutter packages pub run build_runner build
 ```
 
 ## Configuration file
