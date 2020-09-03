@@ -220,18 +220,6 @@ class AssetGenImage extends AssetImage {
   String get path => _assetName;
 }
 
-class $AssetsGen {
-  factory $AssetsGen() {
-    _instance ??= const $AssetsGen._();
-    return _instance;
-  }
-  const $AssetsGen._();
-  static $AssetsGen _instance;
-
-  $AssetsImagesGen get images => $AssetsImagesGen();
-  $AssetsJsonGen get json => $AssetsJsonGen();
-}
-
 class $PicturesGen {
   factory $PicturesGen() {
     _instance ??= const $PicturesGen._();
