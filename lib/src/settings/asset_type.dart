@@ -1,12 +1,17 @@
 import 'package:mime/mime.dart';
+import 'package:path/path.dart';
 
 /// https://github.com/dart-lang/mime/blob/master/lib/src/default_extension_map.dart
 class AssetType {
-  const AssetType(this._path);
+  AssetType(this._path);
 
   final String _path;
 
+  final List<AssetType> _children = List.empty(growable: true);
+
   String get path => _path;
+
+  bool get isDefaultAssetsDirectory => _path == 'assets' || _path == 'asset';
 
   String get mime => lookupMimeType(_path);
 
@@ -27,15 +32,11 @@ class AssetType {
 
   bool get isUnKnownMime => mime == null;
 
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is AssetType &&
-          runtimeType == other.runtimeType &&
-          _path == other._path;
+  String get baseName => basenameWithoutExtension(_path);
 
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => _path.hashCode;
+  List<AssetType> get children => _children;
+
+  void addChild(AssetType type) {
+    _children.add(type);
+  }
 }

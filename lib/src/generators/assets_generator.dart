@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
@@ -68,37 +69,111 @@ class AssetGenImage extends AssetImage {
   String get path => _assetName;
 }
 ''');
-    buffer.writeln('class Asset {');
-    buffer.writeln('  Asset._();');
-    buffer.writeln();
 
-    final assetList = <AssetType>[];
+    final assetRelativePathList = <String>[];
     for (final assetName in assets.assets) {
-      final assetPath = join(pubspecFile.parent.path, assetName);
-      if (FileSystemEntity.isDirectorySync(assetPath)) {
-        assetList.addAll(Directory(assetPath)
+      final assetAbsolutePath = join(pubspecFile.parent.path, assetName);
+      if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
+        assetRelativePathList.addAll(Directory(assetAbsolutePath)
             .listSync()
-            .map((entity) => AssetType(entity.path
-                .replaceFirst('${pubspecFile.parent.path}$separator', '')))
+            .whereType<File>()
+            .map((e) => relative(e.path, from: pubspecFile.parent.path))
             .toList());
-      } else {
-        assetList.add(AssetType(assetName));
+      } else if (FileSystemEntity.isFileSync(assetAbsolutePath)) {
+        assetRelativePathList
+            .add(relative(assetAbsolutePath, from: pubspecFile.parent.path));
       }
     }
 
-    // to Set<> for remove duplicated item
-    for (final assetType in {...assetList}) {
-      final path = assetType.path;
-      if (assetType.isSupportedImage) {
-        buffer.writeln(
-            '  static AssetGenImage ${camelCase(path)} = const AssetGenImage\(\'$path\'\);');
-      } else if (!assetType.isUnKnownMime) {
-        buffer
-            .writeln('  static const String ${camelCase(path)} = \'$path\'\;');
+    // Relative path is the key
+    final assetTypeMap = <String, AssetType>{
+      '.': AssetType('.'),
+    };
+    for (final assetPath in assetRelativePathList) {
+      var path = assetPath;
+      while (path != '.') {
+        assetTypeMap.putIfAbsent(path, () => AssetType(path));
+        path = dirname(path);
+      }
+    }
+    // Construct the AssetType tree
+    for (final assetType in assetTypeMap.values) {
+      if (assetType.path == '.') {
+        continue;
+      }
+      final parentPath = dirname(assetType.path);
+      assetTypeMap[parentPath].addChild(assetType);
+    }
+
+    final assetTypeQueue =
+        ListQueue<AssetType>.from(assetTypeMap['.'].children);
+    final assetsStaticStatements = <String>[];
+
+    while (assetTypeQueue.isNotEmpty) {
+      final assetType = assetTypeQueue.removeFirst();
+      final assetAbsolutePath = join(pubspecFile.parent.path, assetType.path);
+
+      if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
+        final className = '\$${assetType.path.camelCase().capitalize()}Gen';
+
+        // Begin writing this directory class
+        buffer.writeln('''
+class $className {
+  factory $className() {
+    _instance ??= const $className._();
+    return _instance;
+  }
+  const $className._();
+  static $className _instance;
+''');
+        for (final child in assetType.children) {
+          final childAssetAbsolutePath =
+              join(pubspecFile.parent.path, child.path);
+          String statement;
+          if (child.isSupportedImage) {
+            statement =
+                'AssetGenImage get ${child.baseName.camelCase()} => const AssetGenImage\(\'${child.path}\'\);';
+            buffer.writeln('  $statement');
+          } else if (FileSystemEntity.isDirectorySync(childAssetAbsolutePath)) {
+            final childClassName =
+                '\$${child.path.camelCase().capitalize()}Gen';
+            statement =
+                '$childClassName get ${child.baseName.camelCase()} => $childClassName\(\);';
+            buffer.writeln('  $statement');
+          } else if (!child.isUnKnownMime) {
+            statement =
+                'String get ${child.baseName.camelCase()} => \'${child.path}\'\;';
+            buffer.writeln('  $statement');
+          }
+
+          assetTypeQueue.add(child);
+
+          // Add this child reference to Assets class if we are under the default asset folder
+          if (assetType.isDefaultAssetsDirectory && statement != null) {
+            assetsStaticStatements.add('  static $statement');
+          }
+        }
+        buffer.writeln('}');
+        // End writing this directory class
+
+        // Add this directory reference to Assets class if we are not under the default asset folder
+        if (dirname(assetType.path) == '.' &&
+            !assetType.isDefaultAssetsDirectory) {
+          assetsStaticStatements.add(
+              '  static $className get ${assetType.baseName.camelCase()} => $className\(\);');
+        }
       }
     }
 
+    // Begin writing Assets class
+    buffer.writeln('''
+class Assets {
+  const Assets._();
+''');
+    assetsStaticStatements.forEach(buffer.writeln);
     buffer.writeln('}');
+    // End writing Assets class
+
     return formatter.format(buffer.toString());
   }
 }

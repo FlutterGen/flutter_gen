@@ -50,7 +50,7 @@ class ColorsGenerator {
     // to Set<> for remove duplicated item
     for (final color in {...colorList}) {
       buffer.writeln(
-          '  static Color ${camelCase(color.name)} = const Color(${colorFromHex(color.hex)});');
+          '  static Color ${color.name.camelCase()} = const Color(${colorFromHex(color.hex)});');
     }
 
     buffer.writeln('}');
