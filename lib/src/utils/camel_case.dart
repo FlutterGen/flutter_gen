@@ -1,8 +1,5 @@
-import 'package:path/path.dart';
-
 extension StringExt on String {
   String capitalize() {
-    assert(length > 0);
     return '${substring(0, 1).toUpperCase()}${substring(1)}';
   }
 
@@ -14,16 +11,6 @@ extension StringExt on String {
     words[0] = words[0].toLowerCase();
     return words.join();
   }
-}
-
-String camelCase(String text) {
-  final words = _intoWords(basenameWithoutExtension(text))
-      .map((String word) =>
-          '${word.substring(0, 1).toUpperCase()}${word.substring(1).toLowerCase()}')
-      .toList();
-  words[0] = words[0].toLowerCase();
-
-  return words.join();
 }
 
 List<String> _intoWords(String path) {

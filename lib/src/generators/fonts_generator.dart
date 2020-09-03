@@ -20,8 +20,8 @@ class FontsGenerator {
         .map((element) => element['family'] as String)
         .toSet() // to Set<> for remove duplicated item
         .forEach((family) {
-      buffer
-          .writeln("  static const String ${camelCase(family)} = \'$family\';");
+      buffer.writeln(
+          "  static const String ${family.camelCase()} = \'$family\';");
     });
 
     buffer.writeln('}');
