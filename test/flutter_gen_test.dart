@@ -43,12 +43,12 @@ void main() {
       final config = await Config(pubspec).load();
       final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength);
 
-      final expected =
-          AssetsGenerator.generate(pubspec, formatter, config.flutter.assets);
       final actual =
+          AssetsGenerator.generate(pubspec, formatter, config.flutter.assets);
+      final expected =
           File('test_resources/actual_data/assets.gen.dart').readAsStringSync();
 
-      expect(expected, actual);
+      expect(actual, expected);
     });
 
     test('Fonts on pubspec.yaml', () async {
@@ -56,11 +56,11 @@ void main() {
           await Config(File('test_resources/pubspec_fonts.yaml')).load();
       final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength);
 
-      final expected = FontsGenerator.generate(formatter, config.flutter.fonts);
-      final actual =
+      final actual = FontsGenerator.generate(formatter, config.flutter.fonts);
+      final expected =
           File('test_resources/actual_data/fonts.gen.dart').readAsStringSync();
 
-      expect(expected, actual);
+      expect(actual, expected);
     });
 
     test('Colors on pubspec.yaml', () async {
@@ -68,12 +68,12 @@ void main() {
       final config = await Config(pubspec).load();
       final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength);
 
-      final expected = ColorsGenerator.generate(
+      final actual = ColorsGenerator.generate(
           pubspec, formatter, config.flutterGen.colors);
-      final actual =
+      final expected =
           File('test_resources/actual_data/colors.gen.dart').readAsStringSync();
 
-      expect(expected, actual);
+      expect(actual, expected);
     });
   });
 }
