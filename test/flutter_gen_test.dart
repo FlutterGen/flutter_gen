@@ -1,135 +1,79 @@
 import 'dart:io';
 
+import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen/flutter_generator.dart';
+import 'package:flutter_gen/src/generators/assets_generator.dart';
+import 'package:flutter_gen/src/generators/colors_generator.dart';
+import 'package:flutter_gen/src/generators/fonts_generator.dart';
+import 'package:flutter_gen/src/settings/config.dart';
 import 'package:test/test.dart';
 
 Directory savedCurrentDirectory;
 
 @TestOn('vm')
 void main() {
-  group('Test FlutterGenerator', () {
+  group('Test FlutterGenerator incorrect case', () {
+    test('Not founded pubspec.yaml', () async {
+      expect(() async {
+        return await FlutterGenerator(
+                File('test_resources/pubspec_not_founded.yaml'))
+            .build();
+      }, throwsA(isA<FileSystemException>()));
+    });
+
     test('Empty pubspec.yaml', () async {
-      FlutterGenerator(File('pubspec.yaml'));
-      // TODO(wasabeef): TEST
+      expect(() async {
+        return await FlutterGenerator(File('test_resources/pubspec_empty.yaml'))
+            .build();
+      }, throwsFormatException);
+    });
+
+    test('No settings pubspec.yaml', () async {
+      expect(() async {
+        return await FlutterGenerator(
+                File('test_resources/pubspec_no_settings.yaml'))
+            .build();
+      }, throwsFormatException);
     });
   });
-// }
-//   Builder builder;
-//   setUp(() => builder = FlutterGenerator());
-//
-//   group('Test FlutterGenerator', () {
-//     // test('Empty pubspec.yaml', () async {
-//     //   await testBuilder(builder, <String, dynamic>{
-//     //     'example|pubspec.yaml': '',
-//     //   }, outputs: <String, dynamic>{});
-//     // });
-//
-//     test('Only flutter/assets', () async {
-//       await testBuilder(
-//         builder,
-//         <String, dynamic>{
-//           'example|assets/images/chip1.jpeg': '',
-//           'example|assets/images/chip2.png': '',
-//           'example|assets/images/chip3.gif': '',
-//           'example|assets/images/chip4.bmp': '',
-//           'example|assets/images/chip5.wbmp': '',
-//           'example|assets/images/chip5.webp': '',
-//           'example|assets/json/fruits.json': '',
-//           'example|pubspec.yaml': '''
-//           flutter:
-//             assets:
-//               - assets/images
-//               - assets/images/chip1.jpeg
-//               - assets/images/chip11.jpg
-//               - assets/images/chip2.png
-//               - assets/images/chip3.gif
-//               - assets/images/chip4.wbmp
-//               - assets/images/chip5.webp
-//               - assets/images/chip6.svg
-//               - assets/json/fruits.json
-//               - assets/json/anim.mp3
-//           ''',
-//         },
-//         generateFor: {
-//           'example|lib/\$lib\$',
-//         },
-//         outputs: <String, dynamic>{
-//           'example|lib/gen/asset.gen.dart': decodedMatches(allOf([
-//             contains(
-//                 'static AssetGenImage chip1 = const AssetGenImage(\'assets/images/chip1.jpeg\');\n'),
-//             contains(
-//                 'static AssetGenImage chip11 = const AssetGenImage(\'assets/images/chip11.jpg\');\n'),
-//             contains(
-//                 'static AssetGenImage chip2 = const AssetGenImage(\'assets/images/chip2.png\');\n'),
-//             contains(
-//                 'static AssetGenImage chip3 = const AssetGenImage(\'assets/images/chip3.gif\');\n'),
-//             contains(
-//                 'static AssetGenImage chip4 = const AssetGenImage(\'assets/images/chip4.wbmp\');\n'),
-//             contains(
-//                 'static AssetGenImage chip5 = const AssetGenImage(\'assets/images/chip5.webp\');\n'),
-//             contains(
-//                 'static const String chip6 = \'assets/images/chip6.svg\';\n'),
-//             contains(
-//                 'static const String fruits = \'assets/json/fruits.json\';\n'),
-//             contains('static const String anim = \'assets/json/anim.mp3\';\n'),
-//           ])),
-//         },
-//       );
-//     });
-//
-//     test('Only flutter/fonts', () async {
-//       await testBuilder(
-//         builder,
-//         <String, dynamic>{
-//           'example|pubspec.yaml': '''
-//           flutter:
-//             fonts:
-//               - family: Raleway
-//                 fonts:
-//                   - asset: assets/fonts/Raleway-Regular.ttf
-//                   - asset: assets/fonts/Raleway-Italic.ttf
-//                     style: italic
-//               - family: RobotoMono
-//                 fonts:
-//                   - asset: assets/fonts/RobotoMono-Regular.ttf
-//                   - asset: assets/fonts/RobotoMono-Bold.ttf
-//                     weight: 700
-//           ''',
-//         },
-//         generateFor: {
-//           'example|lib/\$lib\$',
-//         },
-//         outputs: <String, dynamic>{
-//           'example|lib/gen/font.gen.dart': decodedMatches(allOf([
-//             contains('static const String raleway = \'Raleway\';\n'),
-//             contains('static const String robotoMono = \'RobotoMono\';\n'),
-//           ])),
-//         },
-//       );
-//     });
-//   });
+
+  group('Test FlutterGenerator correct case', () {
+    test('Assets on pubspec.yaml', () async {
+      final pubspec = File('test_resources/pubspec_assets.yaml');
+      final config = await Config(pubspec).load();
+      final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength);
+
+      final expected =
+          AssetsGenerator.generate(pubspec, formatter, config.flutter.assets);
+      final actual =
+          File('test_resources/actual_data/assets.gen.dart').readAsStringSync();
+
+      expect(expected, actual);
+    });
+
+    test('Fonts on pubspec.yaml', () async {
+      final config =
+          await Config(File('test_resources/pubspec_fonts.yaml')).load();
+      final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength);
+
+      final expected = FontsGenerator.generate(formatter, config.flutter.fonts);
+      final actual =
+          File('test_resources/actual_data/fonts.gen.dart').readAsStringSync();
+
+      expect(expected, actual);
+    });
+
+    test('Colors on pubspec.yaml', () async {
+      final pubspec = File('test_resources/pubspec_colors.yaml');
+      final config = await Config(pubspec).load();
+      final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength);
+
+      final expected = ColorsGenerator.generate(
+          pubspec, formatter, config.flutterGen.colors);
+      final actual =
+          File('test_resources/actual_data/colors.gen.dart').readAsStringSync();
+
+      expect(expected, actual);
+    });
+  });
 }
-//
-// // Matcher _equalsTextWithoutWhitespace(String expected) =>
-// //     decodedMatches(_IgnoringNewlinesAndWhitespaceMatcher(expected));
-// //
-// // class _IgnoringNewlinesAndWhitespaceMatcher extends Matcher {
-// //   _IgnoringNewlinesAndWhitespaceMatcher(String expected)
-// //       : _expected = _stripWhitespaceAndNewlines(expected);
-// //
-// //   final String _expected;
-// //
-// //   @override
-// //   Description describe(Description description) => description;
-// //
-// //   @override
-// //   bool matches(item, Map matchState) {
-// //     if (item is! String) {
-// //       return false;
-// //     }
-// //     return _stripWhitespaceAndNewlines(item as String) == _expected;
-// //   }
-// // }
-// //
-// // String _stripWhitespaceAndNewlines(String original) =>
-// //     original.replaceAll('\n', '').replaceAll(' ', '');

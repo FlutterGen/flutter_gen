@@ -8,8 +8,8 @@ void main(List<String> args) {
   parser.addOption(
     'config',
     abbr: 'c',
-    defaultsTo: 'pubspec.yaml',
-    help: 'Set the path of pubspec.yaml.',
+    defaultsTo: 'pubspec_fonts.yaml',
+    help: 'Set the path of pubspec_fonts.yaml.',
   );
 
   parser.addFlag(

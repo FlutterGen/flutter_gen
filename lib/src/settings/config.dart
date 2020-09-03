@@ -20,12 +20,11 @@ class Config {
         'Loading ... ${join(basename(pubspecFile.parent.path), basename(pubspecFile.path))}');
     final pubspec =
         await pubspecFile.readAsString().catchError((dynamic error) {
-      print('Cannot open pubspec.yaml: ${pubspecFile.absolute}');
-      exit(-1);
+      throw FileSystemException(
+          'Cannot open pubspec_fonts.yaml: ${pubspecFile.absolute}');
     });
     if (pubspec.isEmpty) {
-      print('pubspec.yaml is empty');
-      exit(-1);
+      throw const FormatException('pubspec_fonts.yaml is empty');
     }
 
     final properties = loadYaml(pubspec) as YamlMap;
@@ -38,7 +37,7 @@ class Config {
     }
 
     if (!hasFlutter && !hasFlutterGen) {
-      print('FlutterGen settings not founded.');
+      throw const FormatException('FlutterGen settings not founded.');
     }
 
     return this;
