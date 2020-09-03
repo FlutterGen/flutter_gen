@@ -48,7 +48,7 @@ Widget build(BuildContext context) {
 
 ### Use this package as an executable
 
-Run `fluttergen` after the configuration pubspec.yaml.
+Run `fluttergen` after the configuration  [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
 
 1. Install it
 ```sh
@@ -441,7 +441,7 @@ and open a [pull request](https://github.com/wasabeef/flutter_gen/pulls).
   - [x] Support json
   - [x] Support xml
   - [ ] Support clr?
-- [ ] Support change output path
+- [x] Support change output path
 - [ ] Support hierarchical generation  
    'assets/image/home/label.png' => Asset.image.home.label  
    'assets/image/detail/label.png' => Asset.image.detail.label  
