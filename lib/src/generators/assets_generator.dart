@@ -109,11 +109,13 @@ class AssetGenImage extends AssetImage {
     final root = assetTypeMap['.'];
     final assetTypeQueue = ListQueue<AssetType>.from(root.children);
 
+    final assetsStaticCode = <String>[];
+
     while (!assetTypeQueue.isEmpty) {
       final assetType = assetTypeQueue.removeFirst();
       final assetPath = join(pubspecFile.parent.path, assetType.path);
       if (FileSystemEntity.isDirectorySync(assetPath)) {
-        final className = assetType.path.camelCase().capitalize();
+        final className = '\$${assetType.path.camelCase().capitalize()}Gen';
         buffer.writeln('''
 class $className {
   factory $className() {
@@ -125,22 +127,52 @@ class $className {
 ''');
         for (final child in assetType.children) {
           final childAssetPath = join(pubspecFile.parent.path, child.path);
+          String code;
           if (child.isSupportedImage) {
-            buffer.writeln(
-                '  AssetGenImage get ${child.baseName.camelCase()} => const AssetGenImage\(\'${child.path}\'\);');
+            code =
+                'AssetGenImage get ${child.baseName.camelCase()} => const AssetGenImage\(\'${child.path}\'\);';
+            buffer.writeln('  $code');
           } else if (FileSystemEntity.isDirectorySync(childAssetPath)) {
-            buffer.writeln(
-                '  ${child.path.camelCase().capitalize()} get ${child.baseName.camelCase()} => ${child.path.camelCase().capitalize()}\(\);');
+            final childClassName =
+                '\$${child.path.camelCase().capitalize()}Gen';
+            code =
+                '$childClassName get ${child.baseName.camelCase()} => $childClassName\(\);';
+            buffer.writeln('  $code');
           } else if (!child.isUnKnownMime) {
-            buffer.writeln(
-                '  String get ${child.baseName.camelCase()} => \'${child.path}\'\;');
+            code =
+                'String get ${child.baseName.camelCase()} => \'${child.path}\'\;';
+            buffer.writeln('  $code');
           }
+
           assetTypeQueue.add(child);
+
+          // special
+          if ((assetType.path == 'assets' || assetType.path == 'asset') &&
+              code != null) {
+            assetsStaticCode.add('  static $code');
+          }
         }
 
         buffer.writeln('}');
+
+        // special
+        if (FileSystemEntity.parentOf(assetType.path) == '.' &&
+            assetType.path != 'assets' &&
+            assetType.path != 'asset') {
+          assetsStaticCode.add(
+              '  static $className get ${assetType.baseName.camelCase()} => $className\(\);');
+        }
       }
     }
+
+    buffer.writeln('''
+class Assets {
+  const Assets._();
+''');
+
+    assetsStaticCode.forEach(buffer.writeln);
+
+    buffer.writeln('}');
 
     return formatter.format(buffer.toString());
   }
