@@ -9,14 +9,10 @@ dependencies:
 	cd example && flutter pub get
 
 analyze:
-	flutter analyze
+	analyze lib/ bin/
 
 format:
-	flutter format lib/
-
-format-analyze:
-	flutter format --set-exit-if-changed --dry-run lib/
-	flutter analyze
+	dartfmt -w lib/ bin/
 
 build-runner:
 	cd example && flutter packages pub run build_runner build --delete-conflicting-outputs cd ..
