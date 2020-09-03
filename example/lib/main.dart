@@ -17,13 +17,12 @@ void main() {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             // Auto generated image from FlutterGen.
-            Image(image: Asset.chip1),
-            Asset.chip2.image(
+            Image(image: Assets.images.chip1),
+            Assets.pictures.chip5.image(
               width: 120,
               height: 120,
               fit: BoxFit.scaleDown,
             ),
-
             Text(
               'Hi there, I\'m FlutterGen',
               style: TextStyle(

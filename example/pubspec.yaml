@@ -38,7 +38,8 @@ flutter:
     - assets/images/chip3/chip3.jpg
     - assets/images/chip3/chip3.jpg # duplicated
     - assets/images/chip4/
-    - assets/fruits.json
+    - assets/json/fruits.json
+    - pictures/chip5.jpg
   fonts:
     - family: Raleway
       fonts:
