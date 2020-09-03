@@ -70,52 +70,53 @@ class AssetGenImage extends AssetImage {
 }
 ''');
 
-    final assetPathList = <String>[];
+    final assetRelativePathList = <String>[];
     for (final assetName in assets.assets) {
-      final assetPath = join(pubspecFile.parent.path, assetName);
-      if (FileSystemEntity.isDirectorySync(assetPath)) {
-        assetPathList.addAll(Directory(assetPath)
+      final assetAbsolutePath = join(pubspecFile.parent.path, assetName);
+      if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
+        assetRelativePathList.addAll(Directory(assetAbsolutePath)
             .listSync()
             .whereType<File>()
             .map((e) => relative(e.path, from: pubspecFile.parent.path))
             .toList());
-      } else if (FileSystemEntity.isFileSync(assetPath)) {
-        assetPathList.add(relative(assetPath, from: pubspecFile.parent.path));
+      } else if (FileSystemEntity.isFileSync(assetAbsolutePath)) {
+        assetRelativePathList
+            .add(relative(assetAbsolutePath, from: pubspecFile.parent.path));
       }
     }
 
+    // Relative path is the key
     final assetTypeMap = <String, AssetType>{
       '.': AssetType('.'),
     };
-    for (final assetPath in assetPathList) {
-      print(assetPath);
+    for (final assetPath in assetRelativePathList) {
       var path = assetPath;
-      while (path != '.' && path != null) {
+      while (path != '.') {
         assetTypeMap.putIfAbsent(path, () => AssetType(path));
-        path = FileSystemEntity.parentOf(path);
+        path = dirname(path);
       }
     }
+    // Construct the AssetType tree
     for (final assetType in assetTypeMap.values) {
       if (assetType.path == '.') {
         continue;
       }
-      final parentPath = FileSystemEntity.parentOf(assetType.path);
-      print(parentPath);
-      print(assetType.path);
-      print('');
+      final parentPath = dirname(assetType.path);
       assetTypeMap[parentPath].addChild(assetType);
     }
 
-    final root = assetTypeMap['.'];
-    final assetTypeQueue = ListQueue<AssetType>.from(root.children);
-
-    final assetsStaticCode = <String>[];
+    final assetTypeQueue =
+        ListQueue<AssetType>.from(assetTypeMap['.'].children);
+    final assetsStaticStatements = <String>[];
 
     while (!assetTypeQueue.isEmpty) {
       final assetType = assetTypeQueue.removeFirst();
-      final assetPath = join(pubspecFile.parent.path, assetType.path);
-      if (FileSystemEntity.isDirectorySync(assetPath)) {
+      final assetAbsolutePath = join(pubspecFile.parent.path, assetType.path);
+
+      if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
         final className = '\$${assetType.path.camelCase().capitalize()}Gen';
+
+        // Begin writing this directory class
         buffer.writeln('''
 class $className {
   factory $className() {
@@ -126,53 +127,52 @@ class $className {
   static $className _instance;
 ''');
         for (final child in assetType.children) {
-          final childAssetPath = join(pubspecFile.parent.path, child.path);
-          String code;
+          final childAssetAbsolutePath =
+              join(pubspecFile.parent.path, child.path);
+          String statement;
           if (child.isSupportedImage) {
-            code =
+            statement =
                 'AssetGenImage get ${child.baseName.camelCase()} => const AssetGenImage\(\'${child.path}\'\);';
-            buffer.writeln('  $code');
-          } else if (FileSystemEntity.isDirectorySync(childAssetPath)) {
+            buffer.writeln('  $statement');
+          } else if (FileSystemEntity.isDirectorySync(childAssetAbsolutePath)) {
             final childClassName =
                 '\$${child.path.camelCase().capitalize()}Gen';
-            code =
+            statement =
                 '$childClassName get ${child.baseName.camelCase()} => $childClassName\(\);';
-            buffer.writeln('  $code');
+            buffer.writeln('  $statement');
           } else if (!child.isUnKnownMime) {
-            code =
+            statement =
                 'String get ${child.baseName.camelCase()} => \'${child.path}\'\;';
-            buffer.writeln('  $code');
+            buffer.writeln('  $statement');
           }
 
           assetTypeQueue.add(child);
 
-          // special
-          if ((assetType.path == 'assets' || assetType.path == 'asset') &&
-              code != null) {
-            assetsStaticCode.add('  static $code');
+          // Add this child reference to Assets class if we are under the default asset folder
+          if (assetType.isDefaultAssetsDirectory && statement != null) {
+            assetsStaticStatements.add('  static $statement');
           }
         }
-
         buffer.writeln('}');
+        // End writing this directory class
 
-        // special
-        if (FileSystemEntity.parentOf(assetType.path) == '.' &&
-            assetType.path != 'assets' &&
-            assetType.path != 'asset') {
-          assetsStaticCode.add(
+        // Add this directory reference to Assets class if we are not under the default asset folder
+        if (dirname(assetType.path) == '.' &&
+            !assetType.isDefaultAssetsDirectory) {
+          assetsStaticStatements.add(
               '  static $className get ${assetType.baseName.camelCase()} => $className\(\);');
         }
       }
     }
 
+    // Begin writing Assets class
     buffer.writeln('''
 class Assets {
   const Assets._();
 ''');
-
-    assetsStaticCode.forEach(buffer.writeln);
-
+    assetsStaticStatements.forEach(buffer.writeln);
     buffer.writeln('}');
+    // End writing Assets class
 
     return formatter.format(buffer.toString());
   }

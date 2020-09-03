@@ -11,6 +11,8 @@ class AssetType {
 
   String get path => _path;
 
+  bool get isDefaultAssetsDirectory => _path == 'assets' || _path == 'asset';
+
   String get mime => lookupMimeType(_path);
 
   /// https://api.flutter.dev/flutter/widgets/Image-class.html
