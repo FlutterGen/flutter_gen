@@ -70,6 +70,54 @@ class AssetGenImage extends AssetImage {
 }
 ''');
 
+    final assetRelativePathList =
+        _getAssetsRelativePathList(pubspecFile, assets);
+    final assetTypeQueue = ListQueue<AssetType>.from(
+        _constructAssetTree(assetRelativePathList).children);
+    final assetsStaticStatements = <String>[];
+
+    while (assetTypeQueue.isNotEmpty) {
+      final assetType = assetTypeQueue.removeFirst();
+      final assetAbsolutePath = join(pubspecFile.parent.path, assetType.path);
+
+      if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
+        final statements =
+            _extractDirectoryClassGenStatements(pubspecFile, assetType);
+
+        if (assetType.isDefaultAssetsDirectory) {
+          for (final statement in statements) {
+            assetsStaticStatements.add('  static $statement');
+          }
+        } else {
+          final className = '\$${assetType.path.camelCase().capitalize()}Gen';
+          _writeDirectoryClassGen(buffer, className, statements);
+          // Add this directory reference to Assets class if we are not under the default asset folder
+          if (dirname(assetType.path) == '.') {
+            assetsStaticStatements.add(
+                '  static $className get ${assetType.baseName.camelCase()} => $className\(\);');
+          }
+        }
+
+        assetTypeQueue.addAll(assetType.children);
+      }
+    }
+
+    // Begin writing Assets class
+    buffer.writeln('''
+class Assets {
+  const Assets._();
+''');
+    assetsStaticStatements.forEach(buffer.writeln);
+    buffer.writeln('}');
+    // End writing Assets class
+
+    return formatter.format(buffer.toString());
+  }
+
+  static List<String> _getAssetsRelativePathList(
+    File pubspecFile,
+    FlutterAssets assets,
+  ) {
     final assetRelativePathList = <String>[];
     for (final assetName in assets.assets) {
       final assetAbsolutePath = join(pubspecFile.parent.path, assetName);
@@ -84,7 +132,10 @@ class AssetGenImage extends AssetImage {
             .add(relative(assetAbsolutePath, from: pubspecFile.parent.path));
       }
     }
+    return assetRelativePathList;
+  }
 
+  static AssetType _constructAssetTree(List<String> assetRelativePathList) {
     // Relative path is the key
     final assetTypeMap = <String, AssetType>{
       '.': AssetType('.'),
@@ -104,20 +155,15 @@ class AssetGenImage extends AssetImage {
       final parentPath = dirname(assetType.path);
       assetTypeMap[parentPath].addChild(assetType);
     }
+    return assetTypeMap['.'];
+  }
 
-    final assetTypeQueue =
-        ListQueue<AssetType>.from(assetTypeMap['.'].children);
-    final assetsStaticStatements = <String>[];
-
-    while (assetTypeQueue.isNotEmpty) {
-      final assetType = assetTypeQueue.removeFirst();
-      final assetAbsolutePath = join(pubspecFile.parent.path, assetType.path);
-
-      if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
-        final className = '\$${assetType.path.camelCase().capitalize()}Gen';
-
-        // Begin writing this directory class
-        buffer.writeln('''
+  static void _writeDirectoryClassGen(
+    StringBuffer buffer,
+    String className,
+    List<String> statements,
+  ) {
+    buffer.writeln('''
 class $className {
   factory $className() {
     _instance ??= const $className._();
@@ -126,54 +172,39 @@ class $className {
   const $className._();
   static $className _instance;
 ''');
-        for (final child in assetType.children) {
+
+    for (final statement in statements) {
+      buffer.writeln('  $statement');
+    }
+
+    buffer.writeln('}');
+  }
+
+  static List<String> _extractDirectoryClassGenStatements(
+    File pubspecFile,
+    AssetType assetType,
+  ) {
+    final statements = assetType.children
+        .map((child) {
           final childAssetAbsolutePath =
               join(pubspecFile.parent.path, child.path);
           String statement;
           if (child.isSupportedImage) {
             statement =
                 'AssetGenImage get ${child.baseName.camelCase()} => const AssetGenImage\(\'${child.path}\'\);';
-            buffer.writeln('  $statement');
           } else if (FileSystemEntity.isDirectorySync(childAssetAbsolutePath)) {
             final childClassName =
                 '\$${child.path.camelCase().capitalize()}Gen';
             statement =
                 '$childClassName get ${child.baseName.camelCase()} => $childClassName\(\);';
-            buffer.writeln('  $statement');
           } else if (!child.isUnKnownMime) {
             statement =
                 'String get ${child.baseName.camelCase()} => \'${child.path}\'\;';
-            buffer.writeln('  $statement');
           }
-
-          assetTypeQueue.add(child);
-
-          // Add this child reference to Assets class if we are under the default asset folder
-          if (assetType.isDefaultAssetsDirectory && statement != null) {
-            assetsStaticStatements.add('  static $statement');
-          }
-        }
-        buffer.writeln('}');
-        // End writing this directory class
-
-        // Add this directory reference to Assets class if we are not under the default asset folder
-        if (dirname(assetType.path) == '.' &&
-            !assetType.isDefaultAssetsDirectory) {
-          assetsStaticStatements.add(
-              '  static $className get ${assetType.baseName.camelCase()} => $className\(\);');
-        }
-      }
-    }
-
-    // Begin writing Assets class
-    buffer.writeln('''
-class Assets {
-  const Assets._();
-''');
-    assetsStaticStatements.forEach(buffer.writeln);
-    buffer.writeln('}');
-    // End writing Assets class
-
-    return formatter.format(buffer.toString());
+          return statement;
+        })
+        .whereType<String>()
+        .toList();
+    return statements;
   }
 }
