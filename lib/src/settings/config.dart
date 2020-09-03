@@ -21,10 +21,10 @@ class Config {
     final pubspec =
         await pubspecFile.readAsString().catchError((dynamic error) {
       throw FileSystemException(
-          'Cannot open pubspec_fonts.yaml: ${pubspecFile.absolute}');
+          'Cannot open pubspec.yaml: ${pubspecFile.absolute}');
     });
     if (pubspec.isEmpty) {
-      throw const FormatException('pubspec_fonts.yaml is empty');
+      throw const FormatException('pubspec.yaml is empty');
     }
 
     final properties = loadYaml(pubspec) as YamlMap;

@@ -16,7 +16,7 @@ Builder build(BuilderOptions options) {
 class WrapBuilder extends Builder {
   @override
   Future<void> build(BuildStep buildStep) async {
-    await FlutterGenerator(File('pubspec_fonts.yaml')).build();
+    await FlutterGenerator(File('pubspec.yaml')).build();
   }
 
   @override
