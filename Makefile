@@ -9,7 +9,7 @@ dependencies:
 	cd example && flutter pub get
 
 analyze:
-	analyze lib/ bin/
+	dartanalyzer lib/ bin/
 
 format:
 	dartfmt -w lib/ bin/
