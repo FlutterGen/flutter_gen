@@ -163,7 +163,7 @@ Widget build(BuildContext context) {
 Omitted if the asset root pathname is **`assets`** or **`asset`**.
 ```
 assets/images/chip3/chip.jpg => Assets.images.chip3.chip
-assets/images/chip4/chip.jpg => Assets.images.chip3.chip
+assets/images/chip4/chip.jpg => Assets.images.chip4.chip
 assets/json/fruits.json      => Assets.json.fruits
 pictures/ocean_view.jpg      => Assets.pictures.oceanView
 ```
