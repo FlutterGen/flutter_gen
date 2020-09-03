@@ -10,11 +10,22 @@ _See also: [Contributor Covenant Code of Conduct](https://github.com/wasabeef/fl
 
 ## Running the FlutterGen
 
-To run `pub get` to make sure its dependencies have been downloaded, and use `dart command`. 
-
+#### Use as Dart command
+To run `pub get` to make sure its dependencies have been downloaded, and use `dart command`.
 ```sh
 $ dart bin/flutter_gen_command.dart --config example/pubspec.yaml
 ```
+
+#### Use as part of build_runner
+```sh
+$ cd example
+$ flutter packages pub run build_runner build
+```
+
+#### Use Intellij
+
+![Run on IDE](./art/run_on_ide.jpg)
+
 
 ## Running the tests
 

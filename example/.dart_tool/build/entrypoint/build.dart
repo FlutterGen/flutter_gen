@@ -1,7 +1,7 @@
 // ignore_for_file: directives_ordering
 
 import 'package:build_runner_core/build_runner_core.dart' as _i1;
-import 'package:flutter_gen/builder.dart' as _i2;
+import 'package:flutter_gen/flutter_generator.dart' as _i2;
 import 'package:source_gen/builder.dart' as _i3;
 import 'package:build_config/build_config.dart' as _i4;
 import 'dart:isolate' as _i5;

@@ -1,11 +1,19 @@
 import 'dart:io';
 
+import 'package:flutter_gen/flutter_generator.dart';
 import 'package:test/test.dart';
 
 Directory savedCurrentDirectory;
 
 @TestOn('vm')
 void main() {
+  group('Test FlutterGenerator', () {
+    test('Empty pubspec.yaml', () async {
+      FlutterGenerator(File('pubspec.yaml'));
+      // TODO(wasabeef): TEST
+    });
+  });
+// }
 //   Builder builder;
 //   setUp(() => builder = FlutterGenerator());
 //

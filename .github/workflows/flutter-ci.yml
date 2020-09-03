@@ -69,6 +69,7 @@ jobs:
       - name: Build
         run: |
           make run-example
+          make build-runner
 
       - name: Check for any formatting and statically analyze the code.
         run: make format-analyze
