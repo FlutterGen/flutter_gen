@@ -73,6 +73,6 @@ jobs:
 
       - name: Check for any formatting and statically analyze the code.
         run: |
-        make format
-        make analyze
+          make format
+          make analyze
 
