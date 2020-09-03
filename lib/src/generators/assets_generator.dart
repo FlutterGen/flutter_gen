@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
@@ -68,37 +69,79 @@ class AssetGenImage extends AssetImage {
   String get path => _assetName;
 }
 ''');
-    buffer.writeln('class Asset {');
-    buffer.writeln('  Asset._();');
-    buffer.writeln();
 
-    final assetList = <AssetType>[];
+    final assetPathList = <String>[];
     for (final assetName in assets.assets) {
       final assetPath = join(pubspecFile.parent.path, assetName);
       if (FileSystemEntity.isDirectorySync(assetPath)) {
-        assetList.addAll(Directory(assetPath)
+        assetPathList.addAll(Directory(assetPath)
             .listSync()
-            .map((entity) => AssetType(entity.path
-                .replaceFirst('${pubspecFile.parent.path}$separator', '')))
+            .whereType<File>()
+            .map((e) => relative(e.path, from: pubspecFile.parent.path))
             .toList());
-      } else {
-        assetList.add(AssetType(assetName));
+      } else if (FileSystemEntity.isFileSync(assetPath)) {
+        assetPathList.add(relative(assetPath, from: pubspecFile.parent.path));
       }
     }
 
-    // to Set<> for remove duplicated item
-    for (final assetType in {...assetList}) {
-      final path = assetType.path;
-      if (assetType.isSupportedImage) {
-        buffer.writeln(
-            '  static AssetGenImage ${camelCase(path)} = const AssetGenImage\(\'$path\'\);');
-      } else if (!assetType.isUnKnownMime) {
-        buffer
-            .writeln('  static const String ${camelCase(path)} = \'$path\'\;');
+    final assetTypeMap = <String, AssetType>{
+      '.': AssetType('.'),
+    };
+    for (final assetPath in assetPathList) {
+      print(assetPath);
+      var path = assetPath;
+      while (path != '.' && path != null) {
+        assetTypeMap.putIfAbsent(path, () => AssetType(path));
+        path = FileSystemEntity.parentOf(path);
+      }
+    }
+    for (final assetType in assetTypeMap.values) {
+      if (assetType.path == '.') {
+        continue;
+      }
+      final parentPath = FileSystemEntity.parentOf(assetType.path);
+      print(parentPath);
+      print(assetType.path);
+      print('');
+      assetTypeMap[parentPath].addChild(assetType);
+    }
+
+    final root = assetTypeMap['.'];
+    final assetTypeQueue = ListQueue<AssetType>.from(root.children);
+
+    while (!assetTypeQueue.isEmpty) {
+      final assetType = assetTypeQueue.removeFirst();
+      final assetPath = join(pubspecFile.parent.path, assetType.path);
+      if (FileSystemEntity.isDirectorySync(assetPath)) {
+        final className = assetType.path.camelCase().capitalize();
+        buffer.writeln('''
+class $className {
+  factory $className() {
+    _instance ??= const $className._();
+    return _instance;
+  }
+  const $className._();
+  static $className _instance;
+''');
+        for (final child in assetType.children) {
+          final childAssetPath = join(pubspecFile.parent.path, child.path);
+          if (child.isSupportedImage) {
+            buffer.writeln(
+                '  AssetGenImage get ${child.baseName.camelCase()} => const AssetGenImage\(\'${child.path}\'\);');
+          } else if (FileSystemEntity.isDirectorySync(childAssetPath)) {
+            buffer.writeln(
+                '  ${child.path.camelCase().capitalize()} get ${child.baseName.camelCase()} => ${child.path.camelCase().capitalize()}\(\);');
+          } else if (!child.isUnKnownMime) {
+            buffer.writeln(
+                '  String get ${child.baseName.camelCase()} => \'${child.path}\'\;');
+          }
+          assetTypeQueue.add(child);
+        }
+
+        buffer.writeln('}');
       }
     }
 
-    buffer.writeln('}');
     return formatter.format(buffer.toString());
   }
 }
