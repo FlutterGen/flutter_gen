@@ -117,7 +117,8 @@ class AssetGenImage extends AssetImage {
         final className = '\$${assetType.path.camelCase().capitalize()}Gen';
 
         // Begin writing this directory class
-        buffer.writeln('''
+        if (!assetType.isDefaultAssetsDirectory) {
+          buffer.writeln('''
 class $className {
   factory $className() {
     _instance ??= const $className._();
@@ -126,6 +127,8 @@ class $className {
   const $className._();
   static $className _instance;
 ''');
+        }
+
         for (final child in assetType.children) {
           final childAssetAbsolutePath =
               join(pubspecFile.parent.path, child.path);
@@ -133,27 +136,32 @@ class $className {
           if (child.isSupportedImage) {
             statement =
                 'AssetGenImage get ${child.baseName.camelCase()} => const AssetGenImage\(\'${child.path}\'\);';
-            buffer.writeln('  $statement');
           } else if (FileSystemEntity.isDirectorySync(childAssetAbsolutePath)) {
             final childClassName =
                 '\$${child.path.camelCase().capitalize()}Gen';
             statement =
                 '$childClassName get ${child.baseName.camelCase()} => $childClassName\(\);';
-            buffer.writeln('  $statement');
           } else if (!child.isUnKnownMime) {
             statement =
                 'String get ${child.baseName.camelCase()} => \'${child.path}\'\;';
-            buffer.writeln('  $statement');
           }
 
-          assetTypeQueue.add(child);
+          if (statement == null) {
+            continue;
+          }
 
           // Add this child reference to Assets class if we are under the default asset folder
-          if (assetType.isDefaultAssetsDirectory && statement != null) {
+          assetTypeQueue.add(child);
+          if (assetType.isDefaultAssetsDirectory) {
             assetsStaticStatements.add('  static $statement');
+          } else {
+            buffer.writeln('  $statement');
           }
         }
-        buffer.writeln('}');
+
+        if (!assetType.isDefaultAssetsDirectory) {
+          buffer.writeln('}');
+        }
         // End writing this directory class
 
         // Add this directory reference to Assets class if we are not under the default asset folder
