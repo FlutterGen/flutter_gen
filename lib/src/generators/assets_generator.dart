@@ -109,7 +109,7 @@ class AssetGenImage extends AssetImage {
         ListQueue<AssetType>.from(assetTypeMap['.'].children);
     final assetsStaticStatements = <String>[];
 
-    while (!assetTypeQueue.isEmpty) {
+    while (assetTypeQueue.isNotEmpty) {
       final assetType = assetTypeQueue.removeFirst();
       final assetAbsolutePath = join(pubspecFile.parent.path, assetType.path);
 
