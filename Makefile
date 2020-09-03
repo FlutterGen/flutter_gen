@@ -6,6 +6,7 @@ setup:
 
 dependencies:
 	pub get
+	cd example && flutter pub get
 
 analyze:
 	flutter analyze
