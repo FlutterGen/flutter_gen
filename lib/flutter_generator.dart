@@ -63,8 +63,7 @@ class FlutterGenerator {
       }
 
       if (config.flutter.hasFonts) {
-        final generated =
-            FontsGenerator.generate(formatter, config.flutter.fonts);
+        final generated = generateFonts(formatter, config.flutter.fonts);
         final fonts =
             File(join(pubspecFile.parent.path, output, 'fonts.gen.dart'));
         writeAsString(generated, file: fonts);
