@@ -18,7 +18,7 @@ Inspired by [SwiftGen](https://github.com/SwiftGen/SwiftGen).
 
 ## Motivation.
 
-Using image paths as strings are not safe.
+Using asset path string directly is not safe.
 
 ```yaml
 # pubspec.yaml
@@ -52,14 +52,14 @@ Widget build(BuildContext context) {
 
 Run `fluttergen` after the configuration  [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
 
-1. Install it
+1. Install FlutterGen
 ```sh
 $ pub global activate flutter_gen
 
 $ export PATH="$PATH":"$HOME/.pub-cache/bin"
 ```
 
-2. Use it
+2. Use FlutterGen
 ```sh
 $ fluttergen -h
 
@@ -68,29 +68,26 @@ $ fluttergen -c example/pubspec.yaml
 
 ### Use this package as a part of build_runner 
 
-1. Depend on it
-Add this to your package's pubspec.yaml file:
+1. Add FlutterGen to your package's pubspec.yaml file:
 ```
 dev_dependencies:
   build_runner
   flutter_gen: 
 ```
 
-2. Install it
+2. Install FlutterGen
 ```sh
 $ pub get
 ```
 
-3. Use it
+3. Use FlutterGen
 ```
 $ flutter packages pub run build_runner build
 ```
 
 ## Configuration file
 
-All are generated based on [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
-
-FlutterGen uses **`flutter`** key and **`flutter_gen`** key on pubspec.yaml.
+FlutterGen generates dart files based on the key **`flutter`** and **`flutter_gen`** of [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
 
 ```yaml
 # pubspec.yaml
@@ -122,9 +119,9 @@ flutter:
 
 ### Assets
 
-No specific configurations for FlutterGen are required.  
-Check the: [Adding assets and images#Specifying assets](https://flutter.dev/docs/development/ui/assets-and-images#specifying-assets)  
-_Ignore duplicated._  
+Just follow the doc [Adding assets and images#Specifying assets](https://flutter.dev/docs/development/ui/assets-and-images#specifying-assets) to specify assets, then FlutterGen will generate related dart files.
+No other specific configuration is required.  
+_Ignore duplicated._
 
 ```yaml
 # pubspec.yaml
@@ -142,10 +139,13 @@ These configurations will generate **`assets.gen.dart`** under the **`lib/gen/`*
 
 #### Usage Example
 
-Will be generated image class If the image formats are [supported by Flutter](https://api.flutter.dev/flutter/widgets/Image-class.html).  
-**`Assets.images.chip`** is an implementation of [`AssetImage class`](https://api.flutter.dev/flutter/painting/AssetImage-class.html).  
-**`Assets.images.chip.image(...)`** returns [`Image class`](https://api.flutter.dev/flutter/widgets/Image-class.html).  
-**`Assets.images.chip.path`** just returns the path string.  
+FlutterGen generates [Image](https://api.flutter.dev/flutter/widgets/Image-class.html) class if the asset is Flutter supported image format. 
+
+Example results of `assets/images/chip.jpg`:
+- **`Assets.images.chip`** is an implementation of [`AssetImage class`](https://api.flutter.dev/flutter/painting/AssetImage-class.html).  
+- **`Assets.images.chip.image(...)`** returns [`Image class`](https://api.flutter.dev/flutter/widgets/Image-class.html).  
+- **`Assets.images.chip.path`** just returns the path string.  
+
 ```dart
 Widget build(BuildContext context) {
   return Image(image: Assets.images.chip);
@@ -165,19 +165,17 @@ Widget build(BuildContext context) {
 
 ```
 
-In other cases, it is generated as String class.
+In other cases, the asset is generated as String class.
 ```dart
 final svg = SvgPicture.asset(Assets.images.icons.paint);
 
 final json = await rootBundle.loadString(Assets.json.fruits);
 ```
 
-Omitted if the asset root pathname is **`assets`** or **`asset`**.
+The root directory will be omitted if it is either **`assets`** or **`asset`**.
 ```
 assets/images/chip3/chip.jpg  => Assets.images.chip3.chip
-assets/images/chip4/chip.jpg  => Assets.images.chip4.chip
-assets/json/fruits.json       => Assets.json.fruits
-assets/images/icons/paint.svg => Assets.images.icons.paint
+asset/images/icons/paint.svg  => Assets.images.icons.paint
 pictures/ocean_view.jpg       => Assets.pictures.oceanView
 ```
 
@@ -299,8 +297,8 @@ class Assets {
 </details>
 
 ### Fonts
-No specific configurations for FlutterGen are required.  
-Check the: [Use a custom font](https://flutter.dev/docs/cookbook/design/fonts)  
+Just follow the doc [Use a custom font](https://flutter.dev/docs/cookbook/design/fonts) to specify fonts, then FlutterGen will generate related dart files.
+No other specific configuration is required.  
 _Ignore duplicated._  
 
 ```yaml
@@ -368,7 +366,7 @@ flutter_gen:
       - assets/color/colors3.xml
 ```
 
-The input file supports the following formats.
+FlutterGen supports the following input file formats:
 
 * a [XML file](example/assets/color/colors.xml), the same format as the Android colors.xml files, containing tags
 ```xml
