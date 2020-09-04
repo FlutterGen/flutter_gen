@@ -15,12 +15,12 @@ String generateAssets(
 
   final buffer = StringBuffer();
   buffer.writeln(header());
-  buffer.writeln(_assetGenImageDefinition);
+  buffer.writeln(_assetGenImageClassDefinition);
 
   final assetRelativePathList = _getAssetsRelativePathList(pubspecFile, assets);
   final assetTypeQueue = ListQueue<AssetType>.from(
       _constructAssetTree(assetRelativePathList).children);
-  final assetsStaticStatements = <String>[];
+  final assetsStaticStatements = <_Statement>[];
 
   while (assetTypeQueue.isNotEmpty) {
     final assetType = assetTypeQueue.removeFirst();
@@ -31,16 +31,18 @@ String generateAssets(
           _extractDirectoryClassGenStatements(pubspecFile, assetType);
 
       if (assetType.isDefaultAssetsDirectory) {
-        for (final statement in statements) {
-          assetsStaticStatements.add('  static $statement');
-        }
+        statements.forEach(assetsStaticStatements.add);
       } else {
         final className = '\$${assetType.path.camelCase().capitalize()}Gen';
         buffer.writeln(_directoryClassGenDefinition(className, statements));
         // Add this directory reference to Assets class if we are not under the default asset folder
         if (dirname(assetType.path) == '.') {
-          assetsStaticStatements.add(
-              '  static $className get ${assetType.baseName.camelCase()} => $className\(\);');
+          assetsStaticStatements.add(_Statement(
+            type: className,
+            name: assetType.baseName.camelCase(),
+            value: '$className\(\)',
+            isConstConstructor: true,
+          ));
         }
       }
 
@@ -97,7 +99,7 @@ AssetType _constructAssetTree(List<String> assetRelativePathList) {
   return assetTypeMap['.'];
 }
 
-List<String> _extractDirectoryClassGenStatements(
+List<_Statement> _extractDirectoryClassGenStatements(
   File pubspecFile,
   AssetType assetType,
 ) {
@@ -105,56 +107,67 @@ List<String> _extractDirectoryClassGenStatements(
       .map((child) {
         final childAssetAbsolutePath =
             join(pubspecFile.parent.path, child.path);
-        String statement;
+        _Statement statement;
         if (child.isSupportedImage) {
-          statement =
-              'AssetGenImage get ${child.baseName.camelCase()} => const AssetGenImage\(\'${child.path}\'\);';
+          statement = _Statement(
+            type: 'AssetGenImage',
+            name: child.baseName.camelCase(),
+            value: 'AssetGenImage\(\'${child.path}\'\)',
+            isConstConstructor: true,
+          );
         } else if (FileSystemEntity.isDirectorySync(childAssetAbsolutePath)) {
           final childClassName = '\$${child.path.camelCase().capitalize()}Gen';
-          statement =
-              '$childClassName get ${child.baseName.camelCase()} => $childClassName\(\);';
+          statement = _Statement(
+            type: childClassName,
+            name: child.baseName.camelCase(),
+            value: '$childClassName\(\)',
+            isConstConstructor: true,
+          );
         } else if (!child.isUnKnownMime) {
-          statement =
-              'String get ${child.baseName.camelCase()} => \'${child.path}\'\;';
+          statement = _Statement(
+            type: 'String',
+            name: child.baseName.camelCase(),
+            value: '\'${child.path}\'',
+            isConstConstructor: false,
+          );
         }
         return statement;
       })
-      .whereType<String>()
+      .whereType<_Statement>()
       .toList();
   return statements;
 }
 
-String _assetsClassDefinition(List<String> statements) {
+String _assetsClassDefinition(List<_Statement> statements) {
+  final statementsBlock = statements
+      .map((statement) => '  ${statement.toStaticFieldString()}')
+      .join('\n');
   return '''
 class Assets {
   const Assets._();
-  
-  //TODO 
-}
-''';
-}
-
-String _directoryClassGenDefinition(
-  String className,
-  List<String> statements,
-) {
-  final statementsBlock =
-      statements.map((statement) => '  $statement').join('\n');
-  return '''
-class $className {
-  factory $className() {
-    _instance ??= const $className._();
-    return _instance;
-  }
-  const $className._();
-  static $className _instance;
   
   $statementsBlock
 }
 ''';
 }
 
-const String _assetGenImageDefinition = '''
+String _directoryClassGenDefinition(
+  String className,
+  List<_Statement> statements,
+) {
+  final statementsBlock = statements
+      .map((statement) => '  ${statement.toGetterString()}')
+      .join('\n');
+  return '''
+class $className {
+  const $className();
+  
+  $statementsBlock
+}
+''';
+}
+
+const String _assetGenImageClassDefinition = '''
 import 'package:flutter/widgets.dart';
 
 class AssetGenImage extends AssetImage {
@@ -207,3 +220,24 @@ class AssetGenImage extends AssetImage {
   String get path => _assetName;
 }
 ''';
+
+class _Statement {
+  const _Statement({
+    this.type,
+    this.name,
+    this.value,
+    this.isConst,
+    this.isConstConstructor,
+  });
+
+  final String type;
+  final String name;
+  final String value;
+  final bool isConst;
+  final bool isConstConstructor;
+
+  String toGetterString() =>
+      '$type get $name => ${isConstConstructor ? 'const' : ''} $value;';
+
+  String toStaticFieldString() => 'static const $type $name = $value;';
+}

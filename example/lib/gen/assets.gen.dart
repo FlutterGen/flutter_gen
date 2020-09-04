@@ -56,75 +56,45 @@ class AssetGenImage extends AssetImage {
 }
 
 class $PicturesGen {
-  factory $PicturesGen() {
-    _instance ??= const $PicturesGen._();
-    return _instance;
-  }
-  const $PicturesGen._();
-  static $PicturesGen _instance;
+  const $PicturesGen();
 
   AssetGenImage get chip5 => const AssetGenImage('pictures/chip5.jpg');
 }
 
 class $AssetsImagesGen {
-  factory $AssetsImagesGen() {
-    _instance ??= const $AssetsImagesGen._();
-    return _instance;
-  }
-  const $AssetsImagesGen._();
-  static $AssetsImagesGen _instance;
+  const $AssetsImagesGen();
 
   AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
   AssetGenImage get chip1 => const AssetGenImage('assets/images/chip1.jpg');
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
   AssetGenImage get profile => const AssetGenImage('assets/images/profile.jpg');
-  $AssetsImagesChip3Gen get chip3 => $AssetsImagesChip3Gen();
-  $AssetsImagesChip4Gen get chip4 => $AssetsImagesChip4Gen();
-  $AssetsImagesIconsGen get icons => $AssetsImagesIconsGen();
+  $AssetsImagesChip3Gen get chip3 => const $AssetsImagesChip3Gen();
+  $AssetsImagesChip4Gen get chip4 => const $AssetsImagesChip4Gen();
+  $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
 }
 
 class $AssetsJsonGen {
-  factory $AssetsJsonGen() {
-    _instance ??= const $AssetsJsonGen._();
-    return _instance;
-  }
-  const $AssetsJsonGen._();
-  static $AssetsJsonGen _instance;
+  const $AssetsJsonGen();
 
   String get fruits => 'assets/json/fruits.json';
 }
 
 class $AssetsImagesChip3Gen {
-  factory $AssetsImagesChip3Gen() {
-    _instance ??= const $AssetsImagesChip3Gen._();
-    return _instance;
-  }
-  const $AssetsImagesChip3Gen._();
-  static $AssetsImagesChip3Gen _instance;
+  const $AssetsImagesChip3Gen();
 
   AssetGenImage get chip3 =>
       const AssetGenImage('assets/images/chip3/chip3.jpg');
 }
 
 class $AssetsImagesChip4Gen {
-  factory $AssetsImagesChip4Gen() {
-    _instance ??= const $AssetsImagesChip4Gen._();
-    return _instance;
-  }
-  const $AssetsImagesChip4Gen._();
-  static $AssetsImagesChip4Gen _instance;
+  const $AssetsImagesChip4Gen();
 
   AssetGenImage get chip4 =>
       const AssetGenImage('assets/images/chip4/chip4.jpg');
 }
 
 class $AssetsImagesIconsGen {
-  factory $AssetsImagesIconsGen() {
-    _instance ??= const $AssetsImagesIconsGen._();
-    return _instance;
-  }
-  const $AssetsImagesIconsGen._();
-  static $AssetsImagesIconsGen _instance;
+  const $AssetsImagesIconsGen();
 
   String get paint => 'assets/images/icons/paint.svg';
 }
@@ -132,7 +102,7 @@ class $AssetsImagesIconsGen {
 class Assets {
   const Assets._();
 
-  static $AssetsImagesGen get images => $AssetsImagesGen();
-  static $AssetsJsonGen get json => $AssetsJsonGen();
-  static $PicturesGen get pictures => $PicturesGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsJsonGen json = $AssetsJsonGen();
+  static const $PicturesGen pictures = $PicturesGen();
 }
