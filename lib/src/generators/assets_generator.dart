@@ -36,7 +36,7 @@ String generateAssets(
         }
       } else {
         final className = '\$${assetType.path.camelCase().capitalize()}Gen';
-        _writeDirectoryClassGen(buffer, className, statements);
+        buffer.writeln(_directoryClassGenDefinition(className, statements));
         // Add this directory reference to Assets class if we are not under the default asset folder
         if (dirname(assetType.path) == '.') {
           assetsStaticStatements.add(
@@ -48,12 +48,7 @@ String generateAssets(
     }
   }
 
-  // Begin writing Assets class
-  buffer.writeln('class Assets {');
-  buffer.writeln('  const Assets._();');
-  assetsStaticStatements.forEach(buffer.writeln);
-  buffer.writeln('}');
-  // End writing Assets class
+  buffer.writeln(_assetsClassDefinition(assetsStaticStatements));
 
   return formatter.format(buffer.toString());
 }
@@ -102,28 +97,6 @@ AssetType _constructAssetTree(List<String> assetRelativePathList) {
   return assetTypeMap['.'];
 }
 
-void _writeDirectoryClassGen(
-  StringBuffer buffer,
-  String className,
-  List<String> statements,
-) {
-  buffer.writeln('''
-class $className {
-  factory $className() {
-    _instance ??= const $className._();
-    return _instance;
-  }
-  const $className._();
-  static $className _instance;
-''');
-
-  for (final statement in statements) {
-    buffer.writeln('  $statement');
-  }
-
-  buffer.writeln('}');
-}
-
 List<String> _extractDirectoryClassGenStatements(
   File pubspecFile,
   AssetType assetType,
@@ -149,6 +122,36 @@ List<String> _extractDirectoryClassGenStatements(
       .whereType<String>()
       .toList();
   return statements;
+}
+
+String _assetsClassDefinition(List<String> statements) {
+  return '''
+class Assets {
+  const Assets._();
+  
+  //TODO 
+}
+''';
+}
+
+String _directoryClassGenDefinition(
+  String className,
+  List<String> statements,
+) {
+  final statementsBlock =
+      statements.map((statement) => '  $statement').join('\n');
+  return '''
+class $className {
+  factory $className() {
+    _instance ??= const $className._();
+    return _instance;
+  }
+  const $className._();
+  static $className _instance;
+  
+  $statementsBlock
+}
+''';
 }
 
 const String _assetGenImageDefinition = '''
