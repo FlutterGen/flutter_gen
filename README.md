@@ -242,87 +242,56 @@ class AssetGenImage extends AssetImage {
 }
 
 class $PicturesGen {
-  factory $PicturesGen() {
-    _instance ??= const $PicturesGen._();
-    return _instance;
-  }
-  const $PicturesGen._();
-  static $PicturesGen _instance;
+  const $PicturesGen();
 
   AssetGenImage get chip5 => const AssetGenImage('pictures/chip5.jpg');
 }
 
 class $AssetsImagesGen {
-  factory $AssetsImagesGen() {
-    _instance ??= const $AssetsImagesGen._();
-    return _instance;
-  }
-  const $AssetsImagesGen._();
-  static $AssetsImagesGen _instance;
+  const $AssetsImagesGen();
 
   AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
   AssetGenImage get chip1 => const AssetGenImage('assets/images/chip1.jpg');
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
   AssetGenImage get profile => const AssetGenImage('assets/images/profile.jpg');
-  $AssetsImagesChip3Gen get chip3 => $AssetsImagesChip3Gen();
-  $AssetsImagesChip4Gen get chip4 => $AssetsImagesChip4Gen();
-  $AssetsImagesIconsGen get icons => $AssetsImagesIconsGen();
+  $AssetsImagesChip3Gen get chip3 => const $AssetsImagesChip3Gen();
+  $AssetsImagesChip4Gen get chip4 => const $AssetsImagesChip4Gen();
+  $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
 }
 
 class $AssetsJsonGen {
-  factory $AssetsJsonGen() {
-    _instance ??= const $AssetsJsonGen._();
-    return _instance;
-  }
-  const $AssetsJsonGen._();
-  static $AssetsJsonGen _instance;
+  const $AssetsJsonGen();
 
   String get fruits => 'assets/json/fruits.json';
 }
 
 class $AssetsImagesChip3Gen {
-  factory $AssetsImagesChip3Gen() {
-    _instance ??= const $AssetsImagesChip3Gen._();
-    return _instance;
-  }
-  const $AssetsImagesChip3Gen._();
-  static $AssetsImagesChip3Gen _instance;
+  const $AssetsImagesChip3Gen();
 
   AssetGenImage get chip3 =>
       const AssetGenImage('assets/images/chip3/chip3.jpg');
 }
 
 class $AssetsImagesChip4Gen {
-  factory $AssetsImagesChip4Gen() {
-    _instance ??= const $AssetsImagesChip4Gen._();
-    return _instance;
-  }
-  const $AssetsImagesChip4Gen._();
-  static $AssetsImagesChip4Gen _instance;
+  const $AssetsImagesChip4Gen();
 
   AssetGenImage get chip4 =>
       const AssetGenImage('assets/images/chip4/chip4.jpg');
 }
 
 class $AssetsImagesIconsGen {
-  factory $AssetsImagesIconsGen() {
-    _instance ??= const $AssetsImagesIconsGen._();
-    return _instance;
-  }
-  const $AssetsImagesIconsGen._();
-  static $AssetsImagesIconsGen _instance;
+  const $AssetsImagesIconsGen();
 
   String get paint => 'assets/images/icons/paint.svg';
 }
 
 class Assets {
-  const Assets._();
+  Assets._();
 
-  static $AssetsImagesGen get images => $AssetsImagesGen();
-  static $AssetsJsonGen get json => $AssetsJsonGen();
-  static $PicturesGen get pictures => $PicturesGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsJsonGen json = $AssetsJsonGen();
+  static const $PicturesGen pictures = $PicturesGen();
 }
-
 ```
 
 </p>
@@ -441,64 +410,64 @@ import 'package:flutter/painting.dart';
 class ColorName {
   ColorName._();
 
-  static Color white = const Color(0xFFFFFFFF);
-  static Color gray70 = const Color(0xFFEEEEEE);
-  static Color gray150 = const Color(0xFFD8D8D8);
-  static Color gray410 = const Color(0xFF979797);
-  static Color gray470 = const Color(0xFF878787);
-  static Color gray550 = const Color(0xFF737373);
-  static Color gray600 = const Color(0xFF666666);
-  static Color gray620 = const Color(0xFF606060);
-  static Color gray680 = const Color(0xFF525252);
-  static Color gray770 = const Color(0xFF37373D);
-  static Color gray800 = const Color(0xFF333333);
-  static Color gray860 = const Color(0xFF222226);
-  static Color gray880 = const Color(0xFF1D1D22);
-  static Color gray900 = const Color(0xFF18181C);
-  static Color gray910 = const Color(0xFF141418);
-  static Color black = const Color(0xFF000000);
-  static Color seaPink = const Color(0xFFEB9798);
-  static Color coral = const Color(0xFFFE6363);
-  static Color strawberry = const Color(0xFFFF4D4D);
-  static Color crimsonRed = const Color(0xFFCF2A2A);
-  static Color rustRed = const Color(0xFF421E21);
-  static Color milkTea = const Color(0xFFF5CB84);
-  static Color cornBrond = const Color(0xFFF5CB84);
-  static Color yellowOcher = const Color(0xFFDF9527);
-  static Color cinnamon = const Color(0xFF955E1C);
-  static Color tulipTree = const Color(0xFFE6A53A);
-  static Color gullGray = const Color(0xFFA1B3BC);
-  static Color fleryOrange = const Color(0xFFB36111);
-  static Color denim = const Color(0xFF127DB8);
-  static Color forestGreen = const Color(0xFF238833);
-  static Color amazon = const Color(0xFF367A62);
-  static Color copperCanyon = const Color(0xFF8A4213);
-  static Color russet = const Color(0xFF7B5A19);
-  static Color bronzetone = const Color(0xFF533C10);
-  static Color bush = const Color(0xFF0F3A2B);
-  static Color bronze = const Color(0xFF421F0A);
-  static Color highEmphasis = const Color(0xFFEEEEEE);
-  static Color mediumEmphasis = const Color(0xFF979797);
-  static Color disabled = const Color(0xFF666666);
-  static Color accentRed = const Color(0xFFFF4D4D);
-  static Color accentYellow = const Color(0xFFF2B756);
-  static Color highEmphasis30 = const Color(0x4DEEEEEE);
-  static Color white00016 = const Color(0x29FFFFFF);
-  static Color white00020 = const Color(0x33FFFFFF);
-  static Color white00030 = const Color(0x4DFFFFFF);
-  static Color white00032 = const Color(0x52FFFFFF);
-  static Color white00040 = const Color(0x66FFFFFF);
-  static Color white00060 = const Color(0x99FFFFFF);
-  static Color gray91000 = const Color(0x00141418);
-  static Color gray91030 = const Color(0x4D141418);
-  static Color gray91070 = const Color(0xB3141418);
-  static Color gray910100 = const Color(0xFF141418);
-  static Color colorAccentDark15 = const Color(0x26CF2B2B);
-  static Color colorAccentDark20 = const Color(0x33CF2B2B);
-  static Color black30 = const Color(0x4D000000);
-  static Color black40 = const Color(0x66000000);
-  static Color black50 = const Color(0x80000000);
-  static Color black60 = const Color(0x99000000);
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color gray70 = Color(0xFFEEEEEE);
+  static const Color gray150 = Color(0xFFD8D8D8);
+  static const Color gray410 = Color(0xFF979797);
+  static const Color gray470 = Color(0xFF878787);
+  static const Color gray550 = Color(0xFF737373);
+  static const Color gray600 = Color(0xFF666666);
+  static const Color gray620 = Color(0xFF606060);
+  static const Color gray680 = Color(0xFF525252);
+  static const Color gray770 = Color(0xFF37373D);
+  static const Color gray800 = Color(0xFF333333);
+  static const Color gray860 = Color(0xFF222226);
+  static const Color gray880 = Color(0xFF1D1D22);
+  static const Color gray900 = Color(0xFF18181C);
+  static const Color gray910 = Color(0xFF141418);
+  static const Color black = Color(0xFF000000);
+  static const Color seaPink = Color(0xFFEB9798);
+  static const Color coral = Color(0xFFFE6363);
+  static const Color strawberry = Color(0xFFFF4D4D);
+  static const Color crimsonRed = Color(0xFFCF2A2A);
+  static const Color rustRed = Color(0xFF421E21);
+  static const Color milkTea = Color(0xFFF5CB84);
+  static const Color cornBrond = Color(0xFFF5CB84);
+  static const Color yellowOcher = Color(0xFFDF9527);
+  static const Color cinnamon = Color(0xFF955E1C);
+  static const Color tulipTree = Color(0xFFE6A53A);
+  static const Color gullGray = Color(0xFFA1B3BC);
+  static const Color fleryOrange = Color(0xFFB36111);
+  static const Color denim = Color(0xFF127DB8);
+  static const Color forestGreen = Color(0xFF238833);
+  static const Color amazon = Color(0xFF367A62);
+  static const Color copperCanyon = Color(0xFF8A4213);
+  static const Color russet = Color(0xFF7B5A19);
+  static const Color bronzetone = Color(0xFF533C10);
+  static const Color bush = Color(0xFF0F3A2B);
+  static const Color bronze = Color(0xFF421F0A);
+  static const Color highEmphasis = Color(0xFFEEEEEE);
+  static const Color mediumEmphasis = Color(0xFF979797);
+  static const Color disabled = Color(0xFF666666);
+  static const Color accentRed = Color(0xFFFF4D4D);
+  static const Color accentYellow = Color(0xFFF2B756);
+  static const Color highEmphasis30 = Color(0x4DEEEEEE);
+  static const Color white00016 = Color(0x29FFFFFF);
+  static const Color white00020 = Color(0x33FFFFFF);
+  static const Color white00030 = Color(0x4DFFFFFF);
+  static const Color white00032 = Color(0x52FFFFFF);
+  static const Color white00040 = Color(0x66FFFFFF);
+  static const Color white00060 = Color(0x99FFFFFF);
+  static const Color gray91000 = Color(0x00141418);
+  static const Color gray91030 = Color(0x4D141418);
+  static const Color gray91070 = Color(0xB3141418);
+  static const Color gray910100 = Color(0xFF141418);
+  static const Color colorAccentDark15 = Color(0x26CF2B2B);
+  static const Color colorAccentDark20 = Color(0x33CF2B2B);
+  static const Color black30 = Color(0x4D000000);
+  static const Color black40 = Color(0x66000000);
+  static const Color black50 = Color(0x80000000);
+  static const Color black60 = Color(0x99000000);
 }
 ```
 
