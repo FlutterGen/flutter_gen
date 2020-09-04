@@ -40,8 +40,7 @@ $ pub run test
 We gladly accept contributions via GitHub pull requests.
 
 Please peruse the
-[Flutter style guide](https://github.com/flutter/flutter/wiki/Style-guide-for-Flutter-repo) and
-[design principles](https://flutter.io/design-principles/) before
+[Flutter style guide](https://github.com/flutter/flutter/wiki/Style-guide-for-Flutter-repo) before
 working on anything non-trivial. These guidelines are intended to
 keep the code consistent and avoid common pitfalls.
 

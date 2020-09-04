@@ -9,7 +9,7 @@ class Config {
   Config(this.pubspecFile);
 
   // ignore: non_constant_identifier_names
-  static String DEFAULT_OUTPUT = 'lib${separator}gen';
+  static String DEFAULT_OUTPUT = 'lib${separator}gen$separator';
 
   final File pubspecFile;
   Flutter flutter;
@@ -17,7 +17,7 @@ class Config {
 
   Future<Config> load() async {
     print(
-        'Loading ... ${join(basename(pubspecFile.parent.path), basename(pubspecFile.path))}');
+        'FlutterGen Loading ... ${join(basename(pubspecFile.parent.path), basename(pubspecFile.path))}');
     final pubspec =
         await pubspecFile.readAsString().catchError((dynamic error) {
       throw FileSystemException(
