@@ -42,7 +42,7 @@ Widget build(BuildContext context) {
 We want to use it safely.
 ```dart
 Widget build(BuildContext context) {
-  return Assets.images.logo.image();
+  return Assets.images.profile.image();
 }
 ```
 
