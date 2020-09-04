@@ -226,14 +226,12 @@ class _Statement {
     this.type,
     this.name,
     this.value,
-    this.isConst,
     this.isConstConstructor,
   });
 
   final String type;
   final String name;
   final String value;
-  final bool isConst;
   final bool isConstConstructor;
 
   String toGetterString() =>
