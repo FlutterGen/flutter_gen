@@ -9,7 +9,7 @@ class Config {
   Config(this.pubspecFile);
 
   // ignore: non_constant_identifier_names
-  static String DEFAULT_OUTPUT = 'lib${separator}gen';
+  static String DEFAULT_OUTPUT = 'lib${separator}gen$separator';
 
   final File pubspecFile;
   Flutter flutter;

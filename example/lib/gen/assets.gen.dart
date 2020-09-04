@@ -74,13 +74,13 @@ class $AssetsImagesGen {
   const $AssetsImagesGen._();
   static $AssetsImagesGen _instance;
 
-  String get paint => 'assets/images/paint.svg';
   AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
   AssetGenImage get chip1 => const AssetGenImage('assets/images/chip1.jpg');
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
   AssetGenImage get profile => const AssetGenImage('assets/images/profile.jpg');
   $AssetsImagesChip3Gen get chip3 => $AssetsImagesChip3Gen();
   $AssetsImagesChip4Gen get chip4 => $AssetsImagesChip4Gen();
+  $AssetsImagesIconsGen get icons => $AssetsImagesIconsGen();
 }
 
 class $AssetsJsonGen {
@@ -116,6 +116,17 @@ class $AssetsImagesChip4Gen {
 
   AssetGenImage get chip4 =>
       const AssetGenImage('assets/images/chip4/chip4.jpg');
+}
+
+class $AssetsImagesIconsGen {
+  factory $AssetsImagesIconsGen() {
+    _instance ??= const $AssetsImagesIconsGen._();
+    return _instance;
+  }
+  const $AssetsImagesIconsGen._();
+  static $AssetsImagesIconsGen _instance;
+
+  String get paint => 'assets/images/icons/paint.svg';
 }
 
 class Assets {
