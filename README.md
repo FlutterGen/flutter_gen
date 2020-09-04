@@ -42,7 +42,7 @@ Widget build(BuildContext context) {
 We want to use it safely.
 ```dart
 Widget build(BuildContext context) {
-  return Asset.logo.image();
+  return Assets.images.logo.image();
 }
 ```
 
@@ -89,7 +89,7 @@ $ flutter packages pub run build_runner build
 
 All are generated based on [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
 
-FlutterGen uses `flutter` key and `flutter_gen` key on pubspec.yaml.
+FlutterGen uses **`flutter`** key and **`flutter_gen`** key on pubspec.yaml.
 
 ```yaml
 # pubspec.yaml
@@ -137,14 +137,14 @@ flutter:
     - pictures/ocean_view.jpg
 ```
 
-These configurations will generate `asset.gen.dart` under `lib/gen/` dir.
+These configurations will generate **`assets.gen.dart`** under the **`lib/gen/`** directory by default.
 
 #### Usage Example
 
 Will be generated image class If the image formats are [supported by Flutter](https://api.flutter.dev/flutter/widgets/Image-class.html).
-`Assets.images.chip` is an implementation of [`AssetImage class`](https://api.flutter.dev/flutter/painting/AssetImage-class.html).  
-`Assets.images.chip.image(...)` returns [`Image class`](https://api.flutter.dev/flutter/widgets/Image-class.html).  
-`Assets.images.chip.path` just returns the path string.  
+**`Assets.images.chip`** is an implementation of [`AssetImage class`](https://api.flutter.dev/flutter/painting/AssetImage-class.html).  
+**`Assets.images.chip.image(...)`** returns [`Image class`](https://api.flutter.dev/flutter/widgets/Image-class.html).  
+**`Assets.images.chip.path`** just returns the path string.  
 ```dart
 Widget build(BuildContext context) {
   return Image(image: Assets.images.chip);
@@ -171,7 +171,7 @@ final svg = SvgPicture.asset(Assets.images.icons.paint);
 final json = await rootBundle.loadString(Assets.json.fruits);
 ```
 
-Omitted if the asset root pathname is `assets` or `asset`.
+Omitted if the asset root pathname is **`assets`** or **`asset`**.
 ```
 assets/images/chip3/chip.jpg  => Assets.images.chip3.chip
 assets/images/chip4/chip.jpg  => Assets.images.chip3.chip
@@ -339,7 +339,7 @@ flutter:
 
 ```
 
-These configurations will generate `font.gen.dart` under `lib/gen/` dir.
+These configurations will generate **`fonts.gen.dart`** under the **`lib/gen/`** directory by default.
 
 #### Usage Example
 
@@ -404,7 +404,7 @@ The input file supports the following formats.
 }
 ```
 
-These configurations will generate `color.gen.dart` under `lib/gen/` dir.
+These configurations will generate **`colors.gen.dart`** under the **`lib/gen/`** directory by default.
 
 #### Usage Example
 
