@@ -72,6 +72,7 @@ $ fluttergen -c example/pubspec.yaml
 Add this to your package's pubspec.yaml file:
 ```
 dev_dependencies:
+  build_runner
   flutter_gen: 
 ```
 
