@@ -41,8 +41,8 @@ class FlutterGenerator {
       final formatter = DartFormatter(pageWidth: lineLength);
 
       if (config.flutterGen.hasColors) {
-        final generated = ColorsGenerator.generate(
-            pubspecFile, formatter, config.flutterGen.colors);
+        final generated =
+            generateColors(pubspecFile, formatter, config.flutterGen.colors);
         final colors =
             File(join(pubspecFile.parent.path, output, 'colors.gen.dart'));
         writeAsString(generated, file: colors);
@@ -54,8 +54,8 @@ class FlutterGenerator {
       final formatter = DartFormatter(pageWidth: lineLength);
 
       if (config.flutter.hasAssets) {
-        final generated = AssetsGenerator.generate(
-            pubspecFile, formatter, config.flutter.assets);
+        final generated =
+            generateAssets(pubspecFile, formatter, config.flutter.assets);
         final assets =
             File(join(pubspecFile.parent.path, output, 'assets.gen.dart'));
         writeAsString(generated, file: assets);
@@ -63,8 +63,7 @@ class FlutterGenerator {
       }
 
       if (config.flutter.hasFonts) {
-        final generated =
-            FontsGenerator.generate(formatter, config.flutter.fonts);
+        final generated = generateFonts(formatter, config.flutter.fonts);
         final fonts =
             File(join(pubspecFile.parent.path, output, 'fonts.gen.dart'));
         writeAsString(generated, file: fonts);
