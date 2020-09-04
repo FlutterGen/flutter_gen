@@ -174,7 +174,7 @@ final json = await rootBundle.loadString(Assets.json.fruits);
 Omitted if the asset root pathname is **`assets`** or **`asset`**.
 ```
 assets/images/chip3/chip.jpg  => Assets.images.chip3.chip
-assets/images/chip4/chip.jpg  => Assets.images.chip3.chip
+assets/images/chip4/chip.jpg  => Assets.images.chip4.chip
 assets/json/fruits.json       => Assets.json.fruits
 assets/images/icons/paint.svg => Assets.images.icons.paint
 pictures/ocean_view.jpg       => Assets.pictures.oceanView
@@ -370,14 +370,14 @@ flutter_gen:
 The input file supports the following formats.
 
 * a [XML file](example/assets/color/colors.xml), the same format as the Android colors.xml files, containing tags
-```
+```xml
 <color name="milk_tea">#F5CB84</color>
 <color name="cinnamon">#955E1C</color>
 <color name="black_50">#80000000</color>
 ```
 
 * a [JSON file](example/assets/color/colors2.json), representing a dictionary of names -> values, each value being the hex representation of the color
-```
+```json
 {
   "disabled": "#666666",
   "accent_red": "#FF4D4D",
