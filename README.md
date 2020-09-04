@@ -31,7 +31,7 @@ flutter:
 What would happen if you made a typo?
 ```dart
 Widget build(BuildContext context) {
-  return Image.asset(image: 'assets/images/profile.jpeg');
+  return Image.asset('assets/images/profile.jpeg');
 }
 
 // The following assertion was thrown resolving an image codec:
