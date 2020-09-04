@@ -54,8 +54,8 @@ class FlutterGenerator {
       final formatter = DartFormatter(pageWidth: lineLength);
 
       if (config.flutter.hasAssets) {
-        final generated = AssetsGenerator.generate(
-            pubspecFile, formatter, config.flutter.assets);
+        final generated =
+            generateAssets(pubspecFile, formatter, config.flutter.assets);
         final assets =
             File(join(pubspecFile.parent.path, output, 'assets.gen.dart'));
         writeAsString(generated, file: assets);
