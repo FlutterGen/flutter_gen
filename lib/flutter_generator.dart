@@ -10,14 +10,15 @@ import 'package:flutter_gen/src/utils/file.dart';
 import 'package:path/path.dart';
 
 Builder build(BuilderOptions options) {
-  return WrapBuilder();
+  Future(() async {
+    await FlutterGenerator(File('pubspec.yaml')).build();
+  });
+  return EmptyBuilder();
 }
 
-class WrapBuilder extends Builder {
+class EmptyBuilder extends Builder {
   @override
-  Future<void> build(BuildStep buildStep) async {
-    await FlutterGenerator(File('pubspec.yaml')).build();
-  }
+  Future<void> build(BuildStep buildStep) async {}
 
   @override
   Map<String, List<String>> get buildExtensions => {};
