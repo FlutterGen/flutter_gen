@@ -17,7 +17,7 @@ class Config {
 
   Future<Config> load() async {
     print(
-        'Loading ... ${join(basename(pubspecFile.parent.path), basename(pubspecFile.path))}');
+        'FlutterGen Loading ... ${join(basename(pubspecFile.parent.path), basename(pubspecFile.path))}');
     final pubspec =
         await pubspecFile.readAsString().catchError((dynamic error) {
       throw FileSystemException(
