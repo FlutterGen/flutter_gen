@@ -23,7 +23,7 @@ void main() {
               height: 120,
               fit: BoxFit.scaleDown,
             ),
-            Text(
+            const Text(
               'Hi there, I\'m FlutterGen',
               style: TextStyle(
                 // Auto generated color from FlutterGen.
@@ -31,7 +31,7 @@ void main() {
 
                 // Auto generated font from FlutterGen.
                 fontFamily: FontFamily.robotoMono,
-                fontFamilyFallback: const [FontFamily.raleway],
+                fontFamilyFallback: [FontFamily.raleway],
               ),
             ),
           ],
