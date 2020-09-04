@@ -118,7 +118,7 @@ flutter:
 
 ### Assets
 
-Just follow the doc [Adding assets and images#Specifying assets](https://flutter.dev/docs/development/ui/assets-and-images#specifying-assets) to specify assets,  then FlutterGen will generate related dart files.
+Just follow the doc [Adding assets and images#Specifying assets](https://flutter.dev/docs/development/ui/assets-and-images#specifying-assets) to specify assets, then FlutterGen will generate related dart files.
 No other specific configuration is required.  
 _Ignore duplicated._
 
@@ -171,10 +171,10 @@ final svg = SvgPicture.asset(Assets.images.icons.paint);
 final json = await rootBundle.loadString(Assets.json.fruits);
 ```
 
-If the root directory is either **`assets`** or **`asset`**, then it will be omitted.
+The root directory will be omitted if it is either **`assets`** or **`asset`**.
 ```
 assets/images/chip3/chip.jpg  => Assets.images.chip3.chip
-assets/images/icons/paint.svg => Assets.images.icons.paint
+asset/images/icons/paint.svg  => Assets.images.icons.paint
 pictures/ocean_view.jpg       => Assets.pictures.oceanView
 ```
 
