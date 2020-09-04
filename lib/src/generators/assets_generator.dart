@@ -17,7 +17,7 @@ String generateAssets(
   buffer.writeln(header());
   buffer.writeln(_assetGenImageClassDefinition);
 
-  final assetRelativePathList = _getAssetsRelativePathList(pubspecFile, assets);
+  final assetRelativePathList = _getAssetRelativePathList(pubspecFile, assets);
   final assetTypeQueue = ListQueue<AssetType>.from(
       _constructAssetTree(assetRelativePathList).children);
   final assetsStaticStatements = <_Statement>[];
@@ -28,7 +28,7 @@ String generateAssets(
 
     if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
       final statements =
-          _extractDirectoryClassGenStatements(pubspecFile, assetType);
+          _createDirectoryClassGenStatements(pubspecFile, assetType);
 
       if (assetType.isDefaultAssetsDirectory) {
         statements.forEach(assetsStaticStatements.add);
@@ -55,7 +55,7 @@ String generateAssets(
   return formatter.format(buffer.toString());
 }
 
-List<String> _getAssetsRelativePathList(
+List<String> _getAssetRelativePathList(
   File pubspecFile,
   FlutterAssets assets,
 ) {
@@ -99,7 +99,7 @@ AssetType _constructAssetTree(List<String> assetRelativePathList) {
   return assetTypeMap['.'];
 }
 
-List<_Statement> _extractDirectoryClassGenStatements(
+List<_Statement> _createDirectoryClassGenStatements(
   File pubspecFile,
   AssetType assetType,
 ) {
