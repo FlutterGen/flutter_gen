@@ -43,8 +43,7 @@ void main() {
       final config = await Config(pubspec).load();
       final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength);
 
-      final actual =
-          AssetsGenerator.generate(pubspec, formatter, config.flutter.assets);
+      final actual = generateAssets(pubspec, formatter, config.flutter.assets);
       final expected =
           File('test_resources/actual_data/assets.gen.dart').readAsStringSync();
 
@@ -56,7 +55,7 @@ void main() {
           await Config(File('test_resources/pubspec_fonts.yaml')).load();
       final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength);
 
-      final actual = FontsGenerator.generate(formatter, config.flutter.fonts);
+      final actual = generateFonts(formatter, config.flutter.fonts);
       final expected =
           File('test_resources/actual_data/fonts.gen.dart').readAsStringSync();
 
@@ -68,8 +67,8 @@ void main() {
       final config = await Config(pubspec).load();
       final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength);
 
-      final actual = ColorsGenerator.generate(
-          pubspec, formatter, config.flutterGen.colors);
+      final actual =
+          generateColors(pubspec, formatter, config.flutterGen.colors);
       final expected =
           File('test_resources/actual_data/colors.gen.dart').readAsStringSync();
 
