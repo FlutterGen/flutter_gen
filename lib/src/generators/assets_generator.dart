@@ -31,7 +31,7 @@ String generateAssets(
           _createDirectoryClassGenStatements(pubspecFile, assetType);
 
       if (assetType.isDefaultAssetsDirectory) {
-        statements.forEach(assetsStaticStatements.add);
+        assetsStaticStatements.addAll(statements);
       } else {
         final className = '\$${assetType.path.camelCase().capitalize()}Gen';
         buffer.writeln(_directoryClassGenDefinition(className, statements));
