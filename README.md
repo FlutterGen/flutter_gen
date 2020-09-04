@@ -61,9 +61,9 @@ $ export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 2. Use it
 ```sh
-$ fluttergen --help
+$ fluttergen -h
 
-$ fluttergen --config example/pubspec.yaml
+$ fluttergen -c example/pubspec.yaml
 ```
 
 ### Use this package as a part of build_runner 
