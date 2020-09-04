@@ -144,7 +144,7 @@ String _assetsClassDefinition(List<_Statement> statements) {
       .join('\n');
   return '''
 class Assets {
-  const Assets._();
+  Assets._();
   
   $statementsBlock
 }
