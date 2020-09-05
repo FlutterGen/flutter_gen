@@ -44,8 +44,7 @@ jobs:
       - name: Packaging final binary
         shell: bash
         run: |
-          cd bin/${{ matrix.target }}
-          strip fluttergen
+          cd bin/
           tar czvf fluttergen-${{ matrix.artifact_prefix }}.tar.gz fluttergen
           shasum -a 256 fluttergen-${{ matrix.artifact_prefix }}.tar.gz > fluttergen-${{ matrix.artifact_prefix }}.sha256
 

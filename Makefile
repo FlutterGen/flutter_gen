@@ -33,9 +33,7 @@ setup-ubuntu:
 	sudo sh -c 'wget -qO- https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list'
 	sudo apt-get update
 	sudo apt-get install dart
-	echo 'export PATH="$PATH:/usr/lib/dart/bin"' >> ~/.profile
-	source ~/.profile
-	pub get
+	/usr/lib/dart/bin/pub get
 
 setup-macos:
 	brew tap dart-lang/dart
