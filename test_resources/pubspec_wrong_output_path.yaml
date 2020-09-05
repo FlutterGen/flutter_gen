@@ -1,0 +1,19 @@
+name: example
+
+flutter_gen:
+  output: null/null
+  lineLength: 80
+
+  colors:
+    inputs:
+      - assets/color/colors.xml
+
+flutter:
+  assets:
+    - assets/images/
+  fonts:
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/Raleway-Regular.ttf
+        - asset: assets/fonts/Raleway-Italic.ttf
+          style: italic

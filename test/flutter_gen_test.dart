@@ -12,6 +12,14 @@ Directory savedCurrentDirectory;
 
 @TestOn('vm')
 void main() {
+  setUp(() {
+    final dir = Directory('test_resources/lib/');
+
+    if (dir.existsSync()) {
+      dir.deleteSync(recursive: true);
+    }
+  });
+
   group('Test FlutterGenerator incorrect case', () {
     test('Not founded pubspec.yaml', () async {
       expect(() async {
@@ -22,8 +30,7 @@ void main() {
 
     test('Empty pubspec.yaml', () async {
       expect(() async {
-        return await Config(File('test_resources/pubspec_empty.yaml'))
-            .load();
+        return await Config(File('test_resources/pubspec_empty.yaml')).load();
       }, throwsFormatException);
     });
 
@@ -38,6 +45,78 @@ void main() {
   group('Test FlutterGenerator correct case', () {
     test('pubspec.yaml', () async {
       await FlutterGenerator(File('test_resources/pubspec.yaml')).build();
+      expect(
+        File('test_resources/lib/gen/assets.gen.dart').readAsStringSync(),
+        isNotEmpty,
+      );
+      expect(
+        File('test_resources/lib/gen/fonts.gen.dart').readAsStringSync(),
+        isNotEmpty,
+      );
+      expect(
+        File('test_resources/lib/gen/colors.gen.dart').readAsStringSync(),
+        isNotEmpty,
+      );
+    });
+
+    test('Only flutter value', () async {
+      await FlutterGenerator(
+              File('test_resources/pubspec_only_flutter_value.yaml'))
+          .build();
+      expect(
+        File('test_resources/lib/gen/assets.gen.dart').readAsStringSync(),
+        isNotEmpty,
+      );
+      expect(
+        File('test_resources/lib/gen/fonts.gen.dart').readAsStringSync(),
+        isNotEmpty,
+      );
+      expect(
+        File('test_resources/lib/gen/colors.gen.dart').existsSync(),
+        isFalse,
+      );
+    });
+
+    test('Only flutter_gen value', () async {
+      await FlutterGenerator(
+              File('test_resources/pubspec_only_flutter_gen_value.yaml'))
+          .build();
+      expect(
+        File('test_resources/lib/gen/assets.gen.dart').existsSync(),
+        isFalse,
+      );
+      expect(
+        File('test_resources/lib/gen/fonts.gen.dart').existsSync(),
+        isFalse,
+      );
+      expect(
+        File('test_resources/lib/gen/colors.gen.dart').readAsStringSync(),
+        isNotEmpty,
+      );
+    });
+
+    test('Wrong output path', () async {
+      await FlutterGenerator(
+          File('test_resources/pubspec_wrong_output_path.yaml'))
+          .build();
+      expect(
+        File('test_resources/lib/gen/assets.gen.dart').readAsStringSync(),
+        isNotEmpty,
+      );
+      expect(
+        File('test_resources/lib/gen/fonts.gen.dart').readAsStringSync(),
+        isNotEmpty,
+      );
+      expect(
+        File('test_resources/lib/gen/colors.gen.dart').readAsStringSync(),
+        isNotEmpty,
+      );
+    });
+
+    test('Wrong lineLength', () async {
+      await FlutterGenerator(
+          File('test_resources/pubspec_wrong_line_length.yaml'))
+          .build();
       expect(
         File('test_resources/lib/gen/assets.gen.dart').readAsStringSync(),
         isNotEmpty,

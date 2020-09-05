@@ -1,7 +1,7 @@
 name: example
 
 flutter_gen:
-  output: lib/gen/ # Optional (default: lib/gen/)
+  output: lib/gen/
   lineLength: 80   # Optional (default: 80)
 
   colors:

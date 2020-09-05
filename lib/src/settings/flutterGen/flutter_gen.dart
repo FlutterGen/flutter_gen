@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_gen/src/settings/config.dart';
 import 'package:flutter_gen/src/settings/flutterGen/flutter_gen_colors.dart';
 import 'package:flutter_gen/src/utils/cast.dart';
@@ -14,11 +16,14 @@ class FlutterGen {
 
   String _output;
 
-  String get output => _output ?? Config.DEFAULT_OUTPUT;
+  String get output =>
+      _output != null && FileSystemEntity.isDirectorySync(_output)
+          ? _output
+          : Config.DEFAULT_OUTPUT;
 
   int _lineLength;
 
-  int get lineLength => _lineLength;
+  int get lineLength => _lineLength ?? Config.DEFAULT_LINE_LENGTH;
 
   FlutterGenColors _colors;
 

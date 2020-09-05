@@ -1,0 +1,9 @@
+name: example
+
+flutter_gen:
+  output: lib/gen/
+  lineLength: 80
+
+  colors:
+    inputs:
+      - assets/color/colors.xml
