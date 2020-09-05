@@ -41,8 +41,8 @@ class FlutterGenerator {
       exit(-1);
     }
 
-    String output;
-    int lineLength;
+    var output = Config.DEFAULT_OUTPUT;
+    var lineLength = Config.DEFAULT_LINE_LENGTH;
 
     if (config.hasFlutterGen) {
       output = config.flutterGen.output;

@@ -7,6 +7,7 @@ import 'package:flutter_gen/src/settings/color_path.dart';
 import 'package:flutter_gen/src/settings/color_set.dart';
 import 'package:flutter_gen/src/settings/flutterGen/flutter_gen_colors.dart';
 import 'package:flutter_gen/src/utils/camel_case.dart';
+import 'package:flutter_gen/src/utils/cast.dart';
 import 'package:flutter_gen/src/utils/color.dart';
 import 'package:path/path.dart';
 import 'package:xml/xml.dart';
@@ -38,7 +39,7 @@ String generateColors(
         return Color(element.getAttribute('name'), element.text);
       }));
     } else if (colorFile.isJson) {
-      (jsonDecode(data) as Map<String, dynamic>)
+      safeCast<Map<String, dynamic>>(jsonDecode(data))
           .cast<String, String>()
           .forEach((key, value) => colorList.add(Color(key, value)));
     } else {

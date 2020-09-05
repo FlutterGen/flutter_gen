@@ -1,9 +1,10 @@
+import 'package:flutter_gen/src/utils/cast.dart';
 import 'package:yaml/yaml.dart';
 
 class FlutterGenColors {
   FlutterGenColors(YamlMap flutterGenMap) {
     if (flutterGenMap != null) {
-      _inputs = flutterGenMap['inputs'] as YamlList;
+      _inputs = safeCast<YamlList>(flutterGenMap['inputs']);
     }
   }
 

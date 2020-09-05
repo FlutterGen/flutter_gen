@@ -1,0 +1,12 @@
+name: example
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+  fonts:
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/Raleway-Regular.ttf
+        - asset: assets/fonts/Raleway-Italic.ttf
+          style: italic
