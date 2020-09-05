@@ -77,7 +77,7 @@ dev_dependencies:
 
 2. Install FlutterGen
 ```sh
-$ pub get
+$ flutter pub get
 ```
 
 3. Use FlutterGen
