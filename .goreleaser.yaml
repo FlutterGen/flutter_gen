@@ -1,0 +1,26 @@
+project_name: fluttergen
+builds:
+  -
+    binary: fluttergen
+archives:
+  - replacements:
+      darwin: Darwin
+      linux: Linux
+      amd64: x86_64
+checksum:
+  name_template: 'checksums.txt'
+release:
+  disable: true
+
+brews:
+  - 
+    tap:
+      owner: wasabeef
+      name: homebrew-tap
+    folder: Formula
+    homepage: https://github.com/FlutterGen/flutter_gen
+    description: A command-line tool for The Flutter code generator for your assets, fonts, colors, … — Get rid of all String-based APIs. by Dart.
+    install: |
+      bin.install "fluttergen"
+    test: |
+      system "#{bin}/fluttergen", "-h"

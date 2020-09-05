@@ -1,9 +1,8 @@
 name: Release
 
 on:
+  pull_request:
   push:
-    tags:
-      - "v*.*.*"
 
 jobs:
   build:
@@ -16,10 +15,10 @@ jobs:
         include:
           - os: macos-latest
             artifact_prefix: macos
-            target: x86_64-apple-darwin
+            target: darwin_amd64
           - os: ubuntu-latest
             artifact_prefix: linux
-            target: x86_64-unknown-linux-gnu
+            target: linux_amd64
 
     steps:
       - name: Checking out sources
@@ -37,26 +36,18 @@ jobs:
         if: matrix.os == 'macos-latest'
         run: |
           mkdir -p bin/${{ matrix.target }}
-          dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}/fluttergen
+          dart2native bin/flutter_gen_command.dart -o dist/${{ matrix.target }}/fluttergen
 
       - name: Running build for ubuntu
         if: matrix.os == 'ubuntu-latest'
         run: |
           mkdir -p bin/${{ matrix.target }}
-          /usr/lib/dart/bin/dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}/fluttergen
+          /usr/lib/dart/bin/dart2native bin/flutter_gen_command.dart -o dist/${{ matrix.target }}/fluttergen
 
-      - name: Packaging final binary
-        shell: bash
-        run: |
-          cd bin/${{ matrix.target }}
-          tar czvf fluttergen-${{ matrix.artifact_prefix }}.tar.gz fluttergen
-          shasum -a 256 fluttergen-${{ matrix.artifact_prefix }}.tar.gz > fluttergen-${{ matrix.artifact_prefix }}.sha256
-
-      - name: Releasing assets
-        uses: softprops/action-gh-release@v1
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v2
         with:
-          files: |
-            bin/${{ matrix.target }}/fluttergen-${{ matrix.artifact_prefix }}.tar.gz
-            bin/${{ matrix.target }}/fluttergen-${{ matrix.artifact_prefix }}.sha256
+          version: latest
+          args: release --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
