@@ -2,6 +2,7 @@ import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen/src/generators/generator_helper.dart';
 import 'package:flutter_gen/src/settings/flutter/flutter_fonts.dart';
 import 'package:flutter_gen/src/utils/camel_case.dart';
+import 'package:flutter_gen/src/utils/cast.dart';
 import 'package:yaml/yaml.dart';
 
 String generateFonts(DartFormatter formatter, FlutterFonts fonts) {
@@ -16,7 +17,7 @@ String generateFonts(DartFormatter formatter, FlutterFonts fonts) {
 
   fonts.fonts
       .cast<YamlMap>()
-      .map((element) => element['family'] as String)
+      .map((element) => safeCast<String>(element['family']))
       .toSet() // to Set<> for remove duplicated item
       .forEach((family) {
     buffer

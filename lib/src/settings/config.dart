@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_gen/src/settings/flutter/flutter.dart';
 import 'package:flutter_gen/src/settings/flutterGen/flutter_gen.dart';
+import 'package:flutter_gen/src/utils/cast.dart';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
 
@@ -27,13 +28,13 @@ class Config {
       throw const FormatException('pubspec.yaml is empty');
     }
 
-    final properties = loadYaml(pubspec) as YamlMap;
+    final properties = safeCast<YamlMap>(loadYaml(pubspec));
 
     if (properties.containsKey('flutter')) {
-      flutter = Flutter(properties['flutter'] as YamlMap);
+      flutter = Flutter(safeCast<YamlMap>(properties['flutter']));
     }
     if (properties.containsKey('flutter_gen')) {
-      flutterGen = FlutterGen(properties['flutter_gen'] as YamlMap);
+      flutterGen = FlutterGen(safeCast<YamlMap>(properties['flutter_gen']));
     }
 
     if (!hasFlutter && !hasFlutterGen) {

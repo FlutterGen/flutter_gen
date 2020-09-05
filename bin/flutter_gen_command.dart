@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:flutter_gen/flutter_generator.dart';
+import 'package:flutter_gen/src/utils/cast.dart';
 
 void main(List<String> args) {
   final parser = ArgParser();
@@ -32,6 +33,6 @@ void main(List<String> args) {
     return;
   }
 
-  final pubspecPath = results['config'] as String;
+  final pubspecPath = safeCast<String>(results['config']);
   FlutterGenerator(File(pubspecPath).absolute).build();
 }

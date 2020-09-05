@@ -1,12 +1,13 @@
 import 'package:flutter_gen/src/settings/flutter/flutter_assets.dart';
 import 'package:flutter_gen/src/settings/flutter/flutter_fonts.dart';
+import 'package:flutter_gen/src/utils/cast.dart';
 import 'package:yaml/yaml.dart';
 
 class Flutter {
   Flutter(YamlMap flutterMap) {
     if (flutterMap != null) {
-      _assets = FlutterAssets(flutterMap['assets'] as YamlList);
-      _fonts = FlutterFonts(flutterMap['fonts'] as YamlList);
+      _assets = FlutterAssets(safeCast<YamlList>(flutterMap['assets']));
+      _fonts = FlutterFonts(safeCast<YamlList>(flutterMap['fonts']));
     }
   }
 

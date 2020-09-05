@@ -1,13 +1,14 @@
 import 'package:flutter_gen/src/settings/config.dart';
 import 'package:flutter_gen/src/settings/flutterGen/flutter_gen_colors.dart';
+import 'package:flutter_gen/src/utils/cast.dart';
 import 'package:yaml/yaml.dart';
 
 class FlutterGen {
   FlutterGen(YamlMap flutterGenMap) {
     if (flutterGenMap != null) {
-      _output = flutterGenMap['output'] as String;
-      _lineLength = flutterGenMap['lineLength'] as int;
-      _colors = FlutterGenColors(flutterGenMap['colors'] as YamlMap);
+      _output = safeCast<String>(flutterGenMap['output']);
+      _lineLength = safeCast<int>(flutterGenMap['lineLength']);
+      _colors = FlutterGenColors(safeCast<YamlMap>(flutterGenMap['colors']));
     }
   }
 
