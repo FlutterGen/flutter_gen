@@ -35,13 +35,13 @@ jobs:
       - name: Running build for macos
         if: matrix.os == 'macos-latest'
         run: |
-          mkdir -p bin/${{ matrix.target }}
+          mkdir -p dist/${{ matrix.target }}
           dart2native bin/flutter_gen_command.dart -o dist/${{ matrix.target }}/fluttergen
 
       - name: Running build for ubuntu
         if: matrix.os == 'ubuntu-latest'
         run: |
-          mkdir -p bin/${{ matrix.target }}
+          mkdir -p dist/${{ matrix.target }}
           /usr/lib/dart/bin/dart2native bin/flutter_gen_command.dart -o dist/${{ matrix.target }}/fluttergen
 
       - name: Run GoReleaser
