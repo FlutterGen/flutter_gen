@@ -175,7 +175,9 @@ final json = await rootBundle.loadString(Assets.json.fruits);
 The root directory will be omitted if it is either **`assets`** or **`asset`**.
 ```
 assets/images/chip3/chip.jpg  => Assets.images.chip3.chip
-asset/images/icons/paint.svg  => Assets.images.icons.paint
+assets/images/chip4/chip.jpg  => Assets.images.chip4.chip
+assets/images/icons/paint.svg => Assets.images.icons.paint
+assets/json/fruits.json       => Assets.json.fruits
 pictures/ocean_view.jpg       => Assets.pictures.oceanView
 ```
 
