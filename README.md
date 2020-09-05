@@ -29,6 +29,7 @@ flutter:
 
 ❌ **Bad**  
 What would happen if you made a typo?
+
 ```dart
 Widget build(BuildContext context) {
   return Image.asset('assets/images/profile.jpeg');
@@ -40,6 +41,7 @@ Widget build(BuildContext context) {
 
 ⭕️ **Good**  
 We want to use it safely.
+
 ```dart
 Widget build(BuildContext context) {
   return Assets.images.profile.image();
@@ -50,44 +52,49 @@ Widget build(BuildContext context) {
 
 ### Use this package as an executable
 
-Run `fluttergen` after the configuration  [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
+Run `fluttergen` after the configuration [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
 
-1. Install FlutterGen
+1. Install [FlutterGen]
+
 ```sh
 $ pub global activate flutter_gen
 
 $ export PATH="$PATH":"$HOME/.pub-cache/bin"
 ```
 
-2. Use FlutterGen
+2. Use [FlutterGen]
+
 ```sh
 $ fluttergen -h
 
 $ fluttergen -c example/pubspec.yaml
 ```
 
-### Use this package as a part of build_runner 
+### Use this package as a part of build_runner
 
-1. Add FlutterGen to your package's pubspec.yaml file:
+1. Add [build_runner] and [FlutterGen] to your package's pubspec.yaml file:
+
 ```
 dev_dependencies:
-  build_runner
-  flutter_gen: 
+  build_runner:
+  flutter_gen:
 ```
 
-2. Install FlutterGen
+2. Install [FlutterGen]
+
 ```sh
 $ flutter pub get
 ```
 
-3. Use FlutterGen
+3. Use [FlutterGen]
+
 ```
 $ flutter packages pub run build_runner build
 ```
 
 ## Configuration file
 
-FlutterGen generates dart files based on the key **`flutter`** and **`flutter_gen`** of [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
+[FlutterGen] generates dart files based on the key **`flutter`** and **`flutter_gen`** of [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
 
 ```yaml
 # pubspec.yaml
@@ -95,7 +102,7 @@ FlutterGen generates dart files based on the key **`flutter`** and **`flutter_ge
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
-  lineLength: 80   # Optional (default: 80)
+  lineLength: 80 # Optional (default: 80)
 
   colors:
     inputs:
@@ -114,12 +121,11 @@ flutter:
           style: italic
 ```
 
-
 ## Available Parsers
 
 ### Assets
 
-Just follow the doc [Adding assets and images#Specifying assets](https://flutter.dev/docs/development/ui/assets-and-images#specifying-assets) to specify assets, then FlutterGen will generate related dart files.
+Just follow the doc [Adding assets and images#Specifying assets](https://flutter.dev/docs/development/ui/assets-and-images#specifying-assets) to specify assets, then [FlutterGen] will generate related dart files.  
 No other specific configuration is required.  
 _Ignore duplicated._
 
@@ -139,12 +145,13 @@ These configurations will generate **`assets.gen.dart`** under the **`lib/gen/`*
 
 #### Usage Example
 
-FlutterGen generates [Image](https://api.flutter.dev/flutter/widgets/Image-class.html) class if the asset is Flutter supported image format. 
+[FlutterGen] generates [Image](https://api.flutter.dev/flutter/widgets/Image-class.html) class if the asset is Flutter supported image format.
 
 Example results of `assets/images/chip.jpg`:
-- **`Assets.images.chip`** is an implementation of [`AssetImage class`](https://api.flutter.dev/flutter/painting/AssetImage-class.html).  
-- **`Assets.images.chip.image(...)`** returns [`Image class`](https://api.flutter.dev/flutter/widgets/Image-class.html).  
-- **`Assets.images.chip.path`** just returns the path string.  
+
+- **`Assets.images.chip`** is an implementation of [`AssetImage class`](https://api.flutter.dev/flutter/painting/AssetImage-class.html).
+- **`Assets.images.chip.image(...)`** returns [`Image class`](https://api.flutter.dev/flutter/widgets/Image-class.html).
+- **`Assets.images.chip.path`** just returns the path string.
 
 ```dart
 Widget build(BuildContext context) {
@@ -157,7 +164,7 @@ Widget build(BuildContext context) {
     height: 120,
     fit: BoxFit.scaleDown,
   );
-  
+
 Widget build(BuildContext context) {
   // Assets.images.chip.path = 'assets/images/chip3/chip3.jpg'
   return Image.asset(Assets.images.chip.path);
@@ -166,6 +173,7 @@ Widget build(BuildContext context) {
 ```
 
 In other cases, the asset is generated as String class.
+
 ```dart
 final svg = SvgPicture.asset(Assets.images.icons.paint);
 
@@ -173,6 +181,7 @@ final json = await rootBundle.loadString(Assets.json.fruits);
 ```
 
 The root directory will be omitted if it is either **`assets`** or **`asset`**.
+
 ```
 assets/images/chip3/chip.jpg  => Assets.images.chip3.chip
 assets/images/chip4/chip.jpg  => Assets.images.chip4.chip
@@ -299,9 +308,10 @@ class Assets {
 </details>
 
 ### Fonts
-Just follow the doc [Use a custom font](https://flutter.dev/docs/cookbook/design/fonts) to specify fonts, then FlutterGen will generate related dart files.
+
+Just follow the doc [Use a custom font](https://flutter.dev/docs/cookbook/design/fonts) to specify fonts, then [FlutterGen] will generate related dart files.  
 No other specific configuration is required.  
-_Ignore duplicated._  
+_Ignore duplicated._
 
 ```yaml
 # pubspec.yaml
@@ -317,7 +327,6 @@ flutter:
         - asset: assets/fonts/RobotoMono-Regular.ttf
         - asset: assets/fonts/RobotoMono-Bold.ttf
           weight: 700
-
 ```
 
 These configurations will generate **`fonts.gen.dart`** under the **`lib/gen/`** directory by default.
@@ -356,7 +365,7 @@ class FontFamily {
 
 ### Colors
 
-_Ignore duplicated._  
+_Ignore duplicated._
 
 ```yaml
 # pubspec.yaml
@@ -368,20 +377,22 @@ flutter_gen:
       - assets/color/colors3.xml
 ```
 
-FlutterGen supports the following input file formats:
+[FlutterGen] supports the following input file formats:
 
-* a [XML file](example/assets/color/colors.xml), the same format as the Android colors.xml files, containing tags
+- a [XML file](example/assets/color/colors.xml), the same format as the Android colors.xml files, containing tags
+
 ```xml
 <color name="milk_tea">#F5CB84</color>
 <color name="cinnamon">#955E1C</color>
 <color name="black_50">#80000000</color>
 ```
 
-* a [JSON file](example/assets/color/colors2.json), representing a dictionary of names -> values, each value being the hex representation of the color
+- a [JSON file](example/assets/color/colors2.json), representing a dictionary of names -> values, each value being the hex representation of the color
+
 ```json
 {
   "disabled": "#666666",
-  "accent_red": "#FF4D4D",
+  "accent_red": "#FF4D4D"
 }
 ```
 
@@ -477,9 +488,9 @@ class ColorName {
 
 ## Issues
 
-Please file FlutterGen specific issues, bugs, or feature requests in our [issue tracker](https://github.com/wasabeef/flutter_gen/issues/new).
+Please file [FlutterGen] specific issues, bugs, or feature requests in our [issue tracker](https://github.com/wasabeef/flutter_gen/issues/new).
 
-Plugin issues that are not specific to FlutterGen can be filed in the [Flutter issue tracker](https://github.com/flutter/flutter/issues/new).
+Plugin issues that are not specific to [FlutterGen] can be filed in the [Flutter issue tracker](https://github.com/flutter/flutter/issues/new).
 
 ## Contributing
 
@@ -500,6 +511,9 @@ and open a [pull request](https://github.com/wasabeef/flutter_gen/pulls).
   - [ ] Support clr?
 - [x] Support change output path
 - [x] Support hierarchical generation  
-   'assets/image/home/label.png' => Assets.image.home.label  
-   'assets/image/detail/label.png' => Assets.image.detail.label  
+       'assets/image/home/label.png' => Assets.image.home.label  
+       'assets/image/detail/label.png' => Assets.image.detail.label
 - [ ] Platforms channels generation
+
+[build_runner]: https://pub.dev/packages/build_runner
+[fluttergen]: https://pub.dev/packages/flutter_gen
