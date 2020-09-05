@@ -1,0 +1,59 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build:
+    name: Publishing for ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        include:
+          - os: macos-latest
+            artifact_prefix: macos
+            target: x86_64-apple-darwin
+          - os: ubuntu-latest
+            artifact_prefix: linux
+            target: x86_64-unknown-linux-gnu
+
+    steps:
+      - name: Checking out sources
+        uses: actions/checkout@v2
+
+      - name: Installing needed macOS dependencies
+        if: matrix.os == 'macos-latest'
+        run: make setup-macos
+
+      - name: Installing needed Ubuntu dependencies
+        if: matrix.os == 'ubuntu-latest'
+        run: make setup-ubuntu
+
+      - name: Running build for macos
+        if: matrix.os == 'macos-latest'
+        run: dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}
+
+      - name: Running build for ubuntu
+        if: matrix.os == 'ubuntu-latest'
+        run: dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}
+
+      - name: Packaging final binary
+        shell: bash
+        run: |
+          cd bin/${{ matrix.target }}
+          strip fluttergen
+          tar czvf fluttergen-${{ matrix.artifact_prefix }}.tar.gz fluttergen
+          shasum -a 256 fluttergen-${{ matrix.artifact_prefix }}.tar.gz > fluttergen-${{ matrix.artifact_prefix }}.sha256
+
+      - name: Releasing assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            bin/${{ matrix.target }}/fluttergen-${{ matrix.artifact_prefix }}.tar.gz
+            bin/${{ matrix.target }}/fluttergen-${{ matrix.artifact_prefix }}.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
