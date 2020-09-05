@@ -35,11 +35,15 @@ jobs:
 
       - name: Running build for macos
         if: matrix.os == 'macos-latest'
-        run: dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}
+        run: |
+          mkdir -p bin/${{ matrix.target }}
+          dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}/fluttergen
 
       - name: Running build for ubuntu
         if: matrix.os == 'ubuntu-latest'
-        run: /usr/lib/dart/bin/dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}/fluttergen
+        run: |
+          mkdir -p bin/${{ matrix.target }}
+          /usr/lib/dart/bin/dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}/fluttergen
 
       - name: Packaging final binary
         shell: bash
