@@ -50,9 +50,28 @@ Widget build(BuildContext context) {
 
 ## Installation
 
+Run `fluttergen` after the configuration [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
+
 ### Use this package as an executable
 
-Run `fluttergen` after the configuration [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
+#### Using a Homebrew Formula
+
+
+1. Install [FlutterGen]
+
+```sh
+$ brew install FlutterGen/tap/fluttergen
+```
+
+2. Use [FlutterGen]
+
+```sh
+$ fluttergen -h
+
+$ fluttergen -c example/pubspec.yaml
+```
+
+#### Using a Dart command-line
 
 1. Install [FlutterGen]
 
