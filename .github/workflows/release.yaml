@@ -39,12 +39,12 @@ jobs:
 
       - name: Running build for ubuntu
         if: matrix.os == 'ubuntu-latest'
-        run: dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}
+        run: /usr/lib/dart/bin/dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}/fluttergen
 
       - name: Packaging final binary
         shell: bash
         run: |
-          cd bin/
+          cd bin/${{ matrix.target }}
           tar czvf fluttergen-${{ matrix.artifact_prefix }}.tar.gz fluttergen
           shasum -a 256 fluttergen-${{ matrix.artifact_prefix }}.tar.gz > fluttergen-${{ matrix.artifact_prefix }}.sha256
 
