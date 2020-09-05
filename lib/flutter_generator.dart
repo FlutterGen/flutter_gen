@@ -30,7 +30,16 @@ class FlutterGenerator {
   final File pubspecFile;
 
   Future<void> build() async {
-    final config = await Config(pubspecFile).load();
+    final config = Config(pubspecFile);
+    try {
+      await config.load();
+    } on FormatException catch (e) {
+      stderr.writeln(e.message);
+      exit(-1);
+    } on FileSystemException catch (e) {
+      stderr.writeln(e.message);
+      exit(-1);
+    }
 
     String output;
     int lineLength;

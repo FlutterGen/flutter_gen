@@ -24,4 +24,4 @@ run-example:
 	dart bin/flutter_gen_command.dart --config example/pubspec.yaml
 
 unit-test:
-	pub run test --coverage --coverage-path=./coverage/lcov.info
+	pub run test

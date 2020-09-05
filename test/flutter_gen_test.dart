@@ -15,29 +15,43 @@ void main() {
   group('Test FlutterGenerator incorrect case', () {
     test('Not founded pubspec.yaml', () async {
       expect(() async {
-        return await FlutterGenerator(
-                File('test_resources/pubspec_not_founded.yaml'))
-            .build();
+        return await Config(File('test_resources/pubspec_not_founded.yaml'))
+            .load();
       }, throwsA(isA<FileSystemException>()));
     });
 
     test('Empty pubspec.yaml', () async {
       expect(() async {
-        return await FlutterGenerator(File('test_resources/pubspec_empty.yaml'))
-            .build();
+        return await Config(File('test_resources/pubspec_empty.yaml'))
+            .load();
       }, throwsFormatException);
     });
 
     test('No settings pubspec.yaml', () async {
       expect(() async {
-        return await FlutterGenerator(
-                File('test_resources/pubspec_no_settings.yaml'))
-            .build();
+        return await Config(File('test_resources/pubspec_no_settings.yaml'))
+            .load();
       }, throwsFormatException);
     });
   });
 
   group('Test FlutterGenerator correct case', () {
+    test('pubspec.yaml', () async {
+      await FlutterGenerator(File('test_resources/pubspec.yaml')).build();
+      expect(
+        File('test_resources/lib/gen/assets.gen.dart').readAsStringSync(),
+        isNotEmpty,
+      );
+      expect(
+        File('test_resources/lib/gen/fonts.gen.dart').readAsStringSync(),
+        isNotEmpty,
+      );
+      expect(
+        File('test_resources/lib/gen/colors.gen.dart').readAsStringSync(),
+        isNotEmpty,
+      );
+    });
+
     test('Assets on pubspec.yaml', () async {
       final pubspec = File('test_resources/pubspec_assets.yaml');
       final config = await Config(pubspec).load();
