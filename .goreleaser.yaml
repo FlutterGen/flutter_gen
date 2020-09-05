@@ -1,6 +1,7 @@
 project_name: fluttergen
 builds:
   -
+    main: dummy.go
     binary: fluttergen
 archives:
   - replacements:
