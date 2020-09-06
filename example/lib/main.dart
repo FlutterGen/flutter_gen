@@ -19,9 +19,10 @@ void main() {
             children: <Widget>[
               // Auto generated image from FlutterGen.
               Image(image: Assets.images.chip1),
-              Assets.images.icons.paint,
+              Assets.images.icons.paint.svg(),
               Assets.images.icons.paint.svg(
-                matchTextDirection: true,
+                width: 120,
+                height: 120
               ),
               Assets.pictures.chip5.image(
                 width: 120,

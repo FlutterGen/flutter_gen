@@ -1,5 +1,4 @@
 abstract class Integration {
-
   List<String> get requiredImports;
 
   String get classOutput;
@@ -9,4 +8,6 @@ abstract class Integration {
   String classInstantiate(String path);
 
   String get mime;
+
+  bool get isConstConstructor;
 }

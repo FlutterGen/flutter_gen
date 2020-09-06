@@ -16,8 +16,8 @@ String generateAssets(File pubspecFile, DartFormatter formatter,
   assert(assets != null && assets.hasAssets,
       throw 'The value of "flutter/assets:" is incorrect.');
 
-  final classesBuffer = StringBuffer();
   final importsBuffer = StringBuffer();
+  final classesBuffer = StringBuffer();
 
   final assetRelativePathList = _getAssetRelativePathList(pubspecFile, assets);
   final assetTypeQueue = ListQueue<AssetType>.from(
@@ -155,7 +155,7 @@ List<_Statement> _createDirectoryClassGenStatements(File pubspecFile,
                 type: integration.className,
                 name: child.baseName.camelCase(),
                 value: integration.classInstantiate(child.path),
-                isConstConstructor: false,
+                isConstConstructor: integration.isConstConstructor,
               );
             }
           }

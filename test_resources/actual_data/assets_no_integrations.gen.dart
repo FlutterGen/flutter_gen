@@ -46,6 +46,8 @@ class $AssetsImagesChip4Gen {
 class $AssetsImagesIconsGen {
   const $AssetsImagesIconsGen();
 
+  String get fuchsia => 'assets/images/icons/fuchsia.svg';
+  String get kmm => 'assets/images/icons/kmm.svg';
   String get paint => 'assets/images/icons/paint.svg';
 }
 

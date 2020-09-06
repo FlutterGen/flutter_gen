@@ -48,11 +48,14 @@ class $AssetsImagesChip4Gen {
 class $AssetsImagesIconsGen {
   const $AssetsImagesIconsGen();
 
-  SvgGenImage get paint => SvgGenImage('assets/images/icons/paint.svg');
+  SvgGenImage get fuchsia =>
+      const SvgGenImage('assets/images/icons/fuchsia.svg');
+  SvgGenImage get kmm => const SvgGenImage('assets/images/icons/kmm.svg');
+  SvgGenImage get paint => const SvgGenImage('assets/images/icons/paint.svg');
 }
 
-class SvgGenImage extends SvgPicture {
-  SvgGenImage(this._assetName) : super.asset(_assetName);
+class SvgGenImage {
+  const SvgGenImage(this._assetName);
 
   final String _assetName;
 

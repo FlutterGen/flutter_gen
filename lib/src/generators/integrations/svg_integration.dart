@@ -8,8 +8,8 @@ class SvgIntegration extends Integration {
       ];
 
   @override
-  String get classOutput => '''class SvgGenImage extends SvgPicture {
-  SvgGenImage(this._assetName) : super.asset(_assetName);
+  String get classOutput => '''class SvgGenImage {
+  const SvgGenImage(this._assetName);
 
   final String _assetName;
 
@@ -46,4 +46,7 @@ class SvgIntegration extends Integration {
 
   @override
   String get mime => 'image/svg+xml';
+
+  @override
+  bool get isConstConstructor => true;
 }
