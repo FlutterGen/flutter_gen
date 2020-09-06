@@ -14,7 +14,7 @@ String generateAssets(
       throw 'The value of "flutter/assets:" is incorrect.');
 
   final buffer = StringBuffer();
-  buffer.writeln(header());
+  buffer.writeln(header);
   buffer.writeln(_assetGenImageClassDefinition);
 
   final assetRelativePathList = _getAssetRelativePathList(pubspecFile, assets);

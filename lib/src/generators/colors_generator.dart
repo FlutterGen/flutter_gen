@@ -20,7 +20,7 @@ String generateColors(
       throw 'The value of "flutter_gen/colors/inputs:" is incorrect.');
 
   final buffer = StringBuffer();
-  buffer.writeln(header());
+  buffer.writeln(header);
   buffer.writeln("import 'package:flutter/painting.dart';");
   buffer.writeln();
   buffer.writeln('class ColorName {');
