@@ -2,6 +2,3 @@
 
 ### What is the value of this and can you measure success?
 
-### Screenshots (Optional)
-
-
