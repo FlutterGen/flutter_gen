@@ -22,6 +22,7 @@ String generateColors(
   final buffer = StringBuffer();
   buffer.writeln(header());
   buffer.writeln("import 'package:flutter/painting.dart';");
+  buffer.writeln("import 'package:flutter/material.dart';");
   buffer.writeln();
   buffer.writeln('class ColorName {');
   buffer.writeln('  ColorName._();');
@@ -52,6 +53,15 @@ String generateColors(
     buffer.writeln(
         '  static const Color ${color.name.camelCase()} = Color(${colorFromHex(color.hex)});');
   }
+
+  final map = swatchFromPrimaryHex(colorFromHex('#F44336'));
+  buffer.writeln('  static const MaterialColor materialColor = MaterialColor(');
+  buffer.writeln('    ${map[500]},');
+  buffer.writeln('    <int, Color>{');
+  map.forEach((key, value) {
+    buffer.writeln('      $key: Color($value),');
+  });
+  buffer.writeln('    },\n  );');
 
   buffer.writeln('}');
   return formatter.format(buffer.toString());
