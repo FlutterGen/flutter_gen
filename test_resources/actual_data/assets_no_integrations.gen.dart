@@ -4,8 +4,6 @@
 /// *****************************************************
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter/services.dart';
 
 class $PicturesGen {
   const $PicturesGen();
@@ -48,37 +46,7 @@ class $AssetsImagesChip4Gen {
 class $AssetsImagesIconsGen {
   const $AssetsImagesIconsGen();
 
-  SvgGenImage get paint => SvgGenImage('assets/images/icons/paint.svg');
-}
-
-class SvgGenImage extends SvgPicture {
-  SvgGenImage(this._assetName) : super.asset(_assetName);
-
-  final String _assetName;
-
-  SvgPicture svg({
-    bool matchTextDirection = false,
-    AssetBundle bundle,
-    String package,
-    double width,
-    double height,
-    BoxFit fit = BoxFit.contain,
-    AlignmentGeometry alignment = Alignment.center,
-    bool allowDrawingOutsideViewBox = false,
-    WidgetBuilder placeholderBuilder,
-    Color color,
-    BlendMode colorBlendMode = BlendMode.srcIn,
-    String semanticsLabel,
-    bool excludeFromSemantics = false,
-    Clip clipBehavior = Clip.hardEdge,
-  }) {
-    return SvgPicture.asset(
-      _assetName,
-      matchTextDirection: matchTextDirection,
-    );
-  }
-
-  String get path => _assetName;
+  String get paint => 'assets/images/icons/paint.svg';
 }
 
 class Assets {

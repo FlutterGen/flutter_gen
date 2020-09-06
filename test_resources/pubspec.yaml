@@ -2,7 +2,10 @@ name: example
 
 flutter_gen:
   output: lib/gen/
-  lineLength: 80   # Optional (default: 80)
+  lineLength: 80
+
+  integrations:
+    flutter_gen: true
 
   colors:
     inputs:
