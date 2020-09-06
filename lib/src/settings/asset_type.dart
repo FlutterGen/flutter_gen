@@ -30,7 +30,7 @@ class AssetType {
     }
   }
 
-  bool get isJson => mime == 'application/json';
+  bool get isUnKnownMime => mime == null;
 
   String get baseName => basenameWithoutExtension(_path);
 
