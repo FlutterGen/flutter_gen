@@ -19,7 +19,8 @@ void main() {
             children: <Widget>[
               // Auto generated image from FlutterGen.
               Image(image: Assets.images.chip1),
-              Assets.images.icons.paint.svg(),
+              Assets.images.icons.kmm.svg(),
+              Assets.images.icons.fuchsia.svg(),
               Assets.images.icons.paint.svg(
                 width: 120,
                 height: 120
