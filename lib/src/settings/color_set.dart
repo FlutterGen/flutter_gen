@@ -1,6 +1,19 @@
+import 'package:xml/xml.dart';
+
 /// https://github.com/dart-lang/mime/blob/master/lib/src/default_extension_map.dart
 class Color {
-  const Color(this._name, this._hex);
+  const Color(
+    this._name,
+    this._type,
+    this._hex,
+  );
+
+  Color.fromXmlElement(XmlElement element)
+      : this(
+          element.getAttribute('name'),
+          element.getAttribute('type'),
+          element.text,
+        );
 
   final String _name;
 
@@ -9,6 +22,10 @@ class Color {
   final String _hex;
 
   String get hex => _hex;
+
+  final String _type;
+
+  String get type => _type;
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes

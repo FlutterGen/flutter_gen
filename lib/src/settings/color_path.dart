@@ -17,8 +17,6 @@ class ColorPath {
   /// https://api.flutter.dev/flutter/widgets/Image-class.html
   bool get isXml => mime == 'application/xml';
 
-  bool get isJson => mime == 'application/json';
-
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) =>
