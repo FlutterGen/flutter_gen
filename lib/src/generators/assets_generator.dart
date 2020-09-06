@@ -60,6 +60,9 @@ String generateAssets(File pubspecFile, DartFormatter formatter,
     }
   }
 
+  classesBuffer.writeln(_assetsClassDefinition(assetsStaticStatements));
+  classesBuffer.writeln(_assetGenImageClassDefinition);
+
   final imports = <String>{'package:flutter/widgets.dart'};
   integrations.forEach((integration, enabled) {
     if (enabled) {
@@ -70,9 +73,6 @@ String generateAssets(File pubspecFile, DartFormatter formatter,
   for (final package in imports) {
     importsBuffer.writeln(import(package));
   }
-
-  classesBuffer.writeln(_assetsClassDefinition(assetsStaticStatements));
-  classesBuffer.writeln(_assetGenImageClassDefinition);
 
   final buffer = StringBuffer();
   buffer.writeln(header);
