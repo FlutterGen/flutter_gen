@@ -7,9 +7,8 @@ flutter_gen:
   colors:
     inputs:
       - assets/color/colors.xml
-      - assets/color/colors2.json
-      - assets/color/colors3.xml
-      - assets/color/colors3.xml # duplicated
+      - assets/color/colors2.xml
+      - assets/color/colors2.xml # duplicated
 
 flutter:
   uses-material-design: true

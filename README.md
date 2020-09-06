@@ -393,7 +393,7 @@ flutter_gen:
     inputs:
       - assets/color/colors.xml
       - assets/color/colors2.json
-      - assets/color/colors3.xml
+      - assets/color/colors2.xml
 ```
 
 [FlutterGen] supports the following input file formats:
