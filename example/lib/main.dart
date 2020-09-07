@@ -10,8 +10,12 @@ void main() {
     theme: ThemeData(
       // Auto generated font from FlutterGen.
       fontFamily: FontFamily.raleway,
+      primarySwatch: ColorName.crimsonRed,
     ),
     home: Scaffold(
+      appBar: AppBar(
+        title: const Text('FlutterGen'),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -27,8 +31,7 @@ void main() {
               'Hi there, I\'m FlutterGen',
               style: TextStyle(
                 // Auto generated color from FlutterGen.
-                color: ColorName.denim,
-
+                color: ColorName.black60,
                 // Auto generated font from FlutterGen.
                 fontFamily: FontFamily.robotoMono,
                 fontFamilyFallback: [FontFamily.raleway],
