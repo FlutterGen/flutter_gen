@@ -1,44 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Color Pallet -->
     <color name="white">#FFFFFF</color>
-    <color name="gray_70">#EEEEEE</color>
-    <color name="gray_150">#D8D8D8</color>
-    <color name="gray_410">#979797</color>
-    <color name="gray_470">#878787</color>
-    <color name="gray_550">#737373</color>
-    <color name="gray_600">#666666</color>
-    <color name="gray_620">#606060</color>
-    <color name="gray_680">#525252</color>
-    <color name="gray_770">#37373D</color>
-    <color name="gray_800">#333333</color>
-    <color name="gray_860">#222226</color>
-    <color name="gray_880">#1D1D22</color>
-    <color name="gray_900">#18181C</color>
-    <color name="gray_910">#141418</color>
     <color name="black">#000000</color>
-
-    <color name="sea_pink">#EB9798</color>
-    <color name="coral">#FE6363</color>
-    <color name="strawberry">#FF4D4D</color>
-    <color name="crimson_red">#CF2A2A</color>
-    <color name="rust_red">#421E21</color>
-
-    <color name="milk_tea">#F5CB84</color>
-    <color name="corn_brond">#F5CB84</color>
-    <color name="yellow_ocher">#DF9527</color>
-    <color name="cinnamon">#955E1C</color>
-
-    <color name="tulip_tree">#E6A53A</color>
-    <color name="gull_gray">#A1B3BC</color>
-    <color name="flery_orange">#B36111</color>
-    <color name="denim">#127DB8</color>
-    <color name="forest_green">#238833</color>
-
-    <color name="amazon">#367A62</color>
-    <color name="copper_canyon">#8A4213</color>
-    <color name="russet">#7B5A19</color>
-    <color name="bronzetone">#533C10</color>
-    <color name="bush">#0F3A2B</color>
-    <color name="bronze">#421F0A</color>
+    <color name="gray_70">#EEEEEE</color>
+    <color name="gray_410">#979797</color>
+    <color name="crimson_red" type="material">#CF2A2A</color>
+    <color name="yellow_ocher" type="material">#DF9527</color>
 </resources>
