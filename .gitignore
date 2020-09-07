@@ -108,3 +108,5 @@ node_modules/
 
 ## Test coverage
 coverage/
+test/
+

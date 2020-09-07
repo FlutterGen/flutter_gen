@@ -10,6 +10,9 @@
   <a href="https://github.com/FlutterGen/flutter_gen/actions?query=workflow%3A%22Flutter+CI%22">
     <img src="https://github.com/FlutterGen/flutter_gen/workflows/Flutter%20CI/badge.svg?branch=master" />
   </a>
+  <a href="https://codecov.io/gh/FlutterGen/flutter_gen">
+    <img src="https://codecov.io/gh/FlutterGen/flutter_gen/branch/master/graph/badge.svg" />
+  </a>
 </p>
 
 The Flutter code generator for your assets, fonts, colors, … — Get rid of all String-based APIs.

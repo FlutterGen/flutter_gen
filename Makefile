@@ -26,6 +26,10 @@ run-example:
 unit-test:
 	pub run test
 
+coverage:
+	pub run test_coverage --no-badge
+	./scripts/codecov.sh ${CODECOV_TOKEN}
+
 setup-ubuntu:
 	sudo apt-get update
 	sudo apt-get install apt-transport-https

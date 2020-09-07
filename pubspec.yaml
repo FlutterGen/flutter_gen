@@ -27,5 +27,6 @@ dependencies:
 
 dev_dependencies:
   test:
+  test_coverage:
   pedantic:
   build_test:
