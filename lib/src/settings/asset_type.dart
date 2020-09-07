@@ -3,17 +3,15 @@ import 'package:path/path.dart';
 
 /// https://github.com/dart-lang/mime/blob/master/lib/src/default_extension_map.dart
 class AssetType {
-  AssetType(this._path);
+  AssetType(this.path);
 
-  final String _path;
+  final String path;
 
   final List<AssetType> _children = List.empty(growable: true);
 
-  String get path => _path;
+  bool get isDefaultAssetsDirectory => path == 'assets' || path == 'asset';
 
-  bool get isDefaultAssetsDirectory => _path == 'assets' || _path == 'asset';
-
-  String get mime => lookupMimeType(_path);
+  String get mime => lookupMimeType(path);
 
   /// https://api.flutter.dev/flutter/widgets/Image-class.html
   bool get isSupportedImage {
@@ -32,7 +30,7 @@ class AssetType {
 
   bool get isUnKnownMime => mime == null;
 
-  String get baseName => basenameWithoutExtension(_path);
+  String get baseName => basenameWithoutExtension(path);
 
   List<AssetType> get children => _children;
 

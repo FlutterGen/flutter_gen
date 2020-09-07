@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter_gen/src/settings/config.dart';
-import 'package:flutter_gen/src/settings/flutterGen/flutter_gen_colors.dart';
-import 'package:flutter_gen/src/settings/flutterGen/flutter_gen_integrations.dart';
 import 'package:flutter_gen/src/utils/cast.dart';
 import 'package:yaml/yaml.dart';
 
@@ -10,10 +8,10 @@ class FlutterGen {
   FlutterGen(YamlMap flutterGenMap) {
     if (flutterGenMap != null) {
       _output = safeCast<String>(flutterGenMap['output']);
-      _integrations = FlutterGenIntegrations(
+      integrations = FlutterGenIntegrations(
           safeCast<YamlMap>(flutterGenMap['integrations']));
       _lineLength = safeCast<int>(flutterGenMap['lineLength']);
-      _colors = FlutterGenColors(safeCast<YamlMap>(flutterGenMap['colors']));
+      colors = FlutterGenColors(safeCast<YamlMap>(flutterGenMap['colors']));
     }
   }
 
@@ -28,15 +26,37 @@ class FlutterGen {
 
   int get lineLength => _lineLength ?? Config.DEFAULT_LINE_LENGTH;
 
-  FlutterGenIntegrations _integrations;
-
-  FlutterGenIntegrations get integrations => _integrations;
+  FlutterGenIntegrations integrations;
 
   bool get hasIntegrations => integrations != null;
 
-  FlutterGenColors _colors;
-
-  FlutterGenColors get colors => _colors;
+  FlutterGenColors colors;
 
   bool get hasColors => colors != null;
+}
+
+class FlutterGenColors {
+  FlutterGenColors(YamlMap flutterGenMap) {
+    if (flutterGenMap != null) {
+      inputs = safeCast<YamlList>(flutterGenMap['inputs']);
+    }
+  }
+
+  YamlList inputs;
+
+  bool get hasInputs => inputs != null && inputs.isNotEmpty;
+}
+
+class FlutterGenIntegrations {
+  FlutterGenIntegrations(YamlMap flutterGenMap) {
+    if (flutterGenMap != null) {
+      _flutterSvg = safeCast<bool>(flutterGenMap['flutter_svg']);
+    }
+  }
+
+  bool _flutterSvg;
+
+  bool get flutterSvg => _flutterSvg ?? false;
+
+  bool get hasFlutterSvg => flutterSvg;
 }
