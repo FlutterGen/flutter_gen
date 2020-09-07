@@ -10,10 +10,10 @@ class FlutterGen {
   FlutterGen(YamlMap flutterGenMap) {
     if (flutterGenMap != null) {
       _output = safeCast<String>(flutterGenMap['output']);
-      _integrations = FlutterGenIntegrations(
+      integrations = FlutterGenIntegrations(
           safeCast<YamlMap>(flutterGenMap['integrations']));
       _lineLength = safeCast<int>(flutterGenMap['lineLength']);
-      _colors = FlutterGenColors(safeCast<YamlMap>(flutterGenMap['colors']));
+      colors = FlutterGenColors(safeCast<YamlMap>(flutterGenMap['colors']));
     }
   }
 
@@ -28,15 +28,11 @@ class FlutterGen {
 
   int get lineLength => _lineLength ?? Config.DEFAULT_LINE_LENGTH;
 
-  FlutterGenIntegrations _integrations;
-
-  FlutterGenIntegrations get integrations => _integrations;
+  FlutterGenIntegrations integrations;
 
   bool get hasIntegrations => integrations != null;
 
-  FlutterGenColors _colors;
-
-  FlutterGenColors get colors => _colors;
+  FlutterGenColors colors;
 
   bool get hasColors => colors != null;
 }

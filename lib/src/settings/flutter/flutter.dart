@@ -6,20 +6,16 @@ import 'package:yaml/yaml.dart';
 class Flutter {
   Flutter(YamlMap flutterMap) {
     if (flutterMap != null) {
-      _assets = FlutterAssets(safeCast<YamlList>(flutterMap['assets']));
-      _fonts = FlutterFonts(safeCast<YamlList>(flutterMap['fonts']));
+      assets = FlutterAssets(safeCast<YamlList>(flutterMap['assets']));
+      fonts = FlutterFonts(safeCast<YamlList>(flutterMap['fonts']));
     }
   }
 
-  FlutterAssets _assets;
+  FlutterAssets assets;
 
-  FlutterAssets get assets => _assets;
+  FlutterFonts fonts;
 
-  FlutterFonts _fonts;
+  bool get hasAssets => assets != null && assets.hasAssets;
 
-  FlutterFonts get fonts => _fonts;
-
-  bool get hasAssets => _assets != null && _assets.hasAssets;
-
-  bool get hasFonts => _fonts != null && _fonts.hasFonts;
+  bool get hasFonts => fonts != null && fonts.hasFonts;
 }

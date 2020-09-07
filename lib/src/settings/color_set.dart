@@ -3,9 +3,9 @@ import 'package:xml/xml.dart';
 /// https://github.com/dart-lang/mime/blob/master/lib/src/default_extension_map.dart
 class Color {
   const Color(
-    this._name,
-    this._type,
-    this._hex,
+    this.name,
+    this.type,
+    this.hex,
   );
 
   Color.fromXmlElement(XmlElement element)
@@ -15,15 +15,9 @@ class Color {
           element.text,
         );
 
-  final String _name;
+  final String name;
 
-  String get name => _name;
+  final String hex;
 
-  final String _hex;
-
-  String get hex => _hex;
-
-  final String _type;
-
-  String get type => _type;
+  final String type;
 }

@@ -4,13 +4,11 @@ import 'package:yaml/yaml.dart';
 class FlutterGenColors {
   FlutterGenColors(YamlMap flutterGenMap) {
     if (flutterGenMap != null) {
-      _inputs = safeCast<YamlList>(flutterGenMap['inputs']);
+      inputs = safeCast<YamlList>(flutterGenMap['inputs']);
     }
   }
 
-  YamlList _inputs;
+  YamlList inputs;
 
-  YamlList get inputs => _inputs;
-
-  bool get hasInputs => _inputs != null && _inputs.isNotEmpty;
+  bool get hasInputs => inputs != null && inputs.isNotEmpty;
 }

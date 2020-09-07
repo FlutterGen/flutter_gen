@@ -4,15 +4,13 @@ import 'package:mime/mime.dart';
 
 /// https://github.com/dart-lang/mime/blob/master/lib/src/default_extension_map.dart
 class ColorPath {
-  const ColorPath(this._path);
+  const ColorPath(this.path);
 
-  final String _path;
+  final String path;
 
-  String get path => _path;
+  File get file => File(path);
 
-  File get file => File(_path);
-
-  String get mime => lookupMimeType(_path);
+  String get mime => lookupMimeType(path);
 
   /// https://api.flutter.dev/flutter/widgets/Image-class.html
   bool get isXml => mime == 'application/xml';
@@ -23,9 +21,9 @@ class ColorPath {
       identical(this, other) ||
       other is ColorPath &&
           runtimeType == other.runtimeType &&
-          _path == other._path;
+          path == other.path;
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => _path.hashCode;
+  int get hashCode => path.hashCode;
 }
