@@ -65,6 +65,7 @@ jobs:
       - name: Run tests for our flutter project.
         run: |
           make unit-test
+          make coverage
 
       - name: Build
         run: |
