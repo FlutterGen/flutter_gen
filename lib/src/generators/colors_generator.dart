@@ -4,7 +4,6 @@ import 'package:dart_style/dart_style.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter_gen/src/generators/generator_helper.dart';
 import 'package:flutter_gen/src/settings/color_path.dart';
-import 'package:flutter_gen/src/settings/color_set.dart';
 import 'package:flutter_gen/src/settings/flutter_gen.dart';
 import 'package:flutter_gen/src/utils/camel_case.dart';
 import 'package:flutter_gen/src/utils/color.dart';
@@ -27,7 +26,7 @@ String generateColors(
   buffer.writeln('  ColorName._();');
   buffer.writeln();
 
-  final colorList = <Color>[];
+  final colorList = <_Color>[];
   colors.inputs
       .cast<String>()
       .map((file) => ColorPath(join(pubspecFile.parent.path, file)))
@@ -36,7 +35,7 @@ String generateColors(
     if (colorFile.isXml) {
       colorList.addAll(
           XmlDocument.parse(data).findAllElements('color').map((element) {
-        return Color.fromXmlElement(element);
+        return _Color.fromXmlElement(element);
       }));
     } else {
       throw 'Not supported file type ${colorFile.mime}.';
@@ -45,14 +44,14 @@ String generateColors(
 
   colorList
       .distinctBy((color) => color.hex)
-      .map(_colorToStatement)
+      .map(_colorStatement)
       .forEach(buffer.writeln);
 
   buffer.writeln('}');
   return formatter.format(buffer.toString());
 }
 
-String _colorToStatement(Color color) {
+String _colorStatement(_Color color) {
   final hex = colorFromHex(color.hex);
   if (color.type == 'material') {
     final swatch = swatchFromPrimaryHex(hex);
@@ -67,4 +66,25 @@ String _colorToStatement(Color color) {
     return '  static const Color ${color.name.camelCase()} = Color($hex);';
   }
   throw 'Not supported color type ${color.type}.';
+}
+
+class _Color {
+  const _Color(
+    this.name,
+    this.type,
+    this.hex,
+  );
+
+  _Color.fromXmlElement(XmlElement element)
+      : this(
+          element.getAttribute('name'),
+          element.getAttribute('type'),
+          element.text,
+        );
+
+  final String name;
+
+  final String hex;
+
+  final String type;
 }
