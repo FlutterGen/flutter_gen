@@ -194,7 +194,7 @@ Widget build(BuildContext context) {
 
 ```
 
-If you are using SVG images with flutter_svg you can use the integration feature.
+If you are using SVG images with [flutter_svg](https://pub.dev/packages/flutter_svg) you can use the integration feature.
 
 ```yaml
 # pubspec.yaml
