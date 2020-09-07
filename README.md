@@ -205,7 +205,7 @@ flutter_gen:
 
 flutter:
   assets:
-    - assets/json/fruits.json
+    - assets/images/icons/paint.svg
 ```
 
 ```dart
