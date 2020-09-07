@@ -24,11 +24,11 @@ String generateAssets(File pubspecFile, DartFormatter formatter,
       _constructAssetTree(assetRelativePathList).children);
   final assetsStaticStatements = <_Statement>[];
 
-  final integrations = <Integration, bool>{};
+  final integrations = <Integration>[];
   if (flutterGen != null &&
       flutterGen.hasIntegrations &&
       flutterGen.integrations.hasFlutterSvg) {
-    integrations.putIfAbsent(SvgIntegration(), () => false);
+    integrations.add(SvgIntegration());
   }
 
   while (assetTypeQueue.isNotEmpty) {
@@ -64,11 +64,11 @@ String generateAssets(File pubspecFile, DartFormatter formatter,
   classesBuffer.writeln(_assetGenImageClassDefinition);
 
   final imports = <String>{'package:flutter/widgets.dart'};
-  integrations.forEach((integration, enabled) {
-    if (enabled) {
-      imports.addAll(integration.requiredImports);
-      classesBuffer.writeln(integration.classOutput);
-    }
+  integrations
+      .where((integration) => integration.isEnabled)
+      .forEach((integration) {
+    imports.addAll(integration.requiredImports);
+    classesBuffer.writeln(integration.classOutput);
   });
   for (final package in imports) {
     importsBuffer.writeln(import(package));
@@ -125,8 +125,8 @@ AssetType _constructAssetTree(List<String> assetRelativePathList) {
   return assetTypeMap['.'];
 }
 
-List<_Statement> _createDirectoryClassGenStatements(File pubspecFile,
-    AssetType assetType, Map<Integration, bool> integrations) {
+List<_Statement> _createDirectoryClassGenStatements(
+    File pubspecFile, AssetType assetType, List<Integration> integrations) {
   final statements = assetType.children
       .map((child) {
         final childAssetAbsolutePath =
@@ -148,9 +148,9 @@ List<_Statement> _createDirectoryClassGenStatements(File pubspecFile,
             isConstConstructor: true,
           );
         } else if (!child.isUnKnownMime) {
-          for (final integration in integrations.keys) {
+          for (final integration in integrations) {
             if (integration.mime == child.mime) {
-              integrations[integration] = true;
+              integration.isEnabled = true;
               statement = _Statement(
                 type: integration.className,
                 name: child.baseName.camelCase(),
