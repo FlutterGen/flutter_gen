@@ -10,7 +10,7 @@ String generateFonts(DartFormatter formatter, FlutterFonts fonts) {
       throw 'The value of "flutter/fonts:" is incorrect.');
 
   final buffer = StringBuffer();
-  buffer.writeln(header());
+  buffer.writeln(header);
   buffer.writeln('class FontFamily {');
   buffer.writeln('  FontFamily._();');
   buffer.writeln();

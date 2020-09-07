@@ -4,8 +4,6 @@
 /// *****************************************************
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter/services.dart';
 
 class $PicturesGen {
   const $PicturesGen();
@@ -48,10 +46,9 @@ class $AssetsImagesChip4Gen {
 class $AssetsImagesIconsGen {
   const $AssetsImagesIconsGen();
 
-  SvgGenImage get fuchsia =>
-      const SvgGenImage('assets/images/icons/fuchsia.svg');
-  SvgGenImage get kmm => const SvgGenImage('assets/images/icons/kmm.svg');
-  SvgGenImage get paint => const SvgGenImage('assets/images/icons/paint.svg');
+  String get fuchsia => 'assets/images/icons/fuchsia.svg';
+  String get kmm => 'assets/images/icons/kmm.svg';
+  String get paint => 'assets/images/icons/paint.svg';
 }
 
 class Assets {
@@ -106,36 +103,6 @@ class AssetGenImage extends AssetImage {
       gaplessPlayback: gaplessPlayback,
       isAntiAlias: isAntiAlias,
       filterQuality: filterQuality,
-    );
-  }
-
-  String get path => _assetName;
-}
-
-class SvgGenImage {
-  const SvgGenImage(this._assetName);
-
-  final String _assetName;
-
-  SvgPicture svg({
-    bool matchTextDirection = false,
-    AssetBundle bundle,
-    String package,
-    double width,
-    double height,
-    BoxFit fit = BoxFit.contain,
-    AlignmentGeometry alignment = Alignment.center,
-    bool allowDrawingOutsideViewBox = false,
-    WidgetBuilder placeholderBuilder,
-    Color color,
-    BlendMode colorBlendMode = BlendMode.srcIn,
-    String semanticsLabel,
-    bool excludeFromSemantics = false,
-    Clip clipBehavior = Clip.hardEdge,
-  }) {
-    return SvgPicture.asset(
-      _assetName,
-      matchTextDirection: matchTextDirection,
     );
   }
 

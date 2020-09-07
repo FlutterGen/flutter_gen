@@ -97,7 +97,7 @@ void main() {
 
     test('Wrong output path', () async {
       await FlutterGenerator(
-          File('test_resources/pubspec_wrong_output_path.yaml'))
+              File('test_resources/pubspec_wrong_output_path.yaml'))
           .build();
       expect(
         File('test_resources/lib/gen/assets.gen.dart').readAsStringSync(),
@@ -115,7 +115,7 @@ void main() {
 
     test('Wrong lineLength', () async {
       await FlutterGenerator(
-          File('test_resources/pubspec_wrong_line_length.yaml'))
+              File('test_resources/pubspec_wrong_line_length.yaml'))
           .build();
       expect(
         File('test_resources/lib/gen/assets.gen.dart').readAsStringSync(),
@@ -133,12 +133,27 @@ void main() {
 
     test('Assets on pubspec.yaml', () async {
       final pubspec = File('test_resources/pubspec_assets.yaml');
+      final pubstri = pubspec.readAsStringSync();
       final config = await Config(pubspec).load();
       final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength);
 
-      final actual = generateAssets(pubspec, formatter, config.flutter.assets);
+      final actual = generateAssets(
+          pubspec, formatter, config.flutterGen, config.flutter.assets);
       final expected =
-          File('test_resources/actual_data/assets.gen.dart').readAsStringSync();
+      File('test_resources/actual_data/assets.gen.dart').readAsStringSync();
+
+      expect(actual, expected);
+    });
+
+    test('Assets with No inegrations on pubspec.yaml', () async {
+      final pubspec = File('test_resources/pubspec_assets_no_integrations.yaml');
+      final config = await Config(pubspec).load();
+      final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength);
+
+      final actual = generateAssets(
+          pubspec, formatter, config.flutterGen, config.flutter.assets);
+      final expected =
+          File('test_resources/actual_data/assets_no_integrations.gen.dart').readAsStringSync();
 
       expect(actual, expected);
     });

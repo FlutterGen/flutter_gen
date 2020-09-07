@@ -17,27 +17,36 @@ void main() {
         title: const Text('FlutterGen'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // Auto generated image from FlutterGen.
-            Image(image: Assets.images.chip1),
-            Assets.pictures.chip5.image(
-              width: 120,
-              height: 120,
-              fit: BoxFit.scaleDown,
-            ),
-            const Text(
-              'Hi there, I\'m FlutterGen',
-              style: TextStyle(
-                // Auto generated color from FlutterGen.
-                color: ColorName.black60,
-                // Auto generated font from FlutterGen.
-                fontFamily: FontFamily.robotoMono,
-                fontFamilyFallback: [FontFamily.raleway],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              // Auto generated image from FlutterGen.
+              Image(image: Assets.images.chip1),
+              Assets.images.icons.kmm.svg(),
+              Assets.images.icons.fuchsia.svg(),
+              Assets.images.icons.paint.svg(
+                width: 120,
+                height: 120
               ),
-            ),
-          ],
+              Assets.pictures.chip5.image(
+                width: 120,
+                height: 120,
+                fit: BoxFit.scaleDown,
+              ),
+              const Text(
+                'Hi there, I\'m FlutterGen',
+                style: TextStyle(
+                  // Auto generated color from FlutterGen.
+                  color: ColorName.black60,
+
+                  // Auto generated font from FlutterGen.
+                  fontFamily: FontFamily.robotoMono,
+                  fontFamilyFallback: [FontFamily.raleway],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     ),

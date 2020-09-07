@@ -3,38 +3,48 @@ import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen/src/generators/generator_helper.dart';
+import 'package:flutter_gen/src/generators/integrations/integration.dart';
+import 'package:flutter_gen/src/generators/integrations/svg_integration.dart';
 import 'package:flutter_gen/src/settings/asset_type.dart';
 import 'package:flutter_gen/src/settings/flutter/flutter_assets.dart';
+import 'package:flutter_gen/src/settings/flutterGen/flutter_gen.dart';
 import 'package:flutter_gen/src/utils/camel_case.dart';
 import 'package:path/path.dart';
 
-String generateAssets(
-    File pubspecFile, DartFormatter formatter, FlutterAssets assets) {
+String generateAssets(File pubspecFile, DartFormatter formatter,
+    FlutterGen flutterGen, FlutterAssets assets) {
   assert(assets != null && assets.hasAssets,
       throw 'The value of "flutter/assets:" is incorrect.');
 
-  final buffer = StringBuffer();
-  buffer.writeln(header());
-  buffer.writeln(_assetGenImageClassDefinition);
+  final importsBuffer = StringBuffer();
+  final classesBuffer = StringBuffer();
 
   final assetRelativePathList = _getAssetRelativePathList(pubspecFile, assets);
   final assetTypeQueue = ListQueue<AssetType>.from(
       _constructAssetTree(assetRelativePathList).children);
   final assetsStaticStatements = <_Statement>[];
 
+  final integrations = <Integration>[];
+  if (flutterGen != null &&
+      flutterGen.hasIntegrations &&
+      flutterGen.integrations.hasFlutterSvg) {
+    integrations.add(SvgIntegration());
+  }
+
   while (assetTypeQueue.isNotEmpty) {
     final assetType = assetTypeQueue.removeFirst();
     final assetAbsolutePath = join(pubspecFile.parent.path, assetType.path);
 
     if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
-      final statements =
-          _createDirectoryClassGenStatements(pubspecFile, assetType);
+      final statements = _createDirectoryClassGenStatements(
+          pubspecFile, assetType, integrations);
 
       if (assetType.isDefaultAssetsDirectory) {
         assetsStaticStatements.addAll(statements);
       } else {
         final className = '\$${assetType.path.camelCase().capitalize()}Gen';
-        buffer.writeln(_directoryClassGenDefinition(className, statements));
+        classesBuffer
+            .writeln(_directoryClassGenDefinition(className, statements));
         // Add this directory reference to Assets class if we are not under the default asset folder
         if (dirname(assetType.path) == '.') {
           assetsStaticStatements.add(_Statement(
@@ -50,8 +60,24 @@ String generateAssets(
     }
   }
 
-  buffer.writeln(_assetsClassDefinition(assetsStaticStatements));
+  classesBuffer.writeln(_assetsClassDefinition(assetsStaticStatements));
+  classesBuffer.writeln(_assetGenImageClassDefinition);
 
+  final imports = <String>{'package:flutter/widgets.dart'};
+  integrations
+      .where((integration) => integration.isEnabled)
+      .forEach((integration) {
+    imports.addAll(integration.requiredImports);
+    classesBuffer.writeln(integration.classOutput);
+  });
+  for (final package in imports) {
+    importsBuffer.writeln(import(package));
+  }
+
+  final buffer = StringBuffer();
+  buffer.writeln(header);
+  buffer.writeln(importsBuffer.toString());
+  buffer.writeln(classesBuffer.toString());
   return formatter.format(buffer.toString());
 }
 
@@ -100,9 +126,7 @@ AssetType _constructAssetTree(List<String> assetRelativePathList) {
 }
 
 List<_Statement> _createDirectoryClassGenStatements(
-  File pubspecFile,
-  AssetType assetType,
-) {
+    File pubspecFile, AssetType assetType, List<Integration> integrations) {
   final statements = assetType.children
       .map((child) {
         final childAssetAbsolutePath =
@@ -124,12 +148,26 @@ List<_Statement> _createDirectoryClassGenStatements(
             isConstConstructor: true,
           );
         } else if (!child.isUnKnownMime) {
-          statement = _Statement(
-            type: 'String',
-            name: child.baseName.camelCase(),
-            value: '\'${child.path}\'',
-            isConstConstructor: false,
+          final integration = integrations.firstWhere(
+            (element) => element.mime == child.mime,
+            orElse: () => null,
           );
+          if (integration == null) {
+            statement ??= _Statement(
+              type: 'String',
+              name: child.baseName.camelCase(),
+              value: '\'${child.path}\'',
+              isConstConstructor: false,
+            );
+          } else {
+            integration.isEnabled = true;
+            statement = _Statement(
+              type: integration.className,
+              name: child.baseName.camelCase(),
+              value: integration.classInstantiate(child.path),
+              isConstConstructor: integration.isConstConstructor,
+            );
+          }
         }
         return statement;
       })
@@ -168,7 +206,6 @@ class $className {
 }
 
 const String _assetGenImageClassDefinition = '''
-import 'package:flutter/widgets.dart';
 
 class AssetGenImage extends AssetImage {
   const AssetGenImage(String assetName)

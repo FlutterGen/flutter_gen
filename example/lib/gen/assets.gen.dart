@@ -4,6 +4,63 @@
 /// *****************************************************
 
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
+
+class $PicturesGen {
+  const $PicturesGen();
+
+  AssetGenImage get chip5 => const AssetGenImage('pictures/chip5.jpg');
+}
+
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
+  AssetGenImage get chip1 => const AssetGenImage('assets/images/chip1.jpg');
+  AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
+  AssetGenImage get profile => const AssetGenImage('assets/images/profile.jpg');
+  $AssetsImagesChip3Gen get chip3 => const $AssetsImagesChip3Gen();
+  $AssetsImagesChip4Gen get chip4 => const $AssetsImagesChip4Gen();
+  $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
+}
+
+class $AssetsJsonGen {
+  const $AssetsJsonGen();
+
+  String get fruits => 'assets/json/fruits.json';
+}
+
+class $AssetsImagesChip3Gen {
+  const $AssetsImagesChip3Gen();
+
+  AssetGenImage get chip3 =>
+      const AssetGenImage('assets/images/chip3/chip3.jpg');
+}
+
+class $AssetsImagesChip4Gen {
+  const $AssetsImagesChip4Gen();
+
+  AssetGenImage get chip4 =>
+      const AssetGenImage('assets/images/chip4/chip4.jpg');
+}
+
+class $AssetsImagesIconsGen {
+  const $AssetsImagesIconsGen();
+
+  SvgGenImage get fuchsia =>
+      const SvgGenImage('assets/images/icons/fuchsia.svg');
+  SvgGenImage get kmm => const SvgGenImage('assets/images/icons/kmm.svg');
+  SvgGenImage get paint => const SvgGenImage('assets/images/icons/paint.svg');
+}
+
+class Assets {
+  Assets._();
+
+  static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsJsonGen json = $AssetsJsonGen();
+  static const $PicturesGen pictures = $PicturesGen();
+}
 
 class AssetGenImage extends AssetImage {
   const AssetGenImage(String assetName)
@@ -55,54 +112,32 @@ class AssetGenImage extends AssetImage {
   String get path => _assetName;
 }
 
-class $PicturesGen {
-  const $PicturesGen();
+class SvgGenImage {
+  const SvgGenImage(this._assetName);
 
-  AssetGenImage get chip5 => const AssetGenImage('pictures/chip5.jpg');
-}
+  final String _assetName;
 
-class $AssetsImagesGen {
-  const $AssetsImagesGen();
+  SvgPicture svg({
+    bool matchTextDirection = false,
+    AssetBundle bundle,
+    String package,
+    double width,
+    double height,
+    BoxFit fit = BoxFit.contain,
+    AlignmentGeometry alignment = Alignment.center,
+    bool allowDrawingOutsideViewBox = false,
+    WidgetBuilder placeholderBuilder,
+    Color color,
+    BlendMode colorBlendMode = BlendMode.srcIn,
+    String semanticsLabel,
+    bool excludeFromSemantics = false,
+    Clip clipBehavior = Clip.hardEdge,
+  }) {
+    return SvgPicture.asset(
+      _assetName,
+      matchTextDirection: matchTextDirection,
+    );
+  }
 
-  AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
-  AssetGenImage get chip1 => const AssetGenImage('assets/images/chip1.jpg');
-  AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
-  AssetGenImage get profile => const AssetGenImage('assets/images/profile.jpg');
-  $AssetsImagesChip3Gen get chip3 => const $AssetsImagesChip3Gen();
-  $AssetsImagesChip4Gen get chip4 => const $AssetsImagesChip4Gen();
-  $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
-}
-
-class $AssetsJsonGen {
-  const $AssetsJsonGen();
-
-  String get fruits => 'assets/json/fruits.json';
-}
-
-class $AssetsImagesChip3Gen {
-  const $AssetsImagesChip3Gen();
-
-  AssetGenImage get chip3 =>
-      const AssetGenImage('assets/images/chip3/chip3.jpg');
-}
-
-class $AssetsImagesChip4Gen {
-  const $AssetsImagesChip4Gen();
-
-  AssetGenImage get chip4 =>
-      const AssetGenImage('assets/images/chip4/chip4.jpg');
-}
-
-class $AssetsImagesIconsGen {
-  const $AssetsImagesIconsGen();
-
-  String get paint => 'assets/images/icons/paint.svg';
-}
-
-class Assets {
-  Assets._();
-
-  static const $AssetsImagesGen images = $AssetsImagesGen();
-  static const $AssetsJsonGen json = $AssetsJsonGen();
-  static const $PicturesGen pictures = $PicturesGen();
+  String get path => _assetName;
 }

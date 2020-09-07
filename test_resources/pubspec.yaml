@@ -2,7 +2,10 @@ name: example
 
 flutter_gen:
   output: lib/gen/
-  lineLength: 80   # Optional (default: 80)
+  lineLength: 80
+
+  integrations:
+    flutter_svg: true
 
   colors:
     inputs:
@@ -17,6 +20,8 @@ flutter:
     - assets/images/chip3/chip3.jpg
     - assets/images/chip3/chip3.jpg # duplicated
     - assets/images/chip4/
+    - assets/images/icons/fuchsia.svg
+    - assets/images/icons/kmm.svg
     - assets/images/icons/paint.svg
     - assets/json/fruits.json
     - pictures/chip5.jpg
