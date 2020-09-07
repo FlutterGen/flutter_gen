@@ -554,7 +554,6 @@ and open a [pull request](https://github.com/wasabeef/flutter_gen/pulls).
 - [x] Assets generation
 - [x] Fonts generation
 - [x] Colors generation
-  - [x] Support json
   - [x] Support xml
   - [ ] Support clr?
 - [x] Support change output path
