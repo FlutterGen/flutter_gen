@@ -1,14 +1,14 @@
 <p align="center">
   <a href="https://pub.dev/packages/flutter_gen">
-    <img src="./art/logo.png" width="480px"/>
+    <img src="https://github.com/FlutterGen/flutter_gen/raw/main/art/logo.png" width="480px"/>
   </a>
 </p>
 <p align="center">
   <a href="https://pub.dartlang.org/packages/flutter_gen">
     <img src="https://img.shields.io/pub/v/flutter_gen.svg">
   </a>
-  <a href="https://github.com/wasabeef/flutter_gen/actions?query=workflow%3A%22Flutter+CI%22">
-    <img src="https://github.com/wasabeef/flutter_gen/workflows/Flutter%20CI/badge.svg?branch=master" />
+  <a href="https://github.com/FlutterGen/flutter_gen/actions?query=workflow%3A%22Flutter+CI%22">
+    <img src="https://github.com/FlutterGen/flutter_gen/workflows/Flutter%20CI/badge.svg?branch=master" />
   </a>
 </p>
 
@@ -536,7 +536,7 @@ class ColorName {
 
 ## Issues
 
-Please file [FlutterGen] specific issues, bugs, or feature requests in our [issue tracker](https://github.com/wasabeef/flutter_gen/issues/new).
+Please file [FlutterGen] specific issues, bugs, or feature requests in our [issue tracker](https://github.com/FlutterGen/flutter_gen/issues/new).
 
 Plugin issues that are not specific to [FlutterGen] can be filed in the [Flutter issue tracker](https://github.com/flutter/flutter/issues/new).
 
@@ -545,8 +545,8 @@ Plugin issues that are not specific to [FlutterGen] can be filed in the [Flutter
 **We are looking for co-developers.**
 
 If you wish to contribute a change to any of the existing plugins in this repo,
-please review our [contribution guide](https://github.com/wasabeef/flutter_gen/blob/master/CONTRIBUTING.md)
-and open a [pull request](https://github.com/wasabeef/flutter_gen/pulls).
+please review our [contribution guide](https://github.com/FlutterGen/flutter_gen/blob/master/CONTRIBUTING.md)
+and open a [pull request](https://github.com/FlutterGen/flutter_gen/pulls).
 
 ### Milestone
 

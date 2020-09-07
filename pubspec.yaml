@@ -1,10 +1,10 @@
 name: flutter_gen
 description: The Flutter code generator for your assets, fonts, colors, … — Get rid of all String-based APIs.
-version: 0.0.21
-komepage: https://github.com/wasabeef/flutter_gen
-repository: https://github.com/wasabeef/flutter_gen
-documentation: https://github.com/wasabeef/flutter_gen
-issue_tracker: https://github.com/wasabeef/flutter_gen/issues
+version: 1.0.0
+komepage: https://github.com/FlutterGen/flutter_gen
+repository: https://github.com/FlutterGen/flutter_gen
+documentation: https://github.com/FlutterGen/flutter_gen
+issue_tracker: https://github.com/FlutterGen/flutter_gen/issues
 authors:
   - Daichi Furiya <dadadada.chop@gmail.com>
   - Mao Yufeng <lcdsmao@gmail.com>
