@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter_gen/src/settings/config.dart';
-import 'package:flutter_gen/src/settings/flutter_gen/flutter_gen_colors.dart';
-import 'package:flutter_gen/src/settings/flutter_gen/flutter_gen_integrations.dart';
 import 'package:flutter_gen/src/utils/cast.dart';
 import 'package:yaml/yaml.dart';
 
@@ -35,4 +33,30 @@ class FlutterGen {
   FlutterGenColors colors;
 
   bool get hasColors => colors != null;
+}
+
+class FlutterGenColors {
+  FlutterGenColors(YamlMap flutterGenMap) {
+    if (flutterGenMap != null) {
+      inputs = safeCast<YamlList>(flutterGenMap['inputs']);
+    }
+  }
+
+  YamlList inputs;
+
+  bool get hasInputs => inputs != null && inputs.isNotEmpty;
+}
+
+class FlutterGenIntegrations {
+  FlutterGenIntegrations(YamlMap flutterGenMap) {
+    if (flutterGenMap != null) {
+      _flutterSvg = safeCast<bool>(flutterGenMap['flutter_svg']);
+    }
+  }
+
+  bool _flutterSvg;
+
+  bool get flutterSvg => _flutterSvg ?? false;
+
+  bool get hasFlutterSvg => flutterSvg;
 }
