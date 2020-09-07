@@ -5,7 +5,7 @@ flutter_gen:
   lineLength: 80
 
   integrations:
-    flutter_gen: true
+    flutter_svg: true
 
   colors:
     inputs:
