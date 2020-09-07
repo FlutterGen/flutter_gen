@@ -148,23 +148,26 @@ List<_Statement> _createDirectoryClassGenStatements(
             isConstConstructor: true,
           );
         } else if (!child.isUnKnownMime) {
-          for (final integration in integrations) {
-            if (integration.mime == child.mime) {
-              integration.isEnabled = true;
-              statement = _Statement(
-                type: integration.className,
-                name: child.baseName.camelCase(),
-                value: integration.classInstantiate(child.path),
-                isConstConstructor: integration.isConstConstructor,
-              );
-            }
-          }
-          statement ??= _Statement(
-            type: 'String',
-            name: child.baseName.camelCase(),
-            value: '\'${child.path}\'',
-            isConstConstructor: false,
+          final integration = integrations.firstWhere(
+            (element) => element.mime == child.mime,
+            orElse: () => null,
           );
+          if (integration == null) {
+            statement ??= _Statement(
+              type: 'String',
+              name: child.baseName.camelCase(),
+              value: '\'${child.path}\'',
+              isConstConstructor: false,
+            );
+          } else {
+            integration.isEnabled = true;
+            statement = _Statement(
+              type: integration.className,
+              name: child.baseName.camelCase(),
+              value: integration.classInstantiate(child.path),
+              isConstConstructor: integration.isConstConstructor,
+            );
+          }
         }
         return statement;
       })
