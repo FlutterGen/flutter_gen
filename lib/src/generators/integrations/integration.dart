@@ -1,5 +1,4 @@
 abstract class Integration {
-
   bool isEnabled = false;
 
   List<String> get requiredImports;
