@@ -112,7 +112,7 @@ packages:
       name: coverage
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.14.0"
+    version: "0.13.11"
   crypto:
     dependency: transitive
     description:
@@ -204,6 +204,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+  lcov:
+    dependency: transitive
+    description:
+      name: lcov
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.7.0"
   logging:
     dependency: transitive
     description:
@@ -407,6 +414,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.11"
+  test_coverage:
+    dependency: "direct dev"
+    description:
+      name: test_coverage
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.3"
   time:
     dependency: transitive
     description:
