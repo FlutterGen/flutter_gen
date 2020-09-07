@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_gen/src/settings/flutter/flutter.dart';
-import 'package:flutter_gen/src/settings/flutterGen/flutter_gen.dart';
+import 'package:flutter_gen/src/settings/flutter_gen/flutter_gen.dart';
 import 'package:flutter_gen/src/utils/cast.dart';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';

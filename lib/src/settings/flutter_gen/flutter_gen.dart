@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter_gen/src/settings/config.dart';
-import 'package:flutter_gen/src/settings/flutterGen/flutter_gen_colors.dart';
-import 'package:flutter_gen/src/settings/flutterGen/flutter_gen_integrations.dart';
+import 'package:flutter_gen/src/settings/flutter_gen/flutter_gen_colors.dart';
+import 'package:flutter_gen/src/settings/flutter_gen/flutter_gen_integrations.dart';
 import 'package:flutter_gen/src/utils/cast.dart';
 import 'package:yaml/yaml.dart';
 

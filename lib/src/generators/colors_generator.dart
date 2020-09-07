@@ -5,7 +5,7 @@ import 'package:dartx/dartx.dart';
 import 'package:flutter_gen/src/generators/generator_helper.dart';
 import 'package:flutter_gen/src/settings/color_path.dart';
 import 'package:flutter_gen/src/settings/color_set.dart';
-import 'package:flutter_gen/src/settings/flutterGen/flutter_gen_colors.dart';
+import 'package:flutter_gen/src/settings/flutter_gen/flutter_gen_colors.dart';
 import 'package:flutter_gen/src/utils/camel_case.dart';
 import 'package:flutter_gen/src/utils/color.dart';
 import 'package:path/path.dart';
