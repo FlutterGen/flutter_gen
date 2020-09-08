@@ -564,6 +564,7 @@ and open a [pull request](https://github.com/FlutterGen/flutter_gen/pulls).
        'assets/image/home/label.png' => Assets.image.home.label  
        'assets/image/detail/label.png' => Assets.image.detail.label
 - [ ] Platforms channels generation
+- [ ] Improve Windows support.
 
 [build_runner]: https://pub.dev/packages/build_runner
 [fluttergen]: https://pub.dev/packages/flutter_gen
