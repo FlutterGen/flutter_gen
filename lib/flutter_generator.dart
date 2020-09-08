@@ -52,8 +52,8 @@ class FlutterGenerator {
       if (config.flutterGen.hasColors) {
         final generated =
             generateColors(pubspecFile, formatter, config.flutterGen.colors);
-        final colors =
-            File(normalize(join(pubspecFile.parent.path, output, 'colors.gen.dart')));
+        final colors = File(normalize(
+            join(pubspecFile.parent.path, output, 'colors.gen.dart')));
         writeAsString(generated, file: colors);
         print('Generated: ${colors.absolute.path}');
       }
@@ -65,16 +65,16 @@ class FlutterGenerator {
       if (config.flutter.hasAssets) {
         final generated = generateAssets(
             pubspecFile, formatter, config.flutterGen, config.flutter.assets);
-        final assets =
-            File(normalize(join(pubspecFile.parent.path, output, 'assets.gen.dart')));
+        final assets = File(normalize(
+            join(pubspecFile.parent.path, output, 'assets.gen.dart')));
         writeAsString(generated, file: assets);
         print('Generated: ${assets.absolute.path}');
       }
 
       if (config.flutter.hasFonts) {
         final generated = generateFonts(formatter, config.flutter.fonts);
-        final fonts =
-            File(normalize(join(pubspecFile.parent.path, output, 'fonts.gen.dart')));
+        final fonts = File(
+            normalize(join(pubspecFile.parent.path, output, 'fonts.gen.dart')));
         writeAsString(generated, file: fonts);
         print('Generated: ${fonts.absolute.path}');
       }
