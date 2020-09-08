@@ -16,13 +16,13 @@ class $PicturesGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
   AssetGenImage get chip1 => const AssetGenImage('assets/images/chip1.jpg');
-  AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
-  AssetGenImage get profile => const AssetGenImage('assets/images/profile.jpg');
+  AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
   $AssetsImagesChip3Gen get chip3 => const $AssetsImagesChip3Gen();
   $AssetsImagesChip4Gen get chip4 => const $AssetsImagesChip4Gen();
   $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
+  AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
+  AssetGenImage get profile => const AssetGenImage('assets/images/profile.jpg');
 }
 
 class $AssetsJsonGen {

@@ -9,10 +9,11 @@ import 'package:flutter/material.dart';
 class ColorName {
   ColorName._();
 
-  static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
-  static const Color gray70 = Color(0xFFEEEEEE);
-  static const Color gray410 = Color(0xFF979797);
+  static const Color black30 = Color(0x4D000000);
+  static const Color black40 = Color(0x66000000);
+  static const Color black50 = Color(0x80000000);
+  static const Color black60 = Color(0x99000000);
   static const MaterialColor crimsonRed = MaterialColor(
     0xFFCF2A2A,
     <int, Color>{
@@ -28,6 +29,9 @@ class ColorName {
       900: Color(0xFFB20F0F),
     },
   );
+  static const Color gray410 = Color(0xFF979797);
+  static const Color gray70 = Color(0xFFEEEEEE);
+  static const Color white = Color(0xFFFFFFFF);
   static const MaterialColor yellowOcher = MaterialColor(
     0xFFDF9527,
     <int, Color>{
@@ -43,8 +47,4 @@ class ColorName {
       900: Color(0xFFCA670E),
     },
   );
-  static const Color black30 = Color(0x4D000000);
-  static const Color black40 = Color(0x66000000);
-  static const Color black50 = Color(0x80000000);
-  static const Color black60 = Color(0x99000000);
 }

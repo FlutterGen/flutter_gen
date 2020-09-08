@@ -1,5 +1,6 @@
 import 'package:mime/mime.dart';
 import 'package:path/path.dart';
+import 'package:dartx/dartx.dart';
 
 /// https://github.com/dart-lang/mime/blob/master/lib/src/default_extension_map.dart
 class AssetType {
@@ -32,7 +33,7 @@ class AssetType {
 
   String get baseName => basenameWithoutExtension(path);
 
-  List<AssetType> get children => _children;
+  List<AssetType> get children => _children.sortedBy((e) => e.path);
 
   void addChild(AssetType type) {
     _children.add(type);

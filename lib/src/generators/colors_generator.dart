@@ -43,7 +43,8 @@ String generateColors(
   });
 
   colorList
-      .distinctBy((color) => color.hex)
+      .distinctBy((color) => color.name)
+      .sortedBy((color) => color.name)
       .map(_colorStatement)
       .forEach(buffer.writeln);
 
