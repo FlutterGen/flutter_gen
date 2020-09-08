@@ -11,7 +11,7 @@
     <img src="https://github.com/FlutterGen/flutter_gen/workflows/Flutter%20CI/badge.svg?branch=master" />
   </a>
   <a href="https://codecov.io/gh/FlutterGen/flutter_gen">
-    <img src="https://codecov.io/gh/FlutterGen/flutter_gen/branch/master/graph/badge.svg" />
+    <img src="https://codecov.io/gh/FlutterGen/flutter_gen/branch/main/graph/badge.svg" />
   </a>
 </p>
 
