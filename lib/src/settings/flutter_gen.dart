@@ -8,10 +8,14 @@ class FlutterGen {
   FlutterGen(YamlMap flutterGenMap) {
     if (flutterGenMap != null) {
       _output = safeCast<String>(flutterGenMap['output']);
-      integrations = FlutterGenIntegrations(
+      if (flutterGenMap.containsKey('integrations')) {
+        integrations = FlutterGenIntegrations(
           safeCast<YamlMap>(flutterGenMap['integrations']));
+      }
       _lineLength = safeCast<int>(flutterGenMap['lineLength']);
-      colors = FlutterGenColors(safeCast<YamlMap>(flutterGenMap['colors']));
+      if (flutterGenMap.containsKey('colors')) {
+        colors = FlutterGenColors(safeCast<YamlMap>(flutterGenMap['colors']));
+      }
     }
   }
 

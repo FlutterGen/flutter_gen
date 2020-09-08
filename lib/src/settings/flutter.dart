@@ -4,8 +4,12 @@ import 'package:yaml/yaml.dart';
 class Flutter {
   Flutter(YamlMap flutterMap) {
     if (flutterMap != null) {
-      assets = FlutterAssets(safeCast<YamlList>(flutterMap['assets']));
-      fonts = FlutterFonts(safeCast<YamlList>(flutterMap['fonts']));
+      if (flutterMap.containsKey('assets')) {
+        assets = FlutterAssets(safeCast<YamlList>(flutterMap['assets']));
+      }
+      if (flutterMap.containsKey('fonts')) {
+        fonts = FlutterFonts(safeCast<YamlList>(flutterMap['fonts']));
+      }
     }
   }
 

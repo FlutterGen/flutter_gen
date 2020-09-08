@@ -146,6 +146,14 @@ void main() {
     });
 
     test('Assets with No inegrations on pubspec.yaml', () async {
+      await FlutterGenerator(
+              File('test_resources/pubspec_assets_no_integrations.yaml'))
+          .build();
+      expect(
+        File('test_resources/lib/gen/assets.gen.dart').readAsStringSync(),
+        isNotEmpty,
+      );
+
       final pubspec = File('test_resources/pubspec_assets_no_integrations.yaml');
       final config = await Config(pubspec).load();
       final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength);
