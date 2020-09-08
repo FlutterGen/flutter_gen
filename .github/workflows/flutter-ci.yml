@@ -4,9 +4,7 @@ on:
   pull_request: { }
   push:
     branches:
-      - '*'
-    tags:
-      - '*'
+      - 'main'
 
 jobs:
   build:
