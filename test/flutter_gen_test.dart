@@ -1,3 +1,4 @@
+@TestOn('vm')
 import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
@@ -8,9 +9,6 @@ import 'package:flutter_gen/src/generators/fonts_generator.dart';
 import 'package:flutter_gen/src/settings/config.dart';
 import 'package:test/test.dart';
 
-Directory savedCurrentDirectory;
-
-@TestOn('vm')
 void main() {
   setUp(() {
     final dir = Directory('test_resources/lib/');
@@ -133,9 +131,8 @@ void main() {
 
     test('Assets on pubspec.yaml', () async {
       final pubspec = File('test_resources/pubspec_assets.yaml');
-      final pubstri = pubspec.readAsStringSync();
       final config = await Config(pubspec).load();
-      final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength);
+      final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
       final actual = generateAssets(
           pubspec, formatter, config.flutterGen, config.flutter.assets);
@@ -156,7 +153,7 @@ void main() {
 
       final pubspec = File('test_resources/pubspec_assets_no_integrations.yaml');
       final config = await Config(pubspec).load();
-      final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength);
+      final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
       final actual = generateAssets(
           pubspec, formatter, config.flutterGen, config.flutter.assets);
@@ -181,7 +178,7 @@ void main() {
     test('Colors on pubspec.yaml', () async {
       final pubspec = File('test_resources/pubspec_colors.yaml');
       final config = await Config(pubspec).load();
-      final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength);
+      final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
       final actual =
           generateColors(pubspec, formatter, config.flutterGen.colors);
