@@ -132,12 +132,14 @@ void main() {
     test('Assets on pubspec.yaml', () async {
       final pubspec = File('test_resources/pubspec_assets.yaml');
       final config = await Config(pubspec).load();
-      final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
+      final formatter = DartFormatter(
+          pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
       final actual = generateAssets(
           pubspec, formatter, config.flutterGen, config.flutter.assets);
-      final expected =
-      File('test_resources/actual_data/assets.gen.dart').readAsStringSync();
+      final expected = File('test_resources/actual_data/assets.gen.dart')
+          .readAsStringSync()
+          .replaceAll('\r\n', '\n');
 
       expect(actual, expected);
     });
@@ -151,14 +153,18 @@ void main() {
         isNotEmpty,
       );
 
-      final pubspec = File('test_resources/pubspec_assets_no_integrations.yaml');
+      final pubspec =
+          File('test_resources/pubspec_assets_no_integrations.yaml');
       final config = await Config(pubspec).load();
-      final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
+      final formatter = DartFormatter(
+          pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
       final actual = generateAssets(
           pubspec, formatter, config.flutterGen, config.flutter.assets);
       final expected =
-          File('test_resources/actual_data/assets_no_integrations.gen.dart').readAsStringSync();
+          File('test_resources/actual_data/assets_no_integrations.gen.dart')
+              .readAsStringSync()
+              .replaceAll('\r\n', '\n');
 
       expect(actual, expected);
     });
@@ -166,11 +172,13 @@ void main() {
     test('Fonts on pubspec.yaml', () async {
       final config =
           await Config(File('test_resources/pubspec_fonts.yaml')).load();
-      final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength);
+      final formatter = DartFormatter(
+          pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
       final actual = generateFonts(formatter, config.flutter.fonts);
-      final expected =
-          File('test_resources/actual_data/fonts.gen.dart').readAsStringSync();
+      final expected = File('test_resources/actual_data/fonts.gen.dart')
+          .readAsStringSync()
+          .replaceAll('\r\n', '\n');
 
       expect(actual, expected);
     });
@@ -178,12 +186,14 @@ void main() {
     test('Colors on pubspec.yaml', () async {
       final pubspec = File('test_resources/pubspec_colors.yaml');
       final config = await Config(pubspec).load();
-      final formatter = DartFormatter(pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
+      final formatter = DartFormatter(
+          pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
       final actual =
           generateColors(pubspec, formatter, config.flutterGen.colors);
-      final expected =
-          File('test_resources/actual_data/colors.gen.dart').readAsStringSync();
+      final expected = File('test_resources/actual_data/colors.gen.dart')
+          .readAsStringSync()
+          .replaceAll('\r\n', '\n');
 
       expect(actual, expected);
     });

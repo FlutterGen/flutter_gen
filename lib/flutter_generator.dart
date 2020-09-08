@@ -60,7 +60,7 @@ class FlutterGenerator {
     }
 
     if (config.hasFlutter) {
-      final formatter = DartFormatter(pageWidth: lineLength);
+      final formatter = DartFormatter(pageWidth: lineLength, lineEnding: '\n');
 
       if (config.flutter.hasAssets) {
         final generated = generateAssets(
