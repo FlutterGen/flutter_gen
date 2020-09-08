@@ -14,7 +14,7 @@ extension StringExt on String {
 }
 
 List<String> _intoWords(String path) {
-  final _symbolMap = [
+  final _symbols = [
     ' ',
     '.',
     '/',
@@ -33,7 +33,7 @@ List<String> _intoWords(String path) {
         ? null
         : String.fromCharCode(path.codeUnitAt(i + 1));
 
-    if (_symbolMap.contains(char)) {
+    if (_symbols.contains(char)) {
       continue;
     }
 
@@ -42,7 +42,7 @@ List<String> _intoWords(String path) {
     final isEndOfWord = nextChar == null ||
         (_upperAlphaRegex.hasMatch(nextChar) &&
             path.contains(_lowerAlphaRegex)) ||
-        _symbolMap.contains(nextChar);
+        _symbols.contains(nextChar);
 
     if (isEndOfWord) {
       words.add(buffer.toString());
