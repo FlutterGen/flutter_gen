@@ -4,6 +4,7 @@ import 'package:flutter_gen/src/settings/flutter.dart';
 import 'package:flutter_gen/src/utils/camel_case.dart';
 import 'package:flutter_gen/src/utils/cast.dart';
 import 'package:yaml/yaml.dart';
+import 'package:dartx/dartx.dart';
 
 String generateFonts(DartFormatter formatter, FlutterFonts fonts) {
   assert(fonts != null && fonts.hasFonts,
@@ -18,7 +19,8 @@ String generateFonts(DartFormatter formatter, FlutterFonts fonts) {
   fonts.fonts
       .cast<YamlMap>()
       .map((element) => safeCast<String>(element['family']))
-      .toSet() // to Set<> for remove duplicated item
+      .distinct()
+      .sorted()
       .forEach((family) {
     buffer
         .writeln("  static const String ${family.camelCase()} = \'$family\';");

@@ -14,16 +14,4 @@ class ColorPath {
 
   /// https://api.flutter.dev/flutter/widgets/Image-class.html
   bool get isXml => mime == 'application/xml';
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ColorPath &&
-          runtimeType == other.runtimeType &&
-          path == other.path;
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => path.hashCode;
 }
