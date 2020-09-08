@@ -1,3 +1,8 @@
+## 1.0.1
+
+Bug fix
+  - Issue [#21](https://github.com/FlutterGen/flutter_gen/issues/21)
+
 ## 1.0.0
 
 Initial release.
