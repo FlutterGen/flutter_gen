@@ -12,6 +12,9 @@ class FlutterGen {
         integrations = FlutterGenIntegrations(
             safeCast<YamlMap>(flutterGenMap['integrations']));
       }
+      if (flutterGenMap.containsKey('assets')) {
+        assets = FlutterGenAssets(safeCast<YamlMap>(flutterGenMap['assets']));
+      }
       _lineLength = safeCast<int>(flutterGenMap['lineLength']);
       if (flutterGenMap.containsKey('colors')) {
         colors = FlutterGenColors(safeCast<YamlMap>(flutterGenMap['colors']));
@@ -34,6 +37,10 @@ class FlutterGen {
 
   bool get hasIntegrations => integrations != null;
 
+  FlutterGenAssets assets;
+
+  bool get hasAssets => assets != null;
+
   FlutterGenColors colors;
 
   bool get hasColors => colors != null;
@@ -49,6 +56,16 @@ class FlutterGenColors {
   YamlList inputs;
 
   bool get hasInputs => inputs != null && inputs.isNotEmpty;
+}
+
+class FlutterGenAssets {
+  FlutterGenAssets(YamlMap flutterGenMap) {
+    if (flutterGenMap != null) {
+      style = safeCast<String>(flutterGenMap['style']);
+    }
+  }
+
+  String style;
 }
 
 class FlutterGenIntegrations {

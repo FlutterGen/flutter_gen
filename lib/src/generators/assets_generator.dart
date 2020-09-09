@@ -10,19 +10,19 @@ import 'package:flutter_gen/src/settings/flutter.dart';
 import 'package:flutter_gen/src/settings/flutter_gen.dart';
 import 'package:flutter_gen/src/utils/camel_case.dart';
 import 'package:path/path.dart';
+import 'package:dartx/dartx.dart';
 
-String generateAssets(File pubspecFile, DartFormatter formatter,
-    FlutterGen flutterGen, FlutterAssets assets) {
+String generateAssets(
+  File pubspecFile,
+  DartFormatter formatter,
+  FlutterGen flutterGen,
+  FlutterAssets assets,
+) {
   assert(assets != null && assets.hasAssets,
       throw 'The value of "flutter/assets:" is incorrect.');
 
   final importsBuffer = StringBuffer();
   final classesBuffer = StringBuffer();
-
-  final assetRelativePathList = _getAssetRelativePathList(pubspecFile, assets);
-  final assetTypeQueue = ListQueue<AssetType>.from(
-      _constructAssetTree(assetRelativePathList).children);
-  final assetsStaticStatements = <_Statement>[];
 
   final integrations = <Integration>[];
   if (flutterGen != null &&
@@ -31,36 +31,23 @@ String generateAssets(File pubspecFile, DartFormatter formatter,
     integrations.add(SvgIntegration());
   }
 
-  while (assetTypeQueue.isNotEmpty) {
-    final assetType = assetTypeQueue.removeFirst();
-    final assetAbsolutePath = join(pubspecFile.parent.path, assetType.path);
-
-    if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
-      final statements = _createDirectoryClassGenStatements(
-          pubspecFile, assetType, integrations);
-
-      if (assetType.isDefaultAssetsDirectory) {
-        assetsStaticStatements.addAll(statements);
-      } else {
-        final className = '\$${assetType.path.camelCase().capitalize()}Gen';
-        classesBuffer
-            .writeln(_directoryClassGenDefinition(className, statements));
-        // Add this directory reference to Assets class if we are not under the default asset folder
-        if (dirname(assetType.path) == '.') {
-          assetsStaticStatements.add(_Statement(
-            type: className,
-            name: assetType.baseName.camelCase(),
-            value: '$className\(\)',
-            isConstConstructor: true,
-          ));
-        }
-      }
-
-      assetTypeQueue.addAll(assetType.children);
-    }
+  String assetsGenStyle;
+  if (flutterGen != null && flutterGen.hasAssets) {
+    assetsGenStyle = flutterGen.assets.style;
   }
 
-  classesBuffer.writeln(_assetsClassDefinition(assetsStaticStatements));
+  if (assetsGenStyle == 'dot-delimiter' || assetsGenStyle == null) {
+    classesBuffer.writeln(
+        _dotDelimiterStyleDefinition(pubspecFile, assets, integrations));
+  } else if (assetsGenStyle == 'snake-case') {
+    classesBuffer
+        .writeln(_snakeCaseStyleDefinition(pubspecFile, assets, integrations));
+  } else if (assetsGenStyle == 'camel-case') {
+    throw UnimplementedError();
+  } else {
+    throw 'The value of "flutter_gen/assets/style." is incorrect.';
+  }
+
   classesBuffer.writeln(_assetGenImageClassDefinition);
 
   final imports = <String>{'package:flutter/widgets.dart'};
@@ -125,8 +112,12 @@ AssetType _constructAssetTree(List<String> assetRelativePathList) {
   return assetTypeMap['.'];
 }
 
-List<_Statement> _createDirectoryClassGenStatements(
-    File pubspecFile, AssetType assetType, List<Integration> integrations) {
+List<_Statement> _createAssetTypeStatements(
+  File pubspecFile,
+  AssetType assetType,
+  List<Integration> integrations,
+  String Function(AssetType) createName,
+) {
   final statements = assetType.children
       .map((child) {
         final childAssetAbsolutePath =
@@ -135,7 +126,7 @@ List<_Statement> _createDirectoryClassGenStatements(
         if (child.isSupportedImage) {
           statement = _Statement(
             type: 'AssetGenImage',
-            name: child.baseName.camelCase(),
+            name: createName(child),
             value: 'AssetGenImage\(\'${posixStyle(child.path)}\'\)',
             isConstConstructor: true,
           );
@@ -143,7 +134,7 @@ List<_Statement> _createDirectoryClassGenStatements(
           final childClassName = '\$${child.path.camelCase().capitalize()}Gen';
           statement = _Statement(
             type: childClassName,
-            name: child.baseName.camelCase(),
+            name: createName(child),
             value: '$childClassName\(\)',
             isConstConstructor: true,
           );
@@ -153,9 +144,9 @@ List<_Statement> _createDirectoryClassGenStatements(
             orElse: () => null,
           );
           if (integration == null) {
-            statement ??= _Statement(
+            statement = _Statement(
               type: 'String',
-              name: child.baseName.camelCase(),
+              name: createName(child),
               value: '\'${posixStyle(child.path)}\'',
               isConstConstructor: false,
             );
@@ -163,7 +154,7 @@ List<_Statement> _createDirectoryClassGenStatements(
             integration.isEnabled = true;
             statement = _Statement(
               type: integration.className,
-              name: child.baseName.camelCase(),
+              name: createName(child),
               value: integration.classInstantiate(posixStyle(child.path)),
               isConstConstructor: integration.isConstConstructor,
             );
@@ -174,6 +165,76 @@ List<_Statement> _createDirectoryClassGenStatements(
       .whereType<_Statement>()
       .toList();
   return statements;
+}
+
+/// Generate style like Assets.foo.bar
+String _dotDelimiterStyleDefinition(
+  File pubspecFile,
+  FlutterAssets assets,
+  List<Integration> integrations,
+) {
+  final buffer = StringBuffer();
+  final assetRelativePathList = _getAssetRelativePathList(pubspecFile, assets);
+  final assetsStaticStatements = <_Statement>[];
+
+  final assetTypeQueue = ListQueue<AssetType>.from(
+      _constructAssetTree(assetRelativePathList).children);
+
+  while (assetTypeQueue.isNotEmpty) {
+    final assetType = assetTypeQueue.removeFirst();
+    final assetAbsolutePath = join(pubspecFile.parent.path, assetType.path);
+
+    if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
+      final statements = _createAssetTypeStatements(
+        pubspecFile,
+        assetType,
+        integrations,
+        (e) => e.baseName.camelCase(),
+      );
+
+      if (assetType.isDefaultAssetsDirectory) {
+        assetsStaticStatements.addAll(statements);
+      } else {
+        final className = '\$${assetType.path.camelCase().capitalize()}Gen';
+        buffer.writeln(_directoryClassGenDefinition(className, statements));
+        // Add this directory reference to Assets class if we are not under the default asset folder
+        if (dirname(assetType.path) == '.') {
+          assetsStaticStatements.add(_Statement(
+            type: className,
+            name: assetType.baseName.camelCase(),
+            value: '$className\(\)',
+            isConstConstructor: true,
+          ));
+        }
+      }
+
+      assetTypeQueue.addAll(assetType.children);
+    }
+  }
+  buffer.writeln(_assetsClassDefinition(assetsStaticStatements));
+  return buffer.toString();
+}
+
+/// Generate style like Assets.foo_bar
+String _snakeCaseStyleDefinition(
+  File pubspecFile,
+  FlutterAssets assets,
+  List<Integration> integrations,
+) {
+  final assetType = AssetType('.');
+  _getAssetRelativePathList(pubspecFile, assets)
+      .distinct()
+      .map((e) => AssetType(e))
+      .forEach(assetType.addChild);
+  final statements = _createAssetTypeStatements(
+    pubspecFile,
+    assetType,
+    integrations,
+    (e) => withoutExtension(e.path)
+        .replaceFirst(RegExp(r'asset(s)?/'), '')
+        .snakeCase(),
+  );
+  return _assetsClassDefinition(statements);
 }
 
 String _assetsClassDefinition(List<_Statement> statements) {

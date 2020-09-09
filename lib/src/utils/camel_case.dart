@@ -1,8 +1,4 @@
 extension StringExt on String {
-  String capitalize() {
-    return '${substring(0, 1).toUpperCase()}${substring(1)}';
-  }
-
   String camelCase() {
     final words = _intoWords(this)
         .map((w) =>
@@ -10,6 +6,11 @@ extension StringExt on String {
         .toList();
     words[0] = words[0].toLowerCase();
     return words.join();
+  }
+
+  String snakeCase() {
+    final words = _intoWords(this).map((w) => w.toLowerCase()).toList();
+    return words.join('_');
   }
 }
 
