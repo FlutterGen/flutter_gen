@@ -64,7 +64,7 @@ jobs:
 
   publish:
     name: Publishing
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checking out sources
