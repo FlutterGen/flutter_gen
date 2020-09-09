@@ -8,7 +8,7 @@ import 'package:flutter_gen/src/generators/integrations/svg_integration.dart';
 import 'package:flutter_gen/src/settings/asset_type.dart';
 import 'package:flutter_gen/src/settings/flutter.dart';
 import 'package:flutter_gen/src/settings/flutter_gen.dart';
-import 'package:flutter_gen/src/utils/camel_case.dart';
+import 'package:flutter_gen/src/utils/string.dart';
 import 'package:path/path.dart';
 import 'package:dartx/dartx.dart';
 

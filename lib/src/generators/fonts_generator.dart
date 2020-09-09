@@ -1,7 +1,7 @@
 import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen/src/generators/generator_helper.dart';
 import 'package:flutter_gen/src/settings/flutter.dart';
-import 'package:flutter_gen/src/utils/camel_case.dart';
+import 'package:flutter_gen/src/utils/string.dart';
 import 'package:flutter_gen/src/utils/cast.dart';
 import 'package:yaml/yaml.dart';
 import 'package:dartx/dartx.dart';
