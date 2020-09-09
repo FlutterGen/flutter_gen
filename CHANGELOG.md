@@ -1,3 +1,9 @@
+## 1.0.2
+
+Bug fix
+  - Generate sorted statements [#27](https://github.com/FlutterGen/flutter_gen/pull/27)
+  - Make Windows work properly [#28](https://github.com/FlutterGen/flutter_gen/pull/28) 
+
 ## 1.0.1
 
 Bug fix
