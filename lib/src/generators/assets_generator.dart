@@ -227,7 +227,7 @@ String _camelCaseStyleDefinition(
     assets,
     integrations,
     (e) => withoutExtension(e.path)
-        .replaceFirst(RegExp(r'asset(s)?/'), '')
+        .replaceFirst(RegExp(r'asset(s)?'), '')
         .camelCase(),
   );
 }
@@ -243,7 +243,7 @@ String _snakeCaseStyleDefinition(
     assets,
     integrations,
     (e) => withoutExtension(e.path)
-        .replaceFirst(RegExp(r'asset(s)?/'), '')
+        .replaceFirst(RegExp(r'asset(s)?'), '')
         .snakeCase(),
   );
 }
