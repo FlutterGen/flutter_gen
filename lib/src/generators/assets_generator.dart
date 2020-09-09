@@ -112,59 +112,52 @@ AssetType _constructAssetTree(List<String> assetRelativePathList) {
   return assetTypeMap['.'];
 }
 
-List<_Statement> _createAssetTypeStatements(
+_Statement _createAssetTypeStatements(
   File pubspecFile,
   AssetType assetType,
   List<Integration> integrations,
   String Function(AssetType) createName,
 ) {
-  final statements = assetType.children
-      .map((child) {
-        final childAssetAbsolutePath =
-            join(pubspecFile.parent.path, child.path);
-        _Statement statement;
-        if (child.isSupportedImage) {
-          statement = _Statement(
-            type: 'AssetGenImage',
-            name: createName(child),
-            value: 'AssetGenImage\(\'${posixStyle(child.path)}\'\)',
-            isConstConstructor: true,
-          );
-        } else if (FileSystemEntity.isDirectorySync(childAssetAbsolutePath)) {
-          final childClassName = '\$${child.path.camelCase().capitalize()}Gen';
-          statement = _Statement(
-            type: childClassName,
-            name: createName(child),
-            value: '$childClassName\(\)',
-            isConstConstructor: true,
-          );
-        } else if (!child.isUnKnownMime) {
-          final integration = integrations.firstWhere(
-            (element) => element.mime == child.mime,
-            orElse: () => null,
-          );
-          if (integration == null) {
-            statement = _Statement(
-              type: 'String',
-              name: createName(child),
-              value: '\'${posixStyle(child.path)}\'',
-              isConstConstructor: false,
-            );
-          } else {
-            integration.isEnabled = true;
-            statement = _Statement(
-              type: integration.className,
-              name: createName(child),
-              value: integration.classInstantiate(posixStyle(child.path)),
-              isConstConstructor: integration.isConstConstructor,
-            );
-          }
-        }
-        return statement;
-      })
-      .whereType<_Statement>()
-      .toList();
-  return statements;
+  final childAssetAbsolutePath = join(pubspecFile.parent.path, assetType.path);
+  _Statement statement;
+  if (assetType.isSupportedImage) {
+    statement = _Statement(
+      type: 'AssetGenImage',
+      name: createName(assetType),
+      value: 'AssetGenImage\(\'${posixStyle(assetType.path)}\'\)',
+      isConstConstructor: true,
+    );
+  } else if (FileSystemEntity.isDirectorySync(childAssetAbsolutePath)) {
+    final childClassName = '\$${assetType.path.camelCase().capitalize()}Gen';
+    statement = _Statement(
+      type: childClassName,
+      name: createName(assetType),
+      value: '$childClassName\(\)',
+      isConstConstructor: true,
+    );
+  } else if (!assetType.isUnKnownMime) {
+    final integration = integrations.firstWhere(
+      (element) => element.mime == assetType.mime,
+      orElse: () => null,
+    );
+    if (integration == null) {
+      statement = _Statement(
+        type: 'String',
+        name: createName(assetType),
+        value: '\'${posixStyle(assetType.path)}\'',
+        isConstConstructor: false,
+      );
+    } else {
+      integration.isEnabled = true;
+      statement = _Statement(
+        type: integration.className,
+        name: createName(assetType),
+        value: integration.classInstantiate(posixStyle(assetType.path)),
+        isConstConstructor: integration.isConstConstructor,
+      );
+    }
+  }
+  return statement;
 }
 
 /// Generate style like Assets.foo.bar
@@ -185,12 +178,17 @@ String _dotDelimiterStyleDefinition(
     final assetAbsolutePath = join(pubspecFile.parent.path, assetType.path);
 
     if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
-      final statements = _createAssetTypeStatements(
-        pubspecFile,
-        assetType,
-        integrations,
-        (e) => e.baseName.camelCase(),
-      );
+      final statements = assetType.children
+          .map(
+            (child) => _createAssetTypeStatements(
+              pubspecFile,
+              child,
+              integrations,
+              (e) => e.baseName.camelCase(),
+            ),
+          )
+          .whereType<_Statement>()
+          .toList();
 
       if (assetType.isDefaultAssetsDirectory) {
         assetsStaticStatements.addAll(statements);
@@ -221,19 +219,20 @@ String _snakeCaseStyleDefinition(
   FlutterAssets assets,
   List<Integration> integrations,
 ) {
-  final assetType = AssetType('.');
-  _getAssetRelativePathList(pubspecFile, assets)
+  final statements = _getAssetRelativePathList(pubspecFile, assets)
       .distinct()
-      .map((e) => AssetType(e))
-      .forEach(assetType.addChild);
-  final statements = _createAssetTypeStatements(
-    pubspecFile,
-    assetType,
-    integrations,
-    (e) => withoutExtension(e.path)
-        .replaceFirst(RegExp(r'asset(s)?/'), '')
-        .snakeCase(),
-  );
+      .sorted()
+      .map(
+        (relativePath) => _createAssetTypeStatements(
+          pubspecFile,
+          AssetType(relativePath),
+          integrations,
+          (e) => withoutExtension(e.path)
+              .replaceFirst(RegExp(r'asset(s)?/'), '')
+              .snakeCase(),
+        ),
+      )
+      .toList();
   return _assetsClassDefinition(statements);
 }
 
