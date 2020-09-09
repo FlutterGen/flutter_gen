@@ -7,9 +7,6 @@ flutter_gen:
   assets:
     style: snake-case
 
-  integrations:
-    flutter_svg: true
-
 flutter:
   assets:
     - assets/images

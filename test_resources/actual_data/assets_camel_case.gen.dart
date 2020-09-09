@@ -4,8 +4,6 @@
 /// *****************************************************
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter/services.dart';
 
 class Assets {
   Assets._();
@@ -18,12 +16,9 @@ class Assets {
       AssetGenImage('assets/images/chip3/chip3.jpg');
   static const AssetGenImage imagesChip4Chip4 =
       AssetGenImage('assets/images/chip4/chip4.jpg');
-  static const SvgGenImage imagesIconsFuchsia =
-      SvgGenImage('assets/images/icons/fuchsia.svg');
-  static const SvgGenImage imagesIconsKmm =
-      SvgGenImage('assets/images/icons/kmm.svg');
-  static const SvgGenImage imagesIconsPaint =
-      SvgGenImage('assets/images/icons/paint.svg');
+  static const String imagesIconsFuchsia = 'assets/images/icons/fuchsia.svg';
+  static const String imagesIconsKmm = 'assets/images/icons/kmm.svg';
+  static const String imagesIconsPaint = 'assets/images/icons/paint.svg';
   static const AssetGenImage imagesLogo =
       AssetGenImage('assets/images/logo.png');
   static const AssetGenImage imagesProfile =
@@ -77,36 +72,6 @@ class AssetGenImage extends AssetImage {
       gaplessPlayback: gaplessPlayback,
       isAntiAlias: isAntiAlias,
       filterQuality: filterQuality,
-    );
-  }
-
-  String get path => _assetName;
-}
-
-class SvgGenImage {
-  const SvgGenImage(this._assetName);
-
-  final String _assetName;
-
-  SvgPicture svg({
-    bool matchTextDirection = false,
-    AssetBundle bundle,
-    String package,
-    double width,
-    double height,
-    BoxFit fit = BoxFit.contain,
-    AlignmentGeometry alignment = Alignment.center,
-    bool allowDrawingOutsideViewBox = false,
-    WidgetBuilder placeholderBuilder,
-    Color color,
-    BlendMode colorBlendMode = BlendMode.srcIn,
-    String semanticsLabel,
-    bool excludeFromSemantics = false,
-    Clip clipBehavior = Clip.hardEdge,
-  }) {
-    return SvgPicture.asset(
-      _assetName,
-      matchTextDirection: matchTextDirection,
     );
   }
 
