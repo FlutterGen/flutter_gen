@@ -264,13 +264,13 @@ class $PicturesGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
   AssetGenImage get chip1 => const AssetGenImage('assets/images/chip1.jpg');
-  AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
-  AssetGenImage get profile => const AssetGenImage('assets/images/profile.jpg');
+  AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
   $AssetsImagesChip3Gen get chip3 => const $AssetsImagesChip3Gen();
   $AssetsImagesChip4Gen get chip4 => const $AssetsImagesChip4Gen();
   $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
+  AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
+  AssetGenImage get profile => const AssetGenImage('assets/images/profile.jpg');
 }
 
 class $AssetsJsonGen {
@@ -384,6 +384,19 @@ class SvgGenImage {
     return SvgPicture.asset(
       _assetName,
       matchTextDirection: matchTextDirection,
+      bundle: bundle,
+      package: package,
+      width: width,
+      height: height,
+      fit: fit,
+      alignment: alignment,
+      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
+      placeholderBuilder: placeholderBuilder,
+      color: color,
+      colorBlendMode: colorBlendMode,
+      semanticsLabel: semanticsLabel,
+      excludeFromSemantics: excludeFromSemantics,
+      clipBehavior: clipBehavior,
     );
   }
 
@@ -500,10 +513,11 @@ import 'package:flutter/material.dart';
 class ColorName {
   ColorName._();
 
-  static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
-  static const Color gray70 = Color(0xFFEEEEEE);
-  static const Color gray410 = Color(0xFF979797);
+  static const Color black30 = Color(0x4D000000);
+  static const Color black40 = Color(0x66000000);
+  static const Color black50 = Color(0x80000000);
+  static const Color black60 = Color(0x99000000);
   static const MaterialColor crimsonRed = MaterialColor(
     0xFFCF2A2A,
     <int, Color>{
@@ -519,6 +533,9 @@ class ColorName {
       900: Color(0xFFB20F0F),
     },
   );
+  static const Color gray410 = Color(0xFF979797);
+  static const Color gray70 = Color(0xFFEEEEEE);
+  static const Color white = Color(0xFFFFFFFF);
   static const MaterialColor yellowOcher = MaterialColor(
     0xFFDF9527,
     <int, Color>{
@@ -535,6 +552,7 @@ class ColorName {
     },
   );
 }
+
 ```
 
 </p>
@@ -561,7 +579,6 @@ and open a [pull request](https://github.com/FlutterGen/flutter_gen/pulls).
 - [x] Fonts generation
 - [x] Colors generation
   - [x] Support xml
-  - [ ] Support clr?
 - [x] Support change output path
 - [x] Support hierarchical generation  
        'assets/image/home/label.png' => Assets.image.home.label  
