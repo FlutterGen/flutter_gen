@@ -2,15 +2,16 @@ import 'dart:collection';
 import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
-import 'package:flutter_gen/src/generators/generator_helper.dart';
-import 'package:flutter_gen/src/generators/integrations/integration.dart';
-import 'package:flutter_gen/src/generators/integrations/svg_integration.dart';
-import 'package:flutter_gen/src/settings/asset_type.dart';
-import 'package:flutter_gen/src/settings/flutter.dart';
-import 'package:flutter_gen/src/settings/flutter_gen.dart';
-import 'package:flutter_gen/src/utils/string.dart';
 import 'package:path/path.dart';
 import 'package:dartx/dartx.dart';
+
+import '../settings/asset_type.dart';
+import '../settings/flutter.dart';
+import '../settings/flutter_gen.dart';
+import '../utils/string.dart';
+import 'generator_helper.dart';
+import 'integrations/integration.dart';
+import 'integrations/svg_integration.dart';
 
 String generateAssets(
   File pubspecFile,

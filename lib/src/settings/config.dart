@@ -1,25 +1,28 @@
 import 'dart:io';
 
-import 'package:flutter_gen/src/settings/flutter.dart';
-import 'package:flutter_gen/src/settings/flutter_gen.dart';
-import 'package:flutter_gen/src/utils/cast.dart';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
+
+import '../utils/cast.dart';
+import 'flutter.dart';
+import 'flutter_gen.dart';
 
 class Config {
   Config(this.pubspecFile);
 
-  // ignore: non_constant_identifier_names
-  static final String DEFAULT_OUTPUT = 'lib${separator}gen$separator';
-  static const int DEFAULT_LINE_LENGTH = 80;
+  static final String defaultOutput = 'lib${separator}gen$separator';
+  static const int defaultLineLength = 80;
 
   final File pubspecFile;
   Flutter flutter;
   FlutterGen flutterGen;
 
   Future<Config> load() async {
-    print(
-        'FlutterGen Loading ... ${join(basename(pubspecFile.parent.path), basename(pubspecFile.path))}');
+    print('FlutterGen Loading ... '
+        '${normalize(join(
+      basename(pubspecFile.parent.path),
+      basename(pubspecFile.path),
+    ))}');
     final pubspec =
         await pubspecFile.readAsString().catchError((dynamic error) {
       throw FileSystemException(

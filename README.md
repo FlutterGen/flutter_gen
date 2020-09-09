@@ -7,11 +7,14 @@
   <a href="https://pub.dartlang.org/packages/flutter_gen">
     <img src="https://img.shields.io/pub/v/flutter_gen.svg">
   </a>
-  <a href="https://github.com/FlutterGen/flutter_gen/actions?query=workflow%3A%22Flutter+CI%22">
-    <img src="https://github.com/FlutterGen/flutter_gen/workflows/Flutter%20CI/badge.svg?branch=master" />
+  <a href="https://github.com/FlutterGen/flutter_gen/actions?query=workflow%3A%22Dart+CI%22">
+    <img src="https://github.com/FlutterGen/flutter_gen/workflows/Dart%20CI/badge.svg" />
   </a>
   <a href="https://codecov.io/gh/FlutterGen/flutter_gen">
     <img src="https://codecov.io/gh/FlutterGen/flutter_gen/branch/main/graph/badge.svg" />
+  </a>
+  <a href="https://pub.dev/packages/effective_dart">
+    <img src="https://img.shields.io/badge/style-effective_dart-40c4ff.svg" />
   </a>
 </p>
 

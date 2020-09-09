@@ -1,4 +1,4 @@
-import 'package:flutter_gen/src/generators/integrations/integration.dart';
+import 'integration.dart';
 
 class SvgIntegration extends Integration {
   @override
