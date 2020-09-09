@@ -197,7 +197,8 @@ String _dotDelimiterStyleDefinition(
       } else {
         final className = '\$${assetType.path.camelCase().capitalize()}Gen';
         buffer.writeln(_directoryClassGenDefinition(className, statements));
-        // Add this directory reference to Assets class if we are not under the default asset folder
+        // Add this directory reference to Assets class
+        // if we are not under the default asset folder
         if (dirname(assetType.path) == '.') {
           assetsStaticStatements.add(_Statement(
             type: className,
