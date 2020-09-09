@@ -1,8 +1,9 @@
 import 'dart:io';
 
-import 'package:flutter_gen/src/settings/config.dart';
-import 'package:flutter_gen/src/utils/cast.dart';
 import 'package:yaml/yaml.dart';
+
+import '../utils/cast.dart';
+import 'config.dart';
 
 class FlutterGen {
   FlutterGen(YamlMap flutterGenMap) {
@@ -24,11 +25,11 @@ class FlutterGen {
   String get output =>
       _output != null && FileSystemEntity.isDirectorySync(_output)
           ? _output
-          : Config.DEFAULT_OUTPUT;
+          : Config.defaultOutput;
 
   int _lineLength;
 
-  int get lineLength => _lineLength ?? Config.DEFAULT_LINE_LENGTH;
+  int get lineLength => _lineLength ?? Config.defaultLineLength;
 
   FlutterGenIntegrations integrations;
 

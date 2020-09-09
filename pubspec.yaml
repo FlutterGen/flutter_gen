@@ -28,5 +28,5 @@ dependencies:
 dev_dependencies:
   test:
   test_coverage:
-  pedantic:
+  effective_dart:
   build_test:

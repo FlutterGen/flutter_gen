@@ -2,12 +2,13 @@ import 'dart:io';
 
 import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
-import 'package:flutter_gen/src/generators/assets_generator.dart';
-import 'package:flutter_gen/src/generators/colors_generator.dart';
-import 'package:flutter_gen/src/generators/fonts_generator.dart';
-import 'package:flutter_gen/src/settings/config.dart';
-import 'package:flutter_gen/src/utils/file.dart';
 import 'package:path/path.dart';
+
+import 'src/generators/assets_generator.dart';
+import 'src/generators/colors_generator.dart';
+import 'src/generators/fonts_generator.dart';
+import 'src/settings/config.dart';
+import 'src/utils/file.dart';
 
 Builder build(BuilderOptions options) {
   Future(() async {
@@ -41,8 +42,8 @@ class FlutterGenerator {
       exit(-1);
     }
 
-    var output = Config.DEFAULT_OUTPUT;
-    var lineLength = Config.DEFAULT_LINE_LENGTH;
+    var output = Config.defaultOutput;
+    var lineLength = Config.defaultLineLength;
 
     if (config.hasFlutterGen) {
       output = config.flutterGen.output;
