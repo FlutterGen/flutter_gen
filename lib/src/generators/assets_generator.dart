@@ -43,7 +43,8 @@ String generateAssets(
     classesBuffer
         .writeln(_snakeCaseStyleDefinition(pubspecFile, assets, integrations));
   } else if (assetsGenStyle == 'camel-case') {
-    throw UnimplementedError();
+    classesBuffer
+        .writeln(_camelCaseStyleDefinition(pubspecFile, assets, integrations));
   } else {
     throw 'The value of "flutter_gen/assets/style." is incorrect.';
   }
@@ -213,11 +214,43 @@ String _dotDelimiterStyleDefinition(
   return buffer.toString();
 }
 
+/// Generate style like Assets.fooBar
+String _camelCaseStyleDefinition(
+  File pubspecFile,
+  FlutterAssets assets,
+  List<Integration> integrations,
+) {
+  return _flatStyleDefinition(
+    pubspecFile,
+    assets,
+    integrations,
+    (e) => withoutExtension(e.path)
+        .replaceFirst(RegExp(r'asset(s)?/'), '')
+        .camelCase(),
+  );
+}
+
 /// Generate style like Assets.foo_bar
 String _snakeCaseStyleDefinition(
   File pubspecFile,
   FlutterAssets assets,
   List<Integration> integrations,
+) {
+  return _flatStyleDefinition(
+    pubspecFile,
+    assets,
+    integrations,
+    (e) => withoutExtension(e.path)
+        .replaceFirst(RegExp(r'asset(s)?/'), '')
+        .snakeCase(),
+  );
+}
+
+String _flatStyleDefinition(
+  File pubspecFile,
+  FlutterAssets assets,
+  List<Integration> integrations,
+  String Function(AssetType) createName,
 ) {
   final statements = _getAssetRelativePathList(pubspecFile, assets)
       .distinct()
@@ -227,9 +260,7 @@ String _snakeCaseStyleDefinition(
           pubspecFile,
           AssetType(relativePath),
           integrations,
-          (e) => withoutExtension(e.path)
-              .replaceFirst(RegExp(r'asset(s)?/'), '')
-              .snakeCase(),
+          createName,
         ),
       )
       .toList();
