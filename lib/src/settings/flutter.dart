@@ -1,5 +1,6 @@
-import 'package:flutter_gen/src/utils/cast.dart';
 import 'package:yaml/yaml.dart';
+
+import '../utils/cast.dart';
 
 class Flutter {
   Flutter(YamlMap flutterMap) {

@@ -1,4 +1,4 @@
-name: Flutter CI
+name: Dart CI
 
 on:
   pull_request: { }

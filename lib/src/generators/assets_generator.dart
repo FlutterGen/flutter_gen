@@ -2,14 +2,15 @@ import 'dart:collection';
 import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
-import 'package:flutter_gen/src/generators/generator_helper.dart';
-import 'package:flutter_gen/src/generators/integrations/integration.dart';
-import 'package:flutter_gen/src/generators/integrations/svg_integration.dart';
-import 'package:flutter_gen/src/settings/asset_type.dart';
-import 'package:flutter_gen/src/settings/flutter.dart';
-import 'package:flutter_gen/src/settings/flutter_gen.dart';
-import 'package:flutter_gen/src/utils/camel_case.dart';
 import 'package:path/path.dart';
+
+import '../settings/asset_type.dart';
+import '../settings/flutter.dart';
+import '../settings/flutter_gen.dart';
+import '../utils/camel_case.dart';
+import 'generator_helper.dart';
+import 'integrations/integration.dart';
+import 'integrations/svg_integration.dart';
 
 String generateAssets(File pubspecFile, DartFormatter formatter,
     FlutterGen flutterGen, FlutterAssets assets) {
@@ -45,7 +46,8 @@ String generateAssets(File pubspecFile, DartFormatter formatter,
         final className = '\$${assetType.path.camelCase().capitalize()}Gen';
         classesBuffer
             .writeln(_directoryClassGenDefinition(className, statements));
-        // Add this directory reference to Assets class if we are not under the default asset folder
+        // Add this directory reference to Assets class
+        // if we are not under the default asset folder
         if (dirname(assetType.path) == '.') {
           assetsStaticStatements.add(_Statement(
             type: className,
