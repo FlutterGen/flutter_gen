@@ -136,7 +136,7 @@ List<_Statement> _createDirectoryClassGenStatements(
           statement = _Statement(
             type: 'AssetGenImage',
             name: child.baseName.camelCase(),
-            value: 'AssetGenImage\(\'${child.path}\'\)',
+            value: 'AssetGenImage\(\'${posixStyle(child.path)}\'\)',
             isConstConstructor: true,
           );
         } else if (FileSystemEntity.isDirectorySync(childAssetAbsolutePath)) {
@@ -156,7 +156,7 @@ List<_Statement> _createDirectoryClassGenStatements(
             statement ??= _Statement(
               type: 'String',
               name: child.baseName.camelCase(),
-              value: '\'${child.path}\'',
+              value: '\'${posixStyle(child.path)}\'',
               isConstConstructor: false,
             );
           } else {
@@ -164,7 +164,7 @@ List<_Statement> _createDirectoryClassGenStatements(
             statement = _Statement(
               type: integration.className,
               name: child.baseName.camelCase(),
-              value: integration.classInstantiate(child.path),
+              value: integration.classInstantiate(posixStyle(child.path)),
               isConstConstructor: integration.isConstConstructor,
             );
           }

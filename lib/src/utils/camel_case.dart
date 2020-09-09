@@ -14,7 +14,14 @@ extension StringExt on String {
 }
 
 List<String> _intoWords(String path) {
-  final _symbolRegex = RegExp(r'[ ./_\-]');
+  final _symbols = [
+    ' ',
+    '.',
+    '/',
+    '_',
+    '\\',
+    '-',
+  ];
   final _upperAlphaRegex = RegExp(r'[A-Z]');
   final _lowerAlphaRegex = RegExp(r'[a-z]');
   final buffer = StringBuffer();
@@ -26,7 +33,7 @@ List<String> _intoWords(String path) {
         ? null
         : String.fromCharCode(path.codeUnitAt(i + 1));
 
-    if (_symbolRegex.hasMatch(char)) {
+    if (_symbols.contains(char)) {
       continue;
     }
 
@@ -35,7 +42,7 @@ List<String> _intoWords(String path) {
     final isEndOfWord = nextChar == null ||
         (_upperAlphaRegex.hasMatch(nextChar) &&
             path.contains(_lowerAlphaRegex)) ||
-        _symbolRegex.hasMatch(nextChar);
+        _symbols.contains(nextChar);
 
     if (isEndOfWord) {
       words.add(buffer.toString());
