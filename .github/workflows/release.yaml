@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Publishing for ${{ matrix.os }}
+    name: Build for ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -60,3 +60,21 @@ jobs:
             bin/${{ matrix.target }}/fluttergen-${{ matrix.artifact_prefix }}.sha256
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+  publish:
+    name: Publishing
+    runs-on: macos-latest
+
+    steps:
+      - name: Checking out sources
+        uses: actions/checkout@v2
+
+      - name: Publish to pub.dev
+        uses: sakebook/actions-flutter-pub-publisher@v1.3.1
+        with:
+          credential: ${{ secrets.CREDENTIAL_JSON }}
+          flutter_package: false
+          skip_test: true
+          dry_run: true
+
