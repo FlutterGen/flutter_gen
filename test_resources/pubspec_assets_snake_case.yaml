@@ -1,0 +1,20 @@
+name: test
+
+flutter_gen:
+  output: lib/gen/ # Optional (default: lib/gen/)
+  lineLength: 80   # Optional (default: 80)
+
+  assets:
+    style: snake-case
+
+flutter:
+  assets:
+    - assets/images
+    - assets/images/chip3/chip3.jpg
+    - assets/images/chip3/chip3.jpg # duplicated
+    - assets/images/chip4/
+    - assets/images/icons/fuchsia.svg
+    - assets/images/icons/kmm.svg
+    - assets/images/icons/paint.svg
+    - assets/json/fruits.json
+    - pictures/chip5.jpg
