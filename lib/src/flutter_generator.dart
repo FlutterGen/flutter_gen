@@ -36,16 +36,12 @@ class FlutterGenerator {
       final formatter = DartFormatter(pageWidth: lineLength, lineEnding: '\n');
 
       if (config.flutterGen.hasColors) {
-        try {
-          final generated =
-              generateColors(pubspecFile, formatter, config.flutterGen.colors);
-          final colors = File(normalize(
-              join(pubspecFile.parent.path, output, 'colors.gen.dart')));
-          writeAsString(generated, file: colors);
-          print('Generated: ${colors.absolute.path}');
-        } on InvalidSettingsException catch (e) {
-          stderr.writeln(e.message);
-        }
+        final generated =
+            generateColors(pubspecFile, formatter, config.flutterGen.colors);
+        final colors = File(normalize(
+            join(pubspecFile.parent.path, output, 'colors.gen.dart')));
+        writeAsString(generated, file: colors);
+        print('Generated: ${colors.absolute.path}');
       }
     }
 
@@ -53,28 +49,20 @@ class FlutterGenerator {
       final formatter = DartFormatter(pageWidth: lineLength, lineEnding: '\n');
 
       if (config.flutter.hasAssets) {
-        try {
-          final generated = generateAssets(
-              pubspecFile, formatter, config.flutterGen, config.flutter.assets);
-          final assets = File(normalize(
-              join(pubspecFile.parent.path, output, 'assets.gen.dart')));
-          writeAsString(generated, file: assets);
-          print('Generated: ${assets.absolute.path}');
-        } on InvalidSettingsException catch (e) {
-          stderr.writeln(e.message);
-        }
+        final generated = generateAssets(
+            pubspecFile, formatter, config.flutterGen, config.flutter.assets);
+        final assets = File(normalize(
+            join(pubspecFile.parent.path, output, 'assets.gen.dart')));
+        writeAsString(generated, file: assets);
+        print('Generated: ${assets.absolute.path}');
       }
 
       if (config.flutter.hasFonts) {
-        try {
-          final generated = generateFonts(formatter, config.flutter.fonts);
-          final fonts = File(normalize(
-              join(pubspecFile.parent.path, output, 'fonts.gen.dart')));
-          writeAsString(generated, file: fonts);
-          print('Generated: ${fonts.absolute.path}');
-        } on InvalidSettingsException catch (e) {
-          stderr.writeln(e.message);
-        }
+        final generated = generateFonts(formatter, config.flutter.fonts);
+        final fonts = File(
+            normalize(join(pubspecFile.parent.path, output, 'fonts.gen.dart')));
+        writeAsString(generated, file: fonts);
+        print('Generated: ${fonts.absolute.path}');
       }
     }
 
