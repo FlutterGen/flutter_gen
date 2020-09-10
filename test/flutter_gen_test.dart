@@ -144,6 +144,38 @@ void main() {
       expect(actual, expected);
     });
 
+    test('Assets snake-case style on pubspec.yaml', () async {
+      final pubspec = File('test_resources/pubspec_assets_snake_case.yaml');
+      final config = await Config(pubspec).load();
+      final formatter = DartFormatter(
+          pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
+
+      final actual = generateAssets(
+          pubspec, formatter, config.flutterGen, config.flutter.assets);
+      final expected =
+          File('test_resources/actual_data/assets_snake_case.gen.dart')
+              .readAsStringSync()
+              .replaceAll('\r\n', '\n');
+
+      expect(actual, expected);
+    });
+
+    test('Assets camel-case style on pubspec.yaml', () async {
+      final pubspec = File('test_resources/pubspec_assets_camel_case.yaml');
+      final config = await Config(pubspec).load();
+      final formatter = DartFormatter(
+          pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
+
+      final actual = generateAssets(
+          pubspec, formatter, config.flutterGen, config.flutter.assets);
+      final expected =
+          File('test_resources/actual_data/assets_camel_case.gen.dart')
+              .readAsStringSync()
+              .replaceAll('\r\n', '\n');
+
+      expect(actual, expected);
+    });
+
     test('Assets with No inegrations on pubspec.yaml', () async {
       await FlutterGenerator(
               File('test_resources/pubspec_assets_no_integrations.yaml'))

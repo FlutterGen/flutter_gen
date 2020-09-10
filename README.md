@@ -232,6 +232,27 @@ final svg = SvgPicture.asset(Assets.images.icons.paint);
 final json = await rootBundle.loadString(Assets.json.fruits);
 ```
 
+[FlutterGen] also support generating other style of `Assets` class:
+
+```yaml
+# pubspec.yaml
+flutter_gen:
+
+  assets:
+    # Assets.imagesChip 
+    style: camel-case
+    
+    # Assets.images_chip
+    # style: snake-case
+
+    # Assets.images.chip (default style)
+    # style: dot-delimiter
+
+flutter:
+  assets:
+    - assets/images/chip.png
+```
+
 The root directory will be omitted if it is either **`assets`** or **`asset`**.
 
 ```

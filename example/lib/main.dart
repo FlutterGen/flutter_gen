@@ -27,7 +27,7 @@ void main() {
               Assets.images.icons.fuchsia.svg(),
               Assets.images.icons.paint.svg(
                 width: 120,
-                height: 120
+                height: 120,
               ),
               Assets.pictures.chip5.image(
                 width: 120,

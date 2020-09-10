@@ -7,9 +7,9 @@ import 'package:xml/xml.dart';
 
 import '../settings/color_path.dart';
 import '../settings/flutter_gen.dart';
-import '../utils/camel_case.dart';
 import '../utils/color.dart';
 import '../utils/error.dart';
+import '../utils/string.dart';
 import 'generator_helper.dart';
 
 String generateColors(

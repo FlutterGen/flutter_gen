@@ -3,9 +3,9 @@ import 'package:dartx/dartx.dart';
 import 'package:yaml/yaml.dart';
 
 import '../settings/flutter.dart';
-import '../utils/camel_case.dart';
 import '../utils/cast.dart';
 import '../utils/error.dart';
+import '../utils/string.dart';
 import 'generator_helper.dart';
 
 String generateFonts(DartFormatter formatter, FlutterFonts fonts) {
