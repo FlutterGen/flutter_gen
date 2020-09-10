@@ -65,7 +65,7 @@ void main() {
       expect(actual, expected);
     });
 
-    test('Assets with No inegrations on pubspec.yaml', () async {
+    test('Assets with No integrations on pubspec.yaml', () async {
       await FlutterGenerator(
               File('test_resources/pubspec_assets_no_integrations.yaml'))
           .build();

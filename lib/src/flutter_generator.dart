@@ -19,7 +19,7 @@ class FlutterGenerator {
     final config = Config(pubspecFile);
     try {
       await config.load();
-    } on FormatException catch (e) {
+    } on InvalidSettingsException catch (e) {
       stderr.writeln(e.message);
       return;
     } on FileSystemException catch (e) {

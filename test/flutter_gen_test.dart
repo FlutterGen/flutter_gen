@@ -2,8 +2,6 @@
 import 'dart:io';
 
 import 'package:flutter_gen/src/flutter_generator.dart';
-import 'package:flutter_gen/src/settings/config.dart';
-import 'package:flutter_gen/src/utils/error.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -16,23 +14,53 @@ void main() {
   });
   group('Test FlutterGenerator Exceptions', () {
     test('Not founded pubspec.yaml', () async {
-      expect(() async {
-        return await Config(File('test_resources/pubspec_not_founded.yaml'))
-            .load();
-      }, throwsA(isA<FileSystemException>()));
+      await FlutterGenerator(File('test_resources/pubspec_not_founded.yaml'))
+          .build();
+      expect(
+        File('test_resources/lib/gen/assets.gen.dart').existsSync(),
+        isFalse,
+      );
+      expect(
+        File('test_resources/lib/gen/fonts.gen.dart').existsSync(),
+        isFalse,
+      );
+      expect(
+        File('test_resources/lib/gen/colors.gen.dart').existsSync(),
+        isFalse,
+      );
     });
 
     test('Empty pubspec.yaml', () async {
-      expect(() async {
-        return await Config(File('test_resources/pubspec_empty.yaml')).load();
-      }, throwsA(isA<InvalidSettingsException>()));
+      await FlutterGenerator(File('test_resources/pubspec_empty.yaml')).build();
+      expect(
+        File('test_resources/lib/gen/assets.gen.dart').existsSync(),
+        isFalse,
+      );
+      expect(
+        File('test_resources/lib/gen/fonts.gen.dart').existsSync(),
+        isFalse,
+      );
+      expect(
+        File('test_resources/lib/gen/colors.gen.dart').existsSync(),
+        isFalse,
+      );
     });
 
     test('No settings pubspec.yaml', () async {
-      expect(() async {
-        return await Config(File('test_resources/pubspec_no_settings.yaml'))
-            .load();
-      }, throwsA(isA<InvalidSettingsException>()));
+      await FlutterGenerator(File('test_resources/pubspec_no_settings.yaml'))
+          .build();
+      expect(
+        File('test_resources/lib/gen/assets.gen.dart').existsSync(),
+        isFalse,
+      );
+      expect(
+        File('test_resources/lib/gen/fonts.gen.dart').existsSync(),
+        isFalse,
+      );
+      expect(
+        File('test_resources/lib/gen/colors.gen.dart').existsSync(),
+        isFalse,
+      );
     });
   });
 
@@ -124,5 +152,29 @@ void main() {
         isNotEmpty,
       );
     });
+
+// test('Assets with No lists on pubspec.yaml', () async {
+//   expect(() async {
+//     return FlutterGenerator(
+//             File('test_resources/pubspec_assets_no_list.yaml'))
+//         .build();
+//   }, throwsA(isA<InvalidSettingsException>()));
+// });
+//
+// test('Wrong fonts settings on pubspec.yaml', () async {
+//   expect(() async {
+//     return FlutterGenerator(
+//             File('test_resources/pubspec_fonts_no_family.yaml'))
+//         .build();
+//   }, throwsA(isA<InvalidSettingsException>()));
+// });
+//
+// test('Wrong colors settings on pubspec.yaml', () async {
+//   expect(() async {
+//     return FlutterGenerator(
+//             File('test_resources/pubspec_colors_no_inputs.yaml'))
+//         .build();
+//   }, throwsA(isA<InvalidSettingsException>()));
+// });
   });
 }
