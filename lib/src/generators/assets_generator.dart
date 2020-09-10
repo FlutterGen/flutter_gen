@@ -32,18 +32,15 @@ String generateAssets(
     integrations.add(SvgIntegration());
   }
 
-  String assetsGenStyle;
-  if (flutterGen != null && flutterGen.hasAssets) {
-    assetsGenStyle = flutterGen.assets.style;
-  }
-
-  if (assetsGenStyle == 'dot-delimiter' || assetsGenStyle == null) {
+  if (flutterGen == null ||
+      !flutterGen.hasAssets ||
+      flutterGen.assets.isDefaultStyle) {
     classesBuffer.writeln(
         _dotDelimiterStyleDefinition(pubspecFile, assets, integrations));
-  } else if (assetsGenStyle == 'snake-case') {
+  } else if (flutterGen.assets.isSnakeCaseStyle) {
     classesBuffer
         .writeln(_snakeCaseStyleDefinition(pubspecFile, assets, integrations));
-  } else if (assetsGenStyle == 'camel-case') {
+  } else if (flutterGen.assets.isCamelCaseStyle) {
     classesBuffer
         .writeln(_camelCaseStyleDefinition(pubspecFile, assets, integrations));
   } else {
@@ -186,7 +183,7 @@ String _dotDelimiterStyleDefinition(
               pubspecFile,
               child,
               integrations,
-              (e) => e.baseName.camelCase(),
+              (element) => element.baseName.camelCase(),
             ),
           )
           .whereType<_Statement>()
@@ -226,7 +223,7 @@ String _camelCaseStyleDefinition(
     pubspecFile,
     assets,
     integrations,
-    (e) => withoutExtension(e.path)
+    (assetType) => withoutExtension(assetType.path)
         .replaceFirst(RegExp(r'asset(s)?'), '')
         .camelCase(),
   );
@@ -242,7 +239,7 @@ String _snakeCaseStyleDefinition(
     pubspecFile,
     assets,
     integrations,
-    (e) => withoutExtension(e.path)
+    (assetType) => withoutExtension(assetType.path)
         .replaceFirst(RegExp(r'asset(s)?'), '')
         .snakeCase(),
   );
@@ -265,6 +262,7 @@ String _flatStyleDefinition(
           createName,
         ),
       )
+      .whereType<_Statement>()
       .toList();
   return _assetsClassDefinition(statements);
 }

@@ -67,6 +67,14 @@ class FlutterGenAssets {
   }
 
   String style;
+
+  bool get isDefaultStyle => style == null || isDotDelimiterStyle;
+
+  bool get isDotDelimiterStyle => style == 'dot-delimiter';
+
+  bool get isSnakeCaseStyle => style == 'snake-case';
+
+  bool get isCamelCaseStyle => style == 'camel-case';
 }
 
 class FlutterGenIntegrations {
