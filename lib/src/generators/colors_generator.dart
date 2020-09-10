@@ -9,14 +9,15 @@ import '../settings/color_path.dart';
 import '../settings/flutter_gen.dart';
 import '../utils/camel_case.dart';
 import '../utils/color.dart';
+import '../utils/error.dart';
 import 'generator_helper.dart';
 
 String generateColors(
     File pubspecFile, DartFormatter formatter, FlutterGenColors colors) {
-  assert(
-      colors != null, throw 'The value of "flutter_gen/colors:" is incorrect.');
-  assert(colors.hasInputs,
-      throw 'The value of "flutter_gen/colors/inputs:" is incorrect.');
+  if (colors == null || !colors.hasInputs) {
+    throw InvalidSettingsException(
+        'The value of "flutter_gen/colors:" is incorrect.');
+  }
 
   final buffer = StringBuffer();
   buffer.writeln(header);

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:flutter_gen/flutter_generator.dart';
+import 'package:flutter_gen/src/flutter_generator.dart';
 import 'package:flutter_gen/src/utils/cast.dart';
 
 void main(List<String> args) {

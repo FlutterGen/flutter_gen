@@ -2,7 +2,7 @@
 import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
-import 'package:flutter_gen/flutter_generator.dart';
+import 'package:flutter_gen/src/flutter_generator.dart';
 import 'package:flutter_gen/src/generators/assets_generator.dart';
 import 'package:flutter_gen/src/generators/colors_generator.dart';
 import 'package:flutter_gen/src/generators/fonts_generator.dart';

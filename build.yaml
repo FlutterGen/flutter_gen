@@ -6,7 +6,7 @@ targets:
 
 builders:
   flutter_gen:
-    import: "package:flutter_gen/flutter_generator.dart"
+    import: "package:flutter_gen/build.dart"
     builder_factories: [ "build" ]
     build_extensions: { "$lib$": [ ".gen.dart" ] }
     auto_apply: dependents
