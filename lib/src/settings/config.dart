@@ -4,6 +4,7 @@ import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
 
 import '../utils/cast.dart';
+import '../utils/error.dart';
 import 'flutter.dart';
 import 'flutter_gen.dart';
 
@@ -29,7 +30,7 @@ class Config {
           'Cannot open pubspec.yaml: ${pubspecFile.absolute}');
     });
     if (pubspec.isEmpty) {
-      throw const FormatException('pubspec.yaml is empty');
+      throw const InvalidSettingsException('pubspec.yaml is empty');
     }
 
     final properties = safeCast<YamlMap>(loadYaml(pubspec));
@@ -42,7 +43,7 @@ class Config {
     }
 
     if (!hasFlutter && !hasFlutterGen) {
-      throw const FormatException('FlutterGen settings not founded.');
+      throw const InvalidSettingsException('FlutterGen settings not founded.');
     }
 
     return this;
