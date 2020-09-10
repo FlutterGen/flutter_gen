@@ -1,3 +1,7 @@
+## 1.0.3
+
+Bug fix
+  - Insufficient params of flutter_svg [#32](https://github.com/FlutterGen/flutter_gen/pull/34)
 ## 1.0.2
 
 Bug fix
