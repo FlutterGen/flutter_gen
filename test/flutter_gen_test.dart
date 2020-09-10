@@ -152,34 +152,5 @@ void main() {
         isNotEmpty,
       );
     });
-
-    test('Assets with No lists on pubspec.yaml', () async {
-      await FlutterGenerator(File('test_resources/pubspec_assets_no_list.yaml'))
-          .build();
-      expect(
-        File('test_resources/lib/gen/assets.gen.dart').existsSync(),
-        isFalse,
-      );
-    });
-
-    test('Wrong fonts settings on pubspec.yaml', () async {
-      await FlutterGenerator(
-              File('test_resources/pubspec_fonts_no_family.yaml'))
-          .build();
-      expect(
-        File('test_resources/lib/gen/fonts.gen.dart').existsSync(),
-        isFalse,
-      );
-    });
-
-    test('Wrong colors settings on pubspec.yaml', () async {
-      await FlutterGenerator(
-              File('test_resources/pubspec_colors_no_inputs.yaml'))
-          .build();
-      expect(
-        File('test_resources/lib/gen/colors.gen.dart').existsSync(),
-        isFalse,
-      );
-    });
   });
 }
