@@ -114,7 +114,7 @@ AssetType _constructAssetTree(List<String> assetRelativePathList) {
   return assetTypeMap['.'];
 }
 
-_Statement _createAssetTypeStatements(
+_Statement _createAssetTypeStatement(
   File pubspecFile,
   AssetType assetType,
   List<Integration> integrations,
@@ -182,7 +182,7 @@ String _dotDelimiterStyleDefinition(
     if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
       final statements = assetType.children
           .map(
-            (child) => _createAssetTypeStatements(
+            (child) => _createAssetTypeStatement(
               pubspecFile,
               child,
               integrations,
@@ -258,7 +258,7 @@ String _flatStyleDefinition(
       .distinct()
       .sorted()
       .map(
-        (relativePath) => _createAssetTypeStatements(
+        (relativePath) => _createAssetTypeStatement(
           pubspecFile,
           AssetType(relativePath),
           integrations,
