@@ -1,29 +1,14 @@
 import 'dart:io';
 
-import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart';
 
-import 'src/generators/assets_generator.dart';
-import 'src/generators/colors_generator.dart';
-import 'src/generators/fonts_generator.dart';
-import 'src/settings/config.dart';
-import 'src/utils/file.dart';
-
-Builder build(BuilderOptions options) {
-  Future(() async {
-    await FlutterGenerator(File('pubspec.yaml')).build();
-  });
-  return EmptyBuilder();
-}
-
-class EmptyBuilder extends Builder {
-  @override
-  Future<void> build(BuildStep buildStep) async {}
-
-  @override
-  Map<String, List<String>> get buildExtensions => {};
-}
+import 'generators/assets_generator.dart';
+import 'generators/colors_generator.dart';
+import 'generators/fonts_generator.dart';
+import 'settings/config.dart';
+import 'utils/error.dart';
+import 'utils/file.dart';
 
 class FlutterGenerator {
   const FlutterGenerator(this.pubspecFile);
@@ -34,12 +19,12 @@ class FlutterGenerator {
     final config = Config(pubspecFile);
     try {
       await config.load();
-    } on FormatException catch (e) {
+    } on InvalidSettingsException catch (e) {
       stderr.writeln(e.message);
-      exit(-1);
+      return;
     } on FileSystemException catch (e) {
       stderr.writeln(e.message);
-      exit(-1);
+      return;
     }
 
     var output = Config.defaultOutput;

@@ -2,12 +2,13 @@ import 'dart:collection';
 import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
-import 'package:path/path.dart';
 import 'package:dartx/dartx.dart';
+import 'package:path/path.dart';
 
 import '../settings/asset_type.dart';
 import '../settings/flutter.dart';
 import '../settings/flutter_gen.dart';
+import '../utils/error.dart';
 import '../utils/string.dart';
 import 'generator_helper.dart';
 import 'integrations/integration.dart';
@@ -19,8 +20,10 @@ String generateAssets(
   FlutterGen flutterGen,
   FlutterAssets assets,
 ) {
-  assert(assets != null && assets.hasAssets,
-      throw 'The value of "flutter/assets:" is incorrect.');
+  if (assets == null || !assets.hasAssets) {
+    throw InvalidSettingsException(
+        'The value of "flutter/assets:" is incorrect.');
+  }
 
   final importsBuffer = StringBuffer();
   final classesBuffer = StringBuffer();

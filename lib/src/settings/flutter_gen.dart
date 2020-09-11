@@ -44,7 +44,7 @@ class FlutterGen {
 
   FlutterGenColors colors;
 
-  bool get hasColors => colors != null;
+  bool get hasColors => colors != null && colors.hasInputs;
 }
 
 class FlutterGenColors {
