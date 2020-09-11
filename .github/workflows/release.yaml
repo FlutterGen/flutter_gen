@@ -62,19 +62,19 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
-  publish:
-    name: Publishing
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checking out sources
-        uses: actions/checkout@v2
-
-      - name: Publish to pub.dev
-        uses: sakebook/actions-flutter-pub-publisher@v1.3.1
-        with:
-          credential: ${{ secrets.CREDENTIAL_JSON }}
-          flutter_package: false
-          skip_test: true
-          dry_run: false
+#  publish:
+#    name: Publishing
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checking out sources
+#        uses: actions/checkout@v2
+#
+#      - name: Publish to pub.dev
+#        uses: sakebook/actions-flutter-pub-publisher@v1.3.1
+#        with:
+#          credential: ${{ secrets.CREDENTIAL_JSON }}
+#          flutter_package: false
+#          skip_test: true
+#          dry_run: false
 
