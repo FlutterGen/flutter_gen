@@ -1,3 +1,11 @@
+## 1.1.0
+
+New Feature
+  - [#33](https://github.com/FlutterGen/flutter_gen/pull/33) Support to generate flat hierarchy assets with field name style:
+    - camel-case
+    - snake-case
+    - dot-delimiter (Default)
+
 ## 1.0.3
 
 Bug fix
