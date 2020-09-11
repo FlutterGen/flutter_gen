@@ -232,8 +232,8 @@ final svg = SvgPicture.asset(Assets.images.icons.paint);
 final json = await rootBundle.loadString(Assets.json.fruits);
 ```
 
-[FlutterGen] also support generating other style of `Assets` class:
-
+[FlutterGen] also support generating other style of `Assets` class:  
+**Please wainting v1.1.0.**
 ```yaml
 # pubspec.yaml
 flutter_gen:
