@@ -29,6 +29,16 @@ flutter_gen:
   integrations:
     flutter_svg: true
 
+  assets:
+    # Assets.imagesChip
+    # style: camel-case
+
+    # Assets.images_chip
+    # style: snake-case
+
+    # Assets.images.chip (default style)
+    # style: dot-delimiter
+
   colors:
     inputs:
       - assets/color/colors.xml
