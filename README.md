@@ -233,14 +233,14 @@ final json = await rootBundle.loadString(Assets.json.fruits);
 ```
 
 [FlutterGen] also support generating other style of `Assets` class:  
-**Please wainting v1.1.0.**
+
 ```yaml
 # pubspec.yaml
 flutter_gen:
 
   assets:
     # Assets.imagesChip 
-    style: camel-case
+    # style: camel-case
     
     # Assets.images_chip
     # style: snake-case
