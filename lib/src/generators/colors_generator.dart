@@ -55,9 +55,8 @@ String generateColors(
 }
 
 String _colorStatement(_Color color) {
-  final hex = colorFromHex(color.hex);
   if (color.type == 'material') {
-    final swatch = swatchFromPrimaryHex(hex);
+    final swatch = swatchFromPrimaryHex(color.hex);
     return '''
   static const MaterialColor ${color.name.camelCase()} = MaterialColor(
     ${swatch[500]},
@@ -66,7 +65,8 @@ String _colorStatement(_Color color) {
     },
   );''';
   } else if (color.type == null) {
-    return '  static const Color ${color.name.camelCase()} = Color($hex);';
+    // ignore: lines_longer_than_80_chars
+    return '  static const Color ${color.name.camelCase()} = Color(${colorFromHex(color.hex)});';
   }
   throw 'Not supported color type ${color.type}.';
 }
