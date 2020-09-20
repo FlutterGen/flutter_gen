@@ -48,46 +48,69 @@ String generateColors(
       .distinctBy((color) => color.name)
       .sortedBy((color) => color.name)
       .map(_colorStatement)
-      .forEach(buffer.writeln);
+      .forEach(buffer.write);
 
   buffer.writeln('}');
   return formatter.format(buffer.toString());
 }
 
 String _colorStatement(_Color color) {
-  if (color.type == 'material') {
+  final buffer = StringBuffer();
+  if (color.isMaterial) {
     final swatch = swatchFromPrimaryHex(color.hex);
-    return '''
+    final statement = '''
   static const MaterialColor ${color.name.camelCase()} = MaterialColor(
     ${swatch[500]},
     <int, Color>{
       ${swatch.entries.map((e) => '${e.key}: Color(${e.value}),').join('\n')}
     },
   );''';
-  } else if (color.type == null) {
-    // ignore: lines_longer_than_80_chars
-    return '  static const Color ${color.name.camelCase()} = Color(${colorFromHex(color.hex)});';
+    buffer.writeln(statement);
   }
-  throw 'Not supported color type ${color.type}.';
+  if (color.isMaterialAccent) {
+    final accentSwatch = accentSwatchFromPrimaryHex(color.hex);
+    final statement = '''
+  static const MaterialAccentColor ${color.name.camelCase()}Accent = MaterialAccentColor(
+   ${accentSwatch[200]},
+   <int, Color>{
+     ${accentSwatch.entries.map((e) => '${e.key}: Color(${e.value}),').join('\n')}
+    },
+  );''';
+    buffer.writeln(statement);
+  }
+  if (color.isNormal) {
+    final statement =
+        '''static const Color ${color.name.camelCase()} = Color(${colorFromHex(color.hex)});''';
+    buffer.writeln(statement);
+  }
+  return buffer.toString();
 }
 
 class _Color {
   const _Color(
     this.name,
-    this.type,
     this.hex,
+    this._type,
   );
 
   _Color.fromXmlElement(XmlElement element)
       : this(
           element.getAttribute('name'),
-          element.getAttribute('type'),
           element.text,
+          element.getAttribute('type') ?? '',
         );
 
   final String name;
 
   final String hex;
 
-  final String type;
+  final String _type;
+
+  List<String> get _types => _type.split(' ');
+
+  bool get isNormal => _type.isEmpty;
+
+  bool get isMaterial => _types.contains('material');
+
+  bool get isMaterialAccent => _types.contains('material-accent');
 }
