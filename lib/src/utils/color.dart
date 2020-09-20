@@ -9,7 +9,7 @@ String colorFromHex(String hexColor) {
 }
 
 /// [Material Design Color Generator](https://github.com/mbitson/mcg)
-/// Constantin logic: https://github.com/mbitson/mcg/blob/858cffea0d79ac143d590d110fbe20a1ea54d59d/scripts/controllers/ColorGeneratorCtrl.js#L238
+/// Constantin/Buckner logic: https://github.com/mbitson/mcg/blob/858cffea0d79ac143d590d110fbe20a1ea54d59d/scripts/controllers/ColorGeneratorCtrl.js#L238
 Map<int, String> swatchFromPrimaryHex(String primaryHex) {
   final primary = Color.hex(primaryHex).toRgbColor();
   final baseLight = Color.hex("ffffff").toRgbColor();
@@ -28,26 +28,23 @@ Map<int, String> swatchFromPrimaryHex(String primaryHex) {
   };
 }
 
+/// Buckner logic: https://github.com/mbitson/mcg/blob/858cffea0d79ac143d590d110fbe20a1ea54d59d/scripts/controllers/ColorGeneratorCtrl.js#L275
 Map<int, String> accentSwatchFromPrimaryHex(String primaryHex) {
   final primary = Color.hex(primaryHex).toRgbColor();
   final baseDark = primary * primary;
   final baseTriad = primary.tetrad();
   return {
-    100: _mix(baseDark, baseTriad[3], 15)
-        .saturate(80)
-        .lighten(0.65)
-        .toHexString(),
-    200: _mix(baseDark, baseTriad[3], 15)
-        .saturate(80)
-        .lighten(0.55)
-        .toHexString(),
+    100:
+        _mix(baseDark, baseTriad[3], 15).saturate(80).lighten(48).toHexString(),
+    200:
+        _mix(baseDark, baseTriad[3], 15).saturate(80).lighten(36).toHexString(),
     400: _mix(baseDark, baseTriad[3], 15)
         .saturate(100)
-        .lighten(0.45)
+        .lighten(31)
         .toHexString(),
     700: _mix(baseDark, baseTriad[3], 15)
         .saturate(100)
-        .lighten(0.40)
+        .lighten(28)
         .toHexString(),
   };
 }
@@ -71,22 +68,26 @@ extension _ColorExt on Color {
     final hsl = toHslColor();
     return [
       this,
-      Color.hsl((hsl.h + 90) % 360, hsl.s, hsl.l).toRgbColor(),
-      Color.hsl((hsl.h + 180) % 360, hsl.s, hsl.l).toRgbColor(),
-      Color.hsl((hsl.h + 270) % 360, hsl.s, hsl.l).toRgbColor(),
+      Color.hsl((hsl.h + 90) % 360, hsl.s, hsl.l),
+      Color.hsl((hsl.h + 180) % 360, hsl.s, hsl.l),
+      Color.hsl((hsl.h + 270) % 360, hsl.s, hsl.l),
     ];
   }
 
+  // https://github.com/bgrins/TinyColor/blob/ab58ca0a3738dc06b7e64c749cebfd5d6fb5044c/tinycolor.js#L580
   Color saturate(int amount) {
     assert(amount >= 0 && amount <= 100);
     final hsl = toHslColor();
     final s = (hsl.s + amount).clamp(0, 100);
-    return Color.hsl(hsl.h, s, hsl.s);
+    return Color.hsl(hsl.h, s, hsl.l);
   }
 
-  Color lighten(double percent) {
-    assert(percent >= 0 && percent <= 1);
-    return ColorFilter.lighten.call(this, [percent]).toRgbColor();
+  // https://github.com/bgrins/TinyColor/blob/ab58ca0a3738dc06b7e64c749cebfd5d6fb5044c/tinycolor.js#L592
+  Color lighten(int amount) {
+    assert(amount >= 0 && amount <= 100);
+    final hsl = toHslColor();
+    final l = (hsl.l + amount).clamp(0, 100);
+    return Color.hsl(hsl.h, hsl.s, l);
   }
 }
 
