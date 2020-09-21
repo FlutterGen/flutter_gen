@@ -11,8 +11,8 @@ String colorFromHex(String hexColor) {
 /// [Material Design Color Generator](https://github.com/mbitson/mcg)
 /// Constantin/Buckner logic: https://github.com/mbitson/mcg/blob/858cffea0d79ac143d590d110fbe20a1ea54d59d/scripts/controllers/ColorGeneratorCtrl.js#L238
 Map<int, String> swatchFromPrimaryHex(String primaryHex) {
-  final primary = Color.hex(primaryHex).toRgbColor();
-  final baseLight = Color.hex("ffffff").toRgbColor();
+  final primary = Color.hex(primaryHex);
+  final baseLight = Color.hex("ffffff");
   final baseDark = primary * primary;
   return {
     50: _mix(baseLight, primary, 12).toHexString(),
@@ -30,7 +30,7 @@ Map<int, String> swatchFromPrimaryHex(String primaryHex) {
 
 /// Buckner logic: https://github.com/mbitson/mcg/blob/858cffea0d79ac143d590d110fbe20a1ea54d59d/scripts/controllers/ColorGeneratorCtrl.js#L275
 Map<int, String> accentSwatchFromPrimaryHex(String primaryHex) {
-  final primary = Color.hex(primaryHex).toRgbColor();
+  final primary = Color.hex(primaryHex);
   final baseDark = primary * primary;
   final baseTriad = primary.tetrad();
   return {

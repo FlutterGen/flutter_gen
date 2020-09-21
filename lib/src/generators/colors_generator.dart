@@ -90,25 +90,23 @@ class _Color {
   const _Color(
     this.name,
     this.hex,
-    this._type,
+    this._types,
   );
 
   _Color.fromXmlElement(XmlElement element)
       : this(
           element.getAttribute('name'),
           element.text,
-          element.getAttribute('type') ?? '',
+          element.getAttribute('type')?.split(' ') ?? List.empty(),
         );
 
   final String name;
 
   final String hex;
 
-  final String _type;
+  final List<String> _types;
 
-  List<String> get _types => _type.split(' ');
-
-  bool get isNormal => _type.isEmpty;
+  bool get isNormal => _types.isEmpty;
 
   bool get isMaterial => _types.contains('material');
 
