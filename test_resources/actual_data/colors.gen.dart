@@ -47,4 +47,13 @@ class ColorName {
       900: Color(0xFFCA670E),
     },
   );
+  static const MaterialAccentColor yellowOcherAccent = MaterialAccentColor(
+    0xFFFFBCA3,
+    <int, Color>{
+      100: Color(0xFFFFE8E0),
+      200: Color(0xFFFFBCA3),
+      400: Color(0xFFFFA989),
+      700: Color(0xFFFF9E7A),
+    },
+  );
 }

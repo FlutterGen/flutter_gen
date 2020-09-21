@@ -499,12 +499,19 @@ flutter_gen:
       - assets/color/colors2.xml
 ```
 
-[FlutterGen] generates [MaterialColor](https://api.flutter.dev/flutter/material/MaterialColor-class.html) class 
-if the element has the attribute `type="material"`, otherwise a normal [Color](https://api.flutter.dev/flutter/material/Colors-class.html) class will be generated.
+[FlutterGen] can generate a [Color](https://api.flutter.dev/flutter/material/Colors-class.html) class based on the `name` attribute and the color hex value.
+If the element has the attribute `type`, then a specially color will be generated.
+
+Currently supported special color types:
+  - [MaterialColor](https://api.flutter.dev/flutter/material/MaterialColor-class.html)
+  - [MaterialAccentColor](https://api.flutter.dev/flutter/material/MaterialAccentColor-class.html)
+  
+> Noticed that there is no official material color generation algorithm. The implementation is based on the [mcg](https://github.com/mbitson/mcg) project.
 
 ```xml
 <color name="milk_tea">#F5CB84</color>
 <color name="cinnamon" type="material">#955E1C</color>
+<color name="yellow_ocher" type="material material-accent">#DF9527</color>
 ```
 
 These configurations will generate **`colors.gen.dart`** under the **`lib/gen/`** directory by default.
@@ -572,6 +579,15 @@ class ColorName {
       900: Color(0xFFCA670E),
     },
   );
+  static const MaterialAccentColor yellowOcherAccent = MaterialAccentColor(
+    0xFFFFBCA3,
+    <int, Color>{
+      100: Color(0xFFFFE8E0),
+      200: Color(0xFFFFBCA3),
+      400: Color(0xFFFFA989),
+      700: Color(0xFFFF9E7A),
+    },
+  );
 }
 
 ```
@@ -592,6 +608,10 @@ Plugin issues that are not specific to [FlutterGen] can be filed in the [Flutter
 If you wish to contribute a change to any of the existing plugins in this repo,
 please review our [contribution guide](https://github.com/FlutterGen/flutter_gen/blob/master/CONTRIBUTING.md)
 and open a [pull request](https://github.com/FlutterGen/flutter_gen/pulls).
+
+## Credits
+
+The material color generation implementation is based on [mcg](https://github.com/mbitson/mcg) and [TinyColor](https://github.com/bgrins/TinyColor).
 
 ### Milestone
 
