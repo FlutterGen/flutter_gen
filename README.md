@@ -595,6 +595,10 @@ class ColorName {
 </p>
 </details>
 
+## Credits
+
+The material color generation implementation is based on [mcg](https://github.com/mbitson/mcg) and [TinyColor](https://github.com/bgrins/TinyColor).
+
 ## Issues
 
 Please file [FlutterGen] specific issues, bugs, or feature requests in our [issue tracker](https://github.com/FlutterGen/flutter_gen/issues/new).
@@ -608,10 +612,6 @@ Plugin issues that are not specific to [FlutterGen] can be filed in the [Flutter
 If you wish to contribute a change to any of the existing plugins in this repo,
 please review our [contribution guide](https://github.com/FlutterGen/flutter_gen/blob/master/CONTRIBUTING.md)
 and open a [pull request](https://github.com/FlutterGen/flutter_gen/pulls).
-
-## Credits
-
-The material color generation implementation is based on [mcg](https://github.com/mbitson/mcg) and [TinyColor](https://github.com/bgrins/TinyColor).
 
 ### Milestone
 
