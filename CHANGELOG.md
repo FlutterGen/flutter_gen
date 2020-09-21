@@ -1,3 +1,8 @@
+## 1.2.0
+
+New Feature
+- [#40](https://github.com/FlutterGen/flutter_gen/pull/40) Support MaterialAccentColor
+
 ## 1.1.0
 
 New Feature

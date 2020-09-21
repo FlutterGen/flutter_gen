@@ -5,7 +5,7 @@ _See also: [Contributor Covenant Code of Conduct](https://github.com/FlutterGen/
 ## Things you will need
 
  * Linux, Mac OS X, or Windows.
- * Dart
+ * Flutter and Dart (Stable channel)
  * Git
 
 ## Running the FlutterGen
