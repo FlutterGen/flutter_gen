@@ -1,3 +1,8 @@
+## 1.2.1
+
+Bug fix
+- [#42](https://github.com/FlutterGen/flutter_gen/pull/42) Generated output folder name not being respected
+
 ## 1.2.0
 
 New Feature
