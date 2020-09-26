@@ -9,6 +9,10 @@ class FlutterGen {
   FlutterGen(YamlMap flutterGenMap) {
     if (flutterGenMap != null) {
       _output = safeCast<String>(flutterGenMap['output']);
+      if (_output != null && !Directory(_output).existsSync()) {
+        Directory(_output).createSync(recursive: true);
+      }
+
       if (flutterGenMap.containsKey('integrations')) {
         integrations = FlutterGenIntegrations(
             safeCast<YamlMap>(flutterGenMap['integrations']));

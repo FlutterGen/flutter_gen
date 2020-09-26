@@ -1,7 +1,7 @@
 name: example
 
 flutter_gen:
-  output: null/null
+  output:
   lineLength: 80
 
   colors:
