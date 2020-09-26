@@ -1,0 +1,18 @@
+name: test
+
+flutter_gen:
+  output: lib/aaa/bbb/ccc # Optional (default: lib/gen/)
+
+  colors:
+    inputs:
+      - assets/color/colors.xml
+
+flutter:
+  assets:
+    - assets/images/
+  fonts:
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/Raleway-Regular.ttf
+        - asset: assets/fonts/Raleway-Italic.ttf
+          style: italic
