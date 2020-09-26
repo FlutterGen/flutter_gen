@@ -1,8 +1,7 @@
-name: example
+name: test
 
 flutter_gen:
-  output:
-  lineLength: 80
+  output: lib/aaa/bbb/ccc # Optional (default: lib/gen/)
 
   colors:
     inputs:

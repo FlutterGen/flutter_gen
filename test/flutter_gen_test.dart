@@ -117,6 +117,24 @@ void main() {
       );
     });
 
+    test('Change output path', () async {
+      await FlutterGenerator(
+          File('test_resources/pubspec_change_output_path.yaml'))
+          .build();
+      expect(
+        File('test_resources/lib/aaa/bbb/ccc/assets.gen.dart').readAsStringSync(),
+        isNotEmpty,
+      );
+      expect(
+        File('test_resources/lib/aaa/bbb/ccc/fonts.gen.dart').readAsStringSync(),
+        isNotEmpty,
+      );
+      expect(
+        File('test_resources/lib/aaa/bbb/ccc/colors.gen.dart').readAsStringSync(),
+        isNotEmpty,
+      );
+    });
+
     test('Wrong output path', () async {
       await FlutterGenerator(
               File('test_resources/pubspec_wrong_output_path.yaml'))
