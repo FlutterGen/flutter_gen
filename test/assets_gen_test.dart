@@ -25,7 +25,11 @@ void main() {
           pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
       final actual = generateAssets(
-          pubspec, formatter, config.flutterGen, config.flutter.assets);
+        pubspec.parent.path,
+        formatter,
+        config.flutterGen,
+        config.flutter.assets,
+      );
       final expected = File('test_resources/actual_data/assets.gen.dart')
           .readAsStringSync()
           .replaceAll('\r\n', '\n');
@@ -40,7 +44,11 @@ void main() {
           pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
       final actual = generateAssets(
-          pubspec, formatter, config.flutterGen, config.flutter.assets);
+        pubspec.parent.path,
+        formatter,
+        config.flutterGen,
+        config.flutter.assets,
+      );
       final expected =
           File('test_resources/actual_data/assets_snake_case.gen.dart')
               .readAsStringSync()
@@ -56,7 +64,11 @@ void main() {
           pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
       final actual = generateAssets(
-          pubspec, formatter, config.flutterGen, config.flutter.assets);
+        pubspec.parent.path,
+        formatter,
+        config.flutterGen,
+        config.flutter.assets,
+      );
       final expected =
           File('test_resources/actual_data/assets_camel_case.gen.dart')
               .readAsStringSync()
@@ -81,7 +93,11 @@ void main() {
           pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
       final actual = generateAssets(
-          pubspec, formatter, config.flutterGen, config.flutter.assets);
+        pubspec.parent.path,
+        formatter,
+        config.flutterGen,
+        config.flutter.assets,
+      );
       final expected =
           File('test_resources/actual_data/assets_no_integrations.gen.dart')
               .readAsStringSync()
@@ -98,7 +114,11 @@ void main() {
 
       expect(() async {
         return generateAssets(
-            pubspec, formatter, config.flutterGen, config.flutter.assets);
+          pubspec.parent.path,
+          formatter,
+          config.flutterGen,
+          config.flutter.assets,
+        );
       }, throwsA(isA<InvalidSettingsException>()));
     });
   });

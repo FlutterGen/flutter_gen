@@ -2,95 +2,145 @@ import 'dart:io';
 
 import 'package:yaml/yaml.dart';
 
+import '../generators/integrations/integration.dart';
+import '../generators/integrations/svg_integration.dart';
 import '../utils/cast.dart';
 import 'config.dart';
 
 class FlutterGen {
-  FlutterGen(YamlMap flutterGenMap) {
-    if (flutterGenMap != null) {
-      _output = safeCast<String>(flutterGenMap['output']);
-      if (_output != null && !Directory(_output).existsSync()) {
-        Directory(_output).createSync(recursive: true);
-      }
+  FlutterGen._({
+    outputDirectory,
+    lineLength,
+    integrations,
+    assets,
+    colors,
+  })  : outputDirectory = outputDirectory ?? Config.defaultOutputDirectory,
+        lineLength = lineLength ?? Config.defaultLineLength,
+        integrations = integrations ?? FlutterGenIntegrations.empty(),
+        assets = assets ?? FlutterGenAssets.empty(),
+        colors = colors ?? FlutterGenColors.empty();
 
-      if (flutterGenMap.containsKey('integrations')) {
-        integrations = FlutterGenIntegrations(
-            safeCast<YamlMap>(flutterGenMap['integrations']));
-      }
-      if (flutterGenMap.containsKey('assets')) {
-        assets = FlutterGenAssets(safeCast<YamlMap>(flutterGenMap['assets']));
-      }
-      _lineLength = safeCast<int>(flutterGenMap['lineLength']);
-      if (flutterGenMap.containsKey('colors')) {
-        colors = FlutterGenColors(safeCast<YamlMap>(flutterGenMap['colors']));
-      }
+  FlutterGen.empty() : this._();
+
+  factory FlutterGen.fromYaml(YamlMap flutterGenMap) {
+    if (flutterGenMap == null) {
+      return FlutterGen.empty();
     }
+
+    final output = safeCast<String>(flutterGenMap['output']);
+    if (output != null && !FileSystemEntity.isDirectorySync(output)) {
+      Directory(output).createSync(recursive: true);
+    }
+
+    final lineLength = safeCast<int>(flutterGenMap['lineLength']);
+
+    FlutterGenIntegrations integrations;
+    if (flutterGenMap.containsKey('integrations')) {
+      integrations = FlutterGenIntegrations.fromYaml(
+          safeCast<YamlMap>(flutterGenMap['integrations']));
+    }
+
+    FlutterGenAssets assets;
+    if (flutterGenMap.containsKey('assets')) {
+      assets =
+          FlutterGenAssets.fromYaml(safeCast<YamlMap>(flutterGenMap['assets']));
+    }
+
+    FlutterGenColors colors;
+    if (flutterGenMap.containsKey('colors')) {
+      colors =
+          FlutterGenColors.fromYaml(safeCast<YamlMap>(flutterGenMap['colors']));
+    }
+    return FlutterGen._(
+      outputDirectory: output,
+      lineLength: lineLength,
+      integrations: integrations,
+      assets: assets,
+      colors: colors,
+    );
   }
 
-  String _output;
+  final String outputDirectory;
 
-  String get output =>
-      _output != null && FileSystemEntity.isDirectorySync(_output)
-          ? _output
-          : Config.defaultOutput;
+  final int lineLength;
 
-  int _lineLength;
+  final FlutterGenIntegrations integrations;
 
-  int get lineLength => _lineLength ?? Config.defaultLineLength;
+  final FlutterGenAssets assets;
 
-  FlutterGenIntegrations integrations;
-
-  bool get hasIntegrations => integrations != null;
-
-  FlutterGenAssets assets;
-
-  bool get hasAssets => assets != null;
-
-  FlutterGenColors colors;
-
-  bool get hasColors => colors != null && colors.hasInputs;
+  final FlutterGenColors colors;
 }
 
 class FlutterGenColors {
-  FlutterGenColors(YamlMap flutterGenMap) {
+  FlutterGenColors._({inputs}) : inputs = inputs ?? YamlList();
+
+  FlutterGenColors.empty() : this._();
+
+  factory FlutterGenColors.fromYaml(YamlMap flutterGenMap) {
+    if (flutterGenMap == null) {
+      return FlutterGenColors.empty();
+    }
+    YamlList inputs;
     if (flutterGenMap != null) {
       inputs = safeCast<YamlList>(flutterGenMap['inputs']);
     }
+    return FlutterGenColors._(inputs: inputs);
   }
 
-  YamlList inputs;
-
-  bool get hasInputs => inputs != null && inputs.isNotEmpty;
+  final YamlList inputs;
 }
 
 class FlutterGenAssets {
-  FlutterGenAssets(YamlMap flutterGenMap) {
+  static const dotDelimiterStyle = 'dot-delimiter';
+  static const snakeCaseStyle = 'snake-case';
+  static const camelCaseStyle = 'camel-case';
+
+  FlutterGenAssets._({String style}) : style = style ?? dotDelimiterStyle;
+
+  FlutterGenAssets.empty() : this._();
+
+  factory FlutterGenAssets.fromYaml(YamlMap flutterGenMap) {
+    if (flutterGenMap == null) {
+      return FlutterGenAssets.empty();
+    }
+    String style;
     if (flutterGenMap != null) {
       style = safeCast<String>(flutterGenMap['style']);
     }
+    return FlutterGenAssets._(style: style);
   }
 
-  String style;
+  final String style;
 
-  bool get isDefaultStyle => style == null || isDotDelimiterStyle;
+  bool get isDefaultStyle => isDotDelimiterStyle;
 
-  bool get isDotDelimiterStyle => style == 'dot-delimiter';
+  bool get isDotDelimiterStyle => style == dotDelimiterStyle;
 
-  bool get isSnakeCaseStyle => style == 'snake-case';
+  bool get isSnakeCaseStyle => style == snakeCaseStyle;
 
-  bool get isCamelCaseStyle => style == 'camel-case';
+  bool get isCamelCaseStyle => style == camelCaseStyle;
 }
 
 class FlutterGenIntegrations {
-  FlutterGenIntegrations(YamlMap flutterGenMap) {
-    if (flutterGenMap != null) {
-      _flutterSvg = safeCast<bool>(flutterGenMap['flutter_svg']);
+  FlutterGenIntegrations._({List<Integration> integrations})
+      : integrations = integrations ?? List.empty();
+
+  FlutterGenIntegrations.empty() : this._();
+
+  factory FlutterGenIntegrations.fromYaml(YamlMap flutterGenMap) {
+    if (flutterGenMap == null) {
+      return FlutterGenIntegrations.empty();
     }
+    final integrations = _parseIntegration(flutterGenMap);
+    return FlutterGenIntegrations._(integrations: integrations);
   }
 
-  bool _flutterSvg;
+  final List<Integration> integrations;
+}
 
-  bool get flutterSvg => _flutterSvg ?? false;
-
-  bool get hasFlutterSvg => flutterSvg;
+// TODO: Refactor to accept YamlNode
+List<Integration> _parseIntegration(YamlMap flutterGenMap) {
+  return [
+    if (safeCast<bool>(flutterGenMap['flutter_svg']) == true) SvgIntegration()
+  ];
 }

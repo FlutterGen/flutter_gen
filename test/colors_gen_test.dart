@@ -23,8 +23,11 @@ void main() {
       final formatter = DartFormatter(
           pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
-      final actual =
-          generateColors(pubspec, formatter, config.flutterGen.colors);
+      final actual = generateColors(
+        pubspec.parent.path,
+        formatter,
+        config.flutterGen.colors,
+      );
       final expected = File('test_resources/actual_data/colors.gen.dart')
           .readAsStringSync()
           .replaceAll('\r\n', '\n');
@@ -39,7 +42,11 @@ void main() {
           pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
       expect(() async {
-        return generateColors(pubspec, formatter, config.flutterGen.colors);
+        return generateColors(
+          pubspec.parent.path,
+          formatter,
+          config.flutterGen.colors,
+        );
       }, throwsA(isA<InvalidSettingsException>()));
     });
 
@@ -50,7 +57,11 @@ void main() {
           pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
       expect(() async {
-        return generateColors(pubspec, formatter, config.flutterGen.colors);
+        return generateColors(
+          pubspec.parent.path,
+          formatter,
+          config.flutterGen.colors,
+        );
       }, throwsA(isA<InvalidSettingsException>()));
     });
   });

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dart_style/dart_style.dart';
 import 'package:dartx/dartx.dart';
 import 'package:path/path.dart';
@@ -13,8 +11,8 @@ import '../utils/string.dart';
 import 'generator_helper.dart';
 
 String generateColors(
-    File pubspecFile, DartFormatter formatter, FlutterGenColors colors) {
-  if (colors == null || !colors.hasInputs) {
+    String basePath, DartFormatter formatter, FlutterGenColors colors) {
+  if (colors == null || colors.inputs.isEmpty) {
     throw InvalidSettingsException(
         'The value of "flutter_gen/colors:" is incorrect.');
   }
@@ -31,7 +29,7 @@ String generateColors(
   final colorList = <_Color>[];
   colors.inputs
       .cast<String>()
-      .map((file) => ColorPath(join(pubspecFile.parent.path, file)))
+      .map((file) => ColorPath(join(basePath, file)))
       .forEach((colorFile) {
     final data = colorFile.file.readAsStringSync();
     if (colorFile.isXml) {

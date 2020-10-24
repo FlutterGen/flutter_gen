@@ -12,10 +12,9 @@ import '../utils/error.dart';
 import '../utils/string.dart';
 import 'generator_helper.dart';
 import 'integrations/integration.dart';
-import 'integrations/svg_integration.dart';
 
 String generateAssets(
-  File pubspecFile,
+  String basePath,
   DartFormatter formatter,
   FlutterGen flutterGen,
   FlutterAssets assets,
@@ -28,24 +27,17 @@ String generateAssets(
   final importsBuffer = StringBuffer();
   final classesBuffer = StringBuffer();
 
-  final integrations = <Integration>[];
-  if (flutterGen != null &&
-      flutterGen.hasIntegrations &&
-      flutterGen.integrations.hasFlutterSvg) {
-    integrations.add(SvgIntegration());
-  }
+  final integrations = flutterGen?.integrations?.integrations ?? [];
 
-  if (flutterGen == null ||
-      !flutterGen.hasAssets ||
-      flutterGen.assets.isDefaultStyle) {
-    classesBuffer.writeln(
-        _dotDelimiterStyleDefinition(pubspecFile, assets, integrations));
+  if (flutterGen == null || flutterGen.assets.isDefaultStyle) {
+    classesBuffer
+        .writeln(_dotDelimiterStyleDefinition(basePath, assets, integrations));
   } else if (flutterGen.assets.isSnakeCaseStyle) {
     classesBuffer
-        .writeln(_snakeCaseStyleDefinition(pubspecFile, assets, integrations));
+        .writeln(_snakeCaseStyleDefinition(basePath, assets, integrations));
   } else if (flutterGen.assets.isCamelCaseStyle) {
     classesBuffer
-        .writeln(_camelCaseStyleDefinition(pubspecFile, assets, integrations));
+        .writeln(_camelCaseStyleDefinition(basePath, assets, integrations));
   } else {
     throw 'The value of "flutter_gen/assets/style." is incorrect.';
   }
@@ -71,21 +63,20 @@ String generateAssets(
 }
 
 List<String> _getAssetRelativePathList(
-  File pubspecFile,
+  String basePath,
   FlutterAssets assets,
 ) {
   final assetRelativePathList = <String>[];
   for (final assetName in assets.assets) {
-    final assetAbsolutePath = join(pubspecFile.parent.path, assetName);
+    final assetAbsolutePath = join(basePath, assetName);
     if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
       assetRelativePathList.addAll(Directory(assetAbsolutePath)
           .listSync()
           .whereType<File>()
-          .map((e) => relative(e.path, from: pubspecFile.parent.path))
+          .map((e) => relative(e.path, from: basePath))
           .toList());
     } else if (FileSystemEntity.isFileSync(assetAbsolutePath)) {
-      assetRelativePathList
-          .add(relative(assetAbsolutePath, from: pubspecFile.parent.path));
+      assetRelativePathList.add(relative(assetAbsolutePath, from: basePath));
     }
   }
   return assetRelativePathList;
@@ -115,12 +106,12 @@ AssetType _constructAssetTree(List<String> assetRelativePathList) {
 }
 
 _Statement _createAssetTypeStatement(
-  File pubspecFile,
+  String basePath,
   AssetType assetType,
   List<Integration> integrations,
   String Function(AssetType) createName,
 ) {
-  final childAssetAbsolutePath = join(pubspecFile.parent.path, assetType.path);
+  final childAssetAbsolutePath = join(basePath, assetType.path);
   _Statement statement;
   if (assetType.isSupportedImage) {
     statement = _Statement(
@@ -164,12 +155,12 @@ _Statement _createAssetTypeStatement(
 
 /// Generate style like Assets.foo.bar
 String _dotDelimiterStyleDefinition(
-  File pubspecFile,
+  String basePath,
   FlutterAssets assets,
   List<Integration> integrations,
 ) {
   final buffer = StringBuffer();
-  final assetRelativePathList = _getAssetRelativePathList(pubspecFile, assets);
+  final assetRelativePathList = _getAssetRelativePathList(basePath, assets);
   final assetsStaticStatements = <_Statement>[];
 
   final assetTypeQueue = ListQueue<AssetType>.from(
@@ -177,13 +168,13 @@ String _dotDelimiterStyleDefinition(
 
   while (assetTypeQueue.isNotEmpty) {
     final assetType = assetTypeQueue.removeFirst();
-    final assetAbsolutePath = join(pubspecFile.parent.path, assetType.path);
+    final assetAbsolutePath = join(basePath, assetType.path);
 
     if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
       final statements = assetType.children
           .map(
             (child) => _createAssetTypeStatement(
-              pubspecFile,
+              basePath,
               child,
               integrations,
               (element) => element.baseName.camelCase(),
@@ -218,12 +209,12 @@ String _dotDelimiterStyleDefinition(
 
 /// Generate style like Assets.fooBar
 String _camelCaseStyleDefinition(
-  File pubspecFile,
+  String basePath,
   FlutterAssets assets,
   List<Integration> integrations,
 ) {
   return _flatStyleDefinition(
-    pubspecFile,
+    basePath,
     assets,
     integrations,
     (assetType) => withoutExtension(assetType.path)
@@ -234,12 +225,12 @@ String _camelCaseStyleDefinition(
 
 /// Generate style like Assets.foo_bar
 String _snakeCaseStyleDefinition(
-  File pubspecFile,
+  String basePath,
   FlutterAssets assets,
   List<Integration> integrations,
 ) {
   return _flatStyleDefinition(
-    pubspecFile,
+    basePath,
     assets,
     integrations,
     (assetType) => withoutExtension(assetType.path)
@@ -249,17 +240,17 @@ String _snakeCaseStyleDefinition(
 }
 
 String _flatStyleDefinition(
-  File pubspecFile,
+  String basePath,
   FlutterAssets assets,
   List<Integration> integrations,
   String Function(AssetType) createName,
 ) {
-  final statements = _getAssetRelativePathList(pubspecFile, assets)
+  final statements = _getAssetRelativePathList(basePath, assets)
       .distinct()
       .sorted()
       .map(
         (relativePath) => _createAssetTypeStatement(
-          pubspecFile,
+          basePath,
           AssetType(relativePath),
           integrations,
           createName,

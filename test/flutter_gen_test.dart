@@ -119,18 +119,21 @@ void main() {
 
     test('Change output path', () async {
       await FlutterGenerator(
-          File('test_resources/pubspec_change_output_path.yaml'))
+              File('test_resources/pubspec_change_output_path.yaml'))
           .build();
       expect(
-        File('test_resources/lib/aaa/bbb/ccc/assets.gen.dart').readAsStringSync(),
+        File('test_resources/lib/aaa/bbb/ccc/assets.gen.dart')
+            .readAsStringSync(),
         isNotEmpty,
       );
       expect(
-        File('test_resources/lib/aaa/bbb/ccc/fonts.gen.dart').readAsStringSync(),
+        File('test_resources/lib/aaa/bbb/ccc/fonts.gen.dart')
+            .readAsStringSync(),
         isNotEmpty,
       );
       expect(
-        File('test_resources/lib/aaa/bbb/ccc/colors.gen.dart').readAsStringSync(),
+        File('test_resources/lib/aaa/bbb/ccc/colors.gen.dart')
+            .readAsStringSync(),
         isNotEmpty,
       );
     });

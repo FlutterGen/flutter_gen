@@ -27,17 +27,20 @@ class FlutterGenerator {
       return;
     }
 
-    var output = Config.defaultOutput;
+    var output = Config.defaultOutputDirectory;
     var lineLength = Config.defaultLineLength;
 
     if (config.hasFlutterGen) {
-      output = config.flutterGen.output;
+      output = config.flutterGen.outputDirectory;
       lineLength = config.flutterGen.lineLength;
       final formatter = DartFormatter(pageWidth: lineLength, lineEnding: '\n');
 
-      if (config.flutterGen.hasColors) {
-        final generated =
-            generateColors(pubspecFile, formatter, config.flutterGen.colors);
+      if (config.flutterGen.colors.inputs.isNotEmpty) {
+        final generated = generateColors(
+          pubspecFile.parent.path,
+          formatter,
+          config.flutterGen.colors,
+        );
         final colors = File(normalize(
             join(pubspecFile.parent.path, output, 'colors.gen.dart')));
         writeAsString(generated, file: colors);
@@ -50,7 +53,11 @@ class FlutterGenerator {
 
       if (config.flutter.hasAssets) {
         final generated = generateAssets(
-            pubspecFile, formatter, config.flutterGen, config.flutter.assets);
+          pubspecFile.parent.path,
+          formatter,
+          config.flutterGen,
+          config.flutter.assets,
+        );
         final assets = File(normalize(
             join(pubspecFile.parent.path, output, 'assets.gen.dart')));
         writeAsString(generated, file: assets);

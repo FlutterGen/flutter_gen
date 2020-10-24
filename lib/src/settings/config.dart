@@ -11,7 +11,7 @@ import 'flutter_gen.dart';
 class Config {
   Config(this.pubspecFile);
 
-  static final String defaultOutput = 'lib${separator}gen$separator';
+  static final String defaultOutputDirectory = 'lib${separator}gen$separator';
   static const int defaultLineLength = 80;
 
   final File pubspecFile;
@@ -39,7 +39,8 @@ class Config {
       flutter = Flutter(safeCast<YamlMap>(properties['flutter']));
     }
     if (properties.containsKey('flutter_gen')) {
-      flutterGen = FlutterGen(safeCast<YamlMap>(properties['flutter_gen']));
+      flutterGen =
+          FlutterGen.fromYaml(safeCast<YamlMap>(properties['flutter_gen']));
     }
 
     if (!hasFlutter && !hasFlutterGen) {
