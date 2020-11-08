@@ -84,7 +84,7 @@ $ fluttergen -h
 $ fluttergen -c example/pubspec.yaml
 ```
 
-#### Use this package as a part of build_runner (Not recomended)
+### Use this package as a part of build_runner (Not recomended)
 _Not recommended as it conflicts with flutter localization when using build_runner._
 
 <details><summary>Installation</summary>
