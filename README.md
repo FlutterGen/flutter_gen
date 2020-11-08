@@ -60,26 +60,15 @@ Run `fluttergen` after the configuration [`pubspec.yaml`](https://dart.dev/tools
 
 ### Use this package as an executable
 
-#### Using a Homebrew Formula
+#### Install [FlutterGen]
 
-
-1. Install [FlutterGen]
+##### Using a Homebrew Formula
 
 ```sh
 $ brew install FlutterGen/tap/fluttergen
 ```
 
-2. Use [FlutterGen]
-
-```sh
-$ fluttergen -h
-
-$ fluttergen -c example/pubspec.yaml
-```
-
-#### Using a Dart command-line
-
-1. Install [FlutterGen]
+##### Using a Dart command-line
 
 ```sh
 $ pub global activate flutter_gen
@@ -87,7 +76,7 @@ $ pub global activate flutter_gen
 $ export PATH="$PATH":"$HOME/.pub-cache/bin"
 ```
 
-2. Use [FlutterGen]
+#### Use [FlutterGen]
 
 ```sh
 $ fluttergen -h
@@ -95,7 +84,9 @@ $ fluttergen -h
 $ fluttergen -c example/pubspec.yaml
 ```
 
-### Use this package as a part of build_runner (Not recomended)
+#### Use this package as a part of build_runner (Not recomended)
+_Not recommended as it conflicts with flutter localization when using build_runner._
+
 <details><summary>Installation</summary>
   
 1. Add [build_runner] and [FlutterGen] to your package's pubspec.yaml file:
