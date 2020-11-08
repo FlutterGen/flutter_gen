@@ -60,7 +60,7 @@ Run `fluttergen` after the configuration [`pubspec.yaml`](https://dart.dev/tools
 
 ### Use this package as an executable
 
-#### Install [FlutterGen]
+#### 1. Install [FlutterGen]
 
 ##### Using a Homebrew Formula
 
@@ -76,7 +76,7 @@ $ pub global activate flutter_gen
 $ export PATH="$PATH":"$HOME/.pub-cache/bin"
 ```
 
-#### Use [FlutterGen]
+#### 2. Use [FlutterGen]
 
 ```sh
 $ fluttergen -h
