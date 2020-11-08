@@ -95,8 +95,9 @@ $ fluttergen -h
 $ fluttergen -c example/pubspec.yaml
 ```
 
-### Use this package as a part of build_runner
-
+### Use this package as a part of build_runner (Not recomended)
+<details><summary>Installation</summary>
+  
 1. Add [build_runner] and [FlutterGen] to your package's pubspec.yaml file:
 
 ```
@@ -116,6 +117,8 @@ $ flutter pub get
 ```
 $ flutter packages pub run build_runner build
 ```
+
+</details>
 
 ## Configuration file
 
