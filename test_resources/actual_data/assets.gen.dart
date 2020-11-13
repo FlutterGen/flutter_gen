@@ -69,6 +69,7 @@ class AssetGenImage extends AssetImage {
   final String _assetName;
 
   Image image({
+    Key key,
     ImageFrameBuilder frameBuilder,
     ImageLoadingBuilder loadingBuilder,
     ImageErrorWidgetBuilder errorBuilder,
@@ -88,6 +89,7 @@ class AssetGenImage extends AssetImage {
     FilterQuality filterQuality = FilterQuality.low,
   }) {
     return Image(
+      key: key,
       image: this,
       frameBuilder: frameBuilder,
       loadingBuilder: loadingBuilder,
@@ -118,6 +120,7 @@ class SvgGenImage {
   final String _assetName;
 
   SvgPicture svg({
+    Key key,
     bool matchTextDirection = false,
     AssetBundle bundle,
     String package,
@@ -135,6 +138,7 @@ class SvgGenImage {
   }) {
     return SvgPicture.asset(
       _assetName,
+      key: key,
       matchTextDirection: matchTextDirection,
       bundle: bundle,
       package: package,
