@@ -23,13 +23,14 @@ void main() {
             children: <Widget>[
               // Auto generated image from FlutterGen.
               Image(image: Assets.images.chip1),
-              Assets.images.icons.kmm.svg(),
+              Assets.images.icons.kmm.svg(key: Key("kmm_svg")),
               Assets.images.icons.fuchsia.svg(),
               Assets.images.icons.paint.svg(
                 width: 120,
                 height: 120,
               ),
               Assets.pictures.chip5.image(
+                key: Key("chip5"),
                 width: 120,
                 height: 120,
                 fit: BoxFit.scaleDown,

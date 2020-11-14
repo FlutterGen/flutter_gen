@@ -66,6 +66,7 @@ class AssetGenImage extends AssetImage {
   final String _assetName;
 
   Image image({
+    Key key,
     ImageFrameBuilder frameBuilder,
     ImageLoadingBuilder loadingBuilder,
     ImageErrorWidgetBuilder errorBuilder,
@@ -85,6 +86,7 @@ class AssetGenImage extends AssetImage {
     FilterQuality filterQuality = FilterQuality.low,
   }) {
     return Image(
+      key: key,
       image: this,
       frameBuilder: frameBuilder,
       loadingBuilder: loadingBuilder,

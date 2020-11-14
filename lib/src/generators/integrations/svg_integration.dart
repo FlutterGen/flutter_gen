@@ -14,6 +14,7 @@ class SvgIntegration extends Integration {
   final String _assetName;
 
   SvgPicture svg({
+    Key key,
     bool matchTextDirection = false,
     AssetBundle bundle,
     String package,
@@ -31,6 +32,7 @@ class SvgIntegration extends Integration {
   }) {
     return SvgPicture.asset(
       _assetName,
+      key: key,
       matchTextDirection: matchTextDirection,
       bundle: bundle,
       package: package,
