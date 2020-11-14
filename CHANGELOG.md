@@ -1,3 +1,8 @@
+## 1.2.2
+
+Bug fix
+- [#51](https://github.com/FlutterGen/flutter_gen/pull/51) Added support for Key parameter in image() and svg().
+
 ## 1.2.1
 
 Bug fix
