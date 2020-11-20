@@ -5,14 +5,15 @@ setup:
 	npm install
 
 dependencies:
-	pub get
-	cd example && flutter pub get
+	dart pub get
+	cd example && flutter pub get && cd ..
 
 analyze:
-	dartanalyzer lib/ bin/
+	dart analyze lib/
+	dart analyze bin/
 
 format:
-	dartfmt -w lib/ bin/
+	dart format lib/ bin/
 
 build:
 	cd example && flutter build apk && cd ..
@@ -24,10 +25,10 @@ generate-with-runner:
 	cd example && flutter packages pub run build_runner build --delete-conflicting-outputs cd ..
 
 unit-test:
-	pub run test
+	dart pub run test
 
 coverage:
-	pub run test_coverage --no-badge
+	dart pub run test_coverage --no-badge
 	./scripts/codecov.sh ${CODECOV_TOKEN}
 
 setup-ubuntu:
@@ -42,4 +43,4 @@ setup-ubuntu:
 setup-macos:
 	brew tap dart-lang/dart
 	brew install dart
-	pub get
+	dart pub get
