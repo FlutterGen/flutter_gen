@@ -22,7 +22,7 @@ The Flutter code generator for your assets, fonts, colors, … — Get rid of al
 
 Inspired by [SwiftGen](https://github.com/SwiftGen/SwiftGen).
 
-## Motivation.
+## Motivation
 
 Using asset path string directly is not safe.
 
@@ -56,35 +56,26 @@ Widget build(BuildContext context) {
 
 ## Installation
 
-Run `fluttergen` after the configuration [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
+### Homebrew
 
-### Use this package as an executable
-
-#### 1. Install [FlutterGen]
-
-##### Using a Homebrew Formula
+Works with MacOS and Linux.
 
 ```sh
 $ brew install FlutterGen/tap/fluttergen
 ```
 
-##### Using a Dart command-line
+### Pub Global
+
+Works with MacOS, Linux and Windows.
 
 ```sh
-$ pub global activate flutter_gen
-
-$ export PATH="$PATH":"$HOME/.pub-cache/bin"
+$ dart pub global activate flutter_gen
 ```
 
-#### 2. Use [FlutterGen]
+You might need to [set up your path](https://dart.dev/tools/pub/cmd/pub-global#running-a-script-from-your-path).
 
-```sh
-$ fluttergen -h
+### As a part of build_runner (Not recomended)
 
-$ fluttergen -c example/pubspec.yaml
-```
-
-### Use this package as a part of build_runner (Not recomended)
 _Not recommended as it conflicts with flutter localization when using build_runner._
 
 <details><summary>Installation</summary>
@@ -111,6 +102,16 @@ $ flutter packages pub run build_runner build
 
 </details>
 
+## Usage
+
+Run `fluttergen` after the configuration [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
+
+```sh
+$ fluttergen -h
+
+$ fluttergen -c example/pubspec.yaml
+```
+
 ## Configuration file
 
 [FlutterGen] generates dart files based on the key **`flutter`** and **`flutter_gen`** of [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
@@ -122,7 +123,7 @@ $ flutter packages pub run build_runner build
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
   lineLength: 80 # Optional (default: 80)
-  
+
   integrations:
     flutter_svg: true
 
@@ -199,7 +200,6 @@ If you are using SVG images with [flutter_svg](https://pub.dev/packages/flutter_
 ```yaml
 # pubspec.yaml
 flutter_gen:
-
   integrations:
     flutter_svg: true
 
@@ -226,16 +226,15 @@ final svg = SvgPicture.asset(Assets.images.icons.paint);
 final json = await rootBundle.loadString(Assets.json.fruits);
 ```
 
-[FlutterGen] also support generating other style of `Assets` class:  
+[FlutterGen] also support generating other style of `Assets` class:
 
 ```yaml
 # pubspec.yaml
 flutter_gen:
-
   assets:
-    # Assets.imagesChip 
+    # Assets.imagesChip
     # style: camel-case
-    
+
     # Assets.images_chip
     # style: snake-case
 
@@ -497,9 +496,10 @@ flutter_gen:
 If the element has the attribute `type`, then a specially color will be generated.
 
 Currently supported special color types:
-  - [MaterialColor](https://api.flutter.dev/flutter/material/MaterialColor-class.html)
-  - [MaterialAccentColor](https://api.flutter.dev/flutter/material/MaterialAccentColor-class.html)
-  
+
+- [MaterialColor](https://api.flutter.dev/flutter/material/MaterialColor-class.html)
+- [MaterialAccentColor](https://api.flutter.dev/flutter/material/MaterialAccentColor-class.html)
+
 > Noticed that there is no official material color generation algorithm. The implementation is based on the [mcg](https://github.com/mbitson/mcg) project.
 
 ```xml
