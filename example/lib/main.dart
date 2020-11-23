@@ -17,8 +17,8 @@ void main() {
       appBar: AppBar(
         title: const Text('FlutterGen'),
       ),
-      body: SingleChildScrollView(
-        child: Center(
+      body: Center(
+        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
