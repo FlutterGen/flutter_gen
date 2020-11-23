@@ -14,6 +14,7 @@ dependencies:
     sdk: flutter
 
   flutter_svg: ^0.18.1
+  flare_flutter: ^2.0.6
 
 dev_dependencies:
   flutter_test:
@@ -57,6 +58,9 @@ flutter:
     - assets/images/icons/paint.svg
     - assets/json/fruits.json
     - pictures/chip5.jpg
+    - assets/flare/
+    - assets/movie/
+    - assets/unknown/unknown_mime_type.bk
   fonts:
     - family: Raleway
       fonts:

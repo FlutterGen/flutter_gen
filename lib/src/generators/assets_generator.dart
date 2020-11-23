@@ -137,7 +137,7 @@ _Statement _createAssetTypeStatement(
       value: '$childClassName\(\)',
       isConstConstructor: true,
     );
-  } else if (!assetType.isUnKnownMime) {
+  } else {
     final integration = integrations.firstWhere(
       (element) => element.mime == assetType.mime,
       orElse: () => null,
