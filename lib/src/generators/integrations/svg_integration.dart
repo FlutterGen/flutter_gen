@@ -1,3 +1,4 @@
+import '../../settings/asset_type.dart';
 import 'integration.dart';
 
 class SvgIntegration extends Integration {
@@ -60,7 +61,7 @@ class SvgIntegration extends Integration {
   String classInstantiate(String path) => 'SvgGenImage\(\'$path\'\)';
 
   @override
-  String get mime => 'image/svg+xml';
+  bool isSupport(AssetType type) => type.mime == 'image/svg+xml';
 
   @override
   bool get isConstConstructor => true;

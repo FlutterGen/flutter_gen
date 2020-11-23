@@ -1,3 +1,5 @@
+import '../../settings/asset_type.dart';
+
 abstract class Integration {
   bool isEnabled = false;
 
@@ -9,7 +11,7 @@ abstract class Integration {
 
   String classInstantiate(String path);
 
-  String get mime;
+  bool isSupport(AssetType type);
 
   bool get isConstConstructor;
 }
