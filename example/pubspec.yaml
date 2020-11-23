@@ -57,6 +57,9 @@ flutter:
     - assets/images/icons/paint.svg
     - assets/json/fruits.json
     - pictures/chip5.jpg
+    - assets/flare/
+    - assets/movie/
+    - assets/unknown/unknown_mime_type.bk
   fonts:
     - family: Raleway
       fonts:

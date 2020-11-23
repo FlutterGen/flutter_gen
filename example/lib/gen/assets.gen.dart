@@ -13,6 +13,12 @@ class $PicturesGen {
   AssetGenImage get chip5 => const AssetGenImage('pictures/chip5.jpg');
 }
 
+class $AssetsFlareGen {
+  const $AssetsFlareGen();
+
+  String get penguin => 'assets/flare/Penguin.flr';
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -29,6 +35,18 @@ class $AssetsJsonGen {
   const $AssetsJsonGen();
 
   String get fruits => 'assets/json/fruits.json';
+}
+
+class $AssetsMovieGen {
+  const $AssetsMovieGen();
+
+  String get theEarth => 'assets/movie/the_earth.mp4';
+}
+
+class $AssetsUnknownGen {
+  const $AssetsUnknownGen();
+
+  String get unknownMimeType => 'assets/unknown/unknown_mime_type.bk';
 }
 
 class $AssetsImagesChip3Gen {
@@ -57,8 +75,11 @@ class $AssetsImagesIconsGen {
 class Assets {
   Assets._();
 
+  static const $AssetsFlareGen flare = $AssetsFlareGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
+  static const $AssetsMovieGen movie = $AssetsMovieGen();
+  static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
   static const $PicturesGen pictures = $PicturesGen();
 }
 

@@ -1,6 +1,7 @@
 import 'package:example/gen/assets.gen.dart';
 import 'package:example/gen/colors.gen.dart';
 import 'package:example/gen/fonts.gen.dart';
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -16,12 +17,21 @@ void main() {
       appBar: AppBar(
         title: const Text('FlutterGen'),
       ),
-      body: Center(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               // Auto generated image from FlutterGen.
+              Container(
+                width: 200,
+                height: 200,
+                child: FlareActor(
+                  Assets.flare.penguin,
+                  animation: 'walk',
+                  fit: BoxFit.contain,
+                ),
+              ),
               Image(image: Assets.images.chip1),
               Assets.images.icons.kmm.svg(key: Key("kmm_svg")),
               Assets.images.icons.fuchsia.svg(),
