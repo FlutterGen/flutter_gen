@@ -4,6 +4,9 @@ import 'dart:io';
 import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen/src/flutter_generator.dart';
 import 'package:flutter_gen/src/generators/assets_generator.dart';
+import 'package:flutter_gen/src/generators/integrations/flare_integration.dart';
+import 'package:flutter_gen/src/generators/integrations/svg_integration.dart';
+import 'package:flutter_gen/src/settings/asset_type.dart';
 import 'package:flutter_gen/src/settings/config.dart';
 import 'package:test/test.dart';
 
@@ -62,6 +65,14 @@ void main() {
             .replaceAll('\r\n', '\n');
 
     expect(actual, expected);
+
+    final integration = SvgIntegration();
+    expect(integration.className, 'SvgGenImage');
+    expect(integration.classInstantiate('assets/path'),
+        'SvgGenImage\(\'assets/path\'\)');
+    expect(integration.isSupport(AssetType('assets/path/dog.svg')), isTrue);
+    expect(integration.isSupport(AssetType('assets/path/dog.png')), isFalse);
+    expect(integration.isConstConstructor, isTrue);
   });
 
   test('Assets with Flare integrations on pubspec.yaml', () async {
@@ -87,5 +98,13 @@ void main() {
             .replaceAll('\r\n', '\n');
 
     expect(actual, expected);
+
+    final integration = FlareIntegration();
+    expect(integration.className, 'FlareGenImage');
+    expect(integration.classInstantiate('assets/path'),
+        'FlareGenImage\(\'assets/path\'\)');
+    expect(integration.isSupport(AssetType('assets/path/dog.flr')), isTrue);
+    expect(integration.isSupport(AssetType('assets/path/dog.json')), isFalse);
+    expect(integration.isConstConstructor, isTrue);
   });
 }
