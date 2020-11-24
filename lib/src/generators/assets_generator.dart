@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
 import 'package:dartx/dartx.dart';
+import 'package:flutter_gen/src/generators/integrations/flare_integration.dart';
 import 'package:path/path.dart';
 
 import '../settings/asset_type.dart';
@@ -29,10 +30,14 @@ String generateAssets(
   final classesBuffer = StringBuffer();
 
   final integrations = <Integration>[];
-  if (flutterGen != null &&
-      flutterGen.hasIntegrations &&
-      flutterGen.integrations.hasFlutterSvg) {
-    integrations.add(SvgIntegration());
+  if (flutterGen != null && flutterGen.hasIntegrations) {
+    if (flutterGen.integrations.flutterSvg) {
+      integrations.add(SvgIntegration());
+    }
+
+    if (flutterGen.integrations.flareFlutter) {
+      integrations.add(FlareIntegration());
+    }
   }
 
   if (flutterGen == null ||
@@ -139,7 +144,7 @@ _Statement _createAssetTypeStatement(
     );
   } else {
     final integration = integrations.firstWhere(
-      (element) => element.mime == assetType.mime,
+      (element) => element.isSupport(assetType),
       orElse: () => null,
     );
     if (integration == null) {

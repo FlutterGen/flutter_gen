@@ -85,12 +85,14 @@ class FlutterGenIntegrations {
   FlutterGenIntegrations(YamlMap flutterGenMap) {
     if (flutterGenMap != null) {
       _flutterSvg = safeCast<bool>(flutterGenMap['flutter_svg']);
+      _flareFlutter = safeCast<bool>(flutterGenMap['flare_flutter']);
     }
   }
 
   bool _flutterSvg;
+  bool _flareFlutter;
 
   bool get flutterSvg => _flutterSvg ?? false;
 
-  bool get hasFlutterSvg => flutterSvg;
+  bool get flareFlutter => _flareFlutter ?? false;
 }

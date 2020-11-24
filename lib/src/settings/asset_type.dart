@@ -1,6 +1,6 @@
-import 'package:mime/mime.dart';
-import 'package:path/path.dart';
 import 'package:dartx/dartx.dart';
+import 'package:mime/mime.dart';
+import 'package:path/path.dart' as p;
 
 /// https://github.com/dart-lang/mime/blob/master/lib/src/default_extension_map.dart
 class AssetType {
@@ -31,7 +31,9 @@ class AssetType {
 
   bool get isUnKnownMime => mime == null;
 
-  String get baseName => basenameWithoutExtension(path);
+  String get extension => p.extension(path);
+
+  String get baseName => p.basenameWithoutExtension(path);
 
   List<AssetType> get children => _children.sortedBy((e) => e.path);
 

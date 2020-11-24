@@ -65,31 +65,6 @@ void main() {
       expect(actual, expected);
     });
 
-    test('Assets with No integrations on pubspec.yaml', () async {
-      await FlutterGenerator(
-              File('test_resources/pubspec_assets_no_integrations.yaml'))
-          .build();
-      expect(
-        File('test_resources/lib/gen/assets.gen.dart').readAsStringSync(),
-        isNotEmpty,
-      );
-
-      final pubspec =
-          File('test_resources/pubspec_assets_no_integrations.yaml');
-      final config = await Config(pubspec).load();
-      final formatter = DartFormatter(
-          pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
-
-      final actual = generateAssets(
-          pubspec, formatter, config.flutterGen, config.flutter.assets);
-      final expected =
-          File('test_resources/actual_data/assets_no_integrations.gen.dart')
-              .readAsStringSync()
-              .replaceAll('\r\n', '\n');
-
-      expect(actual, expected);
-    });
-
     test('Assets with Unknown mime type on pubspec.yaml', () async {
       await FlutterGenerator(
           File('test_resources/pubspec_unknown_mime_type.yaml'))

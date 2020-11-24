@@ -1,7 +1,6 @@
 import 'package:example/gen/assets.gen.dart';
 import 'package:example/gen/colors.gen.dart';
 import 'package:example/gen/fonts.gen.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -26,8 +25,7 @@ void main() {
               Container(
                 width: 200,
                 height: 200,
-                child: FlareActor(
-                  Assets.flare.penguin,
+                child: Assets.flare.penguin.flare(
                   animation: 'walk',
                   fit: BoxFit.contain,
                 ),

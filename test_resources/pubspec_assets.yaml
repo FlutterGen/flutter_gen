@@ -6,6 +6,7 @@ flutter_gen:
 
   integrations:
     flutter_svg: true
+    flare_flutter: true
 
 flutter:
   assets:
@@ -18,3 +19,6 @@ flutter:
     - assets/images/icons/paint.svg
     - assets/json/fruits.json
     - pictures/chip5.jpg
+    - assets/flare/
+    - assets/movie/
+    - assets/unknown/unknown_mime_type.bk
