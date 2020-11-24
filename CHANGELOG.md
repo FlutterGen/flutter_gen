@@ -1,3 +1,9 @@
+## 1.3.0
+
+New Feature
+- [#46](https://github.com/FlutterGen/flutter_gen/issues/46) Added support for unknown mime type files.
+- Added support for [Rive (previously Flare)](https://rive.app/) files.
+
 ## 1.2.2
 
 Bug fix
