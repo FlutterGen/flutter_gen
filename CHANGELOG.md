@@ -1,3 +1,8 @@
+## 1.3.1
+
+Bug fix
+- [#60](https://github.com/FlutterGen/flutter_gen/issues/60) Set files like .DS_Store to the ignore list.
+
 ## 1.3.0
 
 New Feature
