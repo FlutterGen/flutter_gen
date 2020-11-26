@@ -124,8 +124,10 @@ flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
   lineLength: 80 # Optional (default: 80)
 
+  # Optional
   integrations:
     flutter_svg: true
+    flare_flutter: true
 
   colors:
     inputs:
@@ -161,6 +163,7 @@ flutter:
     - assets/images/chip4/chip.jpg
     - assets/images/icons/paint.svg
     - assets/json/fruits.json
+    - assets/flare/Penguin.flr
     - pictures/ocean_view.jpg
 ```
 
@@ -217,6 +220,15 @@ Widget build(BuildContext context) {
 }
 ```
 
+**Available Integrations**
+
+|Packages|File extension|Setting|Usage|
+|--|--|--|--|
+|[flutter_svg](https://pub.dev/packages/flutter_svg)|.svg| `flutter_svg: true` |Assets.images.icons.paint.**svg()**|
+|[flare_flutter](https://pub.dev/packages/flare_flutter)|.flr| `flare_flutter: true` |Assets.flare.penguin.**flare()**|
+
+<br/>
+
 In other cases, the asset is generated as String class.
 
 ```dart
@@ -268,11 +280,19 @@ pictures/ocean_view.jpg       => Assets.pictures.oceanView
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
+import 'package:flare_flutter/flare_actor.dart';
+import 'package:flare_flutter/flare_controller.dart';
 
 class $PicturesGen {
   const $PicturesGen();
 
   AssetGenImage get chip5 => const AssetGenImage('pictures/chip5.jpg');
+}
+
+class $AssetsFlareGen {
+  const $AssetsFlareGen();
+
+  FlareGenImage get penguin => const FlareGenImage('assets/flare/Penguin.flr');
 }
 
 class $AssetsImagesGen {
@@ -291,6 +311,18 @@ class $AssetsJsonGen {
   const $AssetsJsonGen();
 
   String get fruits => 'assets/json/fruits.json';
+}
+
+class $AssetsMovieGen {
+  const $AssetsMovieGen();
+
+  String get theEarth => 'assets/movie/the_earth.mp4';
+}
+
+class $AssetsUnknownGen {
+  const $AssetsUnknownGen();
+
+  String get unknownMimeType => 'assets/unknown/unknown_mime_type.bk';
 }
 
 class $AssetsImagesChip3Gen {
@@ -319,8 +351,11 @@ class $AssetsImagesIconsGen {
 class Assets {
   Assets._();
 
+  static const $AssetsFlareGen flare = $AssetsFlareGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
+  static const $AssetsMovieGen movie = $AssetsMovieGen();
+  static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
   static const $PicturesGen pictures = $PicturesGen();
 }
 
@@ -331,6 +366,7 @@ class AssetGenImage extends AssetImage {
   final String _assetName;
 
   Image image({
+    Key key,
     ImageFrameBuilder frameBuilder,
     ImageLoadingBuilder loadingBuilder,
     ImageErrorWidgetBuilder errorBuilder,
@@ -350,6 +386,7 @@ class AssetGenImage extends AssetImage {
     FilterQuality filterQuality = FilterQuality.low,
   }) {
     return Image(
+      key: key,
       image: this,
       frameBuilder: frameBuilder,
       loadingBuilder: loadingBuilder,
@@ -380,6 +417,7 @@ class SvgGenImage {
   final String _assetName;
 
   SvgPicture svg({
+    Key key,
     bool matchTextDirection = false,
     AssetBundle bundle,
     String package,
@@ -397,6 +435,7 @@ class SvgGenImage {
   }) {
     return SvgPicture.asset(
       _assetName,
+      key: key,
       matchTextDirection: matchTextDirection,
       bundle: bundle,
       package: package,
@@ -411,6 +450,47 @@ class SvgGenImage {
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
       clipBehavior: clipBehavior,
+    );
+  }
+
+  String get path => _assetName;
+}
+
+class FlareGenImage {
+  const FlareGenImage(this._assetName);
+
+  final String _assetName;
+
+  FlareActor flare({
+    String boundsNode,
+    String animation,
+    BoxFit fit = BoxFit.contain,
+    Alignment alignment = Alignment.center,
+    bool isPaused = false,
+    bool snapToEnd = false,
+    FlareController controller,
+    FlareCompletedCallback callback,
+    Color color,
+    bool shouldClip = true,
+    bool sizeFromArtboard = false,
+    String artboard,
+    bool antialias = true,
+  }) {
+    return FlareActor(
+      _assetName,
+      boundsNode: boundsNode,
+      animation: animation,
+      fit: fit,
+      alignment: alignment,
+      isPaused: isPaused,
+      snapToEnd: snapToEnd,
+      controller: controller,
+      callback: callback,
+      color: color,
+      shouldClip: shouldClip,
+      sizeFromArtboard: sizeFromArtboard,
+      artboard: artboard,
+      antialias: antialias,
     );
   }
 
