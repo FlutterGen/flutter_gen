@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
 import 'package:dartx/dartx.dart';
-import 'package:flutter_gen/src/generators/integrations/flare_integration.dart';
 import 'package:path/path.dart';
 
 import '../settings/asset_type.dart';
@@ -12,6 +11,7 @@ import '../settings/flutter_gen.dart';
 import '../utils/error.dart';
 import '../utils/string.dart';
 import 'generator_helper.dart';
+import 'integrations/flare_integration.dart';
 import 'integrations/integration.dart';
 import 'integrations/svg_integration.dart';
 
@@ -142,7 +142,7 @@ _Statement _createAssetTypeStatement(
       value: '$childClassName\(\)',
       isConstConstructor: true,
     );
-  } else {
+  } else if (!assetType.isIgnoreFile) {
     final integration = integrations.firstWhere(
       (element) => element.isSupport(assetType),
       orElse: () => null,

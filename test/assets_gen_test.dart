@@ -90,6 +90,31 @@ void main() {
       expect(actual, expected);
     });
 
+    test('Assets with ignore files on pubspec.yaml', () async {
+      await FlutterGenerator(
+          File('test_resources/pubspec_ignore_files.yaml'))
+          .build();
+      expect(
+        File('test_resources/lib/gen/assets.gen.dart').readAsStringSync(),
+        isNotEmpty,
+      );
+
+      final pubspec =
+      File('test_resources/pubspec_ignore_files.yaml');
+      final config = await Config(pubspec).load();
+      final formatter = DartFormatter(
+          pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
+
+      final actual = generateAssets(
+          pubspec, formatter, config.flutterGen, config.flutter.assets);
+      final expected =
+      File('test_resources/actual_data/assets_ignore_files.gen.dart')
+          .readAsStringSync()
+          .replaceAll('\r\n', '\n');
+
+      expect(actual, expected);
+    });
+
     test('Assets with No lists on pubspec.yaml', () async {
       final pubspec = File('test_resources/pubspec_assets_no_list.yaml');
       final config = await Config(pubspec).load();

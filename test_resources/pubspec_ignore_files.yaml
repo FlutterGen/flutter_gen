@@ -1,0 +1,11 @@
+name: test
+
+flutter_gen:
+  output: lib/gen/ # Optional (default: lib/gen/)
+  lineLength: 80   # Optional (default: 80)
+
+flutter:
+  assets:
+    - assets/unknown/.DS_Store
+    - assets/unknown/dummy.DS_Store
+    - assets/unknown/unknown_mime_type.bk.swp

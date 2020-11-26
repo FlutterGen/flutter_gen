@@ -29,6 +29,21 @@ class AssetType {
     }
   }
 
+  bool get isIgnoreFile {
+    switch (baseName) {
+      case '.DS_Store':
+        return true;
+    }
+
+    switch (extension) {
+      case '.DS_Store':
+      case '.swp':
+        return true;
+    }
+
+    return false;
+  }
+
   bool get isUnKnownMime => mime == null;
 
   String get extension => p.extension(path);
