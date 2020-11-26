@@ -61,7 +61,7 @@ flutter:
     - pictures/chip5.jpg
     - assets/flare/
     - assets/movie/
-    - assets/unknown/unknown_mime_type.bk
+    - assets/unknown/
   fonts:
     - family: Raleway
       fonts:
