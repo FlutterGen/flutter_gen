@@ -7,38 +7,26 @@ import 'package:flutter_gen/src/settings/config.dart';
 import 'package:flutter_gen/src/utils/error.dart';
 import 'package:test/test.dart';
 
+import 'gen_test_helper.dart';
+
 void main() {
-  setUp(() {
-    final dir = Directory('test_resources/lib/gen/fonts.gen.dart');
-
-    if (dir.existsSync()) {
-      dir.deleteSync(recursive: true);
-    }
-  });
-
   group('Test Fonts generator', () {
     test('Fonts on pubspec.yaml', () async {
-      final config =
-          await Config(File('test_resources/pubspec_fonts.yaml')).load();
-      final formatter = DartFormatter(
-          pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
+      final yaml = 'test_resources/pubspec_fonts.yaml';
+      final fact = 'test_resources/actual_data/fonts.gen.dart';
+      final gen = 'test_resources/lib/gen/fonts.gen.dart';
 
-      final actual = generateFonts(formatter, config.flutter.fonts);
-      final expected = File('test_resources/actual_data/fonts.gen.dart')
-          .readAsStringSync()
-          .replaceAll('\r\n', '\n');
-
-      expect(actual, expected);
+      expectedFontsGen(yaml, gen, fact);
     });
 
     test('Wrong fonts settings on pubspec.yaml', () async {
-      final config =
-          await Config(File('test_resources/pubspec_fonts_no_family.yaml'))
-              .load();
+      final config = await Config(
+        File('test_resources/pubspec_fonts_no_family.yaml'),
+      ).load();
       final formatter = DartFormatter(
           pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
-      expect(() async {
+      expect(() {
         return generateFonts(formatter, config.flutter.fonts);
       }, throwsA(isA<InvalidSettingsException>()));
     });
