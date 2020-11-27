@@ -8,9 +8,9 @@ void main() {
   group('Test FlutterGenerator Exceptions', () {
     test('Not founded pubspec.yaml', () async {
       final yaml = 'test_resources/pubspec_not_founded.yaml';
-      final assets = 'pubspec_not_founded.gen.dart';
-      final colors = 'pubspec_not_founded.gen.dart';
-      final fonts = 'pubspec_not_founded.gen.dart';
+      final assets = 'pubspec_not_founded_assets.gen.dart';
+      final colors = 'pubspec_not_founded_colors.gen.dart';
+      final fonts = 'pubspec_not_founded_fonts.gen.dart';
 
       await FlutterGenerator(
         File(yaml),
@@ -25,9 +25,9 @@ void main() {
 
     test('Empty pubspec.yaml', () async {
       final yaml = 'test_resources/pubspec_empty.yaml';
-      final assets = 'pubspec_empty.gen.dart';
-      final colors = 'pubspec_empty.gen.dart';
-      final fonts = 'pubspec_empty.gen.dart';
+      final assets = 'pubspec_empty_assets.gen.dart';
+      final colors = 'pubspec_empty_colors.gen.dart';
+      final fonts = 'pubspec_empty_fonts.gen.dart';
 
       await FlutterGenerator(
         File(yaml),
@@ -42,9 +42,9 @@ void main() {
 
     test('No settings pubspec.yaml', () async {
       final yaml = 'test_resources/pubspec_no_settings.yaml';
-      final assets = 'pubspec_no_settings.gen.dart';
-      final colors = 'pubspec_no_settings.gen.dart';
-      final fonts = 'pubspec_no_settings.gen.dart';
+      final assets = 'pubspec_no_settings_assets.gen.dart';
+      final colors = 'pubspec_no_settings_colors.gen.dart';
+      final fonts = 'pubspec_no_settings_fonts.gen.dart';
 
       await FlutterGenerator(
         File(yaml),
@@ -61,9 +61,9 @@ void main() {
   group('Test FlutterGenerator', () {
     test('pubspec.yaml', () async {
       final yaml = 'test_resources/pubspec.yaml';
-      final assets = 'pubspec.gen.dart';
-      final colors = 'pubspec.gen.dart';
-      final fonts = 'pubspec.gen.dart';
+      final assets = 'pubspec_assets.gen.dart';
+      final colors = 'pubspec_colors.gen.dart';
+      final fonts = 'pubspec_fonts.gen.dart';
 
       await FlutterGenerator(
         File(yaml),
@@ -81,9 +81,9 @@ void main() {
 
     test('Only flutter value', () async {
       final yaml = 'test_resources/pubspec_only_flutter_value.yaml';
-      final assets = 'pubspec_only_flutter_value.gen.dart';
-      final colors = 'pubspec_only_flutter_value.gen.dart';
-      final fonts = 'pubspec_only_flutter_value.gen.dart';
+      final assets = 'pubspec_only_flutter_value_assets.gen.dart';
+      final colors = 'pubspec_only_flutter_value_colors.gen.dart';
+      final fonts = 'pubspec_only_flutter_value_fonts.gen.dart';
 
       await FlutterGenerator(
         File(yaml),
@@ -100,9 +100,9 @@ void main() {
 
     test('Only flutter_gen value', () async {
       final yaml = 'test_resources/pubspec_only_flutter_gen_value.yaml';
-      final assets = 'pubspec_only_flutter_gen_value.gen.dart';
-      final colors = 'pubspec_only_flutter_gen_value.gen.dart';
-      final fonts = 'pubspec_only_flutter_gen_value.gen.dart';
+      final assets = 'pubspec_only_flutter_gen_value_assets.gen.dart';
+      final colors = 'pubspec_only_flutter_gen_value_colors.gen.dart';
+      final fonts = 'pubspec_only_flutter_gen_value_colors.gen.dart';
 
       await FlutterGenerator(
         File(yaml),
@@ -118,9 +118,9 @@ void main() {
 
     test('Change output path', () async {
       final yaml = 'test_resources/pubspec_change_output_path.yaml';
-      final assets = 'pubspec_change_output_path.gen.dart';
-      final colors = 'pubspec_change_output_path.gen.dart';
-      final fonts = 'pubspec_change_output_path.gen.dart';
+      final assets = 'pubspec_change_output_path_assets.gen.dart';
+      final colors = 'pubspec_change_output_path_colors.gen.dart';
+      final fonts = 'pubspec_change_output_path_fonts.gen.dart';
 
       await FlutterGenerator(
         File(yaml),
@@ -139,9 +139,9 @@ void main() {
 
     test('Wrong output path', () async {
       final yaml = 'test_resources/pubspec_wrong_output_path.yaml';
-      final assets = 'pubspec_wrong_output_path.gen.dart';
-      final colors = 'pubspec_wrong_output_path.gen.dart';
-      final fonts = 'pubspec_wrong_output_path.gen.dart';
+      final assets = 'pubspec_wrong_output_path_assets.gen.dart';
+      final colors = 'pubspec_wrong_output_path_colors.gen.dart';
+      final fonts = 'pubspec_wrong_output_path_fonts.gen.dart';
 
       await FlutterGenerator(
         File(yaml),
@@ -159,9 +159,9 @@ void main() {
 
     test('Wrong lineLength', () async {
       final yaml = 'test_resources/pubspec_wrong_line_length.yaml';
-      final assets = 'pubspec_wrong_line_length.gen.dart';
-      final colors = 'pubspec_wrong_line_length.gen.dart';
-      final fonts = 'pubspec_wrong_line_length.gen.dart';
+      final assets = 'pubspec_wrong_line_length_assets.gen.dart';
+      final colors = 'pubspec_wrong_line_length_colors.gen.dart';
+      final fonts = 'pubspec_wrong_line_length_fonts.gen.dart';
 
       await FlutterGenerator(
         File(yaml),
