@@ -129,20 +129,11 @@ void main() {
         fontsName: fonts,
       ).build();
 
-      expect(
-          File(
-            'test_resources/lib/aaa/bbb/ccc/assets.gen.dart',
-          ).readAsStringSync(),
+      expect(File('test_resources/lib/aaa/bbb/ccc/$assets').readAsStringSync(),
           isNotEmpty);
-      expect(
-          File(
-            'test_resources/lib/aaa/bbb/ccc/fonts.gen.dart',
-          ).readAsStringSync(),
+      expect(File('test_resources/lib/aaa/bbb/ccc/$colors').readAsStringSync(),
           isNotEmpty);
-      expect(
-          File(
-            'test_resources/lib/aaa/bbb/ccc/colors.gen.dart',
-          ).readAsStringSync(),
+      expect(File('test_resources/lib/aaa/bbb/ccc/$fonts').readAsStringSync(),
           isNotEmpty);
     });
 
