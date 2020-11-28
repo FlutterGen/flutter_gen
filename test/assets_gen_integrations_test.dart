@@ -1,3 +1,4 @@
+@TestOn('vm')
 import 'package:flutter_gen/src/generators/integrations/flare_integration.dart';
 import 'package:flutter_gen/src/generators/integrations/svg_integration.dart';
 import 'package:flutter_gen/src/settings/asset_type.dart';
@@ -17,8 +18,8 @@ void main() {
 
     test('Assets with Svg integrations on pubspec.yaml', () async {
       final yaml = 'test_resources/pubspec_assets_svg_integrations.yaml';
-      final fact = 'test_resources/actual_data/assets_no_integrations.gen.dart';
-      final gen = 'test_resources/lib/gen/assets_no_integrations.gen.dart';
+      final fact = 'test_resources/actual_data/assets_svg_integrations.gen.dart';
+      final gen = 'test_resources/lib/gen/assets_svg_integrations.gen.dart';
 
       expectedAssetsGen(yaml, gen, fact);
 
