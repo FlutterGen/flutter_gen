@@ -12,11 +12,11 @@ import 'gen_test_helper.dart';
 void main() {
   group('Test Color generator', () {
     test('Colors on pubspec.yaml', () async {
-      final yaml = 'test_resources/pubspec_colors.yaml';
+      final pubspec = 'test_resources/pubspec_colors.yaml';
       final fact = 'test_resources/actual_data/colors.gen.dart';
-      final gen = 'test_resources/lib/gen/colors.gen.dart';
+      final generated = 'test_resources/lib/gen/colors.gen.dart';
 
-      expectedColorsGen(yaml, gen, fact);
+      expectedColorsGen(pubspec, generated, fact);
     });
 
     test('Wrong colors settings on pubspec.yaml', () async {

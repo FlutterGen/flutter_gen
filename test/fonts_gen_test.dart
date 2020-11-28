@@ -12,11 +12,11 @@ import 'gen_test_helper.dart';
 void main() {
   group('Test Fonts generator', () {
     test('Fonts on pubspec.yaml', () async {
-      final yaml = 'test_resources/pubspec_fonts.yaml';
+      final pubspec = 'test_resources/pubspec_fonts.yaml';
       final fact = 'test_resources/actual_data/fonts.gen.dart';
-      final gen = 'test_resources/lib/gen/fonts.gen.dart';
+      final generated = 'test_resources/lib/gen/fonts.gen.dart';
 
-      expectedFontsGen(yaml, gen, fact);
+      expectedFontsGen(pubspec, generated, fact);
     });
 
     test('Wrong fonts settings on pubspec.yaml', () async {

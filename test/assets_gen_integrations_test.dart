@@ -9,19 +9,19 @@ import 'gen_test_helper.dart';
 void main() {
   group('Test Assets Integration generator', () {
     test('Assets with No integrations on pubspec.yaml', () async {
-      final yaml = 'test_resources/pubspec_assets_no_integrations.yaml';
+      final pubspec = 'test_resources/pubspec_assets_no_integrations.yaml';
       final fact = 'test_resources/actual_data/assets_no_integrations.gen.dart';
-      final gen = 'test_resources/lib/gen/assets_no_integrations.gen.dart';
+      final generated = 'test_resources/lib/gen/assets_no_integrations.gen.dart';
 
-      expectedAssetsGen(yaml, gen, fact);
+      expectedAssetsGen(pubspec, generated, fact);
     });
 
     test('Assets with Svg integrations on pubspec.yaml', () async {
-      final yaml = 'test_resources/pubspec_assets_svg_integrations.yaml';
+      final pubspec = 'test_resources/pubspec_assets_svg_integrations.yaml';
       final fact = 'test_resources/actual_data/assets_svg_integrations.gen.dart';
-      final gen = 'test_resources/lib/gen/assets_svg_integrations.gen.dart';
+      final generated = 'test_resources/lib/gen/assets_svg_integrations.gen.dart';
 
-      expectedAssetsGen(yaml, gen, fact);
+      expectedAssetsGen(pubspec, generated, fact);
 
       final integration = SvgIntegration();
       expect(integration.className, 'SvgGenImage');
@@ -33,12 +33,12 @@ void main() {
     });
 
     test('Assets with Flare integrations on pubspec.yaml', () async {
-      final yaml = 'test_resources/pubspec_assets_flare_integrations.yaml';
+      final pubspec = 'test_resources/pubspec_assets_flare_integrations.yaml';
       final fact =
           'test_resources/actual_data/assets_flare_integrations.gen.dart';
-      final gen = 'test_resources/lib/gen/assets_flare_integrations.gen.dart';
+      final generated = 'test_resources/lib/gen/assets_flare_integrations.gen.dart';
 
-      expectedAssetsGen(yaml, gen, fact);
+      expectedAssetsGen(pubspec, generated, fact);
 
       final integration = FlareIntegration();
       expect(integration.className, 'FlareGenImage');
