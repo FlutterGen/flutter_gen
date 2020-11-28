@@ -108,7 +108,8 @@ node_modules/
 
 ## Test coverage
 coverage/
-test/.test_coverage.dart
+#test/.test_coverage.dart
+test/.test_cov.dart
 
 ## Test resources
 test_resources/lib

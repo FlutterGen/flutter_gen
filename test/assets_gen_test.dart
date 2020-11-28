@@ -2,117 +2,54 @@
 import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
-import 'package:flutter_gen/src/flutter_generator.dart';
 import 'package:flutter_gen/src/generators/assets_generator.dart';
 import 'package:flutter_gen/src/settings/config.dart';
 import 'package:flutter_gen/src/utils/error.dart';
 import 'package:test/test.dart';
 
+import 'gen_test_helper.dart';
+
 void main() {
-  setUp(() {
-    final dir = Directory('test_resources/lib/gen/assets.gen.dart');
-
-    if (dir.existsSync()) {
-      dir.deleteSync(recursive: true);
-    }
-  });
-
   group('Test Assets generator', () {
     test('Assets on pubspec.yaml', () async {
-      final pubspec = File('test_resources/pubspec_assets.yaml');
-      final config = await Config(pubspec).load();
-      final formatter = DartFormatter(
-          pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
+      final pubspec = 'test_resources/pubspec_assets.yaml';
+      final fact = 'test_resources/actual_data/assets.gen.dart';
+      final generated = 'test_resources/lib/gen/assets.gen.dart';
 
-      final actual = generateAssets(
-          pubspec, formatter, config.flutterGen, config.flutter.assets);
-      final expected = File('test_resources/actual_data/assets.gen.dart')
-          .readAsStringSync()
-          .replaceAll('\r\n', '\n');
-
-      expect(actual, expected);
+      expectedAssetsGen(pubspec, generated, fact);
     });
 
     test('Assets snake-case style on pubspec.yaml', () async {
-      final pubspec = File('test_resources/pubspec_assets_snake_case.yaml');
-      final config = await Config(pubspec).load();
-      final formatter = DartFormatter(
-          pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
+      final pubspec = 'test_resources/pubspec_assets_snake_case.yaml';
+      final fact = 'test_resources/actual_data/assets_snake_case.gen.dart';
+      final generated = 'test_resources/lib/gen/assets_snake_case.gen.dart';
 
-      final actual = generateAssets(
-          pubspec, formatter, config.flutterGen, config.flutter.assets);
-      final expected =
-          File('test_resources/actual_data/assets_snake_case.gen.dart')
-              .readAsStringSync()
-              .replaceAll('\r\n', '\n');
-
-      expect(actual, expected);
+      expectedAssetsGen(pubspec, generated, fact);
     });
 
     test('Assets camel-case style on pubspec.yaml', () async {
-      final pubspec = File('test_resources/pubspec_assets_camel_case.yaml');
-      final config = await Config(pubspec).load();
-      final formatter = DartFormatter(
-          pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
+      final pubspec = 'test_resources/pubspec_assets_camel_case.yaml';
+      final fact = 'test_resources/actual_data/assets_camel_case.gen.dart';
+      final generated = 'test_resources/lib/gen/assets_camel_case.gen.dart';
 
-      final actual = generateAssets(
-          pubspec, formatter, config.flutterGen, config.flutter.assets);
-      final expected =
-          File('test_resources/actual_data/assets_camel_case.gen.dart')
-              .readAsStringSync()
-              .replaceAll('\r\n', '\n');
-
-      expect(actual, expected);
+      expectedAssetsGen(pubspec, generated, fact);
     });
 
     test('Assets with Unknown mime type on pubspec.yaml', () async {
-      await FlutterGenerator(
-          File('test_resources/pubspec_unknown_mime_type.yaml'))
-          .build();
-      expect(
-        File('test_resources/lib/gen/assets.gen.dart').readAsStringSync(),
-        isNotEmpty,
-      );
+      final pubspec = 'test_resources/pubspec_unknown_mime_type.yaml';
+      final fact =
+          'test_resources/actual_data/assets_unknown_mime_type.gen.dart';
+      final generated = 'test_resources/lib/gen/assets_unknown_mime_type.gen.dart';
 
-      final pubspec =
-      File('test_resources/pubspec_unknown_mime_type.yaml');
-      final config = await Config(pubspec).load();
-      final formatter = DartFormatter(
-          pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
-
-      final actual = generateAssets(
-          pubspec, formatter, config.flutterGen, config.flutter.assets);
-      final expected =
-      File('test_resources/actual_data/assets_unknown_mime_type.gen.dart')
-          .readAsStringSync()
-          .replaceAll('\r\n', '\n');
-
-      expect(actual, expected);
+      expectedAssetsGen(pubspec, generated, fact);
     });
 
     test('Assets with ignore files on pubspec.yaml', () async {
-      await FlutterGenerator(
-          File('test_resources/pubspec_ignore_files.yaml'))
-          .build();
-      expect(
-        File('test_resources/lib/gen/assets.gen.dart').readAsStringSync(),
-        isNotEmpty,
-      );
+      final pubspec = 'test_resources/pubspec_ignore_files.yaml';
+      final fact = 'test_resources/actual_data/assets_ignore_files.gen.dart';
+      final generated = 'test_resources/lib/gen/assets_ignore_files.gen.dart';
 
-      final pubspec =
-      File('test_resources/pubspec_ignore_files.yaml');
-      final config = await Config(pubspec).load();
-      final formatter = DartFormatter(
-          pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
-
-      final actual = generateAssets(
-          pubspec, formatter, config.flutterGen, config.flutter.assets);
-      final expected =
-      File('test_resources/actual_data/assets_ignore_files.gen.dart')
-          .readAsStringSync()
-          .replaceAll('\r\n', '\n');
-
-      expect(actual, expected);
+      expectedAssetsGen(pubspec, generated, fact);
     });
 
     test('Assets with No lists on pubspec.yaml', () async {
@@ -121,7 +58,7 @@ void main() {
       final formatter = DartFormatter(
           pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
-      expect(() async {
+      expect(() {
         return generateAssets(
             pubspec, formatter, config.flutterGen, config.flutter.assets);
       }, throwsA(isA<InvalidSettingsException>()));

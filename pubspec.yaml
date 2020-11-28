@@ -10,7 +10,7 @@ authors:
   - Mao Yufeng <lcdsmao@gmail.com>
 
 environment:
-  sdk: '>=2.9.0 <3.0.0'
+  sdk: '>=2.10.0 <3.0.0'
 
 executables:
   fluttergen: flutter_gen_command
@@ -28,6 +28,7 @@ dependencies:
 
 dev_dependencies:
   test:
-  test_coverage:
+#  test_coverage:
+  test_cov:
   effective_dart:
   build_test:
