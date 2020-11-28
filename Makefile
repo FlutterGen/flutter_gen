@@ -28,7 +28,7 @@ unit-test:
 	dart pub run test
 
 coverage:
-	dart pub run test_coverage --no-badge
+	dart pub run test_cov --no-badge
 	./scripts/codecov.sh ${CODECOV_TOKEN}
 
 setup-ubuntu:
