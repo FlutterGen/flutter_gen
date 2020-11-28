@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen/src/generators/colors_generator.dart';
+import 'package:flutter_gen/src/settings/color_path.dart';
 import 'package:flutter_gen/src/settings/config.dart';
 import 'package:flutter_gen/src/utils/error.dart';
 import 'package:test/test.dart';
@@ -39,6 +40,16 @@ void main() {
       expect(() {
         return generateColors(pubspec, formatter, config.flutterGen.colors);
       }, throwsA(isA<InvalidSettingsException>()));
+    });
+
+    test('ColorPath Tests', () async {
+      final colorPath = ColorPath('test_resources/assets/color/colors.xml');
+      expect(colorPath.mime, 'application/xml');
+      expect(colorPath.isXml, isTrue);
+
+      final wrongColorPath =
+          ColorPath('test_resources/assets/json/fruits.json');
+      expect(wrongColorPath.isXml, isFalse);
     });
   });
 }
