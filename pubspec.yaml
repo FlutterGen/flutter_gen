@@ -28,7 +28,6 @@ dependencies:
 
 dev_dependencies:
   test:
-#  test_coverage:
-  test_cov:
+  test_coverage:
   effective_dart:
   build_test:
