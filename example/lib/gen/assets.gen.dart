@@ -48,6 +48,8 @@ class $AssetsMovieGen {
 class $AssetsUnknownGen {
   const $AssetsUnknownGen();
 
+  String get changelog => 'assets/unknown/CHANGELOG.md';
+  String get readme => 'assets/unknown/README.md';
   String get unknownMimeType => 'assets/unknown/unknown_mime_type.bk';
 }
 
