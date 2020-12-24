@@ -5,6 +5,8 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
+import 'package:lottie/src/providers/load_image.dart';
+import 'package:lottie/src/lottie_builder.dart';
 
 class $AssetsLottieGen {
   const $AssetsLottieGen();
@@ -96,7 +98,7 @@ class LottieGenImage {
     bool addRepaintBoundary,
   }) {
     return Lottie.asset(
-      '_assetName',
+      _assetName,
       controller: controller,
       animate: animate,
       frameRate: frameRate,

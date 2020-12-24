@@ -43,7 +43,7 @@ class LottieIntegration extends Integration {
     bool addRepaintBoundary,
   }) {
     return Lottie.asset(
-      '_assetName',
+      _assetName,
       controller: controller,
       animate: animate,
       frameRate: frameRate,
@@ -68,5 +68,9 @@ class LottieIntegration extends Integration {
 }''';
 
   @override
-  List<String> get requiredImports => ['package:lottie/lottie.dart'];
+  List<String> get requiredImports => [
+        'package:lottie/lottie.dart',
+        'package:lottie/src/providers/load_image.dart',
+        'package:lottie/src/lottie_builder.dart'
+      ];
 }

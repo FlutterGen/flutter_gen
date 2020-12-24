@@ -62,6 +62,7 @@ flutter:
     - assets/json/fruits.json
     - pictures/chip5.jpg
     - assets/flare/
+    - assets/lottie/
     - assets/movie/
     - assets/unknown/
   fonts:
