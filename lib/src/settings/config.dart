@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
+import 'package:dartx/dartx.dart';
 
 import '../utils/cast.dart';
 import '../utils/error.dart';
@@ -17,6 +18,7 @@ class Config {
   final File pubspecFile;
   Flutter flutter;
   FlutterGen flutterGen;
+  String name;
 
   Future<Config> load() async {
     print('FlutterGen Loading ... '
@@ -35,6 +37,9 @@ class Config {
 
     final properties = safeCast<YamlMap>(loadYaml(pubspec));
 
+    if (properties.containsKey('name')) {
+      name = properties['name'];
+    }
     if (properties.containsKey('flutter')) {
       flutter = Flutter(safeCast<YamlMap>(properties['flutter']));
     }

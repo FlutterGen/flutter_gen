@@ -38,4 +38,7 @@ class AssetType {
   void addChild(AssetType type) {
     _children.add(type);
   }
+
+  AssetType copyWith({String path}) => AssetType(path)
+    .._children.addAll(_children);
 }

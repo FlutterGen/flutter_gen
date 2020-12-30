@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart';
+import 'package:dartx/dartx.dart';
 
 import 'generators/assets_generator.dart';
 import 'generators/colors_generator.dart';
@@ -50,7 +51,11 @@ class FlutterGenerator {
 
       if (config.flutter.hasAssets) {
         final generated = generateAssets(
-            pubspecFile, formatter, config.flutterGen, config.flutter.assets);
+            pubspecFile, formatter, config.flutterGen,
+            config.flutter.assets, config.name,
+            config.flutterGen?.assets?.packageName != null ?
+              config.flutterGen.assets.packageName :
+              "${config.name.capitalize()}Assets");
         final assets = File(normalize(
             join(pubspecFile.parent.path, output, 'assets.gen.dart')));
         writeAsString(generated, file: assets);

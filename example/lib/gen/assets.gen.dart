@@ -7,6 +7,14 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 
+class FlutterGenAsset {
+  FlutterGenAsset._();
+
+  static const $LibImagesGen images = $LibImagesGen();
+  static const $LibJsonGen json = $LibJsonGen();
+  static const $LibPicturesGen pictures = $LibPicturesGen();
+}
+
 class $PicturesGen {
   const $PicturesGen();
 
@@ -23,12 +31,33 @@ class $AssetsImagesGen {
   $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
   AssetGenImage get profile => const AssetGenImage('assets/images/profile.jpg');
+  SvgGenImage get test => const SvgGenImage('assets/images/test.svg');
 }
 
 class $AssetsJsonGen {
   const $AssetsJsonGen();
 
   String get fruits => 'assets/json/fruits.json';
+}
+
+class $LibImagesGen {
+  const $LibImagesGen();
+
+  SvgGenImage get fuchsia =>
+      const SvgGenImage('packages/example/images/fuchsia.svg');
+}
+
+class $LibJsonGen {
+  const $LibJsonGen();
+
+  String get fruits => 'packages/example/json/fruits.json';
+}
+
+class $LibPicturesGen {
+  const $LibPicturesGen();
+
+  AssetGenImage get chip5 =>
+      const AssetGenImage('packages/example/pictures/chip5.jpg');
 }
 
 class $AssetsImagesChip3Gen {

@@ -67,10 +67,13 @@ class FlutterGenAssets {
   FlutterGenAssets(YamlMap flutterGenMap) {
     if (flutterGenMap != null) {
       style = safeCast<String>(flutterGenMap['style']);
+      packageName = safeCast<String>(flutterGenMap['packageName']);
     }
   }
 
   String style;
+
+  String packageName;
 
   bool get isDefaultStyle => style == null || isDotDelimiterStyle;
 
