@@ -122,7 +122,7 @@ $ fluttergen -c example/pubspec.yaml
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
-  lineLength: 80 # Optional (default: 80)
+  line_length: 80 # Optional (default: 80)
 
   # Optional
   integrations:
