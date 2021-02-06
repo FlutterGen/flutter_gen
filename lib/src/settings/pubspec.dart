@@ -71,7 +71,7 @@ class FlutterGen {
   final int lineLength1;
 
   @deprecated
-  @JsonKey(name: 'lineLength', required: true, nullable: true)
+  @JsonKey(name: 'lineLength', required: true)
   final int lineLength0;
 
   @JsonKey(name: 'assets', required: true)
