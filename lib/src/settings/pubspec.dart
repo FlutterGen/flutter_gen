@@ -1,21 +1,17 @@
 import 'dart:io';
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:path/path.dart';
 
 part 'pubspec.g.dart';
-
-final String _defaultOutput = 'lib${separator}gen$separator';
-const int _defaultLineLength = 80;
 
 @JsonSerializable()
 class PubSpec {
   PubSpec({this.flutterGen, this.flutter});
 
-  @JsonKey(name: 'flutter_gen')
+  @JsonKey(name: 'flutter_gen', required: true)
   final FlutterGen flutterGen;
 
-  @JsonKey(name: 'flutter')
+  @JsonKey(name: 'flutter', required: true)
   final Flutter flutter;
 
   factory PubSpec.fromJson(Map json) => _$PubSpecFromJson(json);
@@ -23,19 +19,12 @@ class PubSpec {
 
 @JsonSerializable()
 class Flutter {
-  Flutter({this.assets, this.fonts}) {
-    if (assets.isEmpty) {
-      throw ArgumentError.value(assets, 'assets', 'Cannot be empty');
-    }
-    if (fonts.isEmpty) {
-      throw ArgumentError.value(assets, 'fonts', 'Cannot be empty');
-    }
-  }
+  Flutter({this.assets, this.fonts});
 
-  @JsonKey(name: 'assets')
+  @JsonKey(name: 'assets', required: true)
   final List<String> assets;
 
-  @JsonKey(name: 'fonts')
+  @JsonKey(name: 'fonts', required: true)
   final List<FlutterFonts> fonts;
 
   factory Flutter.fromJson(Map json) => _$FlutterFromJson(json);
@@ -43,11 +32,7 @@ class Flutter {
 
 @JsonSerializable()
 class FlutterFonts {
-  FlutterFonts({this.family}) {
-    if (family.isEmpty) {
-      throw ArgumentError.value(family, 'family', 'Cannot be empty');
-    }
-  }
+  FlutterFonts({this.family});
 
   @JsonKey(name: 'family', required: true)
   final String family;
@@ -57,45 +42,47 @@ class FlutterFonts {
 
 @JsonSerializable()
 class FlutterGen {
-  FlutterGen({output, lineLength, this.deprecatedLineLength, this.assets})
-      : output = output ?? _defaultOutput,
-        lineLength = lineLength ?? deprecatedLineLength ?? _defaultLineLength {
-    if (!FileSystemEntity.isDirectorySync(this.output)) {
-      throw ArgumentError.value(output, 'output', 'Must be a valid directory.');
-    }
+  FlutterGen({
+    this.output,
+    this.lineLength,
+    this.deprecatedLineLength,
+    this.assets,
+    this.integrations,
+    this.colors,
+  }) {
     if (deprecatedLineLength != null) {
       print('Warning: key lineLength is deprecated, use line_length instead.');
     }
   }
 
-  @JsonKey(name: 'output')
+  @JsonKey(name: 'output', required: true)
   final String output;
 
-  @JsonKey(name: 'line_length', defaultValue: _defaultLineLength)
+  @JsonKey(name: 'line_length', required: true)
   final int lineLength;
 
   @deprecated
-  @JsonKey(name: 'lineLength')
+  @JsonKey(name: 'lineLength', required: true)
   final int deprecatedLineLength;
 
-  @JsonKey(name: 'assets')
+  @JsonKey(name: 'assets', required: true)
   final FlutterGenAssets assets;
+
+  @JsonKey(name: 'integrations', required: true)
+  final FlutterGenIntegrations integrations;
+
+  @JsonKey(name: 'colors', required: true)
+  final FlutterGenColors colors;
 
   factory FlutterGen.fromJson(Map json) => _$FlutterGenFromJson(json);
 }
 
 @JsonSerializable()
 class FlutterGenColors {
-  FlutterGenColors({this.inputs}) {
-    if (inputs.isEmpty) {
-      throw ArgumentError.value(inputs, 'inputs', 'Cannot be empty.');
-    }
-  }
+  FlutterGenColors({this.inputs});
 
   @JsonKey(name: 'inputs', required: true)
   final List<String> inputs;
-
-  bool get hasInputs => inputs != null && inputs.isNotEmpty;
 
   factory FlutterGenColors.fromJson(Map json) =>
       _$FlutterGenColorsFromJson(json);
@@ -108,14 +95,14 @@ class FlutterGenAssets {
   static const String camelCaseStyle = 'camel-case';
 
   FlutterGenAssets({this.style}) {
-    if (style != dotDelimiterStyle ||
-        style != snakeCaseStyle ||
+    if (style != dotDelimiterStyle &&
+        style != snakeCaseStyle &&
         style != camelCaseStyle) {
-      throw ArgumentError.value(style, 'style', 'Invalid style.');
+      throw ArgumentError.value(style, 'style');
     }
   }
 
-  @JsonKey(name: 'style', defaultValue: dotDelimiterStyle)
+  @JsonKey(name: 'style', required: true)
   final String style;
 
   bool get isDotDelimiterStyle => style == dotDelimiterStyle;
@@ -132,10 +119,10 @@ class FlutterGenAssets {
 class FlutterGenIntegrations {
   FlutterGenIntegrations({this.flutterSvg, this.flareFlutter});
 
-  @JsonKey(name: 'flutter_svg', defaultValue: false)
+  @JsonKey(name: 'flutter_svg', required: true)
   final bool flutterSvg;
 
-  @JsonKey(name: 'flare_flutter', defaultValue: false)
+  @JsonKey(name: 'flare_flutter', required: true)
   final bool flareFlutter;
 
   factory FlutterGenIntegrations.fromJson(Map json) =>

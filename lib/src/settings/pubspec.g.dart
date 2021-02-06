@@ -8,6 +8,7 @@ part of 'pubspec.dart';
 
 PubSpec _$PubSpecFromJson(Map json) {
   return $checkedNew('PubSpec', json, () {
+    $checkKeys(json, requiredKeys: const ['flutter_gen', 'flutter']);
     final val = PubSpec(
       flutterGen: $checkedConvert(json, 'flutter_gen',
           (v) => v == null ? null : FlutterGen.fromJson(v as Map)),
@@ -25,6 +26,7 @@ Map<String, dynamic> _$PubSpecToJson(PubSpec instance) => <String, dynamic>{
 
 Flutter _$FlutterFromJson(Map json) {
   return $checkedNew('Flutter', json, () {
+    $checkKeys(json, requiredKeys: const ['assets', 'fonts']);
     final val = Flutter(
       assets: $checkedConvert(json, 'assets',
           (v) => (v as List)?.map((e) => e as String)?.toList()),
@@ -61,13 +63,25 @@ Map<String, dynamic> _$FlutterFontsToJson(FlutterFonts instance) =>
 
 FlutterGen _$FlutterGenFromJson(Map json) {
   return $checkedNew('FlutterGen', json, () {
+    $checkKeys(json, requiredKeys: const [
+      'output',
+      'line_length',
+      'lineLength',
+      'assets',
+      'integrations',
+      'colors'
+    ]);
     final val = FlutterGen(
-      output: $checkedConvert(json, 'output', (v) => v),
-      lineLength: $checkedConvert(json, 'line_length', (v) => v) ?? 80,
+      output: $checkedConvert(json, 'output', (v) => v as String),
+      lineLength: $checkedConvert(json, 'line_length', (v) => v as int),
       deprecatedLineLength:
           $checkedConvert(json, 'lineLength', (v) => v as int),
       assets: $checkedConvert(json, 'assets',
           (v) => v == null ? null : FlutterGenAssets.fromJson(v as Map)),
+      integrations: $checkedConvert(json, 'integrations',
+          (v) => v == null ? null : FlutterGenIntegrations.fromJson(v as Map)),
+      colors: $checkedConvert(json, 'colors',
+          (v) => v == null ? null : FlutterGenColors.fromJson(v as Map)),
     );
     return val;
   }, fieldKeyMap: const {
@@ -82,6 +96,8 @@ Map<String, dynamic> _$FlutterGenToJson(FlutterGen instance) =>
       'line_length': instance.lineLength,
       'lineLength': instance.deprecatedLineLength,
       'assets': instance.assets,
+      'integrations': instance.integrations,
+      'colors': instance.colors,
     };
 
 FlutterGenColors _$FlutterGenColorsFromJson(Map json) {
@@ -102,9 +118,9 @@ Map<String, dynamic> _$FlutterGenColorsToJson(FlutterGenColors instance) =>
 
 FlutterGenAssets _$FlutterGenAssetsFromJson(Map json) {
   return $checkedNew('FlutterGenAssets', json, () {
+    $checkKeys(json, requiredKeys: const ['style']);
     final val = FlutterGenAssets(
-      style:
-          $checkedConvert(json, 'style', (v) => v as String) ?? 'dot-delimiter',
+      style: $checkedConvert(json, 'style', (v) => v as String),
     );
     return val;
   });
@@ -117,11 +133,10 @@ Map<String, dynamic> _$FlutterGenAssetsToJson(FlutterGenAssets instance) =>
 
 FlutterGenIntegrations _$FlutterGenIntegrationsFromJson(Map json) {
   return $checkedNew('FlutterGenIntegrations', json, () {
+    $checkKeys(json, requiredKeys: const ['flutter_svg', 'flare_flutter']);
     final val = FlutterGenIntegrations(
-      flutterSvg:
-          $checkedConvert(json, 'flutter_svg', (v) => v as bool) ?? false,
-      flareFlutter:
-          $checkedConvert(json, 'flare_flutter', (v) => v as bool) ?? false,
+      flutterSvg: $checkedConvert(json, 'flutter_svg', (v) => v as bool),
+      flareFlutter: $checkedConvert(json, 'flare_flutter', (v) => v as bool),
     );
     return val;
   }, fieldKeyMap: const {

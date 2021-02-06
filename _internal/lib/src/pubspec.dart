@@ -50,9 +50,6 @@ class FlutterGen {
     this.integrations,
     this.colors,
   }) {
-    if (!FileSystemEntity.isDirectorySync(output)) {
-      throw ArgumentError.value(output, 'output');
-    }
     if (deprecatedLineLength != null) {
       print('Warning: key lineLength is deprecated, use line_length instead.');
     }

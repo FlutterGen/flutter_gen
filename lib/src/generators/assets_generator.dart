@@ -6,9 +6,7 @@ import 'package:dartx/dartx.dart';
 import 'package:path/path.dart';
 
 import '../settings/asset_type.dart';
-import '../settings/flutter.dart';
-import '../settings/flutter_gen.dart';
-import '../utils/error.dart';
+import '../settings/pubspec.dart';
 import '../utils/string.dart';
 import 'generator_helper.dart';
 import 'integrations/flare_integration.dart';
@@ -19,30 +17,17 @@ String generateAssets(
   File pubspecFile,
   DartFormatter formatter,
   FlutterGen flutterGen,
-  FlutterAssets assets,
+  List<String> assets,
 ) {
-  if (assets == null || !assets.hasAssets) {
-    throw InvalidSettingsException(
-        'The value of "flutter/assets:" is incorrect.');
-  }
-
   final importsBuffer = StringBuffer();
   final classesBuffer = StringBuffer();
 
-  final integrations = <Integration>[];
-  if (flutterGen != null && flutterGen.hasIntegrations) {
-    if (flutterGen.integrations.flutterSvg) {
-      integrations.add(SvgIntegration());
-    }
+  final integrations = <Integration>[
+    if (flutterGen.integrations.flutterSvg) SvgIntegration(),
+    if (flutterGen.integrations.flareFlutter) FlareIntegration(),
+  ];
 
-    if (flutterGen.integrations.flareFlutter) {
-      integrations.add(FlareIntegration());
-    }
-  }
-
-  if (flutterGen == null ||
-      !flutterGen.hasAssets ||
-      flutterGen.assets.isDefaultStyle) {
+  if (flutterGen.assets.isDotDelimiterStyle) {
     classesBuffer.writeln(
         _dotDelimiterStyleDefinition(pubspecFile, assets, integrations));
   } else if (flutterGen.assets.isSnakeCaseStyle) {
@@ -77,10 +62,10 @@ String generateAssets(
 
 List<String> _getAssetRelativePathList(
   File pubspecFile,
-  FlutterAssets assets,
+  List<String> assets,
 ) {
   final assetRelativePathList = <String>[];
-  for (final assetName in assets.assets) {
+  for (final assetName in assets) {
     final assetAbsolutePath = join(pubspecFile.parent.path, assetName);
     if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
       assetRelativePathList.addAll(Directory(assetAbsolutePath)
@@ -170,7 +155,7 @@ _Statement _createAssetTypeStatement(
 /// Generate style like Assets.foo.bar
 String _dotDelimiterStyleDefinition(
   File pubspecFile,
-  FlutterAssets assets,
+  List<String> assets,
   List<Integration> integrations,
 ) {
   final buffer = StringBuffer();
@@ -224,7 +209,7 @@ String _dotDelimiterStyleDefinition(
 /// Generate style like Assets.fooBar
 String _camelCaseStyleDefinition(
   File pubspecFile,
-  FlutterAssets assets,
+  List<String> assets,
   List<Integration> integrations,
 ) {
   return _flatStyleDefinition(
@@ -240,7 +225,7 @@ String _camelCaseStyleDefinition(
 /// Generate style like Assets.foo_bar
 String _snakeCaseStyleDefinition(
   File pubspecFile,
-  FlutterAssets assets,
+  List<String> assets,
   List<Integration> integrations,
 ) {
   return _flatStyleDefinition(
@@ -255,7 +240,7 @@ String _snakeCaseStyleDefinition(
 
 String _flatStyleDefinition(
   File pubspecFile,
-  FlutterAssets assets,
+  List<String> assets,
   List<Integration> integrations,
   String Function(AssetType) createName,
 ) {
