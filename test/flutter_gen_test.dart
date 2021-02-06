@@ -137,7 +137,7 @@ void main() {
           isNotEmpty);
     });
 
-    test('Wrong output path', () async {
+    test('Empty output path', () async {
       final pubspec = 'test_resources/pubspec_wrong_output_path.yaml';
       final assets = 'pubspec_wrong_output_path_assets.gen.dart';
       final colors = 'pubspec_wrong_output_path_colors.gen.dart';
