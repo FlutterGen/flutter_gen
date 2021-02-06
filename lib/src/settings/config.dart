@@ -36,7 +36,8 @@ Future<Config> loadPubspecConfig(File pubspecFile) async {
 const _defaultConfig = '''
 flutter_gen:
   output: lib/gen/
-  lineLength: 80
+  # deprecated key
+  lineLength: -1
   line_length: 80
 
   integrations:
