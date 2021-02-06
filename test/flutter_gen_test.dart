@@ -137,7 +137,7 @@ void main() {
           isNotEmpty);
     });
 
-    test('Wrong output path', () async {
+    test('Empty output path', () async {
       final pubspec = 'test_resources/pubspec_wrong_output_path.yaml';
       final assets = 'pubspec_wrong_output_path_assets.gen.dart';
       final colors = 'pubspec_wrong_output_path_colors.gen.dart';
@@ -159,22 +159,10 @@ void main() {
 
     test('Wrong lineLength', () async {
       final pubspec = 'test_resources/pubspec_wrong_line_length.yaml';
-      final assets = 'pubspec_wrong_line_length_assets.gen.dart';
-      final colors = 'pubspec_wrong_line_length_colors.gen.dart';
-      final fonts = 'pubspec_wrong_line_length_fonts.gen.dart';
 
-      await FlutterGenerator(
-        File(pubspec),
-        assetsName: assets,
-        colorsName: colors,
-        fontsName: fonts,
-      ).build();
-      expect(File('test_resources/lib/gen/$assets').readAsStringSync(),
-          isNotEmpty);
-      expect(
-          File('test_resources/lib/gen/$fonts').readAsStringSync(), isNotEmpty);
-      expect(File('test_resources/lib/gen/$colors').readAsStringSync(),
-          isNotEmpty);
+      expect(() {
+        return FlutterGenerator(File(pubspec)).build();
+      }, throwsA(isA<Exception>()));
     });
   });
 }

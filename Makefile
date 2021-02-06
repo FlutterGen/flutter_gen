@@ -18,6 +18,10 @@ format:
 build:
 	cd example && flutter build apk && cd ..
 
+generate-config-model:
+	cd _internal && dart pub run build_runner build && cd ..
+	cp _internal/lib/src/* lib/src/settings
+
 generate-with-command:
 	dart bin/flutter_gen_command.dart --config example/pubspec.yaml
 

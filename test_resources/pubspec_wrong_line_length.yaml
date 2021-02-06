@@ -2,7 +2,7 @@ name: example
 
 flutter_gen:
   output: lib/gen/
-  lineLength: aaaa
+  line_length: aaaa
 
   colors:
     inputs:
