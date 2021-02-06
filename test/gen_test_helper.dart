@@ -18,7 +18,7 @@ void expectedAssetsGen(String pubspec, String generated, String fact) async {
       .build();
 
   final pubspecFile = File(pubspec);
-  final config = await Config(pubspecFile).load();
+  final config = await loadPubspecConfig(pubspecFile);
   final formatter =
       DartFormatter(pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
@@ -38,7 +38,7 @@ void expectedColorsGen(String pubspec, String generated, String fact) async {
   await FlutterGenerator(File(pubspec)).build();
 
   final pubspecFile = File(pubspec);
-  final config = await Config(pubspecFile).load();
+  final config = await loadPubspecConfig(pubspecFile);
   final formatter =
       DartFormatter(pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
@@ -58,7 +58,7 @@ void expectedFontsGen(String pubspec, String generated, String fact) async {
   await FlutterGenerator(File(pubspec)).build();
 
   final pubspecFile = File(pubspec);
-  final config = await Config(pubspecFile).load();
+  final config = await loadPubspecConfig(pubspecFile);
   final formatter =
       DartFormatter(pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 

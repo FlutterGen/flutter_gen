@@ -22,7 +22,7 @@ void main() {
 
     test('Wrong colors settings on pubspec.yaml', () async {
       final pubspec = File('test_resources/pubspec_colors_no_inputs.yaml');
-      final config = await Config(pubspec).load();
+      final config = await loadPubspecConfig(pubspec);
       final formatter = DartFormatter(
           pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
@@ -33,7 +33,7 @@ void main() {
 
     test('Wrong colors settings on pubspec.yaml', () async {
       final pubspec = File('test_resources/pubspec_colors_no_inputs_list.yaml');
-      final config = await Config(pubspec).load();
+      final config = await loadPubspecConfig(pubspec);
       final formatter = DartFormatter(
           pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 

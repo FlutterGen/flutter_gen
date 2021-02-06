@@ -11,15 +11,18 @@ void main() {
     test('Assets with No integrations on pubspec.yaml', () async {
       final pubspec = 'test_resources/pubspec_assets_no_integrations.yaml';
       final fact = 'test_resources/actual_data/assets_no_integrations.gen.dart';
-      final generated = 'test_resources/lib/gen/assets_no_integrations.gen.dart';
+      final generated =
+          'test_resources/lib/gen/assets_no_integrations.gen.dart';
 
       expectedAssetsGen(pubspec, generated, fact);
     });
 
     test('Assets with Svg integrations on pubspec.yaml', () async {
       final pubspec = 'test_resources/pubspec_assets_svg_integrations.yaml';
-      final fact = 'test_resources/actual_data/assets_svg_integrations.gen.dart';
-      final generated = 'test_resources/lib/gen/assets_svg_integrations.gen.dart';
+      final fact =
+          'test_resources/actual_data/assets_svg_integrations.gen.dart';
+      final generated =
+          'test_resources/lib/gen/assets_svg_integrations.gen.dart';
 
       expectedAssetsGen(pubspec, generated, fact);
 
@@ -36,7 +39,8 @@ void main() {
       final pubspec = 'test_resources/pubspec_assets_flare_integrations.yaml';
       final fact =
           'test_resources/actual_data/assets_flare_integrations.gen.dart';
-      final generated = 'test_resources/lib/gen/assets_flare_integrations.gen.dart';
+      final generated =
+          'test_resources/lib/gen/assets_flare_integrations.gen.dart';
 
       expectedAssetsGen(pubspec, generated, fact);
 

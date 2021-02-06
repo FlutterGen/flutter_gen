@@ -20,9 +20,9 @@ void main() {
     });
 
     test('Wrong fonts settings on pubspec.yaml', () async {
-      final config = await Config(
+      final config = await loadPubspecConfig(
         File('test_resources/pubspec_fonts_no_family.yaml'),
-      ).load();
+      );
       final formatter = DartFormatter(
           pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 

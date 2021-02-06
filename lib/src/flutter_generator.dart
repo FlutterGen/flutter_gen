@@ -27,6 +27,9 @@ class FlutterGenerator {
     Config config;
     try {
       config = await loadPubspecConfig(pubspecFile);
+    } on InvalidSettingsException catch (e) {
+      stderr.writeln(e.message);
+      return;
     } on FileSystemException catch (e) {
       stderr.writeln(e.message);
       return;

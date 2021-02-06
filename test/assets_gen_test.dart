@@ -39,7 +39,8 @@ void main() {
       final pubspec = 'test_resources/pubspec_unknown_mime_type.yaml';
       final fact =
           'test_resources/actual_data/assets_unknown_mime_type.gen.dart';
-      final generated = 'test_resources/lib/gen/assets_unknown_mime_type.gen.dart';
+      final generated =
+          'test_resources/lib/gen/assets_unknown_mime_type.gen.dart';
 
       expectedAssetsGen(pubspec, generated, fact);
     });
@@ -54,7 +55,7 @@ void main() {
 
     test('Assets with No lists on pubspec.yaml', () async {
       final pubspec = File('test_resources/pubspec_assets_no_list.yaml');
-      final config = await Config(pubspec).load();
+      final config = await loadPubspecConfig(pubspec);
       final formatter = DartFormatter(
           pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 

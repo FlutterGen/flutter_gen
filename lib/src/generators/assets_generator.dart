@@ -7,6 +7,7 @@ import 'package:path/path.dart';
 
 import '../settings/asset_type.dart';
 import '../settings/pubspec.dart';
+import '../utils/error.dart';
 import '../utils/string.dart';
 import 'generator_helper.dart';
 import 'integrations/flare_integration.dart';
@@ -19,6 +20,11 @@ String generateAssets(
   FlutterGen flutterGen,
   List<String> assets,
 ) {
+  if (assets.isEmpty) {
+    throw InvalidSettingsException(
+        'The value of "flutter/assets:" is incorrect.');
+  }
+
   final importsBuffer = StringBuffer();
   final classesBuffer = StringBuffer();
 

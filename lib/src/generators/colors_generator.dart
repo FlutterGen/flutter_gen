@@ -8,6 +8,7 @@ import 'package:xml/xml.dart';
 import '../settings/color_path.dart';
 import '../settings/pubspec.dart';
 import '../utils/color.dart';
+import '../utils/error.dart';
 import '../utils/string.dart';
 import 'generator_helper.dart';
 
@@ -16,6 +17,11 @@ String generateColors(
   DartFormatter formatter,
   FlutterGenColors colors,
 ) {
+  if (colors.inputs.isEmpty) {
+    throw InvalidSettingsException(
+        'The value of "flutter_gen/colors:" is incorrect.');
+  }
+
   final buffer = StringBuffer();
   buffer.writeln(header);
   buffer.writeln("import 'package:flutter/painting.dart';");
