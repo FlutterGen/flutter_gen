@@ -6,10 +6,10 @@ part of 'pubspec.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-PubSpec _$PubSpecFromJson(Map json) {
-  return $checkedNew('PubSpec', json, () {
+Pubspec _$PubspecFromJson(Map json) {
+  return $checkedNew('Pubspec', json, () {
     $checkKeys(json, requiredKeys: const ['flutter_gen', 'flutter']);
-    final val = PubSpec(
+    final val = Pubspec(
       flutterGen: $checkedConvert(json, 'flutter_gen',
           (v) => v == null ? null : FlutterGen.fromJson(v as Map)),
       flutter: $checkedConvert(json, 'flutter',
@@ -19,7 +19,7 @@ PubSpec _$PubSpecFromJson(Map json) {
   }, fieldKeyMap: const {'flutterGen': 'flutter_gen'});
 }
 
-Map<String, dynamic> _$PubSpecToJson(PubSpec instance) => <String, dynamic>{
+Map<String, dynamic> _$PubspecToJson(Pubspec instance) => <String, dynamic>{
       'flutter_gen': instance.flutterGen,
       'flutter': instance.flutter,
     };

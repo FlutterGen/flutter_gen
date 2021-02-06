@@ -7,30 +7,30 @@ import 'package:yaml/yaml.dart';
 import 'pubspec.dart';
 
 class Config {
-  Config._({this.pubSpec});
+  Config._({this.pubspec});
 
-  final PubSpec pubSpec;
+  final Pubspec pubspec;
 
-  FlutterGen get flutterGen => pubSpec.flutterGen;
+  FlutterGen get flutterGen => pubspec.flutterGen;
 
-  Flutter get flutter => pubSpec.flutter;
+  Flutter get flutter => pubspec.flutter;
 }
 
-Future<Config> loadPubspecConfig(File pubSpecFile) async {
+Future<Config> loadPubspecConfig(File pubspecFile) async {
   print('FlutterGen Loading ... '
       '${normalize(join(
-    basename(pubSpecFile.parent.path),
-    basename(pubSpecFile.path),
+    basename(pubspecFile.parent.path),
+    basename(pubspecFile.path),
   ))}');
-  final content = await pubSpecFile.readAsString().catchError((dynamic error) {
+  final content = await pubspecFile.readAsString().catchError((dynamic error) {
     throw FileSystemException(
-        'Cannot open pubspec.yaml: ${pubSpecFile.absolute}');
+        'Cannot open pubspec.yaml: ${pubspecFile.absolute}');
   });
   final userMap = loadYaml(content) as Map;
   final defaultMap = loadYaml(_defaultConfig) as Map;
   final mergedMap = mergeMap([defaultMap, userMap]);
-  final pubSpec = PubSpec.fromJson(mergedMap);
-  return Config._(pubSpec: pubSpec);
+  final pubspec = Pubspec.fromJson(mergedMap);
+  return Config._(pubspec: pubspec);
 }
 
 const _defaultConfig = '''

@@ -1,12 +1,10 @@
-import 'dart:io';
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'pubspec.g.dart';
 
 @JsonSerializable()
-class PubSpec {
-  PubSpec({this.flutterGen, this.flutter});
+class Pubspec {
+  Pubspec({this.flutterGen, this.flutter});
 
   @JsonKey(name: 'flutter_gen', required: true)
   final FlutterGen flutterGen;
@@ -14,7 +12,7 @@ class PubSpec {
   @JsonKey(name: 'flutter', required: true)
   final Flutter flutter;
 
-  factory PubSpec.fromJson(Map json) => _$PubSpecFromJson(json);
+  factory Pubspec.fromJson(Map json) => _$PubspecFromJson(json);
 }
 
 @JsonSerializable()
