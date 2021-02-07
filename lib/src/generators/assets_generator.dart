@@ -177,13 +177,13 @@ String _dotDelimiterStyleDefinition(
 
     if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
       final statements = assetType.children
-          .mapToUniqueWithoutExtension()
+          .mapToIsUniqueWithoutExtension()
           .map(
             (e) => _createAssetTypeStatement(
               pubspecFile,
               e.assetType,
               integrations,
-              (e.isUnique
+              (e.isUniqueWithoutExtension
                       ? basenameWithoutExtension(e.assetType.path)
                       : basename(e.assetType.path))
                   .camelCase(),
@@ -226,7 +226,9 @@ String _camelCaseStyleDefinition(
     pubspecFile,
     assets,
     integrations,
-    (e) => (e.isUnique ? withoutExtension(e.assetType.path) : e.assetType.path)
+    (e) => (e.isUniqueWithoutExtension
+            ? withoutExtension(e.assetType.path)
+            : e.assetType.path)
         .replaceFirst(RegExp(r'asset(s)?'), '')
         .camelCase(),
   );
@@ -242,7 +244,9 @@ String _snakeCaseStyleDefinition(
     pubspecFile,
     assets,
     integrations,
-    (e) => (e.isUnique ? withoutExtension(e.assetType.path) : e.assetType.path)
+    (e) => (e.isUniqueWithoutExtension
+            ? withoutExtension(e.assetType.path)
+            : e.assetType.path)
         .replaceFirst(RegExp(r'asset(s)?'), '')
         .snakeCase(),
   );
@@ -252,13 +256,13 @@ String _flatStyleDefinition(
   File pubspecFile,
   List<String> assets,
   List<Integration> integrations,
-  String Function(AssetTypeUniqueWithoutExtension) createName,
+  String Function(AssetTypeIsUniqueWithoutExtension) createName,
 ) {
   final statements = _getAssetRelativePathList(pubspecFile, assets)
       .distinct()
       .sorted()
       .map((relativePath) => AssetType(relativePath))
-      .mapToUniqueWithoutExtension()
+      .mapToIsUniqueWithoutExtension()
       .map(
         (e) => _createAssetTypeStatement(
           pubspecFile,

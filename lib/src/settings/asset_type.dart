@@ -57,22 +57,25 @@ class AssetType {
   }
 }
 
-class AssetTypeUniqueWithoutExtension {
-  AssetTypeUniqueWithoutExtension({this.assetType, this.isUnique});
+class AssetTypeIsUniqueWithoutExtension {
+  AssetTypeIsUniqueWithoutExtension({
+    this.assetType,
+    this.isUniqueWithoutExtension,
+  });
 
   final AssetType assetType;
-  final bool isUnique;
+  final bool isUniqueWithoutExtension;
 }
 
 extension AssetTypeIterable on Iterable<AssetType> {
-  Iterable<AssetTypeUniqueWithoutExtension> mapToUniqueWithoutExtension() {
+  Iterable<AssetTypeIsUniqueWithoutExtension> mapToIsUniqueWithoutExtension() {
     return groupBy((e) => p.withoutExtension(e.path))
         .values
         .map(
           (list) => list.map(
-            (e) => AssetTypeUniqueWithoutExtension(
+            (e) => AssetTypeIsUniqueWithoutExtension(
               assetType: e,
-              isUnique: list.length == 1,
+              isUniqueWithoutExtension: list.length == 1,
             ),
           ),
         )
