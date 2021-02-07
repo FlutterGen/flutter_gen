@@ -45,7 +45,8 @@ class FlutterGenerator {
       absoluteOutput.createSync(recursive: true);
     }
 
-    if (config.flutterGen.colors.inputs.isNotEmpty) {
+    if (config.flutterGen.colors.enabled &&
+        config.flutterGen.colors.inputs.isNotEmpty) {
       final generated =
           generateColors(pubspecFile, formatter, config.flutterGen.colors);
       final colors =
@@ -54,7 +55,7 @@ class FlutterGenerator {
       print('Generated: ${colors.absolute.path}');
     }
 
-    if (config.flutter.assets.isNotEmpty) {
+    if (config.flutterGen.assets.enabled && config.flutter.assets.isNotEmpty) {
       final generated = generateAssets(
           pubspecFile, formatter, config.flutterGen, config.flutter.assets);
       final assets =
@@ -63,7 +64,7 @@ class FlutterGenerator {
       print('Generated: ${assets.absolute.path}');
     }
 
-    if (config.flutter.fonts.isNotEmpty) {
+    if (config.flutterGen.fonts.enabled && config.flutter.fonts.isNotEmpty) {
       final generated = generateFonts(formatter, config.flutter.fonts);
       final fonts =
           File(normalize(join(pubspecFile.parent.path, output, fontsName)));

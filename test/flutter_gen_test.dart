@@ -164,5 +164,21 @@ void main() {
         return FlutterGenerator(File(pubspec)).build();
       }, throwsA(isA<Exception>()));
     });
+
+    test('Disabled generation', () async {
+      final pubspec = 'test_resources/pubspec_generation_disabled.yaml';
+      final assets = 'none_assets.gen.dart';
+      final colors = 'none_colors.gen.dart';
+      final fonts = 'none_fonts.gen.dart';
+      await FlutterGenerator(
+        File(pubspec),
+        assetsName: assets,
+        colorsName: colors,
+        fontsName: fonts,
+      );
+      expect(File('test_resources/lib/gen/$assets').existsSync(), false);
+      expect(File('test_resources/lib/gen/$fonts').existsSync(), false);
+      expect(File('test_resources/lib/gen/$colors').existsSync(), false);
+    });
   });
 }
