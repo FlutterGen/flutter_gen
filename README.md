@@ -669,6 +669,36 @@ class ColorName {
 </p>
 </details>
 
+### Default Settings
+
+The following are the default settings.
+The options you set in `pubspec.yaml` will override the corresponding default options.
+
+```yaml
+flutter_gen:
+  output: lib/gen/
+  line_length: 80
+
+  integrations:
+    flutter_svg: false
+    flare_flutter: false
+
+  assets:
+    enabled: true
+    style: dot-delimiter
+    
+  fonts:
+    enabled: true
+
+  colors:
+    enabled: true
+    inputs: []
+
+flutter:
+  assets: []
+  fonts: []
+```
+
 ## Credits
 
 The material color generation implementation is based on [mcg](https://github.com/mbitson/mcg) and [TinyColor](https://github.com/bgrins/TinyColor).

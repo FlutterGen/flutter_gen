@@ -1,0 +1,17 @@
+flutter_gen:
+  assets:
+    enabled: false
+  fonts:
+    enabled: false
+  colors:
+    enabled: false
+    inputs:
+      - assets/color/colors.xml
+
+flutter:
+  assets:
+    - assets/images
+  fonts:
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/Raleway-Regular.ttf
