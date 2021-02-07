@@ -56,3 +56,26 @@ class AssetType {
     _children.add(type);
   }
 }
+
+class AssetTypeUniqueWithoutExtension {
+  AssetTypeUniqueWithoutExtension({this.assetType, this.isUnique});
+
+  final AssetType assetType;
+  final bool isUnique;
+}
+
+extension AssetTypeIterable on Iterable<AssetType> {
+  Iterable<AssetTypeUniqueWithoutExtension> mapToUniqueWithoutExtension() {
+    return groupBy((e) => p.withoutExtension(e.path))
+        .values
+        .map(
+          (list) => list.map(
+            (e) => AssetTypeUniqueWithoutExtension(
+              assetType: e,
+              isUnique: list.length == 1,
+            ),
+          ),
+        )
+        .flatten();
+  }
+}

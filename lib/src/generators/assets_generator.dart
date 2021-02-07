@@ -114,14 +114,14 @@ _Statement _createAssetTypeStatement(
   File pubspecFile,
   AssetType assetType,
   List<Integration> integrations,
-  String Function(AssetType) createName,
+  String name,
 ) {
   final childAssetAbsolutePath = join(pubspecFile.parent.path, assetType.path);
   _Statement statement;
   if (assetType.isSupportedImage) {
     statement = _Statement(
       type: 'AssetGenImage',
-      name: createName(assetType),
+      name: name,
       value: 'AssetGenImage\(\'${posixStyle(assetType.path)}\'\)',
       isConstConstructor: true,
     );
@@ -129,7 +129,7 @@ _Statement _createAssetTypeStatement(
     final childClassName = '\$${assetType.path.camelCase().capitalize()}Gen';
     statement = _Statement(
       type: childClassName,
-      name: createName(assetType),
+      name: name,
       value: '$childClassName\(\)',
       isConstConstructor: true,
     );
@@ -141,7 +141,7 @@ _Statement _createAssetTypeStatement(
     if (integration == null) {
       statement = _Statement(
         type: 'String',
-        name: createName(assetType),
+        name: name,
         value: '\'${posixStyle(assetType.path)}\'',
         isConstConstructor: false,
       );
@@ -149,7 +149,7 @@ _Statement _createAssetTypeStatement(
       integration.isEnabled = true;
       statement = _Statement(
         type: integration.className,
-        name: createName(assetType),
+        name: name,
         value: integration.classInstantiate(posixStyle(assetType.path)),
         isConstConstructor: integration.isConstConstructor,
       );
@@ -177,12 +177,16 @@ String _dotDelimiterStyleDefinition(
 
     if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
       final statements = assetType.children
+          .mapToUniqueWithoutExtension()
           .map(
-            (child) => _createAssetTypeStatement(
+            (e) => _createAssetTypeStatement(
               pubspecFile,
-              child,
+              e.assetType,
               integrations,
-              (element) => element.baseName.camelCase(),
+              (e.isUnique
+                      ? basenameWithoutExtension(e.assetType.path)
+                      : basename(e.assetType.path))
+                  .camelCase(),
             ),
           )
           .whereType<_Statement>()
@@ -222,7 +226,7 @@ String _camelCaseStyleDefinition(
     pubspecFile,
     assets,
     integrations,
-    (assetType) => withoutExtension(assetType.path)
+    (e) => (e.isUnique ? withoutExtension(e.assetType.path) : e.assetType.path)
         .replaceFirst(RegExp(r'asset(s)?'), '')
         .camelCase(),
   );
@@ -238,7 +242,7 @@ String _snakeCaseStyleDefinition(
     pubspecFile,
     assets,
     integrations,
-    (assetType) => withoutExtension(assetType.path)
+    (e) => (e.isUnique ? withoutExtension(e.assetType.path) : e.assetType.path)
         .replaceFirst(RegExp(r'asset(s)?'), '')
         .snakeCase(),
   );
@@ -248,17 +252,19 @@ String _flatStyleDefinition(
   File pubspecFile,
   List<String> assets,
   List<Integration> integrations,
-  String Function(AssetType) createName,
+  String Function(AssetTypeUniqueWithoutExtension) createName,
 ) {
   final statements = _getAssetRelativePathList(pubspecFile, assets)
       .distinct()
       .sorted()
+      .map((relativePath) => AssetType(relativePath))
+      .mapToUniqueWithoutExtension()
       .map(
-        (relativePath) => _createAssetTypeStatement(
+        (e) => _createAssetTypeStatement(
           pubspecFile,
-          AssetType(relativePath),
+          e.assetType,
           integrations,
-          createName,
+          createName(e),
         ),
       )
       .whereType<_Statement>()

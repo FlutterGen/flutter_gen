@@ -21,8 +21,10 @@ class Assets {
   static const String imagesIconsPaint = 'assets/images/icons/paint.svg';
   static const AssetGenImage imagesLogo =
       AssetGenImage('assets/images/logo.png');
-  static const AssetGenImage imagesProfile =
+  static const AssetGenImage imagesProfileJpg =
       AssetGenImage('assets/images/profile.jpg');
+  static const AssetGenImage imagesProfilePng =
+      AssetGenImage('assets/images/profile.png');
   static const String jsonFruits = 'assets/json/fruits.json';
   static const AssetGenImage picturesChip5 =
       AssetGenImage('pictures/chip5.jpg');
