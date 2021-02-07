@@ -47,6 +47,7 @@ class FlutterGen {
     this.lineLength1,
     this.lineLength0,
     this.assets,
+    this.fonts,
     this.integrations,
     this.colors,
   }) {
@@ -77,6 +78,9 @@ class FlutterGen {
   @JsonKey(name: 'assets', required: true)
   final FlutterGenAssets assets;
 
+  @JsonKey(name: 'fonts', required: true)
+  final FlutterGenFonts fonts;
+
   @JsonKey(name: 'integrations', required: true)
   final FlutterGenIntegrations integrations;
 
@@ -92,7 +96,10 @@ class FlutterGen {
 
 @JsonSerializable()
 class FlutterGenColors {
-  FlutterGenColors({this.inputs});
+  FlutterGenColors({this.enabled, this.inputs});
+
+  @JsonKey(name: 'enabled', required: true)
+  final bool enabled;
 
   @JsonKey(name: 'inputs', required: true)
   final List<String> inputs;
@@ -107,13 +114,16 @@ class FlutterGenAssets {
   static const String snakeCaseStyle = 'snake-case';
   static const String camelCaseStyle = 'camel-case';
 
-  FlutterGenAssets({this.style}) {
+  FlutterGenAssets({this.enabled, this.style}) {
     if (style != dotDelimiterStyle &&
         style != snakeCaseStyle &&
         style != camelCaseStyle) {
       throw ArgumentError.value(style, 'style');
     }
   }
+
+  @JsonKey(name: 'enabled', required: true)
+  final bool enabled;
 
   @JsonKey(name: 'style', required: true)
   final String style;
@@ -126,6 +136,16 @@ class FlutterGenAssets {
 
   factory FlutterGenAssets.fromJson(Map json) =>
       _$FlutterGenAssetsFromJson(json);
+}
+
+@JsonSerializable()
+class FlutterGenFonts {
+  FlutterGenFonts({this.enabled});
+
+  @JsonKey(name: 'enabled', required: true)
+  final bool enabled;
+
+  factory FlutterGenFonts.fromJson(Map json) => _$FlutterGenFontsFromJson(json);
 }
 
 @JsonSerializable()

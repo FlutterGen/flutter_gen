@@ -52,6 +52,7 @@ FlutterGen _$FlutterGenFromJson(Map json) {
       'line_length',
       'lineLength',
       'assets',
+      'fonts',
       'integrations',
       'colors'
     ]);
@@ -61,6 +62,8 @@ FlutterGen _$FlutterGenFromJson(Map json) {
       lineLength0: $checkedConvert(json, 'lineLength', (v) => v as int),
       assets: $checkedConvert(
           json, 'assets', (v) => FlutterGenAssets.fromJson(v as Map)),
+      fonts: $checkedConvert(
+          json, 'fonts', (v) => FlutterGenFonts.fromJson(v as Map)),
       integrations: $checkedConvert(json, 'integrations',
           (v) => FlutterGenIntegrations.fromJson(v as Map)),
       colors: $checkedConvert(
@@ -75,8 +78,9 @@ FlutterGen _$FlutterGenFromJson(Map json) {
 
 FlutterGenColors _$FlutterGenColorsFromJson(Map json) {
   return $checkedNew('FlutterGenColors', json, () {
-    $checkKeys(json, requiredKeys: const ['inputs']);
+    $checkKeys(json, requiredKeys: const ['enabled', 'inputs']);
     final val = FlutterGenColors(
+      enabled: $checkedConvert(json, 'enabled', (v) => v as bool),
       inputs: $checkedConvert(
           json, 'inputs', (v) => (v as List).map((e) => e as String).toList()),
     );
@@ -86,9 +90,20 @@ FlutterGenColors _$FlutterGenColorsFromJson(Map json) {
 
 FlutterGenAssets _$FlutterGenAssetsFromJson(Map json) {
   return $checkedNew('FlutterGenAssets', json, () {
-    $checkKeys(json, requiredKeys: const ['style']);
+    $checkKeys(json, requiredKeys: const ['enabled', 'style']);
     final val = FlutterGenAssets(
+      enabled: $checkedConvert(json, 'enabled', (v) => v as bool),
       style: $checkedConvert(json, 'style', (v) => v as String),
+    );
+    return val;
+  });
+}
+
+FlutterGenFonts _$FlutterGenFontsFromJson(Map json) {
+  return $checkedNew('FlutterGenFonts', json, () {
+    $checkKeys(json, requiredKeys: const ['enabled']);
+    final val = FlutterGenFonts(
+      enabled: $checkedConvert(json, 'enabled', (v) => v as bool),
     );
     return val;
   });

@@ -45,9 +45,14 @@ flutter_gen:
     flare_flutter: false
 
   assets:
+    enabled: true
     style: dot-delimiter
+    
+  fonts:
+    enabled: true
 
   colors:
+    enabled: true
     inputs: []
 
 flutter:
