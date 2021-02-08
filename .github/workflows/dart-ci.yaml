@@ -25,6 +25,10 @@ jobs:
       - name: Run tests for our dart project.
         run: |
           make unit-test
+
+      - name: Run coverage
+        if: matrix.os == 'ubuntu-latest'
+        run: |
           make coverage
 
       - name: Generate example
