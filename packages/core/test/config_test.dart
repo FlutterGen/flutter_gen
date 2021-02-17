@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter_gen/src/settings/config.dart';
+import 'package:flutter_gen_core/settings/config.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -9,18 +9,20 @@ dependencies:
 	cd example && flutter pub get && cd ..
 
 analyze:
-	dart analyze lib/
-	dart analyze bin/
+	dart analyze packages/core/lib/
+	dart analyze packages/build_runner/lib/
+	dart analyze packages/command/bin/
 
 format:
-	dart format lib/ bin/
+	dart format packages/core/lib/
+	dart format packages/build_runner/lib/
+	dart format packages/command/bin/
 
 build:
 	cd example && flutter build apk && cd ..
 
 generate-config-model:
-	cd _internal && dart pub run build_runner build && cd ..
-	cp _internal/lib/src/* lib/src/settings
+	cd packages/core && dart pub run build_runner build && cd ..
 
 generate-with-command:
 	dart bin/flutter_gen_command.dart --config example/pubspec.yaml
@@ -32,7 +34,7 @@ unit-test:
 	dart pub run test
 
 coverage:
-	dart pub run test_coverage --no-badge
+	cd packages/core && dart pub run test_coverage --no-badge
 	./scripts/codecov.sh ${CODECOV_TOKEN}
 
 setup-ubuntu:

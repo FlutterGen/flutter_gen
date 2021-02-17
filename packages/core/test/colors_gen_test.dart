@@ -2,10 +2,10 @@
 import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
-import 'package:flutter_gen/src/generators/colors_generator.dart';
-import 'package:flutter_gen/src/settings/color_path.dart';
-import 'package:flutter_gen/src/settings/config.dart';
-import 'package:flutter_gen/src/utils/error.dart';
+import 'package:flutter_gen_core/generators/colors_generator.dart';
+import 'package:flutter_gen_core/settings/color_path.dart';
+import 'package:flutter_gen_core/settings/config.dart';
+import 'package:flutter_gen_core/utils/error.dart';
 import 'package:test/test.dart';
 
 import 'gen_test_helper.dart';

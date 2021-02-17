@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:build/build.dart';
-
-import 'src/flutter_generator.dart';
+import 'package:flutter_gen_core/flutter_generator.dart';
 
 Builder build(BuilderOptions options) {
   Future(() async {

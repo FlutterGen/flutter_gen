@@ -2,9 +2,9 @@
 import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
-import 'package:flutter_gen/src/generators/assets_generator.dart';
-import 'package:flutter_gen/src/settings/config.dart';
-import 'package:flutter_gen/src/utils/error.dart';
+import 'package:flutter_gen_core/generators/assets_generator.dart';
+import 'package:flutter_gen_core/settings/config.dart';
+import 'package:flutter_gen_core/utils/error.dart';
 import 'package:test/test.dart';
 
 import 'gen_test_helper.dart';

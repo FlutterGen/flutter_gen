@@ -1,7 +1,7 @@
 @TestOn('vm')
 import 'dart:io';
 
-import 'package:flutter_gen/src/flutter_generator.dart';
+import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:test/test.dart';
 
 void main() {

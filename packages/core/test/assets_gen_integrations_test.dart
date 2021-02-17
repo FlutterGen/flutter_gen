@@ -1,7 +1,7 @@
 @TestOn('vm')
-import 'package:flutter_gen/src/generators/integrations/flare_integration.dart';
-import 'package:flutter_gen/src/generators/integrations/svg_integration.dart';
-import 'package:flutter_gen/src/settings/asset_type.dart';
+import 'package:flutter_gen_core/generators/integrations/flare_integration.dart';
+import 'package:flutter_gen_core/generators/integrations/svg_integration.dart';
+import 'package:flutter_gen_core/settings/asset_type.dart';
 import 'package:test/test.dart';
 
 import 'gen_test_helper.dart';

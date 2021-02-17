@@ -36,19 +36,21 @@ jobs:
       - name: Running build for macos
         if: matrix.os == 'macos-latest'
         run: |
+          cd packages/command/
           mkdir -p bin/${{ matrix.target }}
           dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}/fluttergen
 
       - name: Running build for ubuntu
         if: matrix.os == 'ubuntu-latest'
         run: |
+          cd packages/command/
           mkdir -p bin/${{ matrix.target }}
           /usr/lib/dart/bin/dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}/fluttergen
 
       - name: Packaging final binary
         shell: bash
         run: |
-          cd bin/${{ matrix.target }}
+          cd packages/command/bin/${{ matrix.target }}
           tar czvf fluttergen-${{ matrix.artifact_prefix }}.tar.gz fluttergen
           shasum -a 256 fluttergen-${{ matrix.artifact_prefix }}.tar.gz > fluttergen-${{ matrix.artifact_prefix }}.sha256
 
@@ -56,6 +58,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
+            cd packages/command/
             bin/${{ matrix.target }}/fluttergen-${{ matrix.artifact_prefix }}.tar.gz
             bin/${{ matrix.target }}/fluttergen-${{ matrix.artifact_prefix }}.sha256
         env:

@@ -20,8 +20,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
-  flutter_gen:
-    path: ../
+  flutter_gen_runner:
+    path: ../build_runner
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
@@ -32,6 +32,7 @@ flutter_gen:
     flare_flutter: true
 
   assets:
+    enabled: true
     # Assets.imagesChip
     # style: camel-case
 
@@ -41,7 +42,11 @@ flutter_gen:
     # Assets.images.chip (default style)
     # style: dot-delimiter
 
+  fonts:
+    enabled: true
+
   colors:
+    enabled: true
     inputs:
       - assets/color/colors.xml
       - assets/color/colors2.xml
