@@ -23,19 +23,19 @@ build:
 	cd example && flutter build apk && cd ..
 
 generate-config-model:
-	cd packages/core && dart pub run build_runner build && cd ..
+	cd packages/core/ && dart pub run build_runner build && cd ..
 
 generate-with-command:
-	dart bin/flutter_gen_command.dart --config example/pubspec.yaml
+	dart packages/command/bin/flutter_gen_command.dart --config example/pubspec.yaml
 
 generate-with-runner:
 	cd example && flutter packages pub run build_runner build --delete-conflicting-outputs cd ..
 
 unit-test:
-	dart pub run test
+	cd packages/core/ && dart pub run test
 
 coverage:
-	cd packages/core && dart pub run test_coverage --no-badge
+	cd packages/core/ && dart pub run test_coverage --no-badge
 	./scripts/codecov.sh ${CODECOV_TOKEN}
 
 setup-ubuntu:
