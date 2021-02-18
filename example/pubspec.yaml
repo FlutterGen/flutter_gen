@@ -19,7 +19,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner:
+  build_runner: ^1.11.1
   flutter_gen_runner:
     path: ../packages/runner
 
