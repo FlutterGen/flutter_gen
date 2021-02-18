@@ -20,7 +20,10 @@ class $AssetsImagesGen {
   $AssetsImagesChip4Gen get chip4 => const $AssetsImagesChip4Gen();
   $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
-  AssetGenImage get profile => const AssetGenImage('assets/images/profile.jpg');
+  AssetGenImage get profileJpg =>
+      const AssetGenImage('assets/images/profile.jpg');
+  AssetGenImage get profilePng =>
+      const AssetGenImage('assets/images/profile.png');
 }
 
 class $AssetsJsonGen {
