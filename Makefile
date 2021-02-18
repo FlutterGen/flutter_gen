@@ -5,18 +5,18 @@ setup:
 
 dependencies:
 	cd packages/core/ && dart pub get
-	cd packages/build_runner/ && dart pub get
+	cd packages/runner/ && dart pub get
 	cd packages/command && dart pub get
 	cd example && flutter pub get && cd ..
 
 analyze:
 	dart analyze packages/core/lib/
-	dart analyze packages/build_runner/lib/
+	dart analyze packages/runner/lib/
 	dart analyze packages/command/bin/
 
 format:
 	dart format packages/core/lib/
-	dart format packages/build_runner/lib/
+	dart format packages/runner/lib/
 	dart format packages/command/bin/
 
 build:

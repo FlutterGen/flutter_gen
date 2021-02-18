@@ -226,7 +226,7 @@ packages:
   flutter_gen_runner:
     dependency: "direct dev"
     description:
-      path: "../packages/build_runner"
+      path: "../packages/runner"
       relative: true
     source: path
     version: "2.0.0"
