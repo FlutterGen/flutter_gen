@@ -1,7 +1,6 @@
 setup:
 	flutter channel stable
 	flutter upgrade
-	flutter pub get
 	npm install
 
 dependencies:

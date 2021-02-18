@@ -21,7 +21,7 @@ dev_dependencies:
     sdk: flutter
   build_runner:
   flutter_gen_runner:
-    path: ../build_runner
+    path: ../packages/build_runner
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
