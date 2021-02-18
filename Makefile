@@ -4,7 +4,9 @@ setup:
 	npm install
 
 dependencies:
-	dart pub get
+	cd packages/core/ && dart pub get
+	cd packages/build_runner/ && dart pub get
+	cd packages/command && dart pub get
 	cd example && flutter pub get && cd ..
 
 analyze:
