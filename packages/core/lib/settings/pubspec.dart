@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'pubspec.g.dart';
 
-/// Edit the file under _internal/lib/src/, then run `make generate-config-model`
+/// Edit this file, then run `make generate-config-model`
 
 @JsonSerializable()
 class Pubspec {
