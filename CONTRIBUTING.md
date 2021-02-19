@@ -13,7 +13,7 @@ _See also: [Contributor Covenant Code of Conduct](https://github.com/FlutterGen/
 #### Use as Dart command
 To run `pub get` to make sure its dependencies have been downloaded, and use `dart command`.
 ```sh
-$ dart bin/flutter_gen_command.dart --config example/pubspec.yaml
+$ dart packages/command/bin/flutter_gen_command.dart --config example/pubspec.yaml
 ```
 
 #### Use as part of build_runner
@@ -32,6 +32,7 @@ $ flutter packages pub run build_runner build
 To run the unit tests:
 
 ```
+$ cd packages/core
 $ pub run test 
 ```
 
