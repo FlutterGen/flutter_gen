@@ -27,8 +27,6 @@ dependencies:
 
 dev_dependencies:
   test: ^1.15.7
-  test_coverage:
-    git: https://github.com/shyndman/test-coverage.git # TODO: https://github.com/pulyaevskiy/test-coverage/issues/14
   effective_dart: ^1.3.0
   build_runner: ^1.11.1
   json_serializable: ^3.5.1
