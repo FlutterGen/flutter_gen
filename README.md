@@ -74,18 +74,16 @@ $ dart pub global activate flutter_gen
 
 You might need to [set up your path](https://dart.dev/tools/pub/cmd/pub-global#running-a-script-from-your-path).
 
-### As a part of build_runner (Not recomended)
+### As a part of build_runner
 
 _Not recommended as it conflicts with flutter localization when using build_runner._
 
-<details><summary>Installation</summary>
-  
 1. Add [build_runner] and [FlutterGen] to your package's pubspec.yaml file:
 
 ```
 dev_dependencies:
   build_runner:
-  flutter_gen:
+  flutter_gen_runner:
 ```
 
 2. Install [FlutterGen]
@@ -99,8 +97,6 @@ $ flutter pub get
 ```
 $ flutter packages pub run build_runner build
 ```
-
-</details>
 
 ## Usage
 
@@ -129,9 +125,16 @@ flutter_gen:
     flutter_svg: true
     flare_flutter: true
 
+  assets:
+    enabled: true
+
   colors:
+    enabled: true
     inputs:
       - assets/color/colors.xml
+  
+  font: 
+    enabled: true
 
 flutter:
   uses-material-design: true
@@ -206,6 +209,9 @@ flutter_gen:
   integrations:
     flutter_svg: true
 
+  assets:
+    enabled: true
+  
 flutter:
   assets:
     - assets/images/icons/paint.svg
@@ -244,6 +250,7 @@ final json = await rootBundle.loadString(Assets.json.fruits);
 # pubspec.yaml
 flutter_gen:
   assets:
+    enabled: true
     # Assets.imagesChip
     # style: camel-case
 
@@ -510,6 +517,10 @@ _Ignore duplicated._
 
 ```yaml
 # pubspec.yaml
+flutter_gen:
+  fonts:
+    enabled: true
+    
 flutter:
   fonts:
     - family: Raleway
@@ -567,6 +578,7 @@ _Ignore duplicated._
 # pubspec.yaml
 flutter_gen:
   colors:
+    enabled: true
     inputs:
       - assets/color/colors.xml
       - assets/color/colors2.xml
@@ -716,19 +728,6 @@ Plugin issues that are not specific to [FlutterGen] can be filed in the [Flutter
 If you wish to contribute a change to any of the existing plugins in this repo,
 please review our [contribution guide](https://github.com/FlutterGen/flutter_gen/blob/master/CONTRIBUTING.md)
 and open a [pull request](https://github.com/FlutterGen/flutter_gen/pulls).
-
-### Milestone
-
-- [ ] Documentation (English proofreading)
-- [x] Assets generation
-- [x] Fonts generation
-- [x] Colors generation
-  - [x] Support xml
-- [x] Support change output path
-- [x] Support hierarchical generation  
-       'assets/image/home/label.png' => Assets.image.home.label  
-       'assets/image/detail/label.png' => Assets.image.detail.label
-- [ ] Platforms channels generation
 
 [build_runner]: https://pub.dev/packages/build_runner
 [fluttergen]: https://pub.dev/packages/flutter_gen
