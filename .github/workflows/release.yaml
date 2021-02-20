@@ -60,9 +60,8 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            cd packages/command/
-            bin/${{ matrix.target }}/fluttergen-${{ matrix.artifact_prefix }}.tar.gz
-            bin/${{ matrix.target }}/fluttergen-${{ matrix.artifact_prefix }}.sha256
+            packages/command/bin/${{ matrix.target }}/fluttergen-${{ matrix.artifact_prefix }}.tar.gz
+            packages/command/bin/${{ matrix.target }}/fluttergen-${{ matrix.artifact_prefix }}.sha256
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
