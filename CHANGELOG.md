@@ -14,14 +14,6 @@ New Feature
 - [BREAKING CHANGE] [#74](https://github.com/FlutterGen/flutter_gen/issues/74) Doesn't generate assets.gen.dart when there are no assets
   ```yaml
   flutter_gen:
-    assets:
-      enabled: true
-  
-    colors:
-      enabled: true
-      inputs:
-        - assets/color/colors.xml
-
     fonts:
       enabled: false
   ```

@@ -125,16 +125,9 @@ flutter_gen:
     flutter_svg: true
     flare_flutter: true
 
-  assets:
-    enabled: true
-
   colors:
-    enabled: true
     inputs:
       - assets/color/colors.xml
-  
-  font: 
-    enabled: true
 
 flutter:
   uses-material-design: true
@@ -209,9 +202,6 @@ flutter_gen:
   integrations:
     flutter_svg: true
 
-  assets:
-    enabled: true
-  
 flutter:
   assets:
     - assets/images/icons/paint.svg
@@ -250,7 +240,6 @@ final json = await rootBundle.loadString(Assets.json.fruits);
 # pubspec.yaml
 flutter_gen:
   assets:
-    enabled: true
     # Assets.imagesChip
     # style: camel-case
 
@@ -517,10 +506,6 @@ _Ignore duplicated._
 
 ```yaml
 # pubspec.yaml
-flutter_gen:
-  fonts:
-    enabled: true
-    
 flutter:
   fonts:
     - family: Raleway
@@ -578,7 +563,6 @@ _Ignore duplicated._
 # pubspec.yaml
 flutter_gen:
   colors:
-    enabled: true
     inputs:
       - assets/color/colors.xml
       - assets/color/colors2.xml
