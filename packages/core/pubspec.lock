@@ -267,13 +267,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.5.1"
-  lcov:
-    dependency: transitive
-    description:
-      name: lcov
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.7.0"
   logging:
     dependency: transitive
     description:
@@ -498,15 +491,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.11+4"
-  test_coverage:
-    dependency: "direct dev"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: d51c9577f78893e1654de8b7c1e92d2f8097838a
-      url: "https://github.com/shyndman/test-coverage.git"
-    source: git
-    version: "0.4.0"
   time:
     dependency: transitive
     description:

@@ -35,7 +35,7 @@ unit-test:
 	cd packages/core/ && dart pub run test && cd ..
 
 coverage:
-	cd packages/core/ && dart pub run test_coverage --no-badge && cd ..
+	./scripts/coverage.sh packages/core
 	./scripts/codecov.sh ${CODECOV_TOKEN}
 
 setup-ubuntu:
