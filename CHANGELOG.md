@@ -11,7 +11,7 @@ New Feature
   dev_dependencies:
     flutter_gen_runner: ^2.0.0
   ```
-- [BREAKING CHANGE] [#74](https://github.com/FlutterGen/flutter_gen/issues/74) Doesn't generate assets.gen.dart when there are no assets
+- [#74](https://github.com/FlutterGen/flutter_gen/issues/74) Doesn't generate assets.gen.dart when there are no assets
   ```yaml
   flutter_gen:
     fonts:
