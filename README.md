@@ -76,8 +76,6 @@ You might need to [set up your path](https://dart.dev/tools/pub/cmd/pub-global#r
 
 ### As a part of build_runner
 
-_Not recommended as it conflicts with flutter localization when using build_runner._
-
 1. Add [build_runner] and [FlutterGen] to your package's pubspec.yaml file:
 
 ```
