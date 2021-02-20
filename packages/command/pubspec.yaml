@@ -17,6 +17,7 @@ executables:
   fluttergen: flutter_gen_command
 
 dependencies:
+  args: ^1.6.0
   flutter_gen_core: ^2.0.0
 
 dev_dependencies:
