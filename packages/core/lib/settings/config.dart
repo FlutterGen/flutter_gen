@@ -7,9 +7,9 @@ import 'package:yaml/yaml.dart';
 import 'pubspec.dart';
 
 class Config {
-  Config._({this.pubspec});
+  Config._({required this.pubspec});
 
-  final Pubspec pubspec;
+  late final Pubspec pubspec;
 
   FlutterGen get flutterGen => pubspec.flutterGen;
 

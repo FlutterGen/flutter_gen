@@ -1,6 +1,9 @@
 import 'dart:collection';
 import 'dart:io';
 
+import 'package:collection/collection.dart';
+
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dart_style/dart_style.dart';
 import 'package:dartx/dartx.dart';
 import 'package:path/path.dart';
@@ -105,21 +108,20 @@ AssetType _constructAssetTree(List<String> assetRelativePathList) {
       continue;
     }
     final parentPath = dirname(assetType.path);
-    assetTypeMap[parentPath].addChild(assetType);
+    assetTypeMap[parentPath]?.addChild(assetType);
   }
-  return assetTypeMap['.'];
+  return assetTypeMap['.']!;
 }
 
-_Statement _createAssetTypeStatement(
+_Statement? _createAssetTypeStatement(
   File pubspecFile,
   AssetType assetType,
   List<Integration> integrations,
   String name,
 ) {
   final childAssetAbsolutePath = join(pubspecFile.parent.path, assetType.path);
-  _Statement statement;
   if (assetType.isSupportedImage) {
-    statement = _Statement(
+    return _Statement(
       type: 'AssetGenImage',
       name: name,
       value: 'AssetGenImage\(\'${posixStyle(assetType.path)}\'\)',
@@ -127,19 +129,18 @@ _Statement _createAssetTypeStatement(
     );
   } else if (FileSystemEntity.isDirectorySync(childAssetAbsolutePath)) {
     final childClassName = '\$${assetType.path.camelCase().capitalize()}Gen';
-    statement = _Statement(
+    return _Statement(
       type: childClassName,
       name: name,
       value: '$childClassName\(\)',
       isConstConstructor: true,
     );
   } else if (!assetType.isIgnoreFile) {
-    final integration = integrations.firstWhere(
+    final integration = integrations.firstWhereOrNull(
       (element) => element.isSupport(assetType),
-      orElse: () => null,
     );
     if (integration == null) {
-      statement = _Statement(
+      return _Statement(
         type: 'String',
         name: name,
         value: '\'${posixStyle(assetType.path)}\'',
@@ -147,7 +148,7 @@ _Statement _createAssetTypeStatement(
       );
     } else {
       integration.isEnabled = true;
-      statement = _Statement(
+      return _Statement(
         type: integration.className,
         name: name,
         value: integration.classInstantiate(posixStyle(assetType.path)),
@@ -155,7 +156,6 @@ _Statement _createAssetTypeStatement(
       );
     }
   }
-  return statement;
 }
 
 /// Generate style like Assets.foo.bar
@@ -362,10 +362,10 @@ class AssetGenImage extends AssetImage {
 
 class _Statement {
   const _Statement({
-    this.type,
-    this.name,
-    this.value,
-    this.isConstConstructor,
+    required this.type,
+    required this.name,
+    required this.value,
+    required this.isConstConstructor,
   });
 
   final String type;

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart';
 

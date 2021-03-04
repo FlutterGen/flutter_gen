@@ -1,6 +1,7 @@
 @TestOn('vm')
 import 'dart:io';
 
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen_core/generators/assets_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';

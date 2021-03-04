@@ -23,13 +23,14 @@ Flutter _$FlutterFromJson(Map json) {
   return $checkedNew('Flutter', json, () {
     $checkKeys(json, requiredKeys: const ['assets', 'fonts']);
     final val = Flutter(
-      assets: $checkedConvert(
-          json, 'assets', (v) => (v as List).map((e) => e as String).toList()),
+      assets: $checkedConvert(json, 'assets',
+          (v) => (v as List<dynamic>).map((e) => e as String).toList()),
       fonts: $checkedConvert(
           json,
           'fonts',
-          (v) =>
-              (v as List).map((e) => FlutterFonts.fromJson(e as Map)).toList()),
+          (v) => (v as List<dynamic>)
+              .map((e) => FlutterFonts.fromJson(e as Map))
+              .toList()),
     );
     return val;
   });
@@ -81,8 +82,8 @@ FlutterGenColors _$FlutterGenColorsFromJson(Map json) {
     $checkKeys(json, requiredKeys: const ['enabled', 'inputs']);
     final val = FlutterGenColors(
       enabled: $checkedConvert(json, 'enabled', (v) => v as bool),
-      inputs: $checkedConvert(
-          json, 'inputs', (v) => (v as List).map((e) => e as String).toList()),
+      inputs: $checkedConvert(json, 'inputs',
+          (v) => (v as List<dynamic>).map((e) => e as String).toList()),
     );
     return val;
   });

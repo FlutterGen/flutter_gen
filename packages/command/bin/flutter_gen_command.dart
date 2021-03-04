@@ -20,7 +20,7 @@ void main(List<String> args) {
     defaultsTo: false,
   );
 
-  ArgResults results;
+  late final ArgResults results;
   try {
     results = parser.parse(args);
     if (results.wasParsed('help')) {
@@ -34,5 +34,5 @@ void main(List<String> args) {
   }
 
   final pubspecPath = safeCast<String>(results['config']);
-  FlutterGenerator(File(pubspecPath).absolute).build();
+  FlutterGenerator(File(pubspecPath!).absolute).build();
 }
