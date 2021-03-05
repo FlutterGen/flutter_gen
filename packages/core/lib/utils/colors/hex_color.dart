@@ -16,15 +16,15 @@ class HexColor extends RgbColor implements CssColorSpace {
 
   const HexColor.fromRgb(num r, num g, num b) : super(r, g, b);
 
-  get rHex => r.toInt().toRadixString(16).padLeft(2, '0');
+  get _rHex => r.toInt().toRadixString(16).padLeft(2, '0');
 
-  get gHex => g.toInt().toRadixString(16).padLeft(2, '0');
+  get _gHex => g.toInt().toRadixString(16).padLeft(2, '0');
 
-  get bHex => b.toInt().toRadixString(16).padLeft(2, '0');
+  get _bHex => b.toInt().toRadixString(16).padLeft(2, '0');
 
   HexColor toHexColor() => this;
 
-  String toString() => '$rHex$gHex$bHex';
+  String toString() => '$_rHex$_gHex$_bHex';
 
-  String toCssString() => '#$rHex$gHex$bHex';
+  String toCssString() => '#$_rHex$_gHex$_bHex';
 }
