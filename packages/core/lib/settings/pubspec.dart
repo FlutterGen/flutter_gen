@@ -46,6 +46,7 @@ class FlutterGen {
     required this.output,
     required this.lineLength1,
     required this.lineLength0,
+    required this.nullSafety,
     required this.assets,
     required this.fonts,
     required this.integrations,
@@ -74,6 +75,9 @@ class FlutterGen {
   @deprecated
   @JsonKey(name: 'lineLength', required: true)
   final int lineLength0;
+
+  @JsonKey(name: 'null_safety', required: true)
+  final bool nullSafety;
 
   @JsonKey(name: 'assets', required: true)
   final FlutterGenAssets assets;

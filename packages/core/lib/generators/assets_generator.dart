@@ -23,7 +23,7 @@ String generateAssets(
 
   // TODO: Until null safety generalizes
   // ignore: type_annotate_public_apis
-  disabledNullSafety = false,
+      nullSafety = true,
 }) {
   if (assets.isEmpty) {
     throw InvalidSettingsException(
@@ -35,9 +35,10 @@ String generateAssets(
 
   final integrations = <Integration>[
     // TODO: Until null safety generalizes
-    if (flutterGen.integrations.flutterSvg) SvgIntegration(disabledNullSafety),
+    if (flutterGen.integrations.flutterSvg)
+      SvgIntegration(nullSafety: nullSafety),
     if (flutterGen.integrations.flareFlutter)
-      FlareIntegration(disabledNullSafety),
+      FlareIntegration(nullSafety: nullSafety),
   ];
 
   if (flutterGen.assets.isDotDelimiterStyle) {
@@ -54,10 +55,10 @@ String generateAssets(
   }
 
   // TODO: Until null safety generalizes
-  if (disabledNullSafety) {
-    classesBuffer.writeln(_assetGenImageClassDefinitionWithNoNullSafety);
-  } else {
+  if (nullSafety) {
     classesBuffer.writeln(_assetGenImageClassDefinition);
+  } else {
+    classesBuffer.writeln(_assetGenImageClassDefinitionWithNoNullSafety);
   }
 
   final imports = <String>{'package:flutter/widgets.dart'};
@@ -74,10 +75,10 @@ String generateAssets(
   final buffer = StringBuffer();
 
   // TODO: Until null safety generalizes
-  if (disabledNullSafety) {
-    buffer.writeln(headerWithNoNullSafety);
-  } else {
+  if (nullSafety) {
     buffer.writeln(header);
+  } else {
+    buffer.writeln(headerWithNoNullSafety);
   }
   buffer.writeln(importsBuffer.toString());
   buffer.writeln(classesBuffer.toString());

@@ -16,16 +16,12 @@ class FlutterGenerator {
     this.assetsName = 'assets.gen.dart',
     this.colorsName = 'colors.gen.dart',
     this.fontsName = 'fonts.gen.dart',
-
-    // TODO: Until null safety generalizes
-    this.disabledNullSafety = false,
   });
 
   final File pubspecFile;
   final String assetsName;
   final String colorsName;
   final String fontsName;
-  final bool disabledNullSafety;
 
   Future<void> build() async {
     Config config;
@@ -41,6 +37,7 @@ class FlutterGenerator {
 
     final output = config.flutterGen.output;
     final lineLength = config.flutterGen.lineLength;
+    final nullSafety = config.flutterGen.nullSafety;
     final formatter = DartFormatter(pageWidth: lineLength, lineEnding: '\n');
 
     final absoluteOutput =
@@ -62,7 +59,7 @@ class FlutterGenerator {
     if (config.flutterGen.assets.enabled && config.flutter.assets.isNotEmpty) {
       final generated = generateAssets(
           pubspecFile, formatter, config.flutterGen, config.flutter.assets,
-          disabledNullSafety: disabledNullSafety);
+          nullSafety: nullSafety);
       final assets =
           File(normalize(join(pubspecFile.parent.path, output, assetsName)));
       writeAsString(generated, file: assets);

@@ -39,6 +39,7 @@ flutter_gen:
   # deprecated key
   lineLength: -1
   line_length: 80
+  null_safety: true
 
   integrations:
     flutter_svg: false

@@ -14,8 +14,7 @@ Future<void> clearTestResults() async {}
 
 /// Assets
 void expectedAssetsGen(String pubspec, String generated, String fact) async {
-  await FlutterGenerator(File(pubspec),
-          assetsName: basename(generated), disabledNullSafety: true)
+  await FlutterGenerator(File(pubspec), assetsName: basename(generated))
       .build();
 
   final pubspecFile = File(pubspec);
@@ -25,7 +24,7 @@ void expectedAssetsGen(String pubspec, String generated, String fact) async {
 
   final actual = generateAssets(
       pubspecFile, formatter, config.flutterGen, config.flutter.assets,
-      disabledNullSafety: true);
+      nullSafety: config.flutterGen.nullSafety);
   final expected = File(fact).readAsStringSync().replaceAll('\r\n', '\n');
 
   expect(
