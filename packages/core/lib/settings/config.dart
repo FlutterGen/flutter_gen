@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:merge_map/merge_map.dart';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
 
+import '../utils/map.dart';
 import 'pubspec.dart';
 
 class Config {

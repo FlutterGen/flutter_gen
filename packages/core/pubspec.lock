@@ -128,7 +128,7 @@ packages:
     source: hosted
     version: "3.6.0"
   collection:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: collection
       url: "https://pub.dartlang.org"
@@ -267,13 +267,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.10"
-  merge_map:
-    dependency: "direct main"
-    description:
-      name: merge_map
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
   meta:
     dependency: transitive
     description:
