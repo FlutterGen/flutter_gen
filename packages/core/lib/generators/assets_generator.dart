@@ -19,8 +19,12 @@ String generateAssets(
   File pubspecFile,
   DartFormatter formatter,
   FlutterGen flutterGen,
-  List<String> assets,
-) {
+  List<String> assets, {
+
+  // TODO: Until null safety generalizes
+  // ignore: type_annotate_public_apis
+  disabledNullSafety = false,
+}) {
   if (assets.isEmpty) {
     throw InvalidSettingsException(
         'The value of "flutter/assets:" is incorrect.');
@@ -30,8 +34,10 @@ String generateAssets(
   final classesBuffer = StringBuffer();
 
   final integrations = <Integration>[
-    if (flutterGen.integrations.flutterSvg) SvgIntegration(),
-    if (flutterGen.integrations.flareFlutter) FlareIntegration(),
+    // TODO: Until null safety generalizes
+    if (flutterGen.integrations.flutterSvg) SvgIntegration(disabledNullSafety),
+    if (flutterGen.integrations.flareFlutter)
+      FlareIntegration(disabledNullSafety),
   ];
 
   if (flutterGen.assets.isDotDelimiterStyle) {
@@ -47,7 +53,12 @@ String generateAssets(
     throw 'The value of "flutter_gen/assets/style." is incorrect.';
   }
 
-  classesBuffer.writeln(_assetGenImageClassDefinition);
+  // TODO: Until null safety generalizes
+  if (disabledNullSafety) {
+    classesBuffer.writeln(_assetGenImageClassDefinitionWithNoNullSafety);
+  } else {
+    classesBuffer.writeln(_assetGenImageClassDefinition);
+  }
 
   final imports = <String>{'package:flutter/widgets.dart'};
   integrations
@@ -61,7 +72,13 @@ String generateAssets(
   }
 
   final buffer = StringBuffer();
-  buffer.writeln(header);
+
+  // TODO: Until null safety generalizes
+  if (disabledNullSafety) {
+    buffer.writeln(headerWithNoNullSafety);
+  } else {
+    buffer.writeln(header);
+  }
   buffer.writeln(importsBuffer.toString());
   buffer.writeln(classesBuffer.toString());
   return formatter.format(buffer.toString());
@@ -303,7 +320,65 @@ class $className {
 ''';
 }
 
+/// Null Safety
 const String _assetGenImageClassDefinition = '''
+
+class AssetGenImage extends AssetImage {
+  const AssetGenImage(String assetName)
+      : _assetName = assetName,
+        super(assetName);
+  final String _assetName;
+
+  Image image({
+    Key? key,
+    ImageFrameBuilder? frameBuilder,
+    ImageLoadingBuilder? loadingBuilder,
+    ImageErrorWidgetBuilder? errorBuilder,
+    String? semanticLabel,
+    bool excludeFromSemantics = false,
+    double? width,
+    double? height,
+    Color? color,
+    BlendMode? colorBlendMode,
+    BoxFit? fit,
+    AlignmentGeometry alignment = Alignment.center,
+    ImageRepeat repeat = ImageRepeat.noRepeat,
+    Rect? centerSlice,
+    bool matchTextDirection = false,
+    bool gaplessPlayback = false,
+    bool isAntiAlias = false,
+    FilterQuality filterQuality = FilterQuality.low,
+  }) {
+    return Image(
+      key: key,
+      image: this,
+      frameBuilder: frameBuilder,
+      loadingBuilder: loadingBuilder,
+      errorBuilder: errorBuilder,
+      semanticLabel: semanticLabel,
+      excludeFromSemantics: excludeFromSemantics,
+      width: width,
+      height: height,
+      color: color,
+      colorBlendMode: colorBlendMode,
+      fit: fit,
+      alignment: alignment,
+      repeat: repeat,
+      centerSlice: centerSlice,
+      matchTextDirection: matchTextDirection,
+      gaplessPlayback: gaplessPlayback,
+      isAntiAlias: isAntiAlias,
+      filterQuality: filterQuality,
+    );
+  }
+
+  String get path => _assetName;
+}
+''';
+
+/// No Null Safety
+/// TODO: Until null safety generalizes
+const String _assetGenImageClassDefinitionWithNoNullSafety = '''
 
 class AssetGenImage extends AssetImage {
   const AssetGenImage(String assetName)

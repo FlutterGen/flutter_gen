@@ -26,7 +26,7 @@ generate-config-model:
 	cd packages/core/ && dart pub run build_runner build && cd ..
 
 generate-with-command:
-	dart packages/command/bin/flutter_gen_command.dart --config example/pubspec.yaml
+	dart --no-sound-null-safety packages/command/bin/flutter_gen_command.dart --config example/pubspec.yaml
 
 generate-with-runner:
 	cd example && flutter packages pub run build_runner build --delete-conflicting-outputs && cd ..

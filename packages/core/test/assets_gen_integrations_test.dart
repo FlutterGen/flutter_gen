@@ -26,7 +26,7 @@ void main() {
 
       expectedAssetsGen(pubspec, generated, fact);
 
-      final integration = SvgIntegration();
+      final integration = SvgIntegration(false);
       expect(integration.className, 'SvgGenImage');
       expect(integration.classInstantiate('assets/path'),
           'SvgGenImage\(\'assets/path\'\)');
@@ -44,7 +44,7 @@ void main() {
 
       expectedAssetsGen(pubspec, generated, fact);
 
-      final integration = FlareIntegration();
+      final integration = FlareIntegration(false);
       expect(integration.className, 'FlareGenImage');
       expect(integration.classInstantiate('assets/path'),
           'FlareGenImage\(\'assets/path\'\)');

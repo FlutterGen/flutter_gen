@@ -20,12 +20,25 @@ void main(List<String> args) {
     defaultsTo: false,
   );
 
-  late final ArgResults results;
+  /// TODO: Until null safety generalizes
+  parser.addFlag(
+    'no-sound-null-safety',
+    help: 'Disable sound null safety',
+    defaultsTo: false,
+  );
+
+  ArgResults results;
+  var disabledNullSafety = false;
   try {
     results = parser.parse(args);
     if (results.wasParsed('help')) {
       print(parser.usage);
       return;
+    }
+
+    // TODO: Until null safety generalizes
+    if (results.wasParsed('no-sound-null-safety')) {
+      disabledNullSafety = true;
     }
   } on FormatException catch (e) {
     stderr.writeAll(
@@ -34,5 +47,8 @@ void main(List<String> args) {
   }
 
   final pubspecPath = safeCast<String>(results['config']);
-  FlutterGenerator(File(pubspecPath!).absolute).build();
+  FlutterGenerator(
+    File(pubspecPath!).absolute,
+    disabledNullSafety: disabledNullSafety,
+  ).build();
 }
