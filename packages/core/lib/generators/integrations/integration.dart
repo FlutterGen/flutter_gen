@@ -3,7 +3,7 @@ import '../../settings/asset_type.dart';
 abstract class Integration {
   // TODO: Until null safety generalizes
   // ignore: avoid_positional_boolean_parameters
-  Integration(this.disabledNullSafety);
+  Integration({required this.disabledNullSafety});
 
   bool isEnabled = false;
 

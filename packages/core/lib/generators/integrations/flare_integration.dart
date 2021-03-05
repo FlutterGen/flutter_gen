@@ -4,7 +4,8 @@ import 'integration.dart';
 class FlareIntegration extends Integration {
   // TODO: Until null safety generalizes
   // ignore: avoid_positional_boolean_parameters
-  FlareIntegration(bool disabledNullSafety) : super(disabledNullSafety);
+  FlareIntegration({bool disabledNullSafety = false})
+      : super(disabledNullSafety: disabledNullSafety);
 
   @override
   List<String> get requiredImports => [

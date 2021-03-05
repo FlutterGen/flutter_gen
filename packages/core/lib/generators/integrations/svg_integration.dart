@@ -4,7 +4,8 @@ import 'integration.dart';
 class SvgIntegration extends Integration {
   // TODO: Until null safety generalizes
   // ignore: avoid_positional_boolean_parameters
-  SvgIntegration(bool disabledNullSafety) : super(disabledNullSafety);
+  SvgIntegration({bool disabledNullSafety = false})
+      : super(disabledNullSafety: disabledNullSafety);
 
   @override
   List<String> get requiredImports => [
