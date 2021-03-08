@@ -21,7 +21,6 @@ void main(List<String> args) {
   );
 
   ArgResults results;
-  bool? disabledNullSafety;
   try {
     results = parser.parse(args);
     if (results.wasParsed('help')) {
