@@ -23,7 +23,7 @@ build:
 	cd example && flutter build apk && cd ..
 
 generate-config-model:
-	cd packages/core/ && dart pub run build_runner build && cd ..
+	cd packages/core/ && dart run build_runner build && cd ..
 
 generate-with-command:
 	dart packages/command/bin/flutter_gen_command.dart --config example/pubspec.yaml
