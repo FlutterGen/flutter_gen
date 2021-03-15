@@ -23,7 +23,7 @@ build:
 	cd example && flutter build apk && cd ..
 
 generate-config-model:
-	cd packages/core/ && dart pub run build_runner build && cd ..
+	cd packages/core/ && dart run build_runner build && cd ..
 
 generate-with-command:
 	dart --no-sound-null-safety packages/command/bin/flutter_gen_command.dart --config example/pubspec.yaml
@@ -32,7 +32,7 @@ generate-with-runner:
 	cd example && flutter packages pub run build_runner build --delete-conflicting-outputs && cd ..
 
 unit-test:
-	cd packages/core/ && dart pub run --no-sound-null-safety test && cd ..
+	cd packages/core/ && dart run test && cd ..
 
 coverage:
 	./scripts/coverage.sh packages/core

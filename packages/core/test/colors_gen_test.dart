@@ -1,10 +1,10 @@
 @TestOn('vm')
 import 'dart:io';
 
-import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen_core/generators/colors_generator.dart';
 import 'package:flutter_gen_core/settings/color_path.dart';
 import 'package:flutter_gen_core/settings/config.dart';
+import 'package:flutter_gen_core/utils/dart_style/dart_style.dart';
 import 'package:flutter_gen_core/utils/error.dart';
 import 'package:test/test.dart';
 

@@ -26,8 +26,8 @@ Future<Config> loadPubspecConfig(File pubspecFile) async {
     throw FileSystemException(
         'Cannot open pubspec.yaml: ${pubspecFile.absolute}');
   });
-  final userMap = loadYaml(content) as Map;
-  final defaultMap = loadYaml(_defaultConfig) as Map;
+  final userMap = loadYaml(content) as Map?;
+  final defaultMap = loadYaml(_defaultConfig) as Map?;
   final mergedMap = mergeMap([defaultMap, userMap]);
   final pubspec = Pubspec.fromJson(mergedMap);
   return Config._(pubspec: pubspec);
