@@ -900,7 +900,7 @@ class SourceVisitor extends ThrowingAstVisitor {
     // the parameter list gets more deeply indented.
     if (node.redirectedConstructor != null) builder.nestExpression();
 
-    _visitBody(null, node.parameters, node.body!, () {
+    _visitBody(null, node.parameters, node.body, () {
       // Check for redirects or initializer lists.
       if (node.redirectedConstructor != null) {
         _visitConstructorRedirects(node);
@@ -1728,7 +1728,7 @@ class SourceVisitor extends ThrowingAstVisitor {
     var oldConstNesting = _constNesting;
     _constNesting = 0;
 
-    _visitBody(node.typeParameters, node.parameters, node.body!);
+    _visitBody(node.typeParameters, node.parameters, node.body);
 
     _constNesting = oldConstNesting;
   }
