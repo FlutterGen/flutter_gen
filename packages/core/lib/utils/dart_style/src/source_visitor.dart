@@ -900,6 +900,7 @@ class SourceVisitor extends ThrowingAstVisitor {
     // the parameter list gets more deeply indented.
     if (node.redirectedConstructor != null) builder.nestExpression();
 
+    // ignore: unnecessary_non_null_assertion
     _visitBody(null, node.parameters, node.body!, () {
       // Check for redirects or initializer lists.
       if (node.redirectedConstructor != null) {
@@ -1728,6 +1729,7 @@ class SourceVisitor extends ThrowingAstVisitor {
     var oldConstNesting = _constNesting;
     _constNesting = 0;
 
+    // ignore: unnecessary_non_null_assertion
     _visitBody(node.typeParameters, node.parameters, node.body!);
 
     _constNesting = oldConstNesting;

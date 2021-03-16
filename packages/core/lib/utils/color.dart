@@ -1,4 +1,3 @@
-
 import 'package:color/color.dart';
 
 String colorFromHex(String hexColor) {
