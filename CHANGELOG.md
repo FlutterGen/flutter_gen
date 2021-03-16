@@ -1,3 +1,14 @@
+## 3.0.0
+
+- Support Null Safety
+```yaml
+flutter_gen:
+  output: lib/gen/
+  line_length: 80
+  null_safety: true # Optional (default: true) ⭐️⭐️⭐️
+
+```
+
 ## 2.0.1, 2.0.2, 2.0.3
 
 - Update dependencies
