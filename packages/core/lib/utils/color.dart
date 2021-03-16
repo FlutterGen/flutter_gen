@@ -1,4 +1,5 @@
-import 'colors/colors.dart';
+
+import 'package:color/color.dart';
 
 String colorFromHex(String hexColor) {
   hexColor = hexColor.toUpperCase().replaceFirst('#', '');
@@ -11,8 +12,8 @@ String colorFromHex(String hexColor) {
 /// [Material Design Color Generator](https://github.com/mbitson/mcg)
 /// Constantin/Buckner logic: https://github.com/mbitson/mcg/blob/858cffea0d79ac143d590d110fbe20a1ea54d59d/scripts/controllers/ColorGeneratorCtrl.js#L238
 Map<int, String> swatchFromPrimaryHex(String primaryHex) {
-  final primary = Colors.hex(primaryHex);
-  final baseLight = Colors.hex("ffffff");
+  final primary = Color.hex(primaryHex);
+  final baseLight = Color.hex("ffffff");
   final baseDark = primary * primary;
   return {
     50: _mix(baseLight, primary, 12).toHexString(),
@@ -30,7 +31,7 @@ Map<int, String> swatchFromPrimaryHex(String primaryHex) {
 
 /// Buckner logic: https://github.com/mbitson/mcg/blob/858cffea0d79ac143d590d110fbe20a1ea54d59d/scripts/controllers/ColorGeneratorCtrl.js#L275
 Map<int, String> accentSwatchFromPrimaryHex(String primaryHex) {
-  final primary = Colors.hex(primaryHex);
+  final primary = Color.hex(primaryHex);
   final baseDark = primary * primary;
   final baseTriad = primary.tetrad();
   return {
@@ -49,14 +50,14 @@ Map<int, String> accentSwatchFromPrimaryHex(String primaryHex) {
   };
 }
 
-extension _ColorExt on Colors {
+extension _ColorExt on Color {
   String toHexString() {
     return '0xFF${toHexColor().toString().toUpperCase()}';
   }
 
   // https://github.com/mbitson/mcg/blob/858cffea0d79ac143d590d110fbe20a1ea54d59d/scripts/controllers/ColorGeneratorCtrl.js#L221
-  Colors operator *(Colors other) {
-    return Colors.rgb(
+  Color operator *(Color other) {
+    return Color.rgb(
       (toRgbColor().r * other.toRgbColor().r / 255).floor(),
       (toRgbColor().g * other.toRgbColor().g / 255).floor(),
       (toRgbColor().b * other.toRgbColor().b / 255).floor(),
@@ -64,44 +65,44 @@ extension _ColorExt on Colors {
   }
 
   // https://github.com/bgrins/TinyColor/blob/ab58ca0a3738dc06b7e64c749cebfd5d6fb5044c/tinycolor.js#L647
-  List<Colors> tetrad() {
+  List<Color> tetrad() {
     final hsl = toHslColor();
     return [
       this,
-      Colors.hsl((hsl.h + 90) % 360, hsl.s, hsl.l),
-      Colors.hsl((hsl.h + 180) % 360, hsl.s, hsl.l),
-      Colors.hsl((hsl.h + 270) % 360, hsl.s, hsl.l),
+      Color.hsl((hsl.h + 90) % 360, hsl.s, hsl.l),
+      Color.hsl((hsl.h + 180) % 360, hsl.s, hsl.l),
+      Color.hsl((hsl.h + 270) % 360, hsl.s, hsl.l),
     ];
   }
 
   // https://github.com/bgrins/TinyColor/blob/ab58ca0a3738dc06b7e64c749cebfd5d6fb5044c/tinycolor.js#L580
-  Colors saturate(int amount) {
+  Color saturate(int amount) {
     assert(amount >= 0 && amount <= 100);
     final hsl = toHslColor();
     final s = (hsl.s + amount).clamp(0, 100);
-    return Colors.hsl(hsl.h, s, hsl.l);
+    return Color.hsl(hsl.h, s, hsl.l);
   }
 
   // https://github.com/bgrins/TinyColor/blob/ab58ca0a3738dc06b7e64c749cebfd5d6fb5044c/tinycolor.js#L592
-  Colors lighten(int amount) {
+  Color lighten(int amount) {
     assert(amount >= 0 && amount <= 100);
     final hsl = toHslColor();
     final l = (hsl.l + amount).clamp(0, 100);
-    return Colors.hsl(hsl.h, hsl.s, l);
+    return Color.hsl(hsl.h, hsl.s, l);
   }
 }
 
 // https://github.com/bgrins/TinyColor/blob/96592a5cacdbf4d4d16cd7d39d4d6dd28da9bd5f/tinycolor.js#L701
-Colors _mix(
-  Colors color1,
-  Colors color2,
+Color _mix(
+  Color color1,
+  Color color2,
   int amount,
 ) {
   assert(amount >= 0 && amount <= 100);
   final p = amount / 100;
   final _color1 = color1.toRgbColor();
   final _color2 = color2.toRgbColor();
-  return Colors.rgb(
+  return Color.rgb(
     ((_color2.r - _color1.r) * p + _color1.r).round(),
     ((_color2.g - _color1.g) * p + _color1.g).round(),
     ((_color2.b - _color1.b) * p + _color1.b).round(),
