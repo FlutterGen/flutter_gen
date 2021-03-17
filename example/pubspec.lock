@@ -42,14 +42,14 @@ packages:
       name: build
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "1.6.3"
   build_config:
     dependency: transitive
     description:
       name: build_config
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.7"
+    version: "0.4.6"
   build_daemon:
     dependency: transitive
     description:
@@ -63,21 +63,21 @@ packages:
       name: build_resolvers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "1.5.4"
   build_runner:
     dependency: "direct dev"
     description:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.12.1"
+    version: "1.11.5"
   build_runner_core:
     dependency: transitive
     description:
       name: build_runner_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.12"
+    version: "6.1.10"
   built_collection:
     dependency: transitive
     description:
@@ -112,7 +112,7 @@ packages:
       name: checked_yaml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "1.0.4"
   cli_util:
     dependency: transitive
     description:
@@ -219,17 +219,17 @@ packages:
   flutter_gen_core:
     dependency: transitive
     description:
-      name: flutter_gen_core
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0+1"
+      path: "../packages/core"
+      relative: true
+    source: path
+    version: "3.0.2"
   flutter_gen_runner:
     dependency: "direct dev"
     description:
-      name: flutter_gen_runner
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.1"
+      path: "../packages/runner"
+      relative: true
+    source: path
+    version: "3.0.2"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -255,14 +255,14 @@ packages:
       name: graphs
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "0.2.0"
   http_multi_server:
     dependency: transitive
     description:
       name: http_multi_server
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "2.2.0"
   http_parser:
     dependency: transitive
     description:
@@ -276,7 +276,7 @@ packages:
       name: io
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "0.3.5"
   js:
     dependency: transitive
     description:
@@ -381,7 +381,7 @@ packages:
       name: pubspec_parse
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "0.1.8"
   shelf:
     dependency: transitive
     description:
@@ -395,7 +395,7 @@ packages:
       name: shelf_web_socket
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "0.2.4+1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -463,7 +463,7 @@ packages:
       name: timing
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "0.1.1+3"
   typed_data:
     dependency: transitive
     description:
@@ -491,7 +491,7 @@ packages:
       name: web_socket_channel
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "1.2.0"
   xml:
     dependency: transitive
     description:
