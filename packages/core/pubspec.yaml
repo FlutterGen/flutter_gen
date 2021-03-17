@@ -1,7 +1,7 @@
 name: flutter_gen_core
 
 description: The Flutter code generator for your assets, fonts, colors, … — Get rid of all String-based APIs.
-version: 3.0.0
+version: 3.0.0+1
 homepage: https://github.com/FlutterGen/flutter_gen
 repository: https://github.com/FlutterGen/flutter_gen
 documentation: https://github.com/FlutterGen/flutter_gen
@@ -14,18 +14,18 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  path: '>=1.7.0 <2.0.0'
-  yaml: '>=2.2.0 <4.0.0'
-  mime: '>=0.9.0 <2.0.0'
-  xml: '>=4.0.0 <6.0.0'
-  dartx: '>=0.5.0 <1.0.0'
+  path: '>=1.8.0 <2.0.0'
+  yaml: '>=3.0.0 <4.0.0'
+  mime: '>=1.0.0 <2.0.0'
+  xml: '>=5.0.0 <6.0.0'
+  dartx: '>=0.6.0 <1.0.0'
   color: '>=3.0.0 <4.0.0'
   collection: '>=1.15.0 <2.0.0'
-  json_annotation: '>=3.0.0 <5.0.0'
+  json_annotation: '>=4.0.0 <5.0.0'
 
   # dart_style
   analyzer: '>=1.0.0 <2.0.0'
-  args: '>=1.0.0 <3.0.0'
+  args: '>=2.0.0 <3.0.0'
   pub_semver: '>=2.0.0 <3.0.0'
   source_span: '>=1.8.0 <2.0.0'
 

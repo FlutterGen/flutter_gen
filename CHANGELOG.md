@@ -8,7 +8,6 @@ flutter_gen:
   null_safety: true # Optional (default: true)
 ```
 
-
 ## 2.0.1, 2.0.2, 2.0.3
 
 - Update dependencies
