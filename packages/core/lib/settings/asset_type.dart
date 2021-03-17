@@ -12,7 +12,7 @@ class AssetType {
 
   bool get isDefaultAssetsDirectory => path == 'assets' || path == 'asset';
 
-  String get mime => lookupMimeType(path);
+  String? get mime => lookupMimeType(path);
 
   /// https://api.flutter.dev/flutter/widgets/Image-class.html
   bool get isSupportedImage {
@@ -59,8 +59,8 @@ class AssetType {
 
 class AssetTypeIsUniqueWithoutExtension {
   AssetTypeIsUniqueWithoutExtension({
-    this.assetType,
-    this.isUniqueWithoutExtension,
+    required this.assetType,
+    required this.isUniqueWithoutExtension,
   });
 
   final AssetType assetType;

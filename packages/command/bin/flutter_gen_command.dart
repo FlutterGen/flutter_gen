@@ -34,5 +34,5 @@ void main(List<String> args) {
   }
 
   final pubspecPath = safeCast<String>(results['config']);
-  FlutterGenerator(File(pubspecPath).absolute).build();
+  FlutterGenerator(File(pubspecPath!).absolute).build();
 }

@@ -1,12 +1,12 @@
 @TestOn('vm')
 import 'dart:io';
 
-import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/generators/assets_generator.dart';
 import 'package:flutter_gen_core/generators/colors_generator.dart';
 import 'package:flutter_gen_core/generators/fonts_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
+import 'package:flutter_gen_core/utils/dart_style/dart_style.dart';
 import 'package:path/path.dart';
 import 'package:test/test.dart';
 
@@ -23,7 +23,8 @@ void expectedAssetsGen(String pubspec, String generated, String fact) async {
       DartFormatter(pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
   final actual = generateAssets(
-      pubspecFile, formatter, config.flutterGen, config.flutter.assets);
+      pubspecFile, formatter, config.flutterGen, config.flutter.assets,
+      nullSafety: config.flutterGen.nullSafety);
   final expected = File(fact).readAsStringSync().replaceAll('\r\n', '\n');
 
   expect(

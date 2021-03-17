@@ -1,12 +1,13 @@
 import 'dart:collection';
 import 'dart:io';
 
-import 'package:dart_style/dart_style.dart';
+import 'package:collection/collection.dart';
 import 'package:dartx/dartx.dart';
 import 'package:path/path.dart';
 
 import '../settings/asset_type.dart';
 import '../settings/pubspec.dart';
+import '../utils/dart_style/dart_style.dart';
 import '../utils/error.dart';
 import '../utils/string.dart';
 import 'generator_helper.dart';
@@ -18,8 +19,12 @@ String generateAssets(
   File pubspecFile,
   DartFormatter formatter,
   FlutterGen flutterGen,
-  List<String> assets,
-) {
+  List<String> assets, {
+
+  // TODO: Until null safety generalizes
+  // ignore: type_annotate_public_apis
+  nullSafety = true,
+}) {
   if (assets.isEmpty) {
     throw InvalidSettingsException(
         'The value of "flutter/assets:" is incorrect.');
@@ -29,8 +34,11 @@ String generateAssets(
   final classesBuffer = StringBuffer();
 
   final integrations = <Integration>[
-    if (flutterGen.integrations.flutterSvg) SvgIntegration(),
-    if (flutterGen.integrations.flareFlutter) FlareIntegration(),
+    // TODO: Until null safety generalizes
+    if (flutterGen.integrations.flutterSvg)
+      SvgIntegration(nullSafety: nullSafety),
+    if (flutterGen.integrations.flareFlutter)
+      FlareIntegration(nullSafety: nullSafety),
   ];
 
   if (flutterGen.assets.isDotDelimiterStyle) {
@@ -46,7 +54,12 @@ String generateAssets(
     throw 'The value of "flutter_gen/assets/style." is incorrect.';
   }
 
-  classesBuffer.writeln(_assetGenImageClassDefinition);
+  // TODO: Until null safety generalizes
+  if (nullSafety) {
+    classesBuffer.writeln(_assetGenImageClassDefinition);
+  } else {
+    classesBuffer.writeln(_assetGenImageClassDefinitionWithNoNullSafety);
+  }
 
   final imports = <String>{'package:flutter/widgets.dart'};
   integrations
@@ -60,7 +73,13 @@ String generateAssets(
   }
 
   final buffer = StringBuffer();
-  buffer.writeln(header);
+
+  // TODO: Until null safety generalizes
+  if (nullSafety) {
+    buffer.writeln(header);
+  } else {
+    buffer.writeln(headerWithNoNullSafety);
+  }
   buffer.writeln(importsBuffer.toString());
   buffer.writeln(classesBuffer.toString());
   return formatter.format(buffer.toString());
@@ -105,21 +124,20 @@ AssetType _constructAssetTree(List<String> assetRelativePathList) {
       continue;
     }
     final parentPath = dirname(assetType.path);
-    assetTypeMap[parentPath].addChild(assetType);
+    assetTypeMap[parentPath]?.addChild(assetType);
   }
-  return assetTypeMap['.'];
+  return assetTypeMap['.']!;
 }
 
-_Statement _createAssetTypeStatement(
+_Statement? _createAssetTypeStatement(
   File pubspecFile,
   AssetType assetType,
   List<Integration> integrations,
   String name,
 ) {
   final childAssetAbsolutePath = join(pubspecFile.parent.path, assetType.path);
-  _Statement statement;
   if (assetType.isSupportedImage) {
-    statement = _Statement(
+    return _Statement(
       type: 'AssetGenImage',
       name: name,
       value: 'AssetGenImage\(\'${posixStyle(assetType.path)}\'\)',
@@ -127,19 +145,18 @@ _Statement _createAssetTypeStatement(
     );
   } else if (FileSystemEntity.isDirectorySync(childAssetAbsolutePath)) {
     final childClassName = '\$${assetType.path.camelCase().capitalize()}Gen';
-    statement = _Statement(
+    return _Statement(
       type: childClassName,
       name: name,
       value: '$childClassName\(\)',
       isConstConstructor: true,
     );
   } else if (!assetType.isIgnoreFile) {
-    final integration = integrations.firstWhere(
+    final integration = integrations.firstWhereOrNull(
       (element) => element.isSupport(assetType),
-      orElse: () => null,
     );
     if (integration == null) {
-      statement = _Statement(
+      return _Statement(
         type: 'String',
         name: name,
         value: '\'${posixStyle(assetType.path)}\'',
@@ -147,7 +164,7 @@ _Statement _createAssetTypeStatement(
       );
     } else {
       integration.isEnabled = true;
-      statement = _Statement(
+      return _Statement(
         type: integration.className,
         name: name,
         value: integration.classInstantiate(posixStyle(assetType.path)),
@@ -155,7 +172,6 @@ _Statement _createAssetTypeStatement(
       );
     }
   }
-  return statement;
 }
 
 /// Generate style like Assets.foo.bar
@@ -305,7 +321,65 @@ class $className {
 ''';
 }
 
+/// Null Safety
 const String _assetGenImageClassDefinition = '''
+
+class AssetGenImage extends AssetImage {
+  const AssetGenImage(String assetName)
+      : _assetName = assetName,
+        super(assetName);
+  final String _assetName;
+
+  Image image({
+    Key? key,
+    ImageFrameBuilder? frameBuilder,
+    ImageLoadingBuilder? loadingBuilder,
+    ImageErrorWidgetBuilder? errorBuilder,
+    String? semanticLabel,
+    bool excludeFromSemantics = false,
+    double? width,
+    double? height,
+    Color? color,
+    BlendMode? colorBlendMode,
+    BoxFit? fit,
+    AlignmentGeometry alignment = Alignment.center,
+    ImageRepeat repeat = ImageRepeat.noRepeat,
+    Rect? centerSlice,
+    bool matchTextDirection = false,
+    bool gaplessPlayback = false,
+    bool isAntiAlias = false,
+    FilterQuality filterQuality = FilterQuality.low,
+  }) {
+    return Image(
+      key: key,
+      image: this,
+      frameBuilder: frameBuilder,
+      loadingBuilder: loadingBuilder,
+      errorBuilder: errorBuilder,
+      semanticLabel: semanticLabel,
+      excludeFromSemantics: excludeFromSemantics,
+      width: width,
+      height: height,
+      color: color,
+      colorBlendMode: colorBlendMode,
+      fit: fit,
+      alignment: alignment,
+      repeat: repeat,
+      centerSlice: centerSlice,
+      matchTextDirection: matchTextDirection,
+      gaplessPlayback: gaplessPlayback,
+      isAntiAlias: isAntiAlias,
+      filterQuality: filterQuality,
+    );
+  }
+
+  String get path => _assetName;
+}
+''';
+
+/// No Null Safety
+/// TODO: Until null safety generalizes
+const String _assetGenImageClassDefinitionWithNoNullSafety = '''
 
 class AssetGenImage extends AssetImage {
   const AssetGenImage(String assetName)
@@ -362,10 +436,10 @@ class AssetGenImage extends AssetImage {
 
 class _Statement {
   const _Statement({
-    this.type,
-    this.name,
-    this.value,
-    this.isConstConstructor,
+    required this.type,
+    required this.name,
+    required this.value,
+    required this.isConstConstructor,
   });
 
   final String type;

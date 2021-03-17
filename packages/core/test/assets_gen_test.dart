@@ -1,9 +1,9 @@
 @TestOn('vm')
 import 'dart:io';
 
-import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen_core/generators/assets_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
+import 'package:flutter_gen_core/utils/dart_style/dart_style.dart';
 import 'package:flutter_gen_core/utils/error.dart';
 import 'package:test/test.dart';
 
@@ -15,6 +15,16 @@ void main() {
       final pubspec = 'test_resources/pubspec_assets.yaml';
       final fact = 'test_resources/actual_data/assets.gen.dart';
       final generated = 'test_resources/lib/gen/assets.gen.dart';
+
+      expectedAssetsGen(pubspec, generated, fact);
+    });
+
+    test('Assets with Disabled Null Safety on pubspec.yaml', () async {
+      final pubspec = 'test_resources/pubspec_assets_disable_null_safety.yaml';
+      final fact =
+          'test_resources/actual_data/assets_disable_null_safety.gen.dart';
+      final generated =
+          'test_resources/lib/gen/assets_disable_null_safety.gen.dart';
 
       expectedAssetsGen(pubspec, generated, fact);
     });

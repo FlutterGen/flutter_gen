@@ -22,4 +22,6 @@ coverage:
 
 ignore:
   - "example/"
+  - "**/*.g.dart"
   - "**/*.gen.dart"
+  - "package/core/lib/utils/dart_style"

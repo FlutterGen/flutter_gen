@@ -6,7 +6,7 @@ part 'pubspec.g.dart';
 
 @JsonSerializable()
 class Pubspec {
-  Pubspec({this.flutterGen, this.flutter});
+  Pubspec({required this.flutterGen, required this.flutter});
 
   @JsonKey(name: 'flutter_gen', required: true)
   final FlutterGen flutterGen;
@@ -19,7 +19,7 @@ class Pubspec {
 
 @JsonSerializable()
 class Flutter {
-  Flutter({this.assets, this.fonts});
+  Flutter({required this.assets, required this.fonts});
 
   @JsonKey(name: 'assets', required: true)
   final List<String> assets;
@@ -32,7 +32,7 @@ class Flutter {
 
 @JsonSerializable()
 class FlutterFonts {
-  FlutterFonts({this.family});
+  FlutterFonts({required this.family});
 
   @JsonKey(name: 'family', required: true)
   final String family;
@@ -43,13 +43,14 @@ class FlutterFonts {
 @JsonSerializable()
 class FlutterGen {
   FlutterGen({
-    this.output,
-    this.lineLength1,
-    this.lineLength0,
-    this.assets,
-    this.fonts,
-    this.integrations,
-    this.colors,
+    required this.output,
+    required this.lineLength1,
+    required this.lineLength0,
+    required this.nullSafety,
+    required this.assets,
+    required this.fonts,
+    required this.integrations,
+    required this.colors,
   }) {
     // ignore: deprecated_member_use_from_same_package
     if (lineLength1 <= 0 && lineLength0 <= 0) {
@@ -75,6 +76,9 @@ class FlutterGen {
   @JsonKey(name: 'lineLength', required: true)
   final int lineLength0;
 
+  @JsonKey(name: 'null_safety', required: true)
+  final bool nullSafety;
+
   @JsonKey(name: 'assets', required: true)
   final FlutterGenAssets assets;
 
@@ -96,7 +100,7 @@ class FlutterGen {
 
 @JsonSerializable()
 class FlutterGenColors {
-  FlutterGenColors({this.enabled, this.inputs});
+  FlutterGenColors({required this.enabled, required this.inputs});
 
   @JsonKey(name: 'enabled', required: true)
   final bool enabled;
@@ -114,7 +118,7 @@ class FlutterGenAssets {
   static const String snakeCaseStyle = 'snake-case';
   static const String camelCaseStyle = 'camel-case';
 
-  FlutterGenAssets({this.enabled, this.style}) {
+  FlutterGenAssets({required this.enabled, required this.style}) {
     if (style != dotDelimiterStyle &&
         style != snakeCaseStyle &&
         style != camelCaseStyle) {
@@ -140,7 +144,7 @@ class FlutterGenAssets {
 
 @JsonSerializable()
 class FlutterGenFonts {
-  FlutterGenFonts({this.enabled});
+  FlutterGenFonts({required this.enabled});
 
   @JsonKey(name: 'enabled', required: true)
   final bool enabled;
@@ -150,7 +154,8 @@ class FlutterGenFonts {
 
 @JsonSerializable()
 class FlutterGenIntegrations {
-  FlutterGenIntegrations({this.flutterSvg, this.flareFlutter});
+  FlutterGenIntegrations(
+      {required this.flutterSvg, required this.flareFlutter});
 
   @JsonKey(name: 'flutter_svg', required: true)
   final bool flutterSvg;

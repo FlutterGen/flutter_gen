@@ -23,13 +23,14 @@ Flutter _$FlutterFromJson(Map json) {
   return $checkedNew('Flutter', json, () {
     $checkKeys(json, requiredKeys: const ['assets', 'fonts']);
     final val = Flutter(
-      assets: $checkedConvert(
-          json, 'assets', (v) => (v as List).map((e) => e as String).toList()),
+      assets: $checkedConvert(json, 'assets',
+          (v) => (v as List<dynamic>).map((e) => e as String).toList()),
       fonts: $checkedConvert(
           json,
           'fonts',
-          (v) =>
-              (v as List).map((e) => FlutterFonts.fromJson(e as Map)).toList()),
+          (v) => (v as List<dynamic>)
+              .map((e) => FlutterFonts.fromJson(e as Map))
+              .toList()),
     );
     return val;
   });
@@ -51,6 +52,7 @@ FlutterGen _$FlutterGenFromJson(Map json) {
       'output',
       'line_length',
       'lineLength',
+      'null_safety',
       'assets',
       'fonts',
       'integrations',
@@ -60,6 +62,7 @@ FlutterGen _$FlutterGenFromJson(Map json) {
       output: $checkedConvert(json, 'output', (v) => v as String),
       lineLength1: $checkedConvert(json, 'line_length', (v) => v as int),
       lineLength0: $checkedConvert(json, 'lineLength', (v) => v as int),
+      nullSafety: $checkedConvert(json, 'null_safety', (v) => v as bool),
       assets: $checkedConvert(
           json, 'assets', (v) => FlutterGenAssets.fromJson(v as Map)),
       fonts: $checkedConvert(
@@ -72,7 +75,8 @@ FlutterGen _$FlutterGenFromJson(Map json) {
     return val;
   }, fieldKeyMap: const {
     'lineLength1': 'line_length',
-    'lineLength0': 'lineLength'
+    'lineLength0': 'lineLength',
+    'nullSafety': 'null_safety'
   });
 }
 
@@ -81,8 +85,8 @@ FlutterGenColors _$FlutterGenColorsFromJson(Map json) {
     $checkKeys(json, requiredKeys: const ['enabled', 'inputs']);
     final val = FlutterGenColors(
       enabled: $checkedConvert(json, 'enabled', (v) => v as bool),
-      inputs: $checkedConvert(
-          json, 'inputs', (v) => (v as List).map((e) => e as String).toList()),
+      inputs: $checkedConvert(json, 'inputs',
+          (v) => (v as List<dynamic>).map((e) => e as String).toList()),
     );
     return val;
   });

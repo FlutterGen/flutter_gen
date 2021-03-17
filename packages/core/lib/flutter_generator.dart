@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart';
 
 import 'generators/assets_generator.dart';
 import 'generators/colors_generator.dart';
 import 'generators/fonts_generator.dart';
 import 'settings/config.dart';
+import 'utils/dart_style/dart_style.dart';
 import 'utils/error.dart';
 import 'utils/file.dart';
 
@@ -37,6 +37,7 @@ class FlutterGenerator {
 
     final output = config.flutterGen.output;
     final lineLength = config.flutterGen.lineLength;
+    final nullSafety = config.flutterGen.nullSafety;
     final formatter = DartFormatter(pageWidth: lineLength, lineEnding: '\n');
 
     final absoluteOutput =
@@ -57,7 +58,8 @@ class FlutterGenerator {
 
     if (config.flutterGen.assets.enabled && config.flutter.assets.isNotEmpty) {
       final generated = generateAssets(
-          pubspecFile, formatter, config.flutterGen, config.flutter.assets);
+          pubspecFile, formatter, config.flutterGen, config.flutter.assets,
+          nullSafety: nullSafety);
       final assets =
           File(normalize(join(pubspecFile.parent.path, output, assetsName)));
       writeAsString(generated, file: assets);
