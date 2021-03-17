@@ -229,7 +229,7 @@ packages:
       name: flutter_gen_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0+1"
+    version: "3.0.1"
   flutter_svg:
     dependency: "direct main"
     description:
