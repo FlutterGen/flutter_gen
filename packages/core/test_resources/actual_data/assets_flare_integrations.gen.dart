@@ -16,13 +16,15 @@ class $AssetsFlareGen {
 class Assets {
   Assets._();
 
+  static const package = 'test';
+
   static const $AssetsFlareGen flare = $AssetsFlareGen();
 }
 
 class AssetGenImage extends AssetImage {
   const AssetGenImage(String assetName)
       : _assetName = assetName,
-        super(assetName);
+        super(assetName, package: 'test');
   final String _assetName;
 
   Image image({

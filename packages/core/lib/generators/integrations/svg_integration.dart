@@ -4,7 +4,10 @@ import 'integration.dart';
 class SvgIntegration extends Integration {
   // TODO: Until null safety generalizes
   // ignore: avoid_positional_boolean_parameters
-  SvgIntegration({bool nullSafety = true}) : super(nullSafety: nullSafety);
+  SvgIntegration(this._packageName, {bool nullSafety = true})
+      : super(nullSafety: nullSafety);
+
+  final String _packageName;
 
   @override
   List<String> get requiredImports => [
@@ -18,7 +21,7 @@ class SvgIntegration extends Integration {
       nullSafety ? _classDefinition : _classDefinitionWithNoNullSafety;
 
   /// Null Safety
-  final String _classDefinition = '''class SvgGenImage {
+  String get _classDefinition => '''class SvgGenImage {
   const SvgGenImage(this._assetName);
 
   final String _assetName;
@@ -27,7 +30,7 @@ class SvgIntegration extends Integration {
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    String? package,
+    String? package = '$_packageName',
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,
@@ -65,7 +68,7 @@ class SvgIntegration extends Integration {
 
   /// No Null Safety
   /// TODO: Until null safety generalizes
-  final String _classDefinitionWithNoNullSafety = '''class SvgGenImage {
+  String get _classDefinitionWithNoNullSafety => '''class SvgGenImage {
   const SvgGenImage(this._assetName);
 
   final String _assetName;
@@ -74,7 +77,7 @@ class SvgIntegration extends Integration {
     Key key,
     bool matchTextDirection = false,
     AssetBundle bundle,
-    String package,
+    String package = '$_packageName',
     double width,
     double height,
     BoxFit fit = BoxFit.contain,

@@ -71,7 +71,7 @@ void main() {
 
       expect(() {
         return generateAssets(
-            pubspec, formatter, config.flutterGen, config.flutter.assets);
+            AssetsGenConfig.fromConfig(pubspec, config), formatter);
       }, throwsA(isA<InvalidSettingsException>()));
     });
   });

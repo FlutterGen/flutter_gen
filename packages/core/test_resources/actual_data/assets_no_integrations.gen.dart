@@ -57,6 +57,8 @@ class $AssetsImagesIconsGen {
 class Assets {
   Assets._();
 
+  static const package = 'test';
+
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
   static const $PicturesGen pictures = $PicturesGen();
@@ -65,7 +67,7 @@ class Assets {
 class AssetGenImage extends AssetImage {
   const AssetGenImage(String assetName)
       : _assetName = assetName,
-        super(assetName);
+        super(assetName, package: 'test');
   final String _assetName;
 
   Image image({

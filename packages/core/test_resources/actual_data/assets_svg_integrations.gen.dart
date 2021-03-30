@@ -23,13 +23,15 @@ class $AssetsImagesIconsGen {
 class Assets {
   Assets._();
 
+  static const package = 'test';
+
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
 class AssetGenImage extends AssetImage {
   const AssetGenImage(String assetName)
       : _assetName = assetName,
-        super(assetName);
+        super(assetName, package: 'test');
   final String _assetName;
 
   Image image({
@@ -87,7 +89,7 @@ class SvgGenImage {
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    String? package,
+    String? package = 'test',
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,

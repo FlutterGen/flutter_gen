@@ -82,6 +82,8 @@ class $AssetsImagesIconsGen {
 class Assets {
   Assets._();
 
+  static const package = 'example';
+
   static const $AssetsFlareGen flare = $AssetsFlareGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
@@ -93,7 +95,7 @@ class Assets {
 class AssetGenImage extends AssetImage {
   const AssetGenImage(String assetName)
       : _assetName = assetName,
-        super(assetName);
+        super(assetName, package: 'example');
   final String _assetName;
 
   Image image({
@@ -151,7 +153,7 @@ class SvgGenImage {
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    String? package,
+    String? package = 'example',
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,
