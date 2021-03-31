@@ -8,8 +8,6 @@ import 'package:flutter/widgets.dart';
 class Assets {
   Assets._();
 
-  static const package = 'test';
-
   static const AssetGenImage images_chip1 =
       AssetGenImage('assets/images/chip1.jpg');
   static const AssetGenImage images_chip2 =

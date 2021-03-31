@@ -23,8 +23,6 @@ class $AssetsImagesIconsGen {
 class Assets {
   Assets._();
 
-  static const package = 'test';
-
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 

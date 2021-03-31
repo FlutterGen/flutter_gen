@@ -14,8 +14,6 @@ class $AssetsUnknownGen {
 class Assets {
   Assets._();
 
-  static const package = 'test';
-
   static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
 }
 

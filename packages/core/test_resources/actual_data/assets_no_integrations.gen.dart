@@ -57,8 +57,6 @@ class $AssetsImagesIconsGen {
 class Assets {
   Assets._();
 
-  static const package = 'test';
-
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
   static const $PicturesGen pictures = $PicturesGen();

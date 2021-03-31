@@ -16,8 +16,6 @@ class $AssetsFlareGen {
 class Assets {
   Assets._();
 
-  static const package = 'test';
-
   static const $AssetsFlareGen flare = $AssetsFlareGen();
 }
 

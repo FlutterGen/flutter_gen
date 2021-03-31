@@ -80,8 +80,6 @@ class $AssetsImagesIconsGen {
 class Assets {
   Assets._();
 
-  static const package = 'test';
-
   static const $AssetsFlareGen flare = $AssetsFlareGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();

@@ -244,8 +244,7 @@ String _dotDelimiterStyleDefinition(
       assetTypeQueue.addAll(assetType.children);
     }
   }
-  buffer.writeln(
-      _assetsClassDefinition(config.packageName, assetsStaticStatements));
+  buffer.writeln(_assetsClassDefinition(assetsStaticStatements));
   return buffer.toString();
 }
 
@@ -301,18 +300,16 @@ String _flatStyleDefinition(
       )
       .whereType<_Statement>()
       .toList();
-  return _assetsClassDefinition(config.packageName, statements);
+  return _assetsClassDefinition(statements);
 }
 
-String _assetsClassDefinition(String packageName, List<_Statement> statements) {
+String _assetsClassDefinition(List<_Statement> statements) {
   final statementsBlock = statements
       .map((statement) => '  ${statement.toStaticFieldString()}')
       .join('\n');
   return '''
 class Assets {
   Assets._();
-  
-  static const package = '$packageName';
   
   $statementsBlock
 }
