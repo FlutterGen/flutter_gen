@@ -24,7 +24,8 @@ void expectedAssetsGen(String pubspec, String generated, String fact) async {
 
   final actual = generateAssets(
       AssetsGenConfig.fromConfig(pubspecFile, config), formatter);
-  final expected = File(fact).readAsStringSync().replaceAll('\r\n', '\n');
+  final expected =
+      formatter.format(File(fact).readAsStringSync().replaceAll('\r\n', '\n'));
 
   expect(
     File(generated).readAsStringSync(),
