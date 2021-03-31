@@ -336,10 +336,7 @@ class $className {
 String _assetGenImageClassDefinition(String packageName) => '''
 
 class AssetGenImage extends AssetImage {
-  const AssetGenImage(String assetName)
-      : _assetName = assetName,
-        super(assetName, package: '$packageName');
-  final String _assetName;
+  const AssetGenImage(String assetName) : super(assetName, package: '$packageName');
 
   Image image({
     Key? key,
@@ -384,7 +381,7 @@ class AssetGenImage extends AssetImage {
     );
   }
 
-  String get path => _assetName;
+  String get path => assetName;
 }
 ''';
 
@@ -393,10 +390,7 @@ class AssetGenImage extends AssetImage {
 String _assetGenImageClassDefinitionWithNoNullSafety(String packageName) => '''
 
 class AssetGenImage extends AssetImage {
-  const AssetGenImage(String assetName)
-      : _assetName = assetName,
-        super(assetName, package: '$packageName');
-  final String _assetName;
+  const AssetGenImage(String assetName) : super(assetName, package: '$packageName');
 
   Image image({
     Key key,
@@ -441,7 +435,7 @@ class AssetGenImage extends AssetImage {
     );
   }
 
-  String get path => _assetName;
+  String get path => assetName;
 }
 ''';
 
