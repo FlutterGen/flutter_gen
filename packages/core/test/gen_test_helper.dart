@@ -23,8 +23,7 @@ void expectedAssetsGen(String pubspec, String generated, String fact) async {
       DartFormatter(pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
 
   final actual = generateAssets(
-      pubspecFile, formatter, config.flutterGen, config.flutter.assets,
-      nullSafety: config.flutterGen.nullSafety);
+      AssetsGenConfig.fromConfig(pubspecFile, config), formatter);
   final expected = File(fact).readAsStringSync().replaceAll('\r\n', '\n');
 
   expect(

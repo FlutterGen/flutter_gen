@@ -30,8 +30,8 @@ void main() {
 
       expectedAssetsGen(pubspec, generated, fact);
 
-      final integration =
-          SvgIntegration(nullSafety: config.flutterGen.nullSafety);
+      final integration = SvgIntegration('package_name',
+          nullSafety: config.flutterGen.nullSafety);
       expect(integration.className, 'SvgGenImage');
       expect(integration.classInstantiate('assets/path'),
           'SvgGenImage\(\'assets/path\'\)');
