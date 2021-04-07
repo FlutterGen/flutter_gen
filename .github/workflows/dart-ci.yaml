@@ -20,17 +20,7 @@ jobs:
           channel: 'stable'
 
       - name: Get Dart and Flutter dependencies
-        if: matrix.os == 'windows-latest'
         run: |
-          make setup
-          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-          make dependencies
-
-      - name: Get Dart and Flutter dependencies
-        if: matrix.os == 'macos-latest' || matrix.os == 'ubuntu-latest'
-        run: |
-          make setup
-          export PATH="$PATH":"$HOME/.pub-cache/bin"
           make dependencies
 
       - name: Run tests for our dart project.

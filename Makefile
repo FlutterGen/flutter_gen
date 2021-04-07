@@ -3,11 +3,9 @@ setup:
 	npm install
 
 dependencies:
-	fvm install
 	cd packages/core/ && dart pub get
 	cd packages/runner/ && dart pub get
 	cd packages/command && dart pub get
-	cd example && fvm flutter pub get && cd ..
 
 analyze:
 	dart analyze packages/core/lib/
