@@ -1,9 +1,9 @@
 setup:
 	dart pub global activate fvm
-	fvm install
 	npm install
 
 dependencies:
+	fvm install
 	cd packages/core/ && dart pub get
 	cd packages/runner/ && dart pub get
 	cd packages/command && dart pub get
