@@ -1,5 +1,4 @@
 setup:
-	dart pub global activate fvm
 	npm install
 
 dependencies:
@@ -18,7 +17,7 @@ format:
 	dart format packages/command/bin/
 
 build:
-	cd example && fvm flutter build apk && cd ..
+	cd example && flutter build apk && cd ..
 
 generate-config-model:
 	cd packages/core/ && dart run build_runner build && cd ..
@@ -27,7 +26,7 @@ generate-with-command:
 	dart packages/command/bin/flutter_gen_command.dart --config example/pubspec.yaml
 
 generate-with-runner:
-	cd example && fvm flutter packages pub run build_runner build --delete-conflicting-outputs && cd ..
+	cd example && flutter packages pub run build_runner build --delete-conflicting-outputs && cd ..
 
 unit-test:
 	cd packages/core/ && dart run test && cd ..
