@@ -22,8 +22,12 @@ jobs:
       - name: Set environment
         run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
-      - name: Get dart dependencies.
-        run: make dependencies
+      - name: Get Dart and Flutter dependencies.
+        run: |
+          make setup
+          export PATH="$PATH":"$HOME/.pub-cache/bin"
+
+          make dependencies
 
       - name: Run tests for our dart project.
         run: |
