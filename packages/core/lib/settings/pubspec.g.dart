@@ -8,15 +8,16 @@ part of 'pubspec.dart';
 
 Pubspec _$PubspecFromJson(Map json) {
   return $checkedNew('Pubspec', json, () {
-    $checkKeys(json, requiredKeys: const ['flutter_gen', 'flutter']);
+    $checkKeys(json, requiredKeys: const ['name', 'flutter_gen', 'flutter']);
     final val = Pubspec(
+      packageName: $checkedConvert(json, 'name', (v) => v as String),
       flutterGen: $checkedConvert(
           json, 'flutter_gen', (v) => FlutterGen.fromJson(v as Map)),
       flutter:
           $checkedConvert(json, 'flutter', (v) => Flutter.fromJson(v as Map)),
     );
     return val;
-  }, fieldKeyMap: const {'flutterGen': 'flutter_gen'});
+  }, fieldKeyMap: const {'packageName': 'name', 'flutterGen': 'flutter_gen'});
 }
 
 Flutter _$FlutterFromJson(Map json) {

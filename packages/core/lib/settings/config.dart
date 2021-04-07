@@ -9,10 +9,12 @@ import 'pubspec.dart';
 class Config {
   Config._({required this.pubspec});
 
-  late final Pubspec pubspec;
+  final Pubspec pubspec;
 
+  @Deprecated('Access from pubspec')
   FlutterGen get flutterGen => pubspec.flutterGen;
 
+  @Deprecated('Access from pubspec')
   Flutter get flutter => pubspec.flutter;
 }
 
@@ -34,6 +36,8 @@ Future<Config> loadPubspecConfig(File pubspecFile) async {
 }
 
 const _defaultConfig = '''
+name: $invalidStringValue
+
 flutter_gen:
   output: lib/gen/
   # deprecated key

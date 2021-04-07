@@ -37,7 +37,6 @@ class FlutterGenerator {
 
     final output = config.flutterGen.output;
     final lineLength = config.flutterGen.lineLength;
-    final nullSafety = config.flutterGen.nullSafety;
     final formatter = DartFormatter(pageWidth: lineLength, lineEnding: '\n');
 
     final absoluteOutput =
@@ -58,8 +57,9 @@ class FlutterGenerator {
 
     if (config.flutterGen.assets.enabled && config.flutter.assets.isNotEmpty) {
       final generated = generateAssets(
-          pubspecFile, formatter, config.flutterGen, config.flutter.assets,
-          nullSafety: nullSafety);
+        AssetsGenConfig.fromConfig(pubspecFile, config),
+        formatter,
+      );
       final assets =
           File(normalize(join(pubspecFile.parent.path, output, assetsName)));
       writeAsString(generated, file: assets);

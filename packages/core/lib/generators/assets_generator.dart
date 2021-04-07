@@ -6,6 +6,7 @@ import 'package:dartx/dartx.dart';
 import 'package:path/path.dart';
 
 import '../settings/asset_type.dart';
+import '../settings/config.dart';
 import '../settings/pubspec.dart';
 import '../utils/dart_style/dart_style.dart';
 import '../utils/error.dart';
@@ -15,17 +16,34 @@ import 'integrations/flare_integration.dart';
 import 'integrations/integration.dart';
 import 'integrations/svg_integration.dart';
 
-String generateAssets(
-  File pubspecFile,
-  DartFormatter formatter,
-  FlutterGen flutterGen,
-  List<String> assets, {
+class AssetsGenConfig {
+  AssetsGenConfig._(
+    this.rootPath,
+    this.packageName,
+    this.flutterGen,
+    this.assets,
+  );
 
-  // TODO: Until null safety generalizes
-  // ignore: type_annotate_public_apis
-  nullSafety = true,
-}) {
-  if (assets.isEmpty) {
+  factory AssetsGenConfig.fromConfig(File pubspecFile, Config config) {
+    return AssetsGenConfig._(
+      pubspecFile.parent.path,
+      config.pubspec.packageName,
+      config.pubspec.flutterGen,
+      config.pubspec.flutter.assets,
+    );
+  }
+
+  final String rootPath;
+  final String packageName;
+  final FlutterGen flutterGen;
+  final List<String> assets;
+}
+
+String generateAssets(
+  AssetsGenConfig config,
+  DartFormatter formatter,
+) {
+  if (config.assets.isEmpty) {
     throw InvalidSettingsException(
         'The value of "flutter/assets:" is incorrect.');
   }
@@ -35,30 +53,29 @@ String generateAssets(
 
   final integrations = <Integration>[
     // TODO: Until null safety generalizes
-    if (flutterGen.integrations.flutterSvg)
-      SvgIntegration(nullSafety: nullSafety),
-    if (flutterGen.integrations.flareFlutter)
-      FlareIntegration(nullSafety: nullSafety),
+    if (config.flutterGen.integrations.flutterSvg)
+      SvgIntegration(config.packageName,
+          nullSafety: config.flutterGen.nullSafety),
+    if (config.flutterGen.integrations.flareFlutter)
+      FlareIntegration(nullSafety: config.flutterGen.nullSafety),
   ];
 
-  if (flutterGen.assets.isDotDelimiterStyle) {
-    classesBuffer.writeln(
-        _dotDelimiterStyleDefinition(pubspecFile, assets, integrations));
-  } else if (flutterGen.assets.isSnakeCaseStyle) {
-    classesBuffer
-        .writeln(_snakeCaseStyleDefinition(pubspecFile, assets, integrations));
-  } else if (flutterGen.assets.isCamelCaseStyle) {
-    classesBuffer
-        .writeln(_camelCaseStyleDefinition(pubspecFile, assets, integrations));
+  if (config.flutterGen.assets.isDotDelimiterStyle) {
+    classesBuffer.writeln(_dotDelimiterStyleDefinition(config, integrations));
+  } else if (config.flutterGen.assets.isSnakeCaseStyle) {
+    classesBuffer.writeln(_snakeCaseStyleDefinition(config, integrations));
+  } else if (config.flutterGen.assets.isCamelCaseStyle) {
+    classesBuffer.writeln(_camelCaseStyleDefinition(config, integrations));
   } else {
     throw 'The value of "flutter_gen/assets/style." is incorrect.';
   }
 
   // TODO: Until null safety generalizes
-  if (nullSafety) {
-    classesBuffer.writeln(_assetGenImageClassDefinition);
+  if (config.flutterGen.nullSafety) {
+    classesBuffer.writeln(_assetGenImageClassDefinition(config.packageName));
   } else {
-    classesBuffer.writeln(_assetGenImageClassDefinitionWithNoNullSafety);
+    classesBuffer.writeln(
+        _assetGenImageClassDefinitionWithNoNullSafety(config.packageName));
   }
 
   final imports = <String>{'package:flutter/widgets.dart'};
@@ -75,7 +92,7 @@ String generateAssets(
   final buffer = StringBuffer();
 
   // TODO: Until null safety generalizes
-  if (nullSafety) {
+  if (config.flutterGen.nullSafety) {
     buffer.writeln(header);
   } else {
     buffer.writeln(headerWithNoNullSafety);
@@ -86,21 +103,20 @@ String generateAssets(
 }
 
 List<String> _getAssetRelativePathList(
-  File pubspecFile,
+  String rootPath,
   List<String> assets,
 ) {
   final assetRelativePathList = <String>[];
   for (final assetName in assets) {
-    final assetAbsolutePath = join(pubspecFile.parent.path, assetName);
+    final assetAbsolutePath = join(rootPath, assetName);
     if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
       assetRelativePathList.addAll(Directory(assetAbsolutePath)
           .listSync()
           .whereType<File>()
-          .map((e) => relative(e.path, from: pubspecFile.parent.path))
+          .map((e) => relative(e.path, from: rootPath))
           .toList());
     } else if (FileSystemEntity.isFileSync(assetAbsolutePath)) {
-      assetRelativePathList
-          .add(relative(assetAbsolutePath, from: pubspecFile.parent.path));
+      assetRelativePathList.add(relative(assetAbsolutePath, from: rootPath));
     }
   }
   return assetRelativePathList;
@@ -130,12 +146,12 @@ AssetType _constructAssetTree(List<String> assetRelativePathList) {
 }
 
 _Statement? _createAssetTypeStatement(
-  File pubspecFile,
+  String rootPath,
   AssetType assetType,
   List<Integration> integrations,
   String name,
 ) {
-  final childAssetAbsolutePath = join(pubspecFile.parent.path, assetType.path);
+  final childAssetAbsolutePath = join(rootPath, assetType.path);
   if (assetType.isSupportedImage) {
     return _Statement(
       type: 'AssetGenImage',
@@ -176,12 +192,12 @@ _Statement? _createAssetTypeStatement(
 
 /// Generate style like Assets.foo.bar
 String _dotDelimiterStyleDefinition(
-  File pubspecFile,
-  List<String> assets,
+  AssetsGenConfig config,
   List<Integration> integrations,
 ) {
   final buffer = StringBuffer();
-  final assetRelativePathList = _getAssetRelativePathList(pubspecFile, assets);
+  final assetRelativePathList =
+      _getAssetRelativePathList(config.rootPath, config.assets);
   final assetsStaticStatements = <_Statement>[];
 
   final assetTypeQueue = ListQueue<AssetType>.from(
@@ -189,14 +205,14 @@ String _dotDelimiterStyleDefinition(
 
   while (assetTypeQueue.isNotEmpty) {
     final assetType = assetTypeQueue.removeFirst();
-    final assetAbsolutePath = join(pubspecFile.parent.path, assetType.path);
+    final assetAbsolutePath = join(config.rootPath, assetType.path);
 
     if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
       final statements = assetType.children
           .mapToIsUniqueWithoutExtension()
           .map(
             (e) => _createAssetTypeStatement(
-              pubspecFile,
+              config.rootPath,
               e.assetType,
               integrations,
               (e.isUniqueWithoutExtension
@@ -234,13 +250,11 @@ String _dotDelimiterStyleDefinition(
 
 /// Generate style like Assets.fooBar
 String _camelCaseStyleDefinition(
-  File pubspecFile,
-  List<String> assets,
+  AssetsGenConfig config,
   List<Integration> integrations,
 ) {
   return _flatStyleDefinition(
-    pubspecFile,
-    assets,
+    config,
     integrations,
     (e) => (e.isUniqueWithoutExtension
             ? withoutExtension(e.assetType.path)
@@ -252,13 +266,11 @@ String _camelCaseStyleDefinition(
 
 /// Generate style like Assets.foo_bar
 String _snakeCaseStyleDefinition(
-  File pubspecFile,
-  List<String> assets,
+  AssetsGenConfig config,
   List<Integration> integrations,
 ) {
   return _flatStyleDefinition(
-    pubspecFile,
-    assets,
+    config,
     integrations,
     (e) => (e.isUniqueWithoutExtension
             ? withoutExtension(e.assetType.path)
@@ -269,19 +281,18 @@ String _snakeCaseStyleDefinition(
 }
 
 String _flatStyleDefinition(
-  File pubspecFile,
-  List<String> assets,
+  AssetsGenConfig config,
   List<Integration> integrations,
   String Function(AssetTypeIsUniqueWithoutExtension) createName,
 ) {
-  final statements = _getAssetRelativePathList(pubspecFile, assets)
+  final statements = _getAssetRelativePathList(config.rootPath, config.assets)
       .distinct()
       .sorted()
       .map((relativePath) => AssetType(relativePath))
       .mapToIsUniqueWithoutExtension()
       .map(
         (e) => _createAssetTypeStatement(
-          pubspecFile,
+          config.rootPath,
           e.assetType,
           integrations,
           createName(e),
@@ -322,13 +333,10 @@ class $className {
 }
 
 /// Null Safety
-const String _assetGenImageClassDefinition = '''
+String _assetGenImageClassDefinition(String packageName) => '''
 
 class AssetGenImage extends AssetImage {
-  const AssetGenImage(String assetName)
-      : _assetName = assetName,
-        super(assetName);
-  final String _assetName;
+  const AssetGenImage(String assetName) : super(assetName, package: '$packageName');
 
   Image image({
     Key? key,
@@ -373,19 +381,16 @@ class AssetGenImage extends AssetImage {
     );
   }
 
-  String get path => _assetName;
+  String get path => assetName;
 }
 ''';
 
 /// No Null Safety
 /// TODO: Until null safety generalizes
-const String _assetGenImageClassDefinitionWithNoNullSafety = '''
+String _assetGenImageClassDefinitionWithNoNullSafety(String packageName) => '''
 
 class AssetGenImage extends AssetImage {
-  const AssetGenImage(String assetName)
-      : _assetName = assetName,
-        super(assetName);
-  final String _assetName;
+  const AssetGenImage(String assetName) : super(assetName, package: '$packageName');
 
   Image image({
     Key key,
@@ -430,7 +435,7 @@ class AssetGenImage extends AssetImage {
     );
   }
 
-  String get path => _assetName;
+  String get path => assetName;
 }
 ''';
 

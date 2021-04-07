@@ -4,9 +4,18 @@ part 'pubspec.g.dart';
 
 /// Edit this file, then run `make generate-config-model`
 
+const invalidStringValue = 'FLUTTER_GEN_INVALID';
+
 @JsonSerializable()
 class Pubspec {
-  Pubspec({required this.flutterGen, required this.flutter});
+  Pubspec({
+    required this.packageName,
+    required this.flutterGen,
+    required this.flutter,
+  });
+
+  @JsonKey(name: 'name', required: true)
+  final String packageName;
 
   @JsonKey(name: 'flutter_gen', required: true)
   final FlutterGen flutterGen;
