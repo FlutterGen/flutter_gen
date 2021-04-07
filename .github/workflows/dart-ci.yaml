@@ -19,14 +19,10 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Set environment
-        run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-
-      - name: Get Dart and Flutter dependencies.
+      - name: Get dependencies.
         run: |
           make setup
-          export PATH="$PATH":"$HOME/.pub-cache/bin"
-
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
           make dependencies
 
       - name: Run tests for our dart project.
