@@ -20,7 +20,10 @@ class Assets {
 }
 
 class AssetGenImage extends AssetImage {
-  const AssetGenImage(String assetName) : super(assetName, package: 'test');
+  const AssetGenImage(String assetName)
+      : _assetName = assetName,
+        super(assetName);
+  final String _assetName;
 
   Image image({
     Key? key,
@@ -65,7 +68,7 @@ class AssetGenImage extends AssetImage {
     );
   }
 
-  String get path => assetName;
+  String get path => _assetName;
 }
 
 class FlareGenImage {
