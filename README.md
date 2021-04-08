@@ -108,7 +108,8 @@ $ fluttergen -c example/pubspec.yaml
 
 ## Configuration file
 
-[FlutterGen] generates dart files based on the key **`flutter`** and **`flutter_gen`** of [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
+[FlutterGen] generates dart files based on the key **`flutter`** and **`flutter_gen`** of [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).  
+Default configuration can be found [here](#default-settings). 
 
 ```yaml
 # pubspec.yaml
@@ -663,7 +664,7 @@ class ColorName {
 </p>
 </details>
 
-### Default Settings
+### Default Configuration
 
 The following are the default settings.
 The options you set in `pubspec.yaml` will override the corresponding default options.
@@ -679,6 +680,7 @@ flutter_gen:
 
   assets:
     enabled: true
+    package_parameter_enabled: false
     style: dot-delimiter
     
   fonts:
