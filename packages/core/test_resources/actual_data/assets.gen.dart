@@ -89,7 +89,7 @@ class Assets {
 }
 
 class AssetGenImage extends AssetImage {
-  const AssetGenImage(String assetName) : super(assetName, package: 'test');
+  const AssetGenImage(String assetName) : super(assetName);
 
   Image image({
     Key? key,
@@ -146,7 +146,7 @@ class SvgGenImage {
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    String? package = 'test',
+    String? package,
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,

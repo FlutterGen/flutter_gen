@@ -127,7 +127,11 @@ class FlutterGenAssets {
   static const String snakeCaseStyle = 'snake-case';
   static const String camelCaseStyle = 'camel-case';
 
-  FlutterGenAssets({required this.enabled, required this.style}) {
+  FlutterGenAssets({
+    required this.enabled,
+    required this.packageParameterEnabled,
+    required this.style,
+  }) {
     if (style != dotDelimiterStyle &&
         style != snakeCaseStyle &&
         style != camelCaseStyle) {
@@ -137,6 +141,9 @@ class FlutterGenAssets {
 
   @JsonKey(name: 'enabled', required: true)
   final bool enabled;
+
+  @JsonKey(name: 'package_parameter_enabled', required: true)
+  final bool packageParameterEnabled;
 
   @JsonKey(name: 'style', required: true)
   final String style;
