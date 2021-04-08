@@ -10,7 +10,15 @@ import 'package:flutter/services.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  $AssetsImagesChip3Gen get chip3 => const $AssetsImagesChip3Gen();
   $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
+}
+
+class $AssetsImagesChip3Gen {
+  const $AssetsImagesChip3Gen();
+
+  AssetGenImage get chip3 =>
+      const AssetGenImage('assets/images/chip3/chip3.jpg');
 }
 
 class $AssetsImagesIconsGen {
@@ -27,7 +35,7 @@ class Assets {
 }
 
 class AssetGenImage extends AssetImage {
-  const AssetGenImage(String assetName) : super(assetName);
+  const AssetGenImage(String assetName) : super(assetName, package: 'test');
 
   Image image({
     Key? key,
@@ -72,7 +80,7 @@ class AssetGenImage extends AssetImage {
     );
   }
 
-  String get path => _assetName;
+  String get path => assetName;
 }
 
 class SvgGenImage {
@@ -84,7 +92,7 @@ class SvgGenImage {
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    String? package,
+    String? package = 'test',
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,

@@ -11,8 +11,9 @@ class SvgIntegration extends Integration {
 
   final String _packageParameterLiteral;
 
-  String get packageExpression =>
-      _packageParameterLiteral.isNotEmpty ? ' = $_packageParameterLiteral' : '';
+  String get packageExpression => _packageParameterLiteral.isNotEmpty
+      ? ' = \'$_packageParameterLiteral\''
+      : '';
 
   @override
   List<String> get requiredImports => [
