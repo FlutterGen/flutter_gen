@@ -1,3 +1,8 @@
+## 3.1.1
+
+New Feature & Bug fix
+- [#103](https://github.com/FlutterGen/flutter_gen/pull/103) Add option packageParameterEnabled to control whether to generate package parameter for assets or not.  
+
 ## 3.1.0
 
 New Feature  

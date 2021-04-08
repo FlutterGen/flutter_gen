@@ -1,7 +1,7 @@
 name: flutter_gen
 
 description: The Flutter code generator for your assets, fonts, colors, … — Get rid of all String-based APIs.
-version: 3.1.0
+version: 3.1.1
 homepage: https://github.com/FlutterGen/flutter_gen
 repository: https://github.com/FlutterGen/flutter_gen
 documentation: https://github.com/FlutterGen/flutter_gen
@@ -17,7 +17,7 @@ executables:
   fluttergen: flutter_gen_command
 
 dependencies:
-  flutter_gen_core: ^3.1.0
+  flutter_gen_core: ^3.1.1
   args: '>=2.0.0 <3.0.0'
 
 dev_dependencies:
