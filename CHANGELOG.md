@@ -1,3 +1,9 @@
+## 3.1.0
+
+New Feature  
+- [#98](https://github.com/FlutterGen/flutter_gen/pull/98) Support for adding assets from a package  
+
+
 ## 3.0.0, 3.0.1, 3.0.2
 
 - Support Null Safety

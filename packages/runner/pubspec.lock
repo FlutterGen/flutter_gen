@@ -161,7 +161,7 @@ packages:
       path: "../core"
       relative: true
     source: path
-    version: "3.0.2"
+    version: "3.1.0"
   glob:
     dependency: transitive
     description:
