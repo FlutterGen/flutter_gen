@@ -4,10 +4,15 @@ import 'integration.dart';
 class SvgIntegration extends Integration {
   // TODO: Until null safety generalizes
   // ignore: avoid_positional_boolean_parameters
-  SvgIntegration(this._packageName, {bool nullSafety = true})
-      : super(nullSafety: nullSafety);
+  SvgIntegration(
+    this._packageParameterLiteral, {
+    bool nullSafety = true,
+  }) : super(nullSafety: nullSafety);
 
-  final String _packageName;
+  final String _packageParameterLiteral;
+
+  String get packageExpression =>
+      _packageParameterLiteral.isNotEmpty ? ' = $_packageParameterLiteral' : '';
 
   @override
   List<String> get requiredImports => [
@@ -30,7 +35,7 @@ class SvgIntegration extends Integration {
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    String? package = '$_packageName',
+    String? package$packageExpression,
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,
@@ -77,7 +82,7 @@ class SvgIntegration extends Integration {
     Key key,
     bool matchTextDirection = false,
     AssetBundle bundle,
-    String package = '$_packageName',
+    String package$packageExpression,
     double width,
     double height,
     BoxFit fit = BoxFit.contain,

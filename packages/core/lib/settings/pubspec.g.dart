@@ -95,12 +95,17 @@ FlutterGenColors _$FlutterGenColorsFromJson(Map json) {
 
 FlutterGenAssets _$FlutterGenAssetsFromJson(Map json) {
   return $checkedNew('FlutterGenAssets', json, () {
-    $checkKeys(json, requiredKeys: const ['enabled', 'style']);
+    $checkKeys(json,
+        requiredKeys: const ['enabled', 'package_parameter_enabled', 'style']);
     final val = FlutterGenAssets(
       enabled: $checkedConvert(json, 'enabled', (v) => v as bool),
+      packageParameterEnabled:
+          $checkedConvert(json, 'package_parameter_enabled', (v) => v as bool),
       style: $checkedConvert(json, 'style', (v) => v as String),
     );
     return val;
+  }, fieldKeyMap: const {
+    'packageParameterEnabled': 'package_parameter_enabled'
   });
 }
 

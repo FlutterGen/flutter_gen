@@ -19,7 +19,7 @@ import 'integrations/svg_integration.dart';
 class AssetsGenConfig {
   AssetsGenConfig._(
     this.rootPath,
-    this.packageName,
+    this._packageName,
     this.flutterGen,
     this.assets,
   );
@@ -34,9 +34,12 @@ class AssetsGenConfig {
   }
 
   final String rootPath;
-  final String packageName;
+  final String _packageName;
   final FlutterGen flutterGen;
   final List<String> assets;
+
+  String get packageParameterLiteral =>
+      flutterGen.assets.packageParameterEnabled ? _packageName : '';
 }
 
 String generateAssets(
@@ -54,7 +57,7 @@ String generateAssets(
   final integrations = <Integration>[
     // TODO: Until null safety generalizes
     if (config.flutterGen.integrations.flutterSvg)
-      SvgIntegration(config.packageName,
+      SvgIntegration(config.packageParameterLiteral,
           nullSafety: config.flutterGen.nullSafety),
     if (config.flutterGen.integrations.flareFlutter)
       FlareIntegration(nullSafety: config.flutterGen.nullSafety),
@@ -72,10 +75,13 @@ String generateAssets(
 
   // TODO: Until null safety generalizes
   if (config.flutterGen.nullSafety) {
-    classesBuffer.writeln(_assetGenImageClassDefinition(config.packageName));
+    classesBuffer.writeln(_assetGenImageClassDefinition(
+      config.packageParameterLiteral,
+    ));
   } else {
-    classesBuffer.writeln(
-        _assetGenImageClassDefinitionWithNoNullSafety(config.packageName));
+    classesBuffer.writeln(_assetGenImageClassDefinitionWithNoNullSafety(
+      config.packageParameterLiteral,
+    ));
   }
 
   final imports = <String>{'package:flutter/widgets.dart'};
@@ -333,10 +339,13 @@ class $className {
 }
 
 /// Null Safety
-String _assetGenImageClassDefinition(String packageName) => '''
+String _assetGenImageClassDefinition(String packageName) {
+  final optionalParameter =
+      packageName.isNotEmpty ? ', package: \'$packageName\'' : '';
+  return '''
 
 class AssetGenImage extends AssetImage {
-  const AssetGenImage(String assetName) : super(assetName, package: '$packageName');
+  const AssetGenImage(String assetName) : super(assetName$optionalParameter);
 
   Image image({
     Key? key,
@@ -384,13 +393,16 @@ class AssetGenImage extends AssetImage {
   String get path => assetName;
 }
 ''';
+}
 
 /// No Null Safety
 /// TODO: Until null safety generalizes
-String _assetGenImageClassDefinitionWithNoNullSafety(String packageName) => '''
-
+String _assetGenImageClassDefinitionWithNoNullSafety(String packageName) {
+  final optionalParameter =
+      packageName.isNotEmpty ? ', package: \'$packageName\'' : '';
+  return '''
 class AssetGenImage extends AssetImage {
-  const AssetGenImage(String assetName) : super(assetName, package: '$packageName');
+  const AssetGenImage(String assetName) : super(assetName$optionalParameter);
 
   Image image({
     Key key,
@@ -438,6 +450,7 @@ class AssetGenImage extends AssetImage {
   String get path => assetName;
 }
 ''';
+}
 
 class _Statement {
   const _Statement({

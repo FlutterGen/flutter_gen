@@ -27,10 +27,7 @@ class Assets {
 }
 
 class AssetGenImage extends AssetImage {
-  const AssetGenImage(String assetName)
-      : _assetName = assetName,
-        super(assetName);
-  final String _assetName;
+  const AssetGenImage(String assetName) : super(assetName);
 
   Image image({
     Key? key,
@@ -120,5 +117,5 @@ class SvgGenImage {
     );
   }
 
-  String get path => _assetName;
+  String get path => assetName;
 }
