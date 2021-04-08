@@ -72,7 +72,7 @@ class AssetGenImage extends AssetImage {
     );
   }
 
-  String get path => _assetName;
+  String get path => assetName;
 }
 
 class SvgGenImage {
