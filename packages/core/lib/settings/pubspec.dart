@@ -52,6 +52,7 @@ class FlutterFonts {
 @JsonSerializable()
 class FlutterGen {
   FlutterGen({
+    required this.packageName,
     required this.output,
     required this.lineLength1,
     required this.lineLength0,
@@ -74,6 +75,9 @@ class FlutterGen {
       print('Warning: key lineLength is deprecated, use line_length instead.');
     }
   }
+
+  @JsonKey(name: 'package_name', required: true)
+  final String packageName;
 
   @JsonKey(name: 'output', required: true)
   final String output;

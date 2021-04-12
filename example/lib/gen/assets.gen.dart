@@ -9,6 +9,14 @@ import 'package:flutter/services.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controller.dart';
 
+class ExampleAssets {
+  ExampleAssets._();
+
+  static const $LibImagesGen images = $LibImagesGen();
+  static const $LibJsonGen json = $LibJsonGen();
+  static const $LibPicturesGen pictures = $LibPicturesGen();
+}
+
 class $PicturesGen {
   const $PicturesGen();
 
@@ -34,6 +42,7 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/profile.jpg');
   AssetGenImage get profilePng =>
       const AssetGenImage('assets/images/profile.png');
+  SvgGenImage get test => const SvgGenImage('assets/images/test.svg');
 }
 
 class $AssetsJsonGen {
@@ -54,6 +63,26 @@ class $AssetsUnknownGen {
   String get changelog => 'assets/unknown/CHANGELOG.md';
   String get readme => 'assets/unknown/README.md';
   String get unknownMimeType => 'assets/unknown/unknown_mime_type.bk';
+}
+
+class $LibImagesGen {
+  const $LibImagesGen();
+
+  SvgGenImage get fuchsia =>
+      const SvgGenImage('packages/example/images/fuchsia.svg');
+}
+
+class $LibJsonGen {
+  const $LibJsonGen();
+
+  String get fruits => 'packages/example/json/fruits.json';
+}
+
+class $LibPicturesGen {
+  const $LibPicturesGen();
+
+  AssetGenImage get chip5 =>
+      const AssetGenImage('packages/example/pictures/chip5.jpg');
 }
 
 class $AssetsImagesChip3Gen {

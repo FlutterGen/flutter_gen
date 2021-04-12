@@ -59,6 +59,9 @@ class FlutterGenerator {
       final generated = generateAssets(
         AssetsGenConfig.fromConfig(pubspecFile, config),
         formatter,
+        config.flutterGen,
+        config.pubspec.packageName,
+        config.flutterGen.packageName,
       );
       final assets =
           File(normalize(join(pubspecFile.parent.path, output, assetsName)));

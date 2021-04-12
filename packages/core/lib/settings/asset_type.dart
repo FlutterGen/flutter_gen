@@ -55,6 +55,9 @@ class AssetType {
   void addChild(AssetType type) {
     _children.add(type);
   }
+
+  AssetType copyWith({required String path}) =>
+      AssetType(path).._children.addAll(_children);
 }
 
 class AssetTypeIsUniqueWithoutExtension {

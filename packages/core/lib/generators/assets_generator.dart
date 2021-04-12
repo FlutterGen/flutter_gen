@@ -46,7 +46,6 @@ String generateAssets(
   AssetsGenConfig config,
   DartFormatter formatter,
   FlutterGen flutterGen,
-  FlutterAssets assets,
   String name,
   String packageName,
 ) {
@@ -69,16 +68,13 @@ String generateAssets(
 
   if (config.flutterGen.assets.isDotDelimiterStyle) {
     classesBuffer.writeln(
-        _dotDelimiterStyleDefinition(
-            config, name, packageName, integrations));
+        _dotDelimiterStyleDefinition(config, name, packageName, integrations));
   } else if (config.flutterGen.assets.isSnakeCaseStyle) {
-    classesBuffer
-        .writeln(_snakeCaseStyleDefinition(
-        config, name, packageName, integrations));
+    classesBuffer.writeln(
+        _snakeCaseStyleDefinition(config, name, packageName, integrations));
   } else if (config.flutterGen.assets.isCamelCaseStyle) {
-    classesBuffer
-        .writeln(_camelCaseStyleDefinition(
-        config, name, packageName, integrations));
+    classesBuffer.writeln(
+        _camelCaseStyleDefinition(config, name, packageName, integrations));
   } else {
     throw 'The value of "flutter_gen/assets/style." is incorrect.';
   }
@@ -135,7 +131,8 @@ List<String> _getAssetRelativePathList(
     } else if (FileSystemEntity.isFileSync(assetAbsolutePath)) {
       assetRelativePathList.add(relative(assetAbsolutePath, from: rootPath));
     } else if (assetName.startsWith('packages/$name')) {
-      assetRelativePathList.add(assetName.replaceFirst('packages/$name', 'lib'));
+      assetRelativePathList
+          .add(assetName.replaceFirst('packages/$name', 'lib'));
     }
   }
   return assetRelativePathList;
@@ -166,15 +163,15 @@ AssetType _constructAssetTree(List<String> assetRelativePathList, String name) {
 
 _Statement? _createAssetTypeStatement(
   String rootPath,
-  String name,
+  String packagesName,
   AssetType assetType,
   List<Integration> integrations,
   String name,
 ) {
   final childAssetAbsolutePath = join(rootPath, assetType.path);
-  _Statement statement;
-  final path = assetType.path.startsWith('lib') ?
-    assetType.path.replaceFirst('lib','packages/$name') : assetType.path;
+  final path = assetType.path.startsWith('lib')
+      ? assetType.path.replaceFirst('lib', 'packages/$packagesName')
+      : assetType.path;
   if (assetType.isSupportedImage) {
     return _Statement(
       type: 'AssetGenImage',
@@ -221,8 +218,8 @@ String _dotDelimiterStyleDefinition(
   List<Integration> integrations,
 ) {
   final buffer = StringBuffer();
-  final assetRelativePathList = _getAssetRelativePathList(
-      config.rootPath, config.assets, name);
+  final assetRelativePathList =
+      _getAssetRelativePathList(config.rootPath, config.assets, name);
   final assetsStaticStatements = <_Statement>[];
 
   final assetTypeQueue = ListQueue<AssetType>.from(
@@ -252,8 +249,8 @@ String _dotDelimiterStyleDefinition(
 
       if (assetType.isDefaultAssetsDirectory) {
         assetsStaticStatements.addAll(statements);
-      } else if(assetType.path == 'lib') {
-        buffer.writeln(_assetsClassDefinition(statements , packageName));
+      } else if (assetType.path == 'lib') {
+        buffer.writeln(_assetsClassDefinition(statements, packageName));
       } else {
         final className = '\$${assetType.path.camelCase().capitalize()}Gen';
         buffer.writeln(_directoryClassGenDefinition(className, statements));
@@ -328,22 +325,25 @@ String _flatStyleDefinition(
       _getAssetRelativePathList(config.rootPath, config.assets, name);
   buffer.writeln(_assetsClassDefinition(
       _createStatement(
-    pubspecFile,
-    assetRelativePathList.where((path) => path.startsWith('lib/'))
-        .toList(growable: false),
-    integrations,
-    name,
+        config,
+        assetRelativePathList
+            .where((path) => path.startsWith('lib/'))
+            .toList(growable: false),
+        integrations,
+        name,
         (assetType) => withoutExtension(assetType.path.replaceFirst('lib/', ''))
-        .replaceFirst(RegExp(r'asset(s)?'), '')
-        .snakeCase(),
-  ), packageName ));
+            .replaceFirst(RegExp(r'asset(s)?'), '')
+            .snakeCase(),
+      ),
+      packageName));
   buffer.writeln(_assetsClassDefinition(_createStatement(
-    pubspecFile,
-    assetRelativePathList.where((path) => !path.startsWith('lib/'))
+    config,
+    assetRelativePathList
+        .where((path) => !path.startsWith('lib/'))
         .toList(growable: false),
     integrations,
     name,
-        (assetType) => withoutExtension(assetType.path)
+    (assetType) => withoutExtension(assetType.path)
         .replaceFirst(RegExp(r'asset(s)?'), '')
         .snakeCase(),
   )));
@@ -351,25 +351,28 @@ String _flatStyleDefinition(
 }
 
 List<_Statement> _createStatement(
-    File pubspecFile,
-    List<String> assetRelativePathList,
-    List<Integration> integrations,
-    String name,
-    String Function(AssetType) createName,)=> assetRelativePathList.distinct()
-      .sorted()
-      .map((relativePath) => AssetType(relativePath))
-      .mapToIsUniqueWithoutExtension()
-      .map(
-        (e) => _createAssetTypeStatement(
-          config.rootPath,
-          name,
-          e.assetType,
-          integrations,
-          createName(e),
-        ),
-      )
-      .whereType<_Statement>()
-      .toList();
+  AssetsGenConfig config,
+  List<String> assetRelativePathList,
+  List<Integration> integrations,
+  String name,
+  String Function(AssetType) createName,
+) =>
+    assetRelativePathList
+        .distinct()
+        .sorted()
+        .map((relativePath) => AssetType(relativePath))
+        .mapToIsUniqueWithoutExtension()
+        .map(
+          (e) => _createAssetTypeStatement(
+            config.rootPath,
+            name,
+            e.assetType,
+            integrations,
+            createName(e.assetType),
+          ),
+        )
+        .whereType<_Statement>()
+        .toList();
 
 String _assetsClassDefinition(List<_Statement> statements,
     [String name = "Assets"]) {

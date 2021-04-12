@@ -50,6 +50,7 @@ FlutterFonts _$FlutterFontsFromJson(Map json) {
 FlutterGen _$FlutterGenFromJson(Map json) {
   return $checkedNew('FlutterGen', json, () {
     $checkKeys(json, requiredKeys: const [
+      'package_name',
       'output',
       'line_length',
       'lineLength',
@@ -60,6 +61,7 @@ FlutterGen _$FlutterGenFromJson(Map json) {
       'colors'
     ]);
     final val = FlutterGen(
+      packageName: $checkedConvert(json, 'package_name', (v) => v as String),
       output: $checkedConvert(json, 'output', (v) => v as String),
       lineLength1: $checkedConvert(json, 'line_length', (v) => v as int),
       lineLength0: $checkedConvert(json, 'lineLength', (v) => v as int),
@@ -75,6 +77,7 @@ FlutterGen _$FlutterGenFromJson(Map json) {
     );
     return val;
   }, fieldKeyMap: const {
+    'packageName': 'package_name',
     'lineLength1': 'line_length',
     'lineLength0': 'lineLength',
     'nullSafety': 'null_safety'
