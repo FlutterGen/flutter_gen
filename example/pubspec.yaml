@@ -3,34 +3,37 @@ description: A sample project using FlutterGen.
 
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
-  sdk: '>=2.9.0 <3.0.0'
-  flutter: '>=1.20.0'
+  sdk: '>=2.12.0 <3.0.0'
+  flutter: '>=2.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
-  flutter_svg: ^0.18.1
+  flutter_svg: ^0.21.0-nullsafety.0
+  flare_flutter: ^2.0.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner:
-  flutter_gen:
-    path: ../
+  build_runner: ^1.11.5
+  flutter_gen_runner:
+    path: ../packages/runner
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
-  lineLength: 80   # Optional (default: 80)
+  line_length: 80   # Optional (default: 80)
+  null_safety: true # Optional (default: true)
 
   integrations:
     flutter_svg: true
+    flare_flutter: true
 
   assets:
-    packageName: FlutterGenAsset
+    enabled: true
     # Assets.imagesChip
     # style: camel-case
 
@@ -40,7 +43,11 @@ flutter_gen:
     # Assets.images.chip (default style)
     # style: dot-delimiter
 
+  fonts:
+    enabled: true
+
   colors:
+    enabled: true
     inputs:
       - assets/color/colors.xml
       - assets/color/colors2.xml
@@ -49,9 +56,6 @@ flutter_gen:
 flutter:
   uses-material-design: true
   assets:
-    - packages/example/images/fuchsia.svg
-    - packages/example/json/fruits.json
-    - packages/example/pictures/chip5.jpg
     - assets/images/
     - assets/images/chip3/chip3.jpg
     - assets/images/chip3/chip3.jpg # duplicated
@@ -61,6 +65,9 @@ flutter:
     - assets/images/icons/paint.svg
     - assets/json/fruits.json
     - pictures/chip5.jpg
+    - assets/flare/
+    - assets/movie/
+    - assets/unknown/
   fonts:
     - family: Raleway
       fonts:
