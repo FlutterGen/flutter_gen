@@ -1,38 +1,41 @@
 setup:
 	flutter channel stable
 	flutter upgrade
-	flutter pub get
 	npm install
 
 dependencies:
-	dart pub get
+	cd packages/core/ && dart pub get
+	cd packages/runner/ && dart pub get
+	cd packages/command && dart pub get
 	cd example && flutter pub get && cd ..
 
 analyze:
-	dart analyze lib/
-	dart analyze bin/
+	dart analyze packages/core/lib/
+	dart analyze packages/runner/lib/
+	dart analyze packages/command/bin/
 
 format:
-	dart format lib/ bin/
+	dart format packages/core/lib/
+	dart format packages/runner/lib/
+	dart format packages/command/bin/
 
 build:
 	cd example && flutter build apk && cd ..
 
 generate-config-model:
-	cd _internal && dart pub run build_runner build && cd ..
-	cp _internal/lib/src/* lib/src/settings
+	cd packages/core/ && dart run build_runner build && cd ..
 
 generate-with-command:
-	dart bin/flutter_gen_command.dart --config example/pubspec.yaml
+	dart packages/command/bin/flutter_gen_command.dart --config example/pubspec.yaml
 
 generate-with-runner:
-	cd example && flutter packages pub run build_runner build --delete-conflicting-outputs cd ..
+	cd example && flutter packages pub run build_runner build --delete-conflicting-outputs && cd ..
 
 unit-test:
-	dart pub run test
+	cd packages/core/ && dart run test && cd ..
 
 coverage:
-	dart pub run test_coverage --no-badge
+	./scripts/coverage.sh packages/core
 	./scripts/codecov.sh ${CODECOV_TOKEN}
 
 setup-ubuntu:
@@ -42,9 +45,7 @@ setup-ubuntu:
 	sudo sh -c 'wget -qO- https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list'
 	sudo apt-get update
 	sudo apt-get install dart
-	/usr/lib/dart/bin/pub get
 
 setup-macos:
 	brew tap dart-lang/dart
 	brew install dart
-	dart pub get

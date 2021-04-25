@@ -74,18 +74,14 @@ $ dart pub global activate flutter_gen
 
 You might need to [set up your path](https://dart.dev/tools/pub/cmd/pub-global#running-a-script-from-your-path).
 
-### As a part of build_runner (Not recomended)
+### As a part of build_runner
 
-_Not recommended as it conflicts with flutter localization when using build_runner._
-
-<details><summary>Installation</summary>
-  
 1. Add [build_runner] and [FlutterGen] to your package's pubspec.yaml file:
 
 ```
 dev_dependencies:
   build_runner:
-  flutter_gen:
+  flutter_gen_runner:
 ```
 
 2. Install [FlutterGen]
@@ -99,8 +95,6 @@ $ flutter pub get
 ```
 $ flutter packages pub run build_runner build
 ```
-
-</details>
 
 ### Pub Dev Dependency
 
@@ -139,7 +133,8 @@ $ fluttergen -c example/pubspec.yaml
 
 ## Configuration file
 
-[FlutterGen] generates dart files based on the key **`flutter`** and **`flutter_gen`** of [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
+[FlutterGen] generates dart files based on the key **`flutter`** and **`flutter_gen`** of [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).  
+Default configuration can be found [here](#default-settings). 
 
 ```yaml
 # pubspec.yaml
@@ -694,7 +689,7 @@ class ColorName {
 </p>
 </details>
 
-### Default Settings
+### Default Configuration
 
 The following are the default settings.
 The options you set in `pubspec.yaml` will override the corresponding default options.
@@ -710,6 +705,7 @@ flutter_gen:
 
   assets:
     enabled: true
+    package_parameter_enabled: false
     style: dot-delimiter
     
   fonts:
@@ -741,19 +737,6 @@ Plugin issues that are not specific to [FlutterGen] can be filed in the [Flutter
 If you wish to contribute a change to any of the existing plugins in this repo,
 please review our [contribution guide](https://github.com/FlutterGen/flutter_gen/blob/master/CONTRIBUTING.md)
 and open a [pull request](https://github.com/FlutterGen/flutter_gen/pulls).
-
-### Milestone
-
-- [ ] Documentation (English proofreading)
-- [x] Assets generation
-- [x] Fonts generation
-- [x] Colors generation
-  - [x] Support xml
-- [x] Support change output path
-- [x] Support hierarchical generation  
-       'assets/image/home/label.png' => Assets.image.home.label  
-       'assets/image/detail/label.png' => Assets.image.detail.label
-- [ ] Platforms channels generation
 
 [build_runner]: https://pub.dev/packages/build_runner
 [fluttergen]: https://pub.dev/packages/flutter_gen

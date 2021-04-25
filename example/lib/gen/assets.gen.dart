@@ -30,7 +30,10 @@ class $AssetsImagesGen {
   $AssetsImagesChip4Gen get chip4 => const $AssetsImagesChip4Gen();
   $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
-  AssetGenImage get profile => const AssetGenImage('assets/images/profile.jpg');
+  AssetGenImage get profileJpg =>
+      const AssetGenImage('assets/images/profile.jpg');
+  AssetGenImage get profilePng =>
+      const AssetGenImage('assets/images/profile.png');
 }
 
 class $AssetsJsonGen {
@@ -88,26 +91,23 @@ class Assets {
 }
 
 class AssetGenImage extends AssetImage {
-  const AssetGenImage(String assetName)
-      : _assetName = assetName,
-        super(assetName);
-  final String _assetName;
+  const AssetGenImage(String assetName) : super(assetName);
 
   Image image({
-    Key key,
-    ImageFrameBuilder frameBuilder,
-    ImageLoadingBuilder loadingBuilder,
-    ImageErrorWidgetBuilder errorBuilder,
-    String semanticLabel,
+    Key? key,
+    ImageFrameBuilder? frameBuilder,
+    ImageLoadingBuilder? loadingBuilder,
+    ImageErrorWidgetBuilder? errorBuilder,
+    String? semanticLabel,
     bool excludeFromSemantics = false,
-    double width,
-    double height,
-    Color color,
-    BlendMode colorBlendMode,
-    BoxFit fit,
+    double? width,
+    double? height,
+    Color? color,
+    BlendMode? colorBlendMode,
+    BoxFit? fit,
     AlignmentGeometry alignment = Alignment.center,
     ImageRepeat repeat = ImageRepeat.noRepeat,
-    Rect centerSlice,
+    Rect? centerSlice,
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
@@ -136,7 +136,7 @@ class AssetGenImage extends AssetImage {
     );
   }
 
-  String get path => _assetName;
+  String get path => assetName;
 }
 
 class SvgGenImage {
@@ -145,19 +145,19 @@ class SvgGenImage {
   final String _assetName;
 
   SvgPicture svg({
-    Key key,
+    Key? key,
     bool matchTextDirection = false,
-    AssetBundle bundle,
-    String package,
-    double width,
-    double height,
+    AssetBundle? bundle,
+    String? package,
+    double? width,
+    double? height,
     BoxFit fit = BoxFit.contain,
     AlignmentGeometry alignment = Alignment.center,
     bool allowDrawingOutsideViewBox = false,
-    WidgetBuilder placeholderBuilder,
-    Color color,
+    WidgetBuilder? placeholderBuilder,
+    Color? color,
     BlendMode colorBlendMode = BlendMode.srcIn,
-    String semanticsLabel,
+    String? semanticsLabel,
     bool excludeFromSemantics = false,
     Clip clipBehavior = Clip.hardEdge,
   }) {
@@ -190,18 +190,18 @@ class FlareGenImage {
   final String _assetName;
 
   FlareActor flare({
-    String boundsNode,
-    String animation,
+    String? boundsNode,
+    String? animation,
     BoxFit fit = BoxFit.contain,
     Alignment alignment = Alignment.center,
     bool isPaused = false,
     bool snapToEnd = false,
-    FlareController controller,
-    FlareCompletedCallback callback,
-    Color color,
+    FlareController? controller,
+    FlareCompletedCallback? callback,
+    Color? color,
     bool shouldClip = true,
     bool sizeFromArtboard = false,
-    String artboard,
+    String? artboard,
     bool antialias = true,
   }) {
     return FlareActor(
