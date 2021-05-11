@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - name: Checking out sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
 
       - name: Installing needed macOS dependencies
         if: matrix.os == 'macos-latest'
@@ -72,7 +72,7 @@ jobs:
 #
 #    steps:
 #      - name: Checking out sources
-#        uses: actions/checkout@v2
+#        uses: actions/checkout@v2.3.4
 #
 #      - name: Publish to pub.dev
 #        uses: sakebook/actions-flutter-pub-publisher@v1.3.1
