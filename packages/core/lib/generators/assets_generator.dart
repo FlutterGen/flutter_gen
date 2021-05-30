@@ -97,12 +97,7 @@ String generateAssets(
 
   final buffer = StringBuffer();
 
-  // TODO: Until null safety generalizes
-  if (config.flutterGen.nullSafety) {
-    buffer.writeln(header);
-  } else {
-    buffer.writeln(headerWithNoNullSafety);
-  }
+  buffer.writeln(header);
   buffer.writeln(importsBuffer.toString());
   buffer.writeln(classesBuffer.toString());
   return formatter.format(buffer.toString());

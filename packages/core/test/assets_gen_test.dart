@@ -85,8 +85,9 @@ void main() {
       expectedAssetsGen(pubspec, generated, fact);
     });
 
-    test('Assets with package parameter enabled', () async {
-      final pubspec = 'test_resources/pubspec_assets_package_parameter.yaml';
+    test('Assets with package parameter enabled disable null safety', () async {
+      final pubspec =
+          'test_resources/pubspec_assets_package_parameter_disable_null_safety.yaml';
       final fact =
           'test_resources/actual_data/assets_package_parameter_disable_null_safety.gen.dart';
       final generated =
