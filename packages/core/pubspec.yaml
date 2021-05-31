@@ -23,7 +23,7 @@ dependencies:
   collection: '>=1.15.0 <2.0.0'
   json_annotation: '>=4.0.0 <5.0.0'
 
-  # dart_style
+  dart_style: '>=2.0.0 <3.0.0'
   analyzer: '>=1.0.0 <2.0.0'
   args: '>=2.0.0 <3.0.0'
   pub_semver: '>=1.4.0 <3.0.0'
