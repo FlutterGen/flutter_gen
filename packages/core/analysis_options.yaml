@@ -1,0 +1,9 @@
+include: package:effective_dart/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - "lib/utils/dart_style/**"
+
+linter:
+  rules:
+    public_member_api_docs: false

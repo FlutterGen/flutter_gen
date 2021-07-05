@@ -12,19 +12,27 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
     steps:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
 
-      - name: Get dart dependencies.
-        run: make dependencies
+      - name: Set environment
+        run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+
+      - name: Get Dart and Flutter dependencies
+        run: |
+          make dependencies
 
       - name: Run tests for our dart project.
         run: |
           make unit-test
+
+      - name: Run coverage
+        if: matrix.os == 'ubuntu-latest'
+        run: |
           make coverage
 
       - name: Generate example
