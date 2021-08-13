@@ -17,7 +17,7 @@ void main() {
       final fact = 'test_resources/actual_data/colors.gen.dart';
       final generated = 'test_resources/lib/gen/colors.gen.dart';
 
-      expectedColorsGen(pubspec, generated, fact);
+      await expectedColorsGen(pubspec, generated, fact);
     });
 
     test('Wrong colors settings on pubspec.yaml', () async {
