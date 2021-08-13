@@ -28,6 +28,7 @@ jobs:
 
       - name: Get Dart and Flutter dependencies
         run: |
+          make dependencies
           melos bootstrap
 
       - name: Run tests for our dart project.
