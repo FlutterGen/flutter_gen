@@ -24,7 +24,7 @@ jobs:
 
       - name: Install melos
         run: |
-          dart pub global activate melos
+          flutter pub global activate melos
 
       - name: Get Dart and Flutter dependencies
         run: |
