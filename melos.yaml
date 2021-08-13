@@ -1,0 +1,7 @@
+name: FlutterGen
+
+packages:
+  - packages/**
+
+# TODO(mao): migrate from Makefile
+scripts:

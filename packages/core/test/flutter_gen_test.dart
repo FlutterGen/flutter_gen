@@ -59,7 +59,7 @@ void main() {
   });
 
   group('Test FlutterGenerator', () {
-    test('pubspec.yaml', () async {
+    test('pubspec_normal.yaml', () async {
       final pubspec = 'test_resources/pubspec.yaml';
       final assets = 'pubspec_assets.gen.dart';
       final colors = 'pubspec_colors.gen.dart';
