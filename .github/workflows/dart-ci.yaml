@@ -22,9 +22,14 @@ jobs:
       - name: Set environment
         run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
+      - name: Install melos
+        run: |
+          flutter pub global activate melos
+
       - name: Get Dart and Flutter dependencies
         run: |
           make dependencies
+          melos bootstrap
 
       - name: Run tests for our dart project.
         run: |

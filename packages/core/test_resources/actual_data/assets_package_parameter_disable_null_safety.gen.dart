@@ -1,3 +1,4 @@
+// @dart = 2.10
 /// GENERATED CODE - DO NOT MODIFY BY HAND
 /// *****************************************************
 ///  FlutterGen
@@ -98,7 +99,7 @@ class SvgGenImage {
     BoxFit fit = BoxFit.contain,
     AlignmentGeometry alignment = Alignment.center,
     bool allowDrawingOutsideViewBox = false,
-    WidgetBuilder? placeholderBuilder,
+    WidgetBuilder placeholderBuilder,
     Color color,
     BlendMode colorBlendMode = BlendMode.srcIn,
     String semanticsLabel,

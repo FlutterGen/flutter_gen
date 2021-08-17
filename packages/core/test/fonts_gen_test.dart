@@ -16,7 +16,7 @@ void main() {
       final fact = 'test_resources/actual_data/fonts.gen.dart';
       final generated = 'test_resources/lib/gen/fonts.gen.dart';
 
-      expectedFontsGen(pubspec, generated, fact);
+      await expectedFontsGen(pubspec, generated, fact);
     });
 
     test('Wrong fonts settings on pubspec.yaml', () async {
