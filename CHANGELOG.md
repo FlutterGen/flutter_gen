@@ -1,3 +1,14 @@
+## 3.1.2
+
+- [#117](https://github.com/FlutterGen/flutter_gen/issues/117) Update to analyzer 2.0.0.  
+#121 
+  ```yaml
+  dependency_overrides:
+    meta: ^1.7.0
+  ```
+
+- [#110](https://github.com/FlutterGen/flutter_gen/pull/110) Replace null safety dart style package.  
+
 ## 3.1.1
 
 New Feature & Bug fix
