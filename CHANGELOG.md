@@ -1,7 +1,7 @@
 ## 3.1.2
 
 - [#117](https://github.com/FlutterGen/flutter_gen/issues/117) Update to analyzer 2.0.0.  
-#121 
+[flutter_gen_runner (flutter_gen_core) 3.1.2 -> analyzer 2.0.0 workaround](https://github.com/FlutterGen/flutter_gen/issues/121)
   ```yaml
   dependency_overrides:
     meta: ^1.7.0
