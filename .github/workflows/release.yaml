@@ -22,16 +22,13 @@ jobs:
             target: x86_64-unknown-linux-gnu
 
     steps:
-      - name: Checking out sources
-        uses: actions/checkout@v2
-
-      - name: Installing needed macOS dependencies
-        if: matrix.os == 'macos-latest'
-        run: make setup-macos
-
-      - name: Installing needed Ubuntu dependencies
-        if: matrix.os == 'ubuntu-latest'
-        run: make setup-ubuntu
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '2.5.0'
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: '2.14.1'
 
       - name: Running build for macos
         if: matrix.os == 'macos-latest'
