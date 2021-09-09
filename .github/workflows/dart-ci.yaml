@@ -17,12 +17,15 @@ jobs:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'stable'
+          flutter-version: '2.5.0'
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: '2.14.1'
 
       - name: Set environment
         run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
-      - name: Get Dart and Flutter dependencies
+      - name: Get dependencies
         run: |
           make dependencies
 
