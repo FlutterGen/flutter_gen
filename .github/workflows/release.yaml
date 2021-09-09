@@ -30,11 +30,18 @@ jobs:
         with:
           sdk: '2.14.1'
 
+      - name: Set environment
+        run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+
+      - name: Get dependencies
+        run: |
+          make setup
+          melos run pub:get
+
       - name: Running build for macos
         if: matrix.os == 'macos-latest'
         run: |
           cd packages/command/
-          dart pub get
           mkdir -p bin/${{ matrix.target }}
           dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}/fluttergen
 
@@ -42,7 +49,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           cd packages/command/
-          /usr/lib/dart/bin/pub get
+          # /usr/lib/dart/bin/pub get
           mkdir -p bin/${{ matrix.target }}
           /usr/lib/dart/bin/dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}/fluttergen
 
