@@ -22,6 +22,7 @@ scripts:
     run: |
       melos exec -- exec dart run build_runner build
     select-package:
+      ignore: example
       depends-on: 'build_runner'
 
   build:

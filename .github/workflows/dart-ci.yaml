@@ -31,6 +31,7 @@ jobs:
           melos run pub:get
 
       - name: Run tests for our dart project.
+        if: matrix.os == 'ubuntu-latest'
         run: |
           melos run unit:test
 
