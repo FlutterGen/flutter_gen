@@ -35,8 +35,10 @@ class FlutterGenerator {
       return;
     }
 
-    final output = config.flutterGen.output;
-    final lineLength = config.flutterGen.lineLength;
+    final flutter = config.pubspec.flutter;
+    final flutterGen = config.pubspec.flutterGen;
+    final output = config.pubspec.flutterGen.output;
+    final lineLength = config.pubspec.flutterGen.lineLength;
     final formatter = DartFormatter(pageWidth: lineLength, lineEnding: '\n');
 
     final absoluteOutput =
@@ -45,17 +47,16 @@ class FlutterGenerator {
       absoluteOutput.createSync(recursive: true);
     }
 
-    if (config.flutterGen.colors.enabled &&
-        config.flutterGen.colors.inputs.isNotEmpty) {
+    if (flutterGen.colors.enabled && flutterGen.colors.inputs.isNotEmpty) {
       final generated =
-          generateColors(pubspecFile, formatter, config.flutterGen.colors);
+          generateColors(pubspecFile, formatter, flutterGen.colors);
       final colors =
           File(normalize(join(pubspecFile.parent.path, output, colorsName)));
       writeAsString(generated, file: colors);
       print('Generated: ${colors.absolute.path}');
     }
 
-    if (config.flutterGen.assets.enabled && config.flutter.assets.isNotEmpty) {
+    if (flutterGen.assets.enabled && flutter.assets.isNotEmpty) {
       final generated = generateAssets(
         AssetsGenConfig.fromConfig(pubspecFile, config),
         formatter,
@@ -66,8 +67,8 @@ class FlutterGenerator {
       print('Generated: ${assets.absolute.path}');
     }
 
-    if (config.flutterGen.fonts.enabled && config.flutter.fonts.isNotEmpty) {
-      final generated = generateFonts(formatter, config.flutter.fonts);
+    if (flutterGen.fonts.enabled && flutter.fonts.isNotEmpty) {
+      final generated = generateFonts(formatter, flutter.fonts);
       final fonts =
           File(normalize(join(pubspecFile.parent.path, output, fontsName)));
       writeAsString(generated, file: fonts);

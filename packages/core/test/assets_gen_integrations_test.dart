@@ -31,7 +31,7 @@ void main() {
       await expectedAssetsGen(pubspec, generated, fact);
 
       final integration = SvgIntegration('package_name',
-          nullSafety: config.flutterGen.nullSafety);
+          nullSafety: config.pubspec.flutterGen.nullSafety);
       expect(integration.className, 'SvgGenImage');
       expect(integration.classInstantiate('assets/path'),
           'SvgGenImage\(\'assets/path\'\)');
@@ -51,7 +51,7 @@ void main() {
       await expectedAssetsGen(pubspec, generated, fact);
 
       final integration =
-          FlareIntegration(nullSafety: config.flutterGen.nullSafety);
+          FlareIntegration(nullSafety: config.pubspec.flutterGen.nullSafety);
       expect(integration.className, 'FlareGenImage');
       expect(integration.classInstantiate('assets/path'),
           'FlareGenImage\(\'assets/path\'\)');
