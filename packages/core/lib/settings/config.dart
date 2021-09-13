@@ -35,7 +35,6 @@ name: $invalidStringValue
 flutter_gen:
   output: lib/gen/
   line_length: 80
-  null_safety: true
 
   integrations:
     flutter_svg: false

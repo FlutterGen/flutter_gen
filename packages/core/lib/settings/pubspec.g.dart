@@ -71,7 +71,6 @@ FlutterGen _$FlutterGenFromJson(Map json) => $checkedCreate(
           requiredKeys: const [
             'output',
             'line_length',
-            'null_safety',
             'assets',
             'fonts',
             'integrations',
@@ -81,7 +80,6 @@ FlutterGen _$FlutterGenFromJson(Map json) => $checkedCreate(
         final val = FlutterGen(
           output: $checkedConvert('output', (v) => v as String),
           lineLength: $checkedConvert('line_length', (v) => v as int),
-          nullSafety: $checkedConvert('null_safety', (v) => v as bool),
           assets: $checkedConvert(
               'assets', (v) => FlutterGenAssets.fromJson(v as Map)),
           fonts: $checkedConvert(
@@ -93,10 +91,7 @@ FlutterGen _$FlutterGenFromJson(Map json) => $checkedCreate(
         );
         return val;
       },
-      fieldKeyMap: const {
-        'lineLength': 'line_length',
-        'nullSafety': 'null_safety'
-      },
+      fieldKeyMap: const {'lineLength': 'line_length'},
     );
 
 FlutterGenColors _$FlutterGenColorsFromJson(Map json) => $checkedCreate(
