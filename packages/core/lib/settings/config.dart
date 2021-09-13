@@ -10,12 +10,6 @@ class Config {
   Config._({required this.pubspec});
 
   final Pubspec pubspec;
-
-  @Deprecated('Access from pubspec')
-  FlutterGen get flutterGen => pubspec.flutterGen;
-
-  @Deprecated('Access from pubspec')
-  Flutter get flutter => pubspec.flutter;
 }
 
 Future<Config> loadPubspecConfig(File pubspecFile) async {
@@ -40,8 +34,6 @@ name: $invalidStringValue
 
 flutter_gen:
   output: lib/gen/
-  # deprecated key
-  lineLength: -1
   line_length: 80
   null_safety: true
 

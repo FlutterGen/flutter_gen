@@ -24,10 +24,10 @@ void main() {
         File('test_resources/pubspec_fonts_no_family.yaml'),
       );
       final formatter = DartFormatter(
-          pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
+          pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 
       expect(() {
-        return generateFonts(formatter, config.flutter.fonts);
+        return generateFonts(formatter, config.pubspec.flutter.fonts);
       }, throwsA(isA<InvalidSettingsException>()));
     });
   });
