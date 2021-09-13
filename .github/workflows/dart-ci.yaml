@@ -23,7 +23,12 @@ jobs:
           sdk: '2.14.1'
 
       - name: Set environment
-        run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+        if: startsWith(matrix.os, 'macOS') || startsWith(matrix.os, 'ubuntu')
+        run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH'
+
+      - name: Set environment
+        if: startsWith(matrix.os, 'windows')
+        run: echo "%LOCALAPPDATA%\Pub\Cache\.pub-cache/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
       - name: Get dependencies
         run: |
@@ -31,12 +36,12 @@ jobs:
           melos run pub:get
 
       - name: Run tests for our dart project.
-        if: matrix.os == 'ubuntu-latest'
+        if: startsWith(matrix.os, 'ubuntu')
         run: |
           melos run unit:test
 
       - name: Run coverage
-        if: matrix.os == 'ubuntu-latest'
+        if: startsWith(matrix.os, 'ubuntu')
         run: |
           melos run coverage
 
