@@ -24,7 +24,7 @@ jobs:
 
       - name: Set environment
         if: startsWith(matrix.os, 'macOS') || startsWith(matrix.os, 'ubuntu')
-        run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH'
+        run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
       - name: Set environment
         if: startsWith(matrix.os, 'windows')
