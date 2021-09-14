@@ -1,19 +1,20 @@
 @TestOn('vm')
 import 'dart:io';
 
+import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/generators/assets_generator.dart';
 import 'package:flutter_gen_core/generators/colors_generator.dart';
 import 'package:flutter_gen_core/generators/fonts_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
-import 'package:flutter_gen_core/utils/dart_style/dart_style.dart';
 import 'package:path/path.dart';
 import 'package:test/test.dart';
 
 Future<void> clearTestResults() async {}
 
 /// Assets
-void expectedAssetsGen(String pubspec, String generated, String fact) async {
+Future<void> expectedAssetsGen(
+    String pubspec, String generated, String fact) async {
   await FlutterGenerator(File(pubspec), assetsName: basename(generated))
       .build();
 
@@ -35,7 +36,8 @@ void expectedAssetsGen(String pubspec, String generated, String fact) async {
 }
 
 /// Colors
-void expectedColorsGen(String pubspec, String generated, String fact) async {
+Future<void> expectedColorsGen(
+    String pubspec, String generated, String fact) async {
   await FlutterGenerator(File(pubspec)).build();
 
   final pubspecFile = File(pubspec);
@@ -55,7 +57,8 @@ void expectedColorsGen(String pubspec, String generated, String fact) async {
 }
 
 /// Fonts
-void expectedFontsGen(String pubspec, String generated, String fact) async {
+Future<void> expectedFontsGen(
+    String pubspec, String generated, String fact) async {
   await FlutterGenerator(File(pubspec)).build();
 
   final pubspecFile = File(pubspec);

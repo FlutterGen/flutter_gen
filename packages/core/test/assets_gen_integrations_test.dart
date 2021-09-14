@@ -17,7 +17,7 @@ void main() {
       final generated =
           'test_resources/lib/gen/assets_no_integrations.gen.dart';
 
-      expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec, generated, fact);
     });
 
     test('Assets with Svg integrations on pubspec.yaml', () async {
@@ -28,7 +28,7 @@ void main() {
           'test_resources/lib/gen/assets_svg_integrations.gen.dart';
       final config = await loadPubspecConfig(File(pubspec));
 
-      expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec, generated, fact);
 
       final integration = SvgIntegration('package_name',
           nullSafety: config.flutterGen.nullSafety);
@@ -48,7 +48,7 @@ void main() {
           'test_resources/lib/gen/assets_flare_integrations.gen.dart';
       final config = await loadPubspecConfig(File(pubspec));
 
-      expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec, generated, fact);
 
       final integration =
           FlareIntegration(nullSafety: config.flutterGen.nullSafety);
