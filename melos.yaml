@@ -14,7 +14,7 @@ scripts:
 
   pub:get: melos exec -- exec flutter pub get
 
-  analyze: melos exec -- exec dart analyze lib/
+  analyze: melos exec -- exec dart analyze .
   
   format: ./scripts/dartfmt.sh
 

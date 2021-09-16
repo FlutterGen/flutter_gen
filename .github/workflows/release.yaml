@@ -61,7 +61,6 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           cd packages/command/
-          # /usr/lib/dart/bin/pub get
           mkdir -p bin/${{ matrix.target }}
           /usr/lib/dart/bin/dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}/fluttergen
 
