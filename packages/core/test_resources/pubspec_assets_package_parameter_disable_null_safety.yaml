@@ -1,7 +1,6 @@
 name: test
 
 flutter_gen:
-  null_safety: false
   integrations:
     flutter_svg: true
   assets:
