@@ -2,7 +2,8 @@ include: package:effective_dart/analysis_options.yaml
 
 analyzer:
   exclude:
-    - "lib/utils/dart_style/**"
+    - '**/*.g.dart'
+    - '**/*.gen.dart'
 
 linter:
   rules:

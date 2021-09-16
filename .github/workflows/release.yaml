@@ -30,11 +30,30 @@ jobs:
         with:
           sdk: '2.14.1'
 
+      - name: Set environment for macos and ubuntu
+        if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
+        run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+
+      - name: Set environment for Windows
+        if: startsWith(matrix.os, 'windows')
+        run: echo "%LOCALAPPDATA%\Pub\Cache\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+      - name: Get dependencies for macos and ubuntu
+        if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
+        run: |
+          dart pub global activate melos
+          melos run pub:get
+    
+      - name: Get dependencies for Windows
+        if: startsWith(matrix.os, 'windows')
+        run: |
+          dart pub global activate melos 1.0.0-dev.3
+          melos run pub:get
+
       - name: Running build for macos
         if: matrix.os == 'macos-latest'
         run: |
           cd packages/command/
-          dart pub get
           mkdir -p bin/${{ matrix.target }}
           dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}/fluttergen
 
@@ -42,7 +61,6 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           cd packages/command/
-          /usr/lib/dart/bin/pub get
           mkdir -p bin/${{ matrix.target }}
           /usr/lib/dart/bin/dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}/fluttergen
 

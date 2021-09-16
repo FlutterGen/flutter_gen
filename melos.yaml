@@ -2,6 +2,55 @@ name: FlutterGen
 
 packages:
   - packages/**
+  - example/*
 
-# TODO(mao): migrate from Makefile
+ide:
+  intellij:
+    true
+  vscode:
+    true
+
 scripts:
+
+  pub:get: melos exec -- exec flutter pub get
+
+  analyze: melos exec -- exec dart analyze .
+  
+  format: ./scripts/dartfmt.sh
+
+  gen:build_runner:
+    run: |
+      melos exec -- exec dart run build_runner build
+    select-package:
+      ignore: example
+      depends-on: 'build_runner'
+
+  build:
+    run: |
+      melos exec -- exec flutter build apk
+    select-package:
+      scope: example
+
+  example:command:
+    run: |
+      melos exec \
+      -- exec dart ../packages/command/bin/flutter_gen_command.dart --config pubspec.yaml
+    select-package:
+      scope: example
+
+  example:build_runner:
+    run: |
+      melos exec \
+      -- exec flutter packages pub run build_runner build --delete-conflicting-outputs
+    select-package:
+      scope: example
+
+  unit:test: 
+    run: melos exec -- exec dart run test
+    select-package:
+      dir-exists: test
+
+  coverage:
+    run: |
+      ./scripts/coverage.sh packages/core
+      ./scripts/codecov.sh ${CODECOV_TOKEN}
