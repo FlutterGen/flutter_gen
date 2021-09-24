@@ -1,0 +1,8 @@
+{
+    "dart.flutterSdkPaths": [
+        "~/.asdf/installs/flutter/2.5.0-stable"
+    ],
+    "dart.sdkPaths": [
+        "/Users/a12622/.asdf/installs/dart/2.14.1/dart-sdk"
+    ]
+}
