@@ -12,7 +12,15 @@ ide:
 
 scripts:
 
-  pub:get: melos exec -- exec flutter pub get
+  pub:upgrade:
+    run: |
+      melos exec --flutter -- exec flutter pub upgrade
+      melos exec --no-flutter -- exec dart pub upgrade
+
+  pub:get:
+    run: |
+      melos exec --flutter -- exec flutter pub get
+      melos exec --no-flutter -- exec dart pub get
 
   analyze: melos exec -- exec dart analyze .
   
@@ -54,3 +62,4 @@ scripts:
     run: |
       ./scripts/coverage.sh packages/core
       ./scripts/codecov.sh ${CODECOV_TOKEN}
+
