@@ -16,9 +16,6 @@ dependencies:
   flutter_svg: ^0.22.0
   flare_flutter: ^3.0.2
 
-dependency_overrides:
-  meta: ^1.7.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -306,7 +306,7 @@ packages:
     source: hosted
     version: "0.12.10"
   meta:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: meta
       url: "https://pub.dartlang.org"
