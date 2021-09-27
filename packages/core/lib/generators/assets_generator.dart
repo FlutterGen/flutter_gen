@@ -88,6 +88,7 @@ String generateAssets(
   final buffer = StringBuffer();
 
   buffer.writeln(header);
+  buffer.writeln(ignoreAnalysis);
   buffer.writeln(importsBuffer.toString());
   buffer.writeln(classesBuffer.toString());
   return formatter.format(buffer.toString());

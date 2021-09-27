@@ -17,6 +17,7 @@ String generateFonts(
 
   final buffer = StringBuffer();
   buffer.writeln(header);
+  buffer.writeln(ignoreAnalysis);
   buffer.writeln('class FontFamily {');
   buffer.writeln('  FontFamily._();');
   buffer.writeln();
