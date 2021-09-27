@@ -7,6 +7,12 @@ String get header {
 ''';
 }
 
+String get ignoreAnalysis {
+  return '''// ignore_for_file: directives_ordering
+  
+''';
+}
+
 String import(String package) => 'import \'$package\';';
 
 // Replace to Posix style for Windows separator.
