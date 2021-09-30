@@ -168,7 +168,7 @@ packages:
       name: flutter_gen_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.2"
+    version: "4.0.0"
   frontend_server_client:
     dependency: transitive
     description:
