@@ -1,3 +1,14 @@
+## 4.0.0
+
+Features
+- [BREAKING] Ended support for Non null safety codes.
+- Use for `line_length` instead of `lineLength`.
+
+
+Development
+- Replace to [Melos](https://pub.dev/packages/melos).
+- Add VSCode setting.
+
 ## 3.1.2
 
 - [#117](https://github.com/FlutterGen/flutter_gen/issues/117) Update to analyzer 2.0.0.  

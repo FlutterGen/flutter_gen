@@ -53,40 +53,18 @@ class FlutterFonts {
 class FlutterGen {
   FlutterGen({
     required this.output,
-    required this.lineLength1,
-    required this.lineLength0,
-    required this.nullSafety,
+    required this.lineLength,
     required this.assets,
     required this.fonts,
     required this.integrations,
     required this.colors,
-  }) {
-    // ignore: deprecated_member_use_from_same_package
-    if (lineLength1 <= 0 && lineLength0 <= 0) {
-      throw ArgumentError.value(
-        // ignore: deprecated_member_use_from_same_package
-        lineLength1 <= 0 ? lineLength1 : lineLength0,
-        lineLength1 <= 0 ? 'line_length' : 'lineLength',
-      );
-    }
-    // ignore: deprecated_member_use_from_same_package
-    if (lineLength0 > 0) {
-      print('Warning: key lineLength is deprecated, use line_length instead.');
-    }
-  }
+  });
 
   @JsonKey(name: 'output', required: true)
   final String output;
 
   @JsonKey(name: 'line_length', required: true)
-  final int lineLength1;
-
-  @deprecated
-  @JsonKey(name: 'lineLength', required: true)
-  final int lineLength0;
-
-  @JsonKey(name: 'null_safety', required: true)
-  final bool nullSafety;
+  final int lineLength;
 
   @JsonKey(name: 'assets', required: true)
   final FlutterGenAssets assets;
@@ -99,10 +77,6 @@ class FlutterGen {
 
   @JsonKey(name: 'colors', required: true)
   final FlutterGenColors colors;
-
-  // Backwards compatible
-  // ignore: deprecated_member_use_from_same_package
-  int get lineLength => lineLength0 > 0 ? lineLength0 : lineLength1;
 
   factory FlutterGen.fromJson(Map json) => _$FlutterGenFromJson(json);
 }

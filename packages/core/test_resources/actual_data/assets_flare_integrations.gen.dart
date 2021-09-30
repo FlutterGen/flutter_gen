@@ -3,6 +3,8 @@
 ///  FlutterGen
 /// *****************************************************
 
+// ignore_for_file: directives_ordering
+
 import 'package:flutter/widgets.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controller.dart';

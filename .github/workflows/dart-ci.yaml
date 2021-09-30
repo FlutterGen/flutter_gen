@@ -23,27 +23,41 @@ jobs:
           sdk: '2.14.1'
 
       - name: Set environment
+        if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
         run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
-      - name: Get dependencies
+      - name: Set environment
+        if: startsWith(matrix.os, 'windows')
+        run: echo "%LOCALAPPDATA%\Pub\Cache\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+      - name: Get dependencies for macos and ubuntu
+        if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
         run: |
-          make dependencies
+          dart pub global activate melos
+          melos run pub:get
+    
+      - name: Get dependencies for Windows
+        if: startsWith(matrix.os, 'windows')
+        run: |
+          dart pub global activate melos 1.0.0-dev.3
+          melos run pub:get
 
       - name: Run tests for our dart project.
+        if: startsWith(matrix.os, 'ubuntu')
         run: |
-          make unit-test
+          melos run unit:test
 
       - name: Run coverage
-        if: matrix.os == 'ubuntu-latest'
+        if: startsWith(matrix.os, 'ubuntu')
         run: |
-          make coverage
+          melos run coverage
 
       - name: Generate example
         run: |
-          make generate-with-command
-          make generate-with-runner
+          melos run example:command
+          melos run example:build_runner
 
       - name: Check for any formatting and statically analyze the code.
         run: |
-          make format
-          make analyze
+          melos run format
+          melos run analyze

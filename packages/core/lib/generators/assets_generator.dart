@@ -55,12 +55,9 @@ String generateAssets(
   final classesBuffer = StringBuffer();
 
   final integrations = <Integration>[
-    // TODO: Until null safety generalizes
     if (config.flutterGen.integrations.flutterSvg)
-      SvgIntegration(config.packageParameterLiteral,
-          nullSafety: config.flutterGen.nullSafety),
-    if (config.flutterGen.integrations.flareFlutter)
-      FlareIntegration(nullSafety: config.flutterGen.nullSafety),
+      SvgIntegration(config.packageParameterLiteral),
+    if (config.flutterGen.integrations.flareFlutter) FlareIntegration(),
   ];
 
   if (config.flutterGen.assets.isDotDelimiterStyle) {
@@ -73,16 +70,9 @@ String generateAssets(
     throw 'The value of "flutter_gen/assets/style." is incorrect.';
   }
 
-  // TODO: Until null safety generalizes
-  if (config.flutterGen.nullSafety) {
-    classesBuffer.writeln(_assetGenImageClassDefinition(
-      config.packageParameterLiteral,
-    ));
-  } else {
-    classesBuffer.writeln(_assetGenImageClassDefinitionWithNoNullSafety(
-      config.packageParameterLiteral,
-    ));
-  }
+  classesBuffer.writeln(_assetGenImageClassDefinition(
+    config.packageParameterLiteral,
+  ));
 
   final imports = <String>{'package:flutter/widgets.dart'};
   integrations
@@ -97,12 +87,8 @@ String generateAssets(
 
   final buffer = StringBuffer();
 
-  // TODO: Until null safety generalizes
-  if (config.flutterGen.nullSafety) {
-    buffer.writeln(header);
-  } else {
-    buffer.writeln(headerWithNoNullSafety);
-  }
+  buffer.writeln(header);
+  buffer.writeln(ignoreAnalysis);
   buffer.writeln(importsBuffer.toString());
   buffer.writeln(classesBuffer.toString());
   return formatter.format(buffer.toString());
@@ -338,7 +324,6 @@ class $className {
 ''';
 }
 
-/// Null Safety
 String _assetGenImageClassDefinition(String packageName) {
   final optionalParameter =
       packageName.isNotEmpty ? ', package: \'$packageName\'' : '';
@@ -362,63 +347,6 @@ class AssetGenImage extends AssetImage {
     AlignmentGeometry alignment = Alignment.center,
     ImageRepeat repeat = ImageRepeat.noRepeat,
     Rect? centerSlice,
-    bool matchTextDirection = false,
-    bool gaplessPlayback = false,
-    bool isAntiAlias = false,
-    FilterQuality filterQuality = FilterQuality.low,
-  }) {
-    return Image(
-      key: key,
-      image: this,
-      frameBuilder: frameBuilder,
-      loadingBuilder: loadingBuilder,
-      errorBuilder: errorBuilder,
-      semanticLabel: semanticLabel,
-      excludeFromSemantics: excludeFromSemantics,
-      width: width,
-      height: height,
-      color: color,
-      colorBlendMode: colorBlendMode,
-      fit: fit,
-      alignment: alignment,
-      repeat: repeat,
-      centerSlice: centerSlice,
-      matchTextDirection: matchTextDirection,
-      gaplessPlayback: gaplessPlayback,
-      isAntiAlias: isAntiAlias,
-      filterQuality: filterQuality,
-    );
-  }
-
-  String get path => assetName;
-}
-''';
-}
-
-/// No Null Safety
-/// TODO: Until null safety generalizes
-String _assetGenImageClassDefinitionWithNoNullSafety(String packageName) {
-  final optionalParameter =
-      packageName.isNotEmpty ? ', package: \'$packageName\'' : '';
-  return '''
-class AssetGenImage extends AssetImage {
-  const AssetGenImage(String assetName) : super(assetName$optionalParameter);
-
-  Image image({
-    Key key,
-    ImageFrameBuilder frameBuilder,
-    ImageLoadingBuilder loadingBuilder,
-    ImageErrorWidgetBuilder errorBuilder,
-    String semanticLabel,
-    bool excludeFromSemantics = false,
-    double width,
-    double height,
-    Color color,
-    BlendMode colorBlendMode,
-    BoxFit fit,
-    AlignmentGeometry alignment = Alignment.center,
-    ImageRepeat repeat = ImageRepeat.noRepeat,
-    Rect centerSlice,
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,

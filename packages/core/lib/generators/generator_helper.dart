@@ -7,14 +7,9 @@ String get header {
 ''';
 }
 
-/// TODO: Until null safety generalizes
-String get headerWithNoNullSafety {
-  return '''// @dart = 2.10
-/// GENERATED CODE - DO NOT MODIFY BY HAND
-/// *****************************************************
-///  FlutterGen
-/// *****************************************************
-
+String get ignoreAnalysis {
+  return '''// ignore_for_file: directives_ordering
+  
 ''';
 }
 

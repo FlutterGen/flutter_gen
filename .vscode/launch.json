@@ -1,0 +1,33 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run example on main.dart",
+            "program": "${workspaceFolder}/example/lib/main.dart",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--debug"
+            ]
+        },
+        {
+            "name": "Run on build_runner",
+            "program": "${workspaceFolder}/example/.dart_tool/build/entrypoint/build.dart",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "build"
+            ]
+        },
+        {
+            "name": "Run on flutter_gen_command",
+            "program": "${workspaceFolder}/packages/command/bin/flutter_gen_command.dart",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--config",
+                "${workspaceFolder}/example/pubspec.yaml"
+            ]
+        },
+    ]
+}

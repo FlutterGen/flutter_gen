@@ -3,6 +3,8 @@
 ///  FlutterGen
 /// *****************************************************
 
+// ignore_for_file: directives_ordering
+
 import 'package:flutter/painting.dart';
 import 'package:flutter/material.dart';
 

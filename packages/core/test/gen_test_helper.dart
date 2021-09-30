@@ -20,8 +20,8 @@ Future<void> expectedAssetsGen(
 
   final pubspecFile = File(pubspec);
   final config = await loadPubspecConfig(pubspecFile);
-  final formatter =
-      DartFormatter(pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
+  final formatter = DartFormatter(
+      pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 
   final actual = generateAssets(
       AssetsGenConfig.fromConfig(pubspecFile, config), formatter);
@@ -42,11 +42,11 @@ Future<void> expectedColorsGen(
 
   final pubspecFile = File(pubspec);
   final config = await loadPubspecConfig(pubspecFile);
-  final formatter =
-      DartFormatter(pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
+  final formatter = DartFormatter(
+      pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 
   final actual =
-      generateColors(pubspecFile, formatter, config.flutterGen.colors);
+      generateColors(pubspecFile, formatter, config.pubspec.flutterGen.colors);
   final expected = File(fact).readAsStringSync().replaceAll('\r\n', '\n');
 
   expect(
@@ -63,10 +63,10 @@ Future<void> expectedFontsGen(
 
   final pubspecFile = File(pubspec);
   final config = await loadPubspecConfig(pubspecFile);
-  final formatter =
-      DartFormatter(pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
+  final formatter = DartFormatter(
+      pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 
-  final actual = generateFonts(formatter, config.flutter.fonts);
+  final actual = generateFonts(formatter, config.pubspec.flutter.fonts);
   final expected = File(fact).readAsStringSync().replaceAll('\r\n', '\n');
 
   expect(

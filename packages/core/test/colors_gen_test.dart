@@ -24,10 +24,11 @@ void main() {
       final pubspec = File('test_resources/pubspec_colors_no_inputs.yaml');
       final config = await loadPubspecConfig(pubspec);
       final formatter = DartFormatter(
-          pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
+          pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 
       expect(() {
-        return generateColors(pubspec, formatter, config.flutterGen.colors);
+        return generateColors(
+            pubspec, formatter, config.pubspec.flutterGen.colors);
       }, throwsA(isA<InvalidSettingsException>()));
     });
 
@@ -35,10 +36,11 @@ void main() {
       final pubspec = File('test_resources/pubspec_colors_no_inputs_list.yaml');
       final config = await loadPubspecConfig(pubspec);
       final formatter = DartFormatter(
-          pageWidth: config.flutterGen.lineLength, lineEnding: '\n');
+          pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 
       expect(() {
-        return generateColors(pubspec, formatter, config.flutterGen.colors);
+        return generateColors(
+            pubspec, formatter, config.pubspec.flutterGen.colors);
       }, throwsA(isA<InvalidSettingsException>()));
     });
 
