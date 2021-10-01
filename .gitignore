@@ -106,9 +106,6 @@ node_modules/
 # **/*.g.dart
 # **/*.gen.dart
 
-# FVM
-.fvm/flutter_sdk
-
 ## Test coverage
 coverage/
 coverage.lcov
