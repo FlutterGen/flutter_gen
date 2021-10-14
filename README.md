@@ -671,27 +671,44 @@ The options you set in `pubspec.yaml` will override the corresponding default op
 
 ```yaml
 flutter_gen:
+  # Optional
   output: lib/gen/
+  # Optional
   line_length: 80
 
+  # Optional
   integrations:
     flutter_svg: false
     flare_flutter: false
 
   assets:
+    # Optional
     enabled: true
+    # Optional
+    # Set to true if you want this package to be a package dependency
+    # See: https://flutter.dev/docs/development/ui/assets-and-images#from-packages
     package_parameter_enabled: false
+    # Optional
+    # Avaliable values:
+    # - camel-case
+    # - snake-case
+    # - dot-delimiter
     style: dot-delimiter
     
   fonts:
+    # Optional
     enabled: true
 
   colors:
+    # Optional
     enabled: true
+    # Optional
     inputs: []
 
 flutter:
+  # See: https://flutter.dev/docs/development/ui/assets-and-images#specifying-assets
   assets: []
+  # See: https://flutter.dev/docs/cookbook/design/fonts#2-declare-the-font-in-the-pubspec
   fonts: []
 ```
 
