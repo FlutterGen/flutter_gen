@@ -109,7 +109,7 @@ $ fluttergen -c example/pubspec.yaml
 ## Configuration file
 
 [FlutterGen] generates dart files based on the key **`flutter`** and **`flutter_gen`** of [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).  
-Default configuration can be found [here](#default_configuration). 
+Default configuration can be found [here](#default-configuration). 
 
 ```yaml
 # pubspec.yaml
