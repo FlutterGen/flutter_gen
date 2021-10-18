@@ -23,7 +23,7 @@ dev_dependencies:
   flutter_gen_runner:
     path: ../packages/runner
 
-  flutter_lints: ">=1.0.4 < 2.0.0"
+  flutter_lints: '>=1.0.4 < 2.0.0'
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
