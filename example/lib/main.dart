@@ -23,7 +23,7 @@ void main() {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               // Auto generated image from FlutterGen.
-              Container(
+              SizedBox(
                 width: 200,
                 height: 200,
                 child: Assets.flare.penguin.flare(
@@ -32,14 +32,14 @@ void main() {
                 ),
               ),
               Image(image: Assets.images.chip1),
-              Assets.images.icons.kmm.svg(key: Key("kmm_svg")),
+              Assets.images.icons.kmm.svg(key: const Key("kmm_svg")),
               Assets.images.icons.fuchsia.svg(),
               Assets.images.icons.paint.svg(
                 width: 120,
                 height: 120,
               ),
               Assets.pictures.chip5.image(
-                key: Key("chip5"),
+                key: const Key("chip5"),
                 width: 120,
                 height: 120,
                 fit: BoxFit.scaleDown,

@@ -24,6 +24,7 @@ void main(List<String> args) {
   try {
     results = parser.parse(args);
     if (results.wasParsed('help')) {
+      // ignore: avoid_print
       print(parser.usage);
       return;
     }

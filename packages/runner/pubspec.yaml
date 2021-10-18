@@ -15,7 +15,7 @@ dependencies:
   build: '>=2.0.0 <3.0.0'
 
 dev_dependencies:
-  effective_dart: '>=1.3.1 <2.0.0'
+  flutter_lints: ">=1.0.4 < 2.0.0"
   build_test: '>=2.0.0 <3.0.0'
 
 # TODO: When publish to pub.dev, disabled the dependencies_override

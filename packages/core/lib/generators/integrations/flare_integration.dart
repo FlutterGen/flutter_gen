@@ -56,7 +56,7 @@ class FlareIntegration extends Integration {
   String get className => 'FlareGenImage';
 
   @override
-  String classInstantiate(String path) => 'FlareGenImage\(\'$path\'\)';
+  String classInstantiate(String path) => 'FlareGenImage(\'$path\')';
 
   @override
   bool isSupport(AssetType type) => type.extension == '.flr';

@@ -13,9 +13,9 @@ import 'gen_test_helper.dart';
 void main() {
   group('Test Color generator', () {
     test('Colors on pubspec.yaml', () async {
-      final pubspec = 'test_resources/pubspec_colors.yaml';
-      final fact = 'test_resources/actual_data/colors.gen.dart';
-      final generated = 'test_resources/lib/gen/colors.gen.dart';
+      const pubspec = 'test_resources/pubspec_colors.yaml';
+      const fact = 'test_resources/actual_data/colors.gen.dart';
+      const generated = 'test_resources/lib/gen/colors.gen.dart';
 
       await expectedColorsGen(pubspec, generated, fact);
     });
@@ -45,11 +45,11 @@ void main() {
     });
 
     test('ColorPath Tests', () async {
-      final colorPath = ColorPath('test_resources/assets/color/colors.xml');
+      const colorPath = ColorPath('test_resources/assets/color/colors.xml');
       expect(colorPath.mime, 'application/xml');
       expect(colorPath.isXml, isTrue);
 
-      final wrongColorPath =
+      const wrongColorPath =
           ColorPath('test_resources/assets/json/fruits.json');
       expect(wrongColorPath.isXml, isFalse);
     });
