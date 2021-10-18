@@ -64,6 +64,7 @@ flutter:
     - assets/images/icons/fuchsia.svg
     - assets/images/icons/kmm.svg
     - assets/images/icons/paint.svg
+    - assets/images/icons/dart@test.svg
     - assets/json/fruits.json
     - pictures/chip5.jpg
     - assets/flare/

@@ -22,6 +22,7 @@ List<String> _intoWords(String path) {
     '_',
     '\\',
     '-',
+    '@',
   ];
   final _upperAlphaRegex = RegExp(r'[A-Z]');
   final _lowerAlphaRegex = RegExp(r'[a-z]');
