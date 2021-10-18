@@ -18,6 +18,8 @@ class Assets {
       AssetGenImage('assets/images/chip3/chip3.jpg');
   static const AssetGenImage images_chip4_chip4 =
       AssetGenImage('assets/images/chip4/chip4.jpg');
+  static const String images_icons_dart_test = 
+      'assets/images/icons/dart@test.svg';
   static const String images_icons_fuchsia = 'assets/images/icons/fuchsia.svg';
   static const String images_icons_kmm = 'assets/images/icons/kmm.svg';
   static const String images_icons_paint = 'assets/images/icons/paint.svg';

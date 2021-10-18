@@ -73,6 +73,8 @@ class $AssetsImagesChip4Gen {
 class $AssetsImagesIconsGen {
   const $AssetsImagesIconsGen();
 
+  SvgGenImage get dartTest =>
+      const SvgGenImage('assets/images/icons/dart@test.svg');
   SvgGenImage get fuchsia =>
       const SvgGenImage('assets/images/icons/fuchsia.svg');
   SvgGenImage get kmm => const SvgGenImage('assets/images/icons/kmm.svg');

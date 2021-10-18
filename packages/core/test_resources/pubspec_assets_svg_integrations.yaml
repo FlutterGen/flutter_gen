@@ -9,4 +9,5 @@ flutter_gen:
 
 flutter:
   assets:
+    - assets/images/icons/dart@test.svg
     - assets/images/icons/fuchsia.svg
