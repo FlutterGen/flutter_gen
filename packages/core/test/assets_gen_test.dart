@@ -12,43 +12,43 @@ import 'gen_test_helper.dart';
 void main() {
   group('Test Assets generator', () {
     test('Assets on pubspec.yaml', () async {
-      final pubspec = 'test_resources/pubspec_assets.yaml';
-      final fact = 'test_resources/actual_data/assets.gen.dart';
-      final generated = 'test_resources/lib/gen/assets.gen.dart';
+      const pubspec = 'test_resources/pubspec_assets.yaml';
+      const fact = 'test_resources/actual_data/assets.gen.dart';
+      const generated = 'test_resources/lib/gen/assets.gen.dart';
 
       await expectedAssetsGen(pubspec, generated, fact);
     });
 
     test('Assets snake-case style on pubspec.yaml', () async {
-      final pubspec = 'test_resources/pubspec_assets_snake_case.yaml';
-      final fact = 'test_resources/actual_data/assets_snake_case.gen.dart';
-      final generated = 'test_resources/lib/gen/assets_snake_case.gen.dart';
+      const pubspec = 'test_resources/pubspec_assets_snake_case.yaml';
+      const fact = 'test_resources/actual_data/assets_snake_case.gen.dart';
+      const generated = 'test_resources/lib/gen/assets_snake_case.gen.dart';
 
       await expectedAssetsGen(pubspec, generated, fact);
     });
 
     test('Assets camel-case style on pubspec.yaml', () async {
-      final pubspec = 'test_resources/pubspec_assets_camel_case.yaml';
-      final fact = 'test_resources/actual_data/assets_camel_case.gen.dart';
-      final generated = 'test_resources/lib/gen/assets_camel_case.gen.dart';
+      const pubspec = 'test_resources/pubspec_assets_camel_case.yaml';
+      const fact = 'test_resources/actual_data/assets_camel_case.gen.dart';
+      const generated = 'test_resources/lib/gen/assets_camel_case.gen.dart';
 
       await expectedAssetsGen(pubspec, generated, fact);
     });
 
     test('Assets with Unknown mime type on pubspec.yaml', () async {
-      final pubspec = 'test_resources/pubspec_unknown_mime_type.yaml';
-      final fact =
+      const pubspec = 'test_resources/pubspec_unknown_mime_type.yaml';
+      const fact =
           'test_resources/actual_data/assets_unknown_mime_type.gen.dart';
-      final generated =
+      const generated =
           'test_resources/lib/gen/assets_unknown_mime_type.gen.dart';
 
       await expectedAssetsGen(pubspec, generated, fact);
     });
 
     test('Assets with ignore files on pubspec.yaml', () async {
-      final pubspec = 'test_resources/pubspec_ignore_files.yaml';
-      final fact = 'test_resources/actual_data/assets_ignore_files.gen.dart';
-      final generated = 'test_resources/lib/gen/assets_ignore_files.gen.dart';
+      const pubspec = 'test_resources/pubspec_ignore_files.yaml';
+      const fact = 'test_resources/actual_data/assets_ignore_files.gen.dart';
+      const generated = 'test_resources/lib/gen/assets_ignore_files.gen.dart';
 
       await expectedAssetsGen(pubspec, generated, fact);
     });
@@ -66,10 +66,10 @@ void main() {
     });
 
     test('Assets with package parameter enabled', () async {
-      final pubspec = 'test_resources/pubspec_assets_package_parameter.yaml';
-      final fact =
+      const pubspec = 'test_resources/pubspec_assets_package_parameter.yaml';
+      const fact =
           'test_resources/actual_data/assets_package_parameter.gen.dart';
-      final generated =
+      const generated =
           'test_resources/lib/gen/assets_package_parameter.gen.dart';
 
       await expectedAssetsGen(pubspec, generated, fact);

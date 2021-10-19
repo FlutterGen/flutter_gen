@@ -18,7 +18,7 @@ String generateColors(
   FlutterGenColors colors,
 ) {
   if (colors.inputs.isEmpty) {
-    throw InvalidSettingsException(
+    throw const InvalidSettingsException(
         'The value of "flutter_gen/colors:" is incorrect.');
   }
 

@@ -47,7 +47,7 @@ String generateAssets(
   DartFormatter formatter,
 ) {
   if (config.assets.isEmpty) {
-    throw InvalidSettingsException(
+    throw const InvalidSettingsException(
         'The value of "flutter/assets:" is incorrect.');
   }
 
@@ -148,7 +148,7 @@ _Statement? _createAssetTypeStatement(
     return _Statement(
       type: 'AssetGenImage',
       name: name,
-      value: 'AssetGenImage\(\'${posixStyle(assetType.path)}\'\)',
+      value: 'AssetGenImage(\'${posixStyle(assetType.path)}\')',
       isConstConstructor: true,
     );
   } else if (FileSystemEntity.isDirectorySync(childAssetAbsolutePath)) {
@@ -156,7 +156,7 @@ _Statement? _createAssetTypeStatement(
     return _Statement(
       type: childClassName,
       name: name,
-      value: '$childClassName\(\)',
+      value: '$childClassName()',
       isConstConstructor: true,
     );
   } else if (!assetType.isIgnoreFile) {
@@ -227,7 +227,7 @@ String _dotDelimiterStyleDefinition(
           assetsStaticStatements.add(_Statement(
             type: className,
             name: assetType.baseName.camelCase(),
-            value: '$className\(\)',
+            value: '$className()',
             isConstConstructor: true,
           ));
         }

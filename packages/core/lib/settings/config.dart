@@ -13,6 +13,7 @@ class Config {
 }
 
 Future<Config> loadPubspecConfig(File pubspecFile) async {
+  // ignore: avoid_print
   print('FlutterGen Loading ... '
       '${normalize(join(
     basename(pubspecFile.parent.path),
