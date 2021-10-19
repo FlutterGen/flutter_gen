@@ -27,16 +27,16 @@ class ColorName {
   static const Color black60 = Color(0x99000000);
 
   /// MaterialColor:
-  /// 	50: #FFF9E5E5
-  /// 	100: #FFF1BFBF
-  /// 	200: #FFE79595
-  /// 	300: #FFDD6A6A
-  /// 	400: #FFD64A4A
-  /// 	500: #FFCF2A2A
-  /// 	600: #FFCA2525
-  /// 	700: #FFC31F1F
-  /// 	800: #FFBD1919
-  /// 	900: #FFB20F0F
+  ///   50: #FFF9E5E5
+  ///   100: #FFF1BFBF
+  ///   200: #FFE79595
+  ///   300: #FFDD6A6A
+  ///   400: #FFD64A4A
+  ///   500: #FFCF2A2A
+  ///   600: #FFCA2525
+  ///   700: #FFC31F1F
+  ///   800: #FFBD1919
+  ///   900: #FFB20F0F
   static const MaterialColor crimsonRed = MaterialColor(
     0xFFCF2A2A,
     <int, Color>{
@@ -63,16 +63,16 @@ class ColorName {
   static const Color white = Color(0xFFFFFFFF);
 
   /// MaterialColor:
-  /// 	50: #FFFBF2E5
-  /// 	100: #FFF5DFBE
-  /// 	200: #FFEFCA93
-  /// 	300: #FFE9B568
-  /// 	400: #FFE4A547
-  /// 	500: #FFDF9527
-  /// 	600: #FFDB8D23
-  /// 	700: #FFD7821D
-  /// 	800: #FFD27817
-  /// 	900: #FFCA670E
+  ///   50: #FFFBF2E5
+  ///   100: #FFF5DFBE
+  ///   200: #FFEFCA93
+  ///   300: #FFE9B568
+  ///   400: #FFE4A547
+  ///   500: #FFDF9527
+  ///   600: #FFDB8D23
+  ///   700: #FFD7821D
+  ///   800: #FFD27817
+  ///   900: #FFCA670E
   static const MaterialColor yellowOcher = MaterialColor(
     0xFFDF9527,
     <int, Color>{
@@ -90,10 +90,10 @@ class ColorName {
   );
 
   /// MaterialAccentColor:
-  ///		100: #FFFFE8E0
-  ///		200: #FFFFBCA3
-  ///		400: #FFFFA989
-  ///		700: #FFFF9E7A
+  ///   100: #FFFFE8E0
+  ///   200: #FFFFBCA3
+  ///   400: #FFFFA989
+  ///   700: #FFFF9E7A
   static const MaterialAccentColor yellowOcherAccent = MaterialAccentColor(
     0xFFFFBCA3,
     <int, Color>{

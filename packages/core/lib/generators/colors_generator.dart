@@ -62,7 +62,7 @@ String _colorStatement(_Color color) {
   if (color.isMaterial) {
     final swatch = swatchFromPrimaryHex(color.hex);
     final statement = '''/// MaterialColor: 
-        ${swatch.entries.map((e) => '/// \t${e.key}: ${hexFromColor(e.value)}').join('\n')}
+        ${swatch.entries.map((e) => '///   ${e.key}: ${hexFromColor(e.value)}').join('\n')}
         static const MaterialColor ${color.name.camelCase()} = MaterialColor(
     ${swatch[500]},
     <int, Color>{
@@ -74,7 +74,7 @@ String _colorStatement(_Color color) {
   if (color.isMaterialAccent) {
     final accentSwatch = accentSwatchFromPrimaryHex(color.hex);
     final statement = '''/// MaterialAccentColor: 
-        ${accentSwatch.entries.map((e) => '///\t\t${e.key}: ${hexFromColor(e.value)}').join('\n')}
+        ${accentSwatch.entries.map((e) => '///   ${e.key}: ${hexFromColor(e.value)}').join('\n')}
         static const MaterialAccentColor ${color.name.camelCase()}Accent = MaterialAccentColor(
    ${accentSwatch[200]},
    <int, Color>{
