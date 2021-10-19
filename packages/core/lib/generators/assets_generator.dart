@@ -147,17 +147,21 @@ _Statement? _createAssetTypeStatement(
   if (assetType.isSupportedImage) {
     return _Statement(
       type: 'AssetGenImage',
+      path: assetType.path,
       name: name,
       value: 'AssetGenImage(\'${posixStyle(assetType.path)}\')',
       isConstConstructor: true,
+      isDirectory: false,
     );
   } else if (FileSystemEntity.isDirectorySync(childAssetAbsolutePath)) {
     final childClassName = '\$${assetType.path.camelCase().capitalize()}Gen';
     return _Statement(
       type: childClassName,
+      path: assetType.path,
       name: name,
       value: '$childClassName()',
       isConstConstructor: true,
+      isDirectory: true,
     );
   } else if (!assetType.isIgnoreFile) {
     final integration = integrations.firstWhereOrNull(
@@ -166,17 +170,21 @@ _Statement? _createAssetTypeStatement(
     if (integration == null) {
       return _Statement(
         type: 'String',
+        path: assetType.path,
         name: name,
         value: '\'${posixStyle(assetType.path)}\'',
         isConstConstructor: false,
+        isDirectory: false,
       );
     } else {
       integration.isEnabled = true;
       return _Statement(
         type: integration.className,
+        path: assetType.path,
         name: name,
         value: integration.classInstantiate(posixStyle(assetType.path)),
         isConstConstructor: integration.isConstConstructor,
+        isDirectory: false,
       );
     }
   }
@@ -226,9 +234,11 @@ String _dotDelimiterStyleDefinition(
         if (dirname(assetType.path) == '.') {
           assetsStaticStatements.add(_Statement(
             type: className,
+            path: assetType.path,
             name: assetType.baseName.camelCase(),
             value: '$className()',
             isConstConstructor: true,
+            isDirectory: false,
           ));
         }
       }
@@ -236,7 +246,8 @@ String _dotDelimiterStyleDefinition(
       assetTypeQueue.addAll(assetType.children);
     }
   }
-  buffer.writeln(_assetsClassDefinition(assetsStaticStatements));
+  buffer
+      .writeln(_dotDelimiterStyleAssetsClassDefinition(assetsStaticStatements));
   return buffer.toString();
 }
 
@@ -292,13 +303,24 @@ String _flatStyleDefinition(
       )
       .whereType<_Statement>()
       .toList();
-  return _assetsClassDefinition(statements);
+  return _flatStyleAssetsClassDefinition(statements);
 }
 
-String _assetsClassDefinition(List<_Statement> statements) {
-  final statementsBlock = statements
-      .map((statement) => '  ${statement.toStaticFieldString()}')
-      .join('\n');
+String _flatStyleAssetsClassDefinition(List<_Statement> statements) {
+  final statementsBlock =
+      statements.map((statement) => '''${statement.toDartDocString()}
+           ${statement.toStaticFieldString()}
+           ''').join('\n');
+  return _assetsClassDefinition(statementsBlock);
+}
+
+String _dotDelimiterStyleAssetsClassDefinition(List<_Statement> statements) {
+  final statementsBlock =
+      statements.map((statement) => statement.toStaticFieldString()).join('\n');
+  return _assetsClassDefinition(statementsBlock);
+}
+
+String _assetsClassDefinition(String statementsBlock) {
   return '''
 class Assets {
   Assets._();
@@ -313,7 +335,11 @@ String _directoryClassGenDefinition(
   List<_Statement> statements,
 ) {
   final statementsBlock = statements
-      .map((statement) => '  ${statement.toGetterString()}')
+      .map((statement) => statement.isDirectory
+          ? statement.toGetterString()
+          : '''${statement.toDartDocString()}
+          ${statement.toGetterString()}
+          ''')
       .join('\n');
   return '''
 class $className {
@@ -383,15 +409,21 @@ class AssetGenImage extends AssetImage {
 class _Statement {
   const _Statement({
     required this.type,
+    required this.path,
     required this.name,
     required this.value,
     required this.isConstConstructor,
+    required this.isDirectory,
   });
 
   final String type;
+  final String path;
   final String name;
   final String value;
   final bool isConstConstructor;
+  final bool isDirectory;
+
+  String toDartDocString() => '/// File path: $path';
 
   String toGetterString() =>
       '$type get $name => ${isConstConstructor ? 'const' : ''} $value;';

@@ -1,5 +1,12 @@
 import 'package:color/color.dart';
 
+/// e.g. 0xBB1122 -> #BB1122
+String hexFromColor(String hexColor) {
+  hexColor = hexColor.replaceFirst('0x', '').toUpperCase();
+  return '#$hexColor';
+}
+
+/// e.g. #BB1122 -> FFBB1122
 String colorFromHex(String hexColor) {
   hexColor = hexColor.toUpperCase().replaceFirst('#', '');
   if (hexColor.length == 6) {
