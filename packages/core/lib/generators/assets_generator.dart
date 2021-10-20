@@ -147,21 +147,21 @@ _Statement? _createAssetTypeStatement(
   if (assetType.isSupportedImage) {
     return _Statement(
       type: 'AssetGenImage',
-      path: assetType.path,
+      filePath: assetType.path,
       name: name,
       value: 'AssetGenImage(\'${posixStyle(assetType.path)}\')',
       isConstConstructor: true,
-      isDirectory: false,
+      needDartDoc: true,
     );
   } else if (FileSystemEntity.isDirectorySync(childAssetAbsolutePath)) {
     final childClassName = '\$${assetType.path.camelCase().capitalize()}Gen';
     return _Statement(
       type: childClassName,
-      path: assetType.path,
+      filePath: assetType.path,
       name: name,
       value: '$childClassName()',
       isConstConstructor: true,
-      isDirectory: true,
+      needDartDoc: false,
     );
   } else if (!assetType.isIgnoreFile) {
     final integration = integrations.firstWhereOrNull(
@@ -170,21 +170,21 @@ _Statement? _createAssetTypeStatement(
     if (integration == null) {
       return _Statement(
         type: 'String',
-        path: assetType.path,
+        filePath: assetType.path,
         name: name,
         value: '\'${posixStyle(assetType.path)}\'',
         isConstConstructor: false,
-        isDirectory: false,
+        needDartDoc: true,
       );
     } else {
       integration.isEnabled = true;
       return _Statement(
         type: integration.className,
-        path: assetType.path,
+        filePath: assetType.path,
         name: name,
         value: integration.classInstantiate(posixStyle(assetType.path)),
         isConstConstructor: integration.isConstConstructor,
-        isDirectory: false,
+        needDartDoc: true,
       );
     }
   }
@@ -234,11 +234,11 @@ String _dotDelimiterStyleDefinition(
         if (dirname(assetType.path) == '.') {
           assetsStaticStatements.add(_Statement(
             type: className,
-            path: assetType.path,
+            filePath: assetType.path,
             name: assetType.baseName.camelCase(),
             value: '$className()',
             isConstConstructor: true,
-            isDirectory: false,
+            needDartDoc: true,
           ));
         }
       }
@@ -335,11 +335,11 @@ String _directoryClassGenDefinition(
   List<_Statement> statements,
 ) {
   final statementsBlock = statements
-      .map((statement) => statement.isDirectory
-          ? statement.toGetterString()
-          : '''${statement.toDartDocString()}
+      .map((statement) => statement.needDartDoc
+          ? '''${statement.toDartDocString()}
           ${statement.toGetterString()}
-          ''')
+          '''
+          : statement.toGetterString())
       .join('\n');
   return '''
 class $className {
@@ -409,21 +409,21 @@ class AssetGenImage extends AssetImage {
 class _Statement {
   const _Statement({
     required this.type,
-    required this.path,
+    required this.filePath,
     required this.name,
     required this.value,
     required this.isConstConstructor,
-    required this.isDirectory,
+    required this.needDartDoc,
   });
 
   final String type;
-  final String path;
+  final String filePath;
   final String name;
   final String value;
   final bool isConstConstructor;
-  final bool isDirectory;
+  final bool needDartDoc;
 
-  String toDartDocString() => '/// File path: $path';
+  String toDartDocString() => '/// File path: $filePath';
 
   String toGetterString() =>
       '$type get $name => ${isConstConstructor ? 'const' : ''} $value;';
