@@ -1,12 +1,10 @@
 {
   "name": "flutter_gen",
   "author": "wasabeef",
-  "husky": {
-    "hooks": {
-      "pre-push": "make format && make analyze"
-    }
-  },
   "devDependencies": {
     "husky": "^7.0.2"
+  },
+  "scripts": {
+    "prepare": "husky install"
   }
 }
