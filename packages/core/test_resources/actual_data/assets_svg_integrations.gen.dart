@@ -18,8 +18,11 @@ class $AssetsImagesGen {
 class $AssetsImagesIconsGen {
   const $AssetsImagesIconsGen();
 
+  /// File path: assets/images/icons/dart@test.svg
   SvgGenImage get dartTest =>
       const SvgGenImage('assets/images/icons/dart@test.svg');
+
+  /// File path: assets/images/icons/fuchsia.svg
   SvgGenImage get fuchsia =>
       const SvgGenImage('assets/images/icons/fuchsia.svg');
 }

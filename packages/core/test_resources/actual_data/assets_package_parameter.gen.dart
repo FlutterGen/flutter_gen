@@ -19,6 +19,7 @@ class $AssetsImagesGen {
 class $AssetsImagesChip3Gen {
   const $AssetsImagesChip3Gen();
 
+  /// File path: assets/images/chip3/chip3.jpg
   AssetGenImage get chip3 =>
       const AssetGenImage('assets/images/chip3/chip3.jpg');
 }
@@ -26,8 +27,11 @@ class $AssetsImagesChip3Gen {
 class $AssetsImagesIconsGen {
   const $AssetsImagesIconsGen();
 
+  /// File path: assets/images/icons/dart@test.svg
   SvgGenImage get dartTest =>
       const SvgGenImage('assets/images/icons/dart@test.svg');
+
+  /// File path: assets/images/icons/fuchsia.svg
   SvgGenImage get fuchsia =>
       const SvgGenImage('assets/images/icons/fuchsia.svg');
 }

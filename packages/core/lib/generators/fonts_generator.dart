@@ -21,11 +21,12 @@ String generateFonts(
   buffer.writeln(header);
   buffer.writeln(ignoreAnalysis);
   buffer.writeln('class FontFamily {');
-  buffer.writeln('  FontFamily._();');
+  buffer.writeln('FontFamily._();');
   buffer.writeln();
 
   fonts.map((element) => element.family).distinct().sorted().forEach((family) {
-    buffer.writeln("  static const String ${family.camelCase()} = '$family';");
+    buffer.writeln("""/// Font family: $family
+    static const String ${family.camelCase()} = '$family';""");
   });
 
   buffer.writeln('}');

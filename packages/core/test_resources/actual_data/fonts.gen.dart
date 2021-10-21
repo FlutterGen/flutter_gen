@@ -8,6 +8,9 @@
 class FontFamily {
   FontFamily._();
 
+  /// Font family: Raleway
   static const String raleway = 'Raleway';
+
+  /// Font family: RobotoMono
   static const String robotoMono = 'RobotoMono';
 }

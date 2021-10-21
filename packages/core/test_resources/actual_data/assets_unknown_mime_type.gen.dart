@@ -10,6 +10,7 @@ import 'package:flutter/widgets.dart';
 class $AssetsUnknownGen {
   const $AssetsUnknownGen();
 
+  /// File path: assets/unknown/unknown_mime_type.bk
   String get unknownMimeType => 'assets/unknown/unknown_mime_type.bk';
 }
 
