@@ -1,3 +1,12 @@
+## 4.0.1
+
+Bug fix
+- [#134](https://github.com/FlutterGen/flutter_gen/issues/134) Support the at symbol (@) in file names.
+- [#139](https://github.com/FlutterGen/flutter_gen/issues/139) Error: Method not found: '$checkedCreate
+
+Development
+- Replace to flutter_lints.
+
 ## 4.0.0
 
 Features
