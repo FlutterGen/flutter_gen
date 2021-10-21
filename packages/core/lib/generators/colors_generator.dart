@@ -29,7 +29,7 @@ String generateColors(
   buffer.writeln("import 'package:flutter/material.dart';");
   buffer.writeln();
   buffer.writeln('class ColorName {');
-  buffer.writeln('  ColorName._();');
+  buffer.writeln('ColorName._();');
   buffer.writeln();
 
   final colorList = <_Color>[];
@@ -61,8 +61,9 @@ String _colorStatement(_Color color) {
   final buffer = StringBuffer();
   if (color.isMaterial) {
     final swatch = swatchFromPrimaryHex(color.hex);
-    final statement = '''
-  static const MaterialColor ${color.name.camelCase()} = MaterialColor(
+    final statement = '''/// MaterialColor: 
+        ${swatch.entries.map((e) => '///   ${e.key}: ${hexFromColor(e.value)}').join('\n')}
+        static const MaterialColor ${color.name.camelCase()} = MaterialColor(
     ${swatch[500]},
     <int, Color>{
       ${swatch.entries.map((e) => '${e.key}: Color(${e.value}),').join('\n')}
@@ -72,8 +73,9 @@ String _colorStatement(_Color color) {
   }
   if (color.isMaterialAccent) {
     final accentSwatch = accentSwatchFromPrimaryHex(color.hex);
-    final statement = '''
-  static const MaterialAccentColor ${color.name.camelCase()}Accent = MaterialAccentColor(
+    final statement = '''/// MaterialAccentColor: 
+        ${accentSwatch.entries.map((e) => '///   ${e.key}: ${hexFromColor(e.value)}').join('\n')}
+        static const MaterialAccentColor ${color.name.camelCase()}Accent = MaterialAccentColor(
    ${accentSwatch[200]},
    <int, Color>{
      ${accentSwatch.entries.map((e) => '${e.key}: Color(${e.value}),').join('\n')}
@@ -82,8 +84,11 @@ String _colorStatement(_Color color) {
     buffer.writeln(statement);
   }
   if (color.isNormal) {
+    final comment = '/// Color: ${color.hex}';
     final statement =
         '''static const Color ${color.name.camelCase()} = Color(${colorFromHex(color.hex)});''';
+
+    buffer.writeln(comment);
     buffer.writeln(statement);
   }
   return buffer.toString();

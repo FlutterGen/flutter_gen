@@ -12,6 +12,7 @@ import 'package:flare_flutter/flare_controller.dart';
 class $AssetsFlareGen {
   const $AssetsFlareGen();
 
+  /// File path: assets/flare/Penguin.flr
   FlareGenImage get penguin => const FlareGenImage('assets/flare/Penguin.flr');
 }
 
