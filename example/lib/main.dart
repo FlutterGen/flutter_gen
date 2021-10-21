@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:rive/rive.dart';
 
 import 'gen/assets.gen.dart';
 import 'gen/colors.gen.dart';
@@ -31,6 +32,10 @@ void main() {
                   fit: BoxFit.contain,
                 ),
               ),
+              SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: Assets.rive.vehicles.rive(fit: BoxFit.contain)),
               Image(image: Assets.images.chip1),
               Assets.images.icons.kmm.svg(key: const Key("kmm_svg")),
               Assets.images.icons.fuchsia.svg(),

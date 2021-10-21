@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:dartx/dartx.dart';
+import 'package:flutter_gen_core/generators/integrations/rive_integration.dart';
 import 'package:path/path.dart';
 
 import '../settings/asset_type.dart';
@@ -58,6 +59,7 @@ String generateAssets(
     if (config.flutterGen.integrations.flutterSvg)
       SvgIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.flareFlutter) FlareIntegration(),
+    if (config.flutterGen.integrations.rive) RiveIntegration(),
   ];
 
   if (config.flutterGen.assets.isDotDelimiterStyle) {

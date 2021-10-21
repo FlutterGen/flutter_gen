@@ -18,8 +18,7 @@ class Assets {
       AssetGenImage('assets/images/chip3/chip3.jpg');
   static const AssetGenImage imagesChip4Chip4 =
       AssetGenImage('assets/images/chip4/chip4.jpg');
-  static const String imagesIconsDartTest = 
-      'assets/images/icons/dart@test.svg';
+  static const String imagesIconsDartTest = 'assets/images/icons/dart@test.svg';
   static const String imagesIconsFuchsia = 'assets/images/icons/fuchsia.svg';
   static const String imagesIconsKmm = 'assets/images/icons/kmm.svg';
   static const String imagesIconsPaint = 'assets/images/icons/paint.svg';

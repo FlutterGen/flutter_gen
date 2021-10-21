@@ -1,0 +1,12 @@
+name: test
+
+flutter_gen:
+  output: lib/gen/
+  line_length: 80
+
+  integrations:
+    rive: true
+
+flutter:
+  assets:
+    - assets/rive/vehicles.riv

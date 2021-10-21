@@ -6,32 +6,18 @@
 // ignore_for_file: directives_ordering
 
 import 'package:flutter/widgets.dart';
+import 'package:rive/rive.dart';
+
+class $AssetsRiveGen {
+  const $AssetsRiveGen();
+
+  RiveGenImage get vehicles => const RiveGenImage('assets/rive/vehicles.riv');
+}
 
 class Assets {
   Assets._();
 
-  static const AssetGenImage images_chip1 =
-      AssetGenImage('assets/images/chip1.jpg');
-  static const AssetGenImage images_chip2 =
-      AssetGenImage('assets/images/chip2.jpg');
-  static const AssetGenImage images_chip3_chip3 =
-      AssetGenImage('assets/images/chip3/chip3.jpg');
-  static const AssetGenImage images_chip4_chip4 =
-      AssetGenImage('assets/images/chip4/chip4.jpg');
-  static const String images_icons_dart_test =
-      'assets/images/icons/dart@test.svg';
-  static const String images_icons_fuchsia = 'assets/images/icons/fuchsia.svg';
-  static const String images_icons_kmm = 'assets/images/icons/kmm.svg';
-  static const String images_icons_paint = 'assets/images/icons/paint.svg';
-  static const AssetGenImage images_logo =
-      AssetGenImage('assets/images/logo.png');
-  static const AssetGenImage images_profile_jpg =
-      AssetGenImage('assets/images/profile.jpg');
-  static const AssetGenImage images_profile_png =
-      AssetGenImage('assets/images/profile.png');
-  static const String json_fruits = 'assets/json/fruits.json';
-  static const AssetGenImage pictures_chip5 =
-      AssetGenImage('pictures/chip5.jpg');
+  static const $AssetsRiveGen rive = $AssetsRiveGen();
 }
 
 class AssetGenImage extends AssetImage {
@@ -81,4 +67,37 @@ class AssetGenImage extends AssetImage {
   }
 
   String get path => assetName;
+}
+
+class RiveGenImage {
+  const RiveGenImage(this._assetName);
+
+  final String _assetName;
+
+  RiveAnimation rive({
+    String? artboard,
+    List<String> animations = const [],
+    List<String> stateMachines = const [],
+    BoxFit? fit,
+    Alignment? alignment,
+    Widget? placeHolder,
+    bool antialiasing = true,
+    List<RiveAnimationController> controllers = const [],
+    OnInitCallback? onInit,
+  }) {
+    return RiveAnimation.asset(
+      _assetName,
+      artboard: artboard,
+      animations: animations,
+      stateMachines: stateMachines,
+      fit: fit,
+      alignment: alignment,
+      placeHolder: placeHolder,
+      antialiasing: antialiasing,
+      controllers: controllers,
+      onInit: onInit,
+    );
+  }
+
+  String get path => _assetName;
 }
