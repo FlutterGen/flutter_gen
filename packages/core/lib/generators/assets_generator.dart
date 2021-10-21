@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:dartx/dartx.dart';
-import 'package:flutter_gen_core/generators/integrations/rive_integration.dart';
 import 'package:path/path.dart';
 
 import '../settings/asset_type.dart';
@@ -16,6 +15,7 @@ import 'generator_helper.dart';
 import 'integrations/flare_integration.dart';
 import 'integrations/integration.dart';
 import 'integrations/svg_integration.dart';
+import 'integrations/rive_integration.dart';
 
 class AssetsGenConfig {
   AssetsGenConfig._(

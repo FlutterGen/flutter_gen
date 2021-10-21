@@ -37,6 +37,7 @@ flutter_gen:
 
   assets:
     enabled: true
+    package_parameter_enabled: false
     # Assets.imagesChip
     # style: camel-case
 
@@ -92,3 +93,8 @@ flutter:
         - asset: assets/fonts/RobotoMono-Bold.ttf
           weight: 700
 
+dependency_overrides:
+  flutter_gen_runner:
+    path: ../packages/runner
+  flutter_gen_core:
+    path: ../packages/core
