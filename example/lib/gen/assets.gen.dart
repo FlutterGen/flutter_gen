@@ -68,6 +68,7 @@ class $AssetsMovieGen {
 class $AssetsRiveGen {
   const $AssetsRiveGen();
 
+  /// File path: assets/rive/vehicles.riv
   RiveGenImage get vehicles => const RiveGenImage('assets/rive/vehicles.riv');
 }
 
