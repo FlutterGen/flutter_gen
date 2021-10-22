@@ -1,5 +1,6 @@
 @TestOn('vm')
 import 'package:flutter_gen_core/generators/integrations/flare_integration.dart';
+import 'package:flutter_gen_core/generators/integrations/rive_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/svg_integration.dart';
 import 'package:flutter_gen_core/settings/asset_type.dart';
 import 'package:test/test.dart';
@@ -49,6 +50,24 @@ void main() {
       expect(integration.classInstantiate('assets/path'),
           'FlareGenImage(\'assets/path\')');
       expect(integration.isSupport(AssetType('assets/path/dog.flr')), isTrue);
+      expect(integration.isSupport(AssetType('assets/path/dog.json')), isFalse);
+      expect(integration.isConstConstructor, isTrue);
+    });
+
+    test('Assets with Rive integrations on pubspec.yaml', () async {
+      const pubspec = 'test_resources/pubspec_assets_rive_integrations.yaml';
+      const fact =
+          'test_resources/actual_data/assets_rive_integrations.gen.dart';
+      const generated =
+          'test_resources/lib/gen/assets_rive_integrations.gen.dart';
+
+      await expectedAssetsGen(pubspec, generated, fact);
+
+      final integration = RiveIntegration();
+      expect(integration.className, 'RiveGenImage');
+      expect(integration.classInstantiate('assets/path'),
+          'RiveGenImage(\'assets/path\')');
+      expect(integration.isSupport(AssetType('assets/path/dog.riv')), isTrue);
       expect(integration.isSupport(AssetType('assets/path/dog.json')), isFalse);
       expect(integration.isConstConstructor, isTrue);
     });

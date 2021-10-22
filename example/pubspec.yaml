@@ -15,6 +15,7 @@ dependencies:
 
   flutter_svg: ^0.22.0
   flare_flutter: ^3.0.2
+  rive: ^0.7.22
 
 dev_dependencies:
   flutter_test:
@@ -32,9 +33,11 @@ flutter_gen:
   integrations:
     flutter_svg: true
     flare_flutter: true
+    rive: true
 
   assets:
     enabled: true
+    package_parameter_enabled: false
     # Assets.imagesChip
     # style: camel-case
 
@@ -68,6 +71,7 @@ flutter:
     - assets/json/fruits.json
     - pictures/chip5.jpg
     - assets/flare/
+    - assets/rive/
     - assets/movie/
     - assets/unknown/
   fonts:
@@ -89,3 +93,8 @@ flutter:
         - asset: assets/fonts/RobotoMono-Bold.ttf
           weight: 700
 
+dependency_overrides:
+  flutter_gen_runner:
+    path: ../packages/runner
+  flutter_gen_core:
+    path: ../packages/core

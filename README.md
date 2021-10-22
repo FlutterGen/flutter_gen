@@ -123,6 +123,7 @@ flutter_gen:
   integrations:
     flutter_svg: true
     flare_flutter: true
+    rive: true
 
   colors:
     inputs:
@@ -160,6 +161,7 @@ flutter:
     - assets/images/icons/dart@test.svg
     - assets/json/fruits.json
     - assets/flare/Penguin.flr
+    - assets/rive/vehicles.riv
     - pictures/ocean_view.jpg
 ```
 
@@ -222,6 +224,7 @@ Widget build(BuildContext context) {
 |--|--|--|--|
 |[flutter_svg](https://pub.dev/packages/flutter_svg)|.svg| `flutter_svg: true` |Assets.images.icons.paint.**svg()**|
 |[flare_flutter](https://pub.dev/packages/flare_flutter)|.flr| `flare_flutter: true` |Assets.flare.penguin.**flare()**|
+|[rive](https://pub.dev/packages/rive)|.flr| `rive: true` |Assets.rive.vehicles.**rive()**|
 
 <br/>
 
@@ -279,6 +282,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controller.dart';
+import 'package:rive/rive.dart';
 
 class $PicturesGen {
   const $PicturesGen();
@@ -496,6 +500,38 @@ class FlareGenImage {
   String get path => _assetName;
 }
 
+class RiveGenImage {
+  const RiveGenImage(this._assetName);
+
+  final String _assetName;
+
+  RiveAnimation rive({
+    String? artboard,
+    List<String> animations = const [],
+    List<String> stateMachines = const [],
+    BoxFit? fit,
+    Alignment? alignment,
+    Widget? placeHolder,
+    bool antialiasing = true,
+    List<RiveAnimationController> controllers = const [],
+    OnInitCallback? onInit,
+  }) {
+    return RiveAnimation.asset(
+      _assetName,
+      artboard: artboard,
+      animations: animations,
+      stateMachines: stateMachines,
+      fit: fit,
+      alignment: alignment,
+      placeHolder: placeHolder,
+      antialiasing: antialiasing,
+      controllers: controllers,
+      onInit: onInit,
+    );
+  }
+
+  String get path => _assetName;
+}
 ```
 
 </p>
@@ -684,6 +720,7 @@ flutter_gen:
   integrations:
     flutter_svg: false
     flare_flutter: false
+    rive: false
 
   assets:
     # Optional

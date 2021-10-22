@@ -45,7 +45,7 @@ class $AssetsImagesGen {
   AssetGenImage get profileJpg =>
       const AssetGenImage('assets/images/profile.jpg');
 
-/// File path: assets/images/profile.png
+  /// File path: assets/images/profile.png
   AssetGenImage get profilePng =>
       const AssetGenImage('assets/images/profile.png');
 }

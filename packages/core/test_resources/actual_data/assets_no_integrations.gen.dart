@@ -22,7 +22,7 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/chip2.jpg
   AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
-  
+
   $AssetsImagesChip3Gen get chip3 => const $AssetsImagesChip3Gen();
   $AssetsImagesChip4Gen get chip4 => const $AssetsImagesChip4Gen();
   $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
