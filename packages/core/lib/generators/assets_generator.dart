@@ -15,6 +15,7 @@ import 'generator_helper.dart';
 import 'integrations/flare_integration.dart';
 import 'integrations/integration.dart';
 import 'integrations/svg_integration.dart';
+import 'integrations/rive_integration.dart';
 
 class AssetsGenConfig {
   AssetsGenConfig._(
@@ -58,6 +59,7 @@ String generateAssets(
     if (config.flutterGen.integrations.flutterSvg)
       SvgIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.flareFlutter) FlareIntegration(),
+    if (config.flutterGen.integrations.rive) RiveIntegration(),
   ];
 
   if (config.flutterGen.assets.isDotDelimiterStyle) {

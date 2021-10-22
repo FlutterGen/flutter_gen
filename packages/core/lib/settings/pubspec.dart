@@ -144,14 +144,20 @@ class FlutterGenFonts {
 
 @JsonSerializable()
 class FlutterGenIntegrations {
-  FlutterGenIntegrations(
-      {required this.flutterSvg, required this.flareFlutter});
+  FlutterGenIntegrations({
+    required this.flutterSvg,
+    required this.flareFlutter,
+    required this.rive,
+  });
 
   @JsonKey(name: 'flutter_svg', required: true)
   final bool flutterSvg;
 
   @JsonKey(name: 'flare_flutter', required: true)
   final bool flareFlutter;
+
+  @JsonKey(name: 'rive', required: true)
+  final bool rive;
 
   factory FlutterGenIntegrations.fromJson(Map json) =>
       _$FlutterGenIntegrationsFromJson(json);

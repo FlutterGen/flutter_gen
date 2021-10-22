@@ -40,6 +40,7 @@ flutter_gen:
   integrations:
     flutter_svg: false
     flare_flutter: false
+    rive: false
 
   assets:
     enabled: true

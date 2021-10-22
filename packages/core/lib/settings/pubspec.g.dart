@@ -154,11 +154,12 @@ FlutterGenIntegrations _$FlutterGenIntegrationsFromJson(Map json) =>
       ($checkedConvert) {
         $checkKeys(
           json,
-          requiredKeys: const ['flutter_svg', 'flare_flutter'],
+          requiredKeys: const ['flutter_svg', 'flare_flutter', 'rive'],
         );
         final val = FlutterGenIntegrations(
           flutterSvg: $checkedConvert('flutter_svg', (v) => v as bool),
           flareFlutter: $checkedConvert('flare_flutter', (v) => v as bool),
+          rive: $checkedConvert('rive', (v) => v as bool),
         );
         return val;
       },

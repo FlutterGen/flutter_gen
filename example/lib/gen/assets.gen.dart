@@ -10,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controller.dart';
+import 'package:rive/rive.dart';
 
 class $PicturesGen {
   const $PicturesGen();
@@ -62,6 +63,13 @@ class $AssetsMovieGen {
 
   /// File path: assets/movie/the_earth.mp4
   String get theEarth => 'assets/movie/the_earth.mp4';
+}
+
+class $AssetsRiveGen {
+  const $AssetsRiveGen();
+
+  /// File path: assets/rive/vehicles.riv
+  RiveGenImage get vehicles => const RiveGenImage('assets/rive/vehicles.riv');
 }
 
 class $AssetsUnknownGen {
@@ -118,6 +126,7 @@ class Assets {
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
   static const $AssetsMovieGen movie = $AssetsMovieGen();
+  static const $AssetsRiveGen rive = $AssetsRiveGen();
   static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
   static const $PicturesGen pictures = $PicturesGen();
 }
@@ -251,6 +260,39 @@ class FlareGenImage {
       sizeFromArtboard: sizeFromArtboard,
       artboard: artboard,
       antialias: antialias,
+    );
+  }
+
+  String get path => _assetName;
+}
+
+class RiveGenImage {
+  const RiveGenImage(this._assetName);
+
+  final String _assetName;
+
+  RiveAnimation rive({
+    String? artboard,
+    List<String> animations = const [],
+    List<String> stateMachines = const [],
+    BoxFit? fit,
+    Alignment? alignment,
+    Widget? placeHolder,
+    bool antialiasing = true,
+    List<RiveAnimationController> controllers = const [],
+    OnInitCallback? onInit,
+  }) {
+    return RiveAnimation.asset(
+      _assetName,
+      artboard: artboard,
+      animations: animations,
+      stateMachines: stateMachines,
+      fit: fit,
+      alignment: alignment,
+      placeHolder: placeHolder,
+      antialiasing: antialiasing,
+      controllers: controllers,
+      onInit: onInit,
     );
   }
 

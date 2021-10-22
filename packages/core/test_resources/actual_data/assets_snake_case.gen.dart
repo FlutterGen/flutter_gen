@@ -27,7 +27,7 @@ class Assets {
       AssetGenImage('assets/images/chip4/chip4.jpg');
 
   /// File path: assets/images/icons/dart@test.svg
-  static const String images_icons_dart_test = 
+  static const String images_icons_dart_test =
       'assets/images/icons/dart@test.svg';
 
   /// File path: assets/images/icons/fuchsia.svg
