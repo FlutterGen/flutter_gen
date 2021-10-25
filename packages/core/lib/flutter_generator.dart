@@ -3,6 +3,8 @@
 import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
+import 'package:flutter_gen_core/utils/version.dart';
+import 'package:flutter_gen_core/version.gen.dart';
 import 'package:path/path.dart';
 
 import 'generators/assets_generator.dart';
@@ -26,6 +28,7 @@ class FlutterGenerator {
   final String fontsName;
 
   Future<void> build() async {
+    print(flutterGenVersion);
     Config config;
     try {
       config = await loadPubspecConfig(pubspecFile);
