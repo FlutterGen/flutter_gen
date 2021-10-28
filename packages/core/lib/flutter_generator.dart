@@ -1,8 +1,7 @@
-// ignore_for_file: avoid_print
-
 import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
+import 'package:flutter_gen_core/utils/version.dart';
 import 'package:path/path.dart';
 
 import 'generators/assets_generator.dart';
@@ -26,6 +25,7 @@ class FlutterGenerator {
   final String fontsName;
 
   Future<void> build() async {
+    stdout.writeln(flutterGenVersion);
     Config config;
     try {
       config = await loadPubspecConfig(pubspecFile);
@@ -55,7 +55,7 @@ class FlutterGenerator {
       final colors =
           File(normalize(join(pubspecFile.parent.path, output, colorsName)));
       writeAsString(generated, file: colors);
-      print('Generated: ${colors.absolute.path}');
+      stdout.writeln('Generated: ${colors.absolute.path}');
     }
 
     if (flutterGen.assets.enabled && flutter.assets.isNotEmpty) {
@@ -66,7 +66,7 @@ class FlutterGenerator {
       final assets =
           File(normalize(join(pubspecFile.parent.path, output, assetsName)));
       writeAsString(generated, file: assets);
-      print('Generated: ${assets.absolute.path}');
+      stdout.writeln('Generated: ${assets.absolute.path}');
     }
 
     if (flutterGen.fonts.enabled && flutter.fonts.isNotEmpty) {
@@ -74,9 +74,9 @@ class FlutterGenerator {
       final fonts =
           File(normalize(join(pubspecFile.parent.path, output, fontsName)));
       writeAsString(generated, file: fonts);
-      print('Generated: ${fonts.absolute.path}');
+      stdout.writeln('Generated: ${fonts.absolute.path}');
     }
 
-    print('FlutterGen finished.');
+    stdout.writeln('FlutterGen finished.');
   }
 }

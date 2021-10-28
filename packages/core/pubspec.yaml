@@ -10,6 +10,9 @@ issue_tracker: https://github.com/FlutterGen/flutter_gen/issues
 environment:
   sdk: '>=2.12.0 <3.0.0'
 
+version_gen:
+  path: lib/
+
 dependencies:
   path: '>=1.8.0 <2.0.0'
   yaml: '>=3.0.0 <4.0.0'
@@ -31,3 +34,4 @@ dev_dependencies:
   flutter_lints: '>=1.0.4 <2.0.0'
   build_runner: '>=2.0.0 <3.0.0'
   json_serializable: '>=5.0.0 <6.0.0'
+  version_gen: '>=1.0.1 <2.0.0'
