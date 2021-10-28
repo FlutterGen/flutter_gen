@@ -3,14 +3,15 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/utils/cast.dart';
+import 'package:flutter_gen_core/utils/version.dart';
 
 void main(List<String> args) {
   final parser = ArgParser();
   parser.addOption(
     'config',
     abbr: 'c',
-    defaultsTo: 'pubspec.yaml',
     help: 'Set the path of pubspec.yaml.',
+    defaultsTo: 'pubspec.yaml',
   );
 
   parser.addFlag(
@@ -20,12 +21,21 @@ void main(List<String> args) {
     defaultsTo: false,
   );
 
+  parser.addFlag(
+    'version',
+    abbr: 'v',
+    help: 'FlutterGen version',
+    defaultsTo: false,
+  );
+
   ArgResults results;
   try {
     results = parser.parse(args);
     if (results.wasParsed('help')) {
-      // ignore: avoid_print
-      print(parser.usage);
+      stdout.writeln(parser.usage);
+      return;
+    } else if (results.wasParsed('version')) {
+      stdout.writeln(flutterGenVersion);
       return;
     }
   } on FormatException catch (e) {
