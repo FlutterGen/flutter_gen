@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'dart:io';
 
 import 'package:args/args.dart';
@@ -34,10 +32,10 @@ void main(List<String> args) {
   try {
     results = parser.parse(args);
     if (results.wasParsed('help')) {
-      print(parser.usage);
+      stdout.writeln(parser.usage);
       return;
     } else if (results.wasParsed('version')) {
-      print(flutterGenVersion);
+      stdout.writeln(flutterGenVersion);
       return;
     }
   } on FormatException catch (e) {
