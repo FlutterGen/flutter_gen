@@ -1,4 +1,4 @@
-## 4.0.1
+## 4.1.0
 
 **Feature**
 - [#138](https://github.com/FlutterGen/flutter_gen/pull/138) Generate dartdoc as follows.
@@ -22,7 +22,7 @@
 **Bug fix**
 - [#134](https://github.com/FlutterGen/flutter_gen/pull/134) Added the ability to support the at symbol (@) in file names.
   ```dart
-  SvgGenImage get logo2x => const SvgGenImage('assets/images/logo@2x.png');
+  AssetGenImage get logo2x => const AssetGenImage('assets/images/logo@2x.png');
   ```
 **Development**
 - Update to Dart 2.14.4.
