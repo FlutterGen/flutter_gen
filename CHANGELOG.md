@@ -1,20 +1,51 @@
 ## 4.0.1
 
-Bug fix
+**Feature**
+- [#138](https://github.com/FlutterGen/flutter_gen/pull/138) Generate dartdoc as follows.
+  ```dart
+  /// File path: pictures/chip5.jpg
+  AssetGenImage get chip5 => const AssetGenImage('pictures/chip5.jpg');
+  /// Color: #979797
+  static const Color gray410 = Color(0xFF979797);
+  ```
+- [#143](https://github.com/FlutterGen/flutter_gen/pull/143) Support [Rive](https://rive.app/) files type. 
+  ```yaml
+  flutter_gen:
+    integrations:
+      rive: true
+  ```
+- [#150](https://github.com/FlutterGen/flutter_gen/pull/150) Added the --version option for command-line.
+  ```shell
+  % fluttergen --version 
+  FlutterGen v4.1.0
+  ```
+**Bug fix**
+- [#134](https://github.com/FlutterGen/flutter_gen/pull/134) Added the ability to support the at symbol (@) in file names.
+  ```dart
+  SvgGenImage get logo2x => const SvgGenImage('assets/images/logo@2x.png');
+  ```
+**Development**
+- Update to Dart 2.14.4.
+- Update to Flutter 2.5.3.
+- Replace to renovate.
+
+## 4.0.1
+
+**Bug fix**
 - [#134](https://github.com/FlutterGen/flutter_gen/issues/134) Support the at symbol (@) in file names.
 - [#139](https://github.com/FlutterGen/flutter_gen/issues/139) Error: Method not found: '$checkedCreate
 
-Development
+**Development**
 - Replace to flutter_lints.
 
 ## 4.0.0
 
-Features
+**Features**
 - [BREAKING] Ended support for Non null safety codes.
 - Use for `line_length` instead of `lineLength`.
 
 
-Development
+**Development**
 - Replace to [Melos](https://pub.dev/packages/melos).
 - Add VSCode setting.
 
@@ -31,12 +62,12 @@ Development
 
 ## 3.1.1
 
-New Feature & Bug fix
+**Features** & **Bug fix**
 - [#103](https://github.com/FlutterGen/flutter_gen/pull/103) Add option packageParameterEnabled to control whether to generate package parameter for assets or not.  
 
 ## 3.1.0
 
-New Feature  
+**Features**  
 - [#98](https://github.com/FlutterGen/flutter_gen/pull/98) Support for adding assets from a package  
 
 
@@ -81,12 +112,12 @@ New Feature
   ```
 
 
-Bug fix
+**Bug fix**
 - [#75](https://github.com/FlutterGen/flutter_gen/issues/75) Null safety support for generated files 
 
 ## 1.3.1
 
-Bug fix
+**Bug fix**
 - [#60](https://github.com/FlutterGen/flutter_gen/issues/60) Set files like .DS_Store to the ignore list.
 
 ## 1.3.0
@@ -97,12 +128,12 @@ New Feature
 
 ## 1.2.2
 
-Bug fix
+**Bug fix**
 - [#51](https://github.com/FlutterGen/flutter_gen/pull/51) Added support for Key parameter in image() and svg().
 
 ## 1.2.1
 
-Bug fix
+**Bug fix**
 - [#42](https://github.com/FlutterGen/flutter_gen/pull/42) Generated output folder name not being respected
 
 ## 1.2.0
@@ -120,17 +151,17 @@ New Feature
 
 ## 1.0.3
 
-Bug fix
+**Bug fix**
   - Insufficient params of flutter_svg [#32](https://github.com/FlutterGen/flutter_gen/pull/34)
 ## 1.0.2
 
-Bug fix
+**Bug fix**
   - Generate sorted statements [#27](https://github.com/FlutterGen/flutter_gen/pull/27)
   - Make Windows work properly [#28](https://github.com/FlutterGen/flutter_gen/pull/28) 
 
 ## 1.0.1
 
-Bug fix
+**Bug fix**
   - Issue [#21](https://github.com/FlutterGen/flutter_gen/issues/21)
 
 ## 1.0.0
