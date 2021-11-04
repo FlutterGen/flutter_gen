@@ -773,3 +773,10 @@ and open a [pull request](https://github.com/FlutterGen/flutter_gen/pulls).
 
 [build_runner]: https://pub.dev/packages/build_runner
 [fluttergen]: https://pub.dev/packages/flutter_gen
+
+<br />
+<a href="https://github.com/fluttergen/flutter_gen/graphs/contributors"><img src="https://opencollective.com/fluttergen/contributors.svg?width=890&button=false" /></a>
+<br />
+<br />
+<br />
+<br />
