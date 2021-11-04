@@ -425,7 +425,7 @@ class _Statement {
   final bool isConstConstructor;
   final bool needDartDoc;
 
-  String toDartDocString() => '/// File path: ${filePath.replaceAll('\\', '/')}';
+  String toDartDocString() => '/// File path: ${posixStyle(filePath)}';
 
   String toGetterString() =>
       '$type get $name => ${isConstConstructor ? 'const' : ''} $value;';
