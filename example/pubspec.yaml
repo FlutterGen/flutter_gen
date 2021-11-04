@@ -17,6 +17,8 @@ dependencies:
   flare_flutter: ^3.0.2
   rive: ^0.7.22
 
+  json_annotation: ^4.3.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -25,6 +27,7 @@ dev_dependencies:
     path: ../packages/runner
 
   flutter_lints: '>=1.0.4 <2.0.0'
+  json_serializable: '^6.0.1'
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
