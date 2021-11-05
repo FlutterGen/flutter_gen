@@ -215,14 +215,14 @@ packages:
       path: "../packages/core"
       relative: true
     source: path
-    version: "4.1.0"
+    version: "4.1.1"
   flutter_gen_runner:
     dependency: "direct dev"
     description:
       path: "../packages/runner"
       relative: true
     source: path
-    version: "4.1.0"
+    version: "4.1.1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -236,7 +236,7 @@ packages:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.22.0"
+    version: "0.23.0+1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
