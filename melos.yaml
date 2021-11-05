@@ -28,7 +28,7 @@ scripts:
 
   gen:build_runner:
     run: |
-      melos exec -- exec dart run build_runner build
+      melos exec -- exec dart run build_runner build --delete-conflicting-outputs
     select-package:
       ignore: example
       depends-on: 'build_runner'

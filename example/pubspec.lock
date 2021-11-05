@@ -215,14 +215,14 @@ packages:
       path: "../packages/core"
       relative: true
     source: path
-    version: "4.1.1"
+    version: "4.1.2"
   flutter_gen_runner:
     dependency: "direct dev"
     description:
       path: "../packages/runner"
       relative: true
     source: path
-    version: "4.1.1"
+    version: "4.1.2"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -242,6 +242,20 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  freezed:
+    dependency: "direct dev"
+    description:
+      name: freezed
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.14.5"
+  freezed_annotation:
+    dependency: "direct main"
+    description:
+      name: freezed_annotation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.14.3"
   frontend_server_client:
     dependency: transitive
     description:
@@ -304,14 +318,14 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.3.0"
+    version: "4.1.0"
   json_serializable:
     dependency: "direct dev"
     description:
       name: json_serializable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.1"
+    version: "5.0.2"
   lints:
     dependency: transitive
     description:
