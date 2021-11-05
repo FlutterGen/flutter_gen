@@ -1,10 +1,7 @@
-## 4.1.1
+## 4.1.2
 
 **Bug fix**
 - [#156](https://github.com/FlutterGen/flutter_gen/pull/156) The Dartdocs generate different strings on Windows and Ubuntu.
-
-**Features**
-- [#157](https://github.com/FlutterGen/flutter_gen/pull/157) The supported version of json_serializable `>=5.0.0 <6.0.0` -> `>=5.0.0 <7.0.0`.
 
 ## 4.1.0
 
