@@ -146,9 +146,6 @@ _Statement? _createAssetTypeStatement(
   String name,
 ) {
   final childAssetAbsolutePath = join(config.rootPath, assetType.path);
-  final packagePrefix = config.packageDependencyLiteral.isNotEmpty
-      ? 'packages/${config.packageDependencyLiteral}'
-      : '';
   if (assetType.isSupportedImage) {
     return _Statement(
       type: 'AssetGenImage',
@@ -172,12 +169,15 @@ _Statement? _createAssetTypeStatement(
     final integration = integrations.firstWhereOrNull(
       (element) => element.isSupport(assetType),
     );
+    final packagePrefix = config.packageDependencyLiteral.isNotEmpty
+        ? 'packages/${config.packageDependencyLiteral}/'
+        : '';
     if (integration == null) {
       return _Statement(
         type: 'String',
         filePath: assetType.path,
         name: name,
-        value: '\'${posixStyle('$packagePrefix/${assetType.path}')}\'',
+        value: '\'${posixStyle('$packagePrefix${assetType.path}')}\'',
         isConstConstructor: false,
         needDartDoc: true,
       );
@@ -188,7 +188,7 @@ _Statement? _createAssetTypeStatement(
         filePath: assetType.path,
         name: name,
         value: integration
-            .classInstantiate(posixStyle('$packagePrefix/${assetType.path}')),
+            .classInstantiate(posixStyle('$packagePrefix${assetType.path}')),
         isConstConstructor: integration.isConstConstructor,
         needDartDoc: true,
       );
