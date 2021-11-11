@@ -39,8 +39,8 @@ class AssetsGenConfig {
   final FlutterGen flutterGen;
   final List<String> assets;
 
-  String get packageParameterLiteral =>
-      flutterGen.assets.packageParameterEnabled ? _packageName : '';
+  String get packageDependencyLiteral =>
+      flutterGen.assets.packageDependencyEnabled ? _packageName : '';
 }
 
 String generateAssets(
@@ -57,7 +57,7 @@ String generateAssets(
 
   final integrations = <Integration>[
     if (config.flutterGen.integrations.flutterSvg)
-      SvgIntegration(config.packageParameterLiteral),
+      SvgIntegration(config.packageDependencyLiteral),
     if (config.flutterGen.integrations.flareFlutter) FlareIntegration(),
     if (config.flutterGen.integrations.rive) RiveIntegration(),
   ];
@@ -73,7 +73,7 @@ String generateAssets(
   }
 
   classesBuffer.writeln(_assetGenImageClassDefinition(
-    config.packageParameterLiteral,
+    config.packageDependencyLiteral,
   ));
 
   final imports = <String>{'package:flutter/widgets.dart'};
@@ -140,12 +140,15 @@ AssetType _constructAssetTree(List<String> assetRelativePathList) {
 }
 
 _Statement? _createAssetTypeStatement(
-  String rootPath,
+  AssetsGenConfig config,
   AssetType assetType,
   List<Integration> integrations,
   String name,
 ) {
-  final childAssetAbsolutePath = join(rootPath, assetType.path);
+  final childAssetAbsolutePath = join(config.rootPath, assetType.path);
+  final packagePrefix = config.packageDependencyLiteral.isNotEmpty
+      ? 'packages/${config.packageDependencyLiteral}'
+      : '';
   if (assetType.isSupportedImage) {
     return _Statement(
       type: 'AssetGenImage',
@@ -174,7 +177,7 @@ _Statement? _createAssetTypeStatement(
         type: 'String',
         filePath: assetType.path,
         name: name,
-        value: '\'${posixStyle(assetType.path)}\'',
+        value: '\'${posixStyle('$packagePrefix/${assetType.path}')}\'',
         isConstConstructor: false,
         needDartDoc: true,
       );
@@ -184,7 +187,8 @@ _Statement? _createAssetTypeStatement(
         type: integration.className,
         filePath: assetType.path,
         name: name,
-        value: integration.classInstantiate(posixStyle(assetType.path)),
+        value: integration
+            .classInstantiate(posixStyle('$packagePrefix/${assetType.path}')),
         isConstConstructor: integration.isConstConstructor,
         needDartDoc: true,
       );
@@ -214,7 +218,7 @@ String _dotDelimiterStyleDefinition(
           .mapToIsUniqueWithoutExtension()
           .map(
             (e) => _createAssetTypeStatement(
-              config.rootPath,
+              config,
               e.assetType,
               integrations,
               (e.isUniqueWithoutExtension
@@ -297,7 +301,7 @@ String _flatStyleDefinition(
       .mapToIsUniqueWithoutExtension()
       .map(
         (e) => _createAssetTypeStatement(
-          config.rootPath,
+          config,
           e.assetType,
           integrations,
           createName(e),

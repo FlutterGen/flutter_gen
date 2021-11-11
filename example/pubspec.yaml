@@ -33,7 +33,7 @@ dev_dependencies:
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
-  line_length: 80   # Optional (default: 80)
+  line_length: 80 # Optional (default: 80)
 
   integrations:
     flutter_svg: true
@@ -42,7 +42,7 @@ flutter_gen:
 
   assets:
     enabled: true
-    package_parameter_enabled: false
+    package_dependency_enabled: false
     # Assets.imagesChip
     # style: camel-case
 

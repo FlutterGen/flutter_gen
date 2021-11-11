@@ -4,7 +4,7 @@ flutter_gen:
   integrations:
     flutter_svg: true
   assets:
-    package_parameter_enabled: true
+    package_dependency_enabled: true
 
 flutter:
   assets:
