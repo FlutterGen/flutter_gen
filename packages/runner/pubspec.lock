@@ -161,7 +161,7 @@ packages:
       path: "../core"
       relative: true
     source: path
-    version: "4.1.2"
+    version: "4.1.2+1"
   flutter_lints:
     dependency: "direct dev"
     description:
