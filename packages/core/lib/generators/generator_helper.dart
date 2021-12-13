@@ -8,7 +8,7 @@ String get header {
 }
 
 String get ignoreAnalysis {
-  return '''// ignore_for_file: directives_ordering
+  return '''// ignore_for_file: directives_ordering,unnecessary_import
   
 ''';
 }
