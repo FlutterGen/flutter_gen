@@ -11,12 +11,12 @@ ide:
 scripts:
   pub:upgrade:
     run: |
-      melos exec --flutter -- flutter pub upgrade
+      melos exec --flutter -- flutter pub upgrade &&
       melos exec --no-flutter -- dart pub upgrade
 
   pub:get:
     run: |
-      melos exec --flutter -- flutter pub get
+      melos exec --flutter -- flutter pub get &&
       melos exec --no-flutter -- dart pub get
 
   analyze: melos exec -- dart analyze .
