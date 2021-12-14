@@ -25,7 +25,7 @@ scripts:
 
   gen:build_runner:
     run: |
-      melos exec -- dart run build_runner build --delete-conflicting-outputs
+      melos exec -- dart pub run build_runner build --delete-conflicting-outputs
     select-package:
       ignore: example
       depends-on: 'build_runner'
@@ -46,7 +46,7 @@ scripts:
   example:build_runner:
     run: |
       melos exec \
-      -- flutter packages pub run build_runner build --delete-conflicting-outputs
+      -- exec flutter pub run build_runner build --delete-conflicting-outputs
     select-package:
       scope: example
 

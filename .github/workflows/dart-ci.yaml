@@ -33,13 +33,13 @@ jobs:
       - name: Get dependencies for macos and ubuntu
         if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
         run: |
-          dart pub global activate melos
+          dart pub global activate melos 1.0.0-dev.14
           melos run pub:get
     
       - name: Get dependencies for Windows
         if: startsWith(matrix.os, 'windows')
         run: |
-          dart pub global activate melos 1.0.0-dev.3
+          dart pub global activate melos 1.0.0-dev.14
           melos run pub:get
 
       - name: Run tests for our dart project.
