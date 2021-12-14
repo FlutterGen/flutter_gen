@@ -1,3 +1,8 @@
+## 4.1.3
+
+**Bug fix**  
+[#172](https://github.com/FlutterGen/flutter_gen/pull/172) [#173](https://github.com/FlutterGen/flutter_gen/pull/173) Add unnecessary_import in ignore_for_title because cause warning from Dart 2.15.
+
 ## 4.1.2+1, 4.1.2+2
 
 **Development**
