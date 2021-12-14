@@ -40,7 +40,8 @@ jobs:
         if: startsWith(matrix.os, 'windows')
         run: |
           dart pub global activate melos 1.0.0-dev.14
-          melos run pub:get
+          melos exec --flutter -- flutter pub get
+          melos exec --no-flutter -- dart pub get
 
       - name: Run tests for our dart project.
         if: startsWith(matrix.os, 'ubuntu')
