@@ -1,8 +1,7 @@
 ## 4.1.3
 
-**Bug fix**
-[#173](https://github.com/FlutterGen/flutter_gen/pull/173) Add unnecessary_import.
-  - Related [#172](https://github.com/FlutterGen/flutter_gen/issues/172) Dart linter info about import unnecessary.
+**Bug fix**  
+[#172](https://github.com/FlutterGen/flutter_gen/pull/172) [#173](https://github.com/FlutterGen/flutter_gen/pull/173) Add unnecessary_import.
 
 ## 4.1.2+1, 4.1.2+2
 
