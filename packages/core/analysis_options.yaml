@@ -2,6 +2,7 @@ include: package:flutter_lints/flutter.yaml
 
 analyzer:
   exclude:
+    - 'example'
     - '**/*.g.dart'
     - 'test_resources/**'
 
