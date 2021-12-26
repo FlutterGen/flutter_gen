@@ -15,7 +15,7 @@ dependencies:
 
   flutter_svg: ^0.23.0
   flare_flutter: ^3.0.2
-  rive: ^0.7.22
+  rive: ^0.8.0
 
   json_annotation: ^4.1.0
   freezed_annotation: ^0.14.0
