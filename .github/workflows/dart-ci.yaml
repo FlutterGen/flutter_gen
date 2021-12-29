@@ -55,6 +55,8 @@ jobs:
       - name: Generate example
         run: |
           melos run example:command
+          # FIXME: https://github.com/invertase/melos/issues/117
+          dart pub global activate build_runner
           melos run example:build_runner
 
       - name: Check for any formatting and statically analyze the code.

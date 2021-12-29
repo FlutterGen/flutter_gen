@@ -38,9 +38,13 @@ scripts:
       scope: example
 
   example:build_runner:
+    # FIXME: https://github.com/invertase/melos/issues/117
+    # run: |
+    #   melos exec \
+    #   -- flutter pub run build_runner build --delete-conflicting-outputs
     run: |
       melos exec \
-      -- flutter pub run build_runner build --delete-conflicting-outputs
+      -- dart pub global run build_runner build --delete-conflicting-outputs
     select-package:
       scope: example
 
