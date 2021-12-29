@@ -97,9 +97,3 @@ flutter:
         - asset: assets/fonts/RobotoMono-Regular.ttf
         - asset: assets/fonts/RobotoMono-Bold.ttf
           weight: 700
-
-dependency_overrides:
-  flutter_gen_runner:
-    path: ../packages/runner
-  flutter_gen_core:
-    path: ../packages/core

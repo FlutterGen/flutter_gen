@@ -112,3 +112,6 @@ coverage.lcov
 
 ## Test resources
 **/test_resources/lib
+
+## Melos
+.idea/runConfigurations/melos_*
