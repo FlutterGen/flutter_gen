@@ -40,7 +40,7 @@ scripts:
   example:build_runner:
     run: |
       melos exec \
-      -- exec flutter pub run build_runner build --delete-conflicting-outputs
+      -- flutter pub run build_runner build --delete-conflicting-outputs
     select-package:
       scope: example
 
