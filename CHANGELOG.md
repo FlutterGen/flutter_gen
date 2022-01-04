@@ -1,3 +1,12 @@
+## 4.1.4
+
+**Feature**
+- [#180](https://github.com/FlutterGen/flutter_gen/issues/180) [#182](https://github.com/FlutterGen/flutter_gen/pull/182) Update to dartx 1.0.0 and json_serializable to 6.0.0
+
+**Development**
+- Update to Dart 2.15.0
+- Update to Flutter 2.8.1
+
 ## 4.1.3
 
 **Bug fix**  
