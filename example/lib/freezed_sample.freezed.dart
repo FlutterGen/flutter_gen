@@ -153,14 +153,13 @@ class _$Data with DiagnosticableTreeMixin implements Data {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Data &&
-            (identical(other.value, value) ||
-                const DeepCollectionEquality().equals(other.value, value)));
+        (other.runtimeType == runtimeType &&
+            other is Data &&
+            (identical(other.value, value) || other.value == value));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(value);
+  int get hashCode => Object.hash(runtimeType, value);
 
   @JsonKey(ignore: true)
   @override
@@ -239,7 +238,7 @@ class _$Data with DiagnosticableTreeMixin implements Data {
 abstract class Data implements Union {
   const factory Data(int value) = _$Data;
 
-  int get value => throw _privateConstructorUsedError;
+  int get value;
   @JsonKey(ignore: true)
   $DataCopyWith<Data> get copyWith => throw _privateConstructorUsedError;
 }
@@ -278,7 +277,8 @@ class _$Loading with DiagnosticableTreeMixin implements Loading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Loading);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is Loading);
   }
 
   @override
@@ -412,14 +412,13 @@ class _$ErrorDetails with DiagnosticableTreeMixin implements ErrorDetails {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is ErrorDetails &&
-            (identical(other.message, message) ||
-                const DeepCollectionEquality().equals(other.message, message)));
+        (other.runtimeType == runtimeType &&
+            other is ErrorDetails &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(message);
+  int get hashCode => Object.hash(runtimeType, message);
 
   @JsonKey(ignore: true)
   @override
@@ -498,7 +497,7 @@ class _$ErrorDetails with DiagnosticableTreeMixin implements ErrorDetails {
 abstract class ErrorDetails implements Union {
   const factory ErrorDetails([String? message]) = _$ErrorDetails;
 
-  String? get message => throw _privateConstructorUsedError;
+  String? get message;
   @JsonKey(ignore: true)
   $ErrorDetailsCopyWith<ErrorDetails> get copyWith =>
       throw _privateConstructorUsedError;

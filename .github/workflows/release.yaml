@@ -25,10 +25,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
         with:
-          flutter-version: '2.5.3'
+          flutter-version: '2.8.1'
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: '2.14.4'
+          sdk: '2.15.0'
 
       - name: Set environment for macos and ubuntu
         if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
@@ -42,27 +42,27 @@ jobs:
         if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
         run: |
           dart pub global activate melos
-          melos run pub:get
+          melos bootstrap
     
       - name: Get dependencies for Windows
         if: startsWith(matrix.os, 'windows')
         run: |
-          dart pub global activate melos 1.0.0-dev.3
-          melos run pub:get
+          dart pub global activate melos
+          melos bootstrap
 
       - name: Running build for macos
         if: matrix.os == 'macos-latest'
         run: |
           cd packages/command/
           mkdir -p bin/${{ matrix.target }}
-          dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}/fluttergen
+          dart compile exe bin/flutter_gen_command.dart -o bin/${{ matrix.target }}/fluttergen
 
       - name: Running build for ubuntu
         if: matrix.os == 'ubuntu-latest'
         run: |
           cd packages/command/
           mkdir -p bin/${{ matrix.target }}
-          dart2native bin/flutter_gen_command.dart -o bin/${{ matrix.target }}/fluttergen
+          dart compile exe bin/flutter_gen_command.dart -o bin/${{ matrix.target }}/fluttergen
 
       - name: Packaging final binary
         shell: bash
