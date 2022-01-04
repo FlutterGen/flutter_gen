@@ -91,7 +91,7 @@ packages:
       name: dartx
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.0"
+    version: "1.0.0"
   file:
     dependency: transitive
     description:
@@ -126,7 +126,7 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.3.0"
+    version: "4.4.0"
   lints:
     dependency: transitive
     description:
