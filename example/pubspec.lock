@@ -210,7 +210,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_gen_core:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       path: "../packages/core"
       relative: true
