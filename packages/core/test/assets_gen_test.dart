@@ -65,12 +65,12 @@ void main() {
       }, throwsA(isA<InvalidSettingsException>()));
     });
 
-    test('Assets with package dependency enabled', () async {
-      const pubspec = 'test_resources/pubspec_assets_package_dependency.yaml';
+    test('Assets with package parameter enabled', () async {
+      const pubspec = 'test_resources/pubspec_assets_package_parameter.yaml';
       const fact =
-          'test_resources/actual_data/assets_package_dependency.gen.dart';
+          'test_resources/actual_data/assets_package_parameter.gen.dart';
       const generated =
-          'test_resources/lib/gen/assets_package_dependency.gen.dart';
+          'test_resources/lib/gen/assets_package_parameter.gen.dart';
 
       await expectedAssetsGen(pubspec, generated, fact);
     });

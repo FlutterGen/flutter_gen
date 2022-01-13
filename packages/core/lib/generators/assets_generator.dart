@@ -39,8 +39,8 @@ class AssetsGenConfig {
   final FlutterGen flutterGen;
   final List<String> assets;
 
-  String get packageDependencyLiteral =>
-      flutterGen.assets.packageDependencyEnabled ? _packageName : '';
+  String get packageParameterLiteral =>
+      flutterGen.assets.packageParameterEnabled ? _packageName : '';
 }
 
 String generateAssets(
@@ -57,7 +57,7 @@ String generateAssets(
 
   final integrations = <Integration>[
     if (config.flutterGen.integrations.flutterSvg)
-      SvgIntegration(config.packageDependencyLiteral),
+      SvgIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.flareFlutter) FlareIntegration(),
     if (config.flutterGen.integrations.rive) RiveIntegration(),
   ];
@@ -73,7 +73,7 @@ String generateAssets(
   }
 
   classesBuffer.writeln(_assetGenImageClassDefinition(
-    config.packageDependencyLiteral,
+    config.packageParameterLiteral,
   ));
 
   final imports = <String>{'package:flutter/widgets.dart'};
@@ -169,8 +169,8 @@ _Statement? _createAssetTypeStatement(
     final integration = integrations.firstWhereOrNull(
       (element) => element.isSupport(assetType),
     );
-    final packagePrefix = config.packageDependencyLiteral.isNotEmpty
-        ? 'packages/${config.packageDependencyLiteral}/'
+    final packagePrefix = config.packageParameterLiteral.isNotEmpty
+        ? 'packages/${config.packageParameterLiteral}/'
         : '';
     if (integration == null) {
       return _Statement(

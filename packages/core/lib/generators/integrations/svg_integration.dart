@@ -2,12 +2,12 @@ import '../../settings/asset_type.dart';
 import 'integration.dart';
 
 class SvgIntegration extends Integration {
-  SvgIntegration(this._packageDependencyLiteral);
+  SvgIntegration(this._packageParameterLiteral);
 
-  final String _packageDependencyLiteral;
+  final String _packageParameterLiteral;
 
-  String get packageExpression => _packageDependencyLiteral.isNotEmpty
-      ? ' = \'$_packageDependencyLiteral\''
+  String get packageExpression => _packageParameterLiteral.isNotEmpty
+      ? ' = \'$_packageParameterLiteral\''
       : '';
 
   @override

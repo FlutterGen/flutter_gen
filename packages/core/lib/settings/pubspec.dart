@@ -103,7 +103,7 @@ class FlutterGenAssets {
 
   FlutterGenAssets({
     required this.enabled,
-    required this.packageDependencyEnabled,
+    required this.packageParameterEnabled,
     required this.style,
   }) {
     if (style != dotDelimiterStyle &&
@@ -117,7 +117,7 @@ class FlutterGenAssets {
   final bool enabled;
 
   @JsonKey(name: 'package_parameter_enabled', required: true)
-  final bool packageDependencyEnabled;
+  final bool packageParameterEnabled;
 
   @JsonKey(name: 'style', required: true)
   final String style;
