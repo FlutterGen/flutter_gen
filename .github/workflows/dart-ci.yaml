@@ -15,12 +15,12 @@ jobs:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
     steps:
       - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '2.5.3'
+          flutter-version: '2.8.1'
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: '2.14.4'
+          sdk: '2.15.0'
 
       - name: Set environment
         if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
@@ -34,13 +34,13 @@ jobs:
         if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
         run: |
           dart pub global activate melos
-          melos run pub:get
+          melos bootstrap
     
       - name: Get dependencies for Windows
         if: startsWith(matrix.os, 'windows')
         run: |
-          dart pub global activate melos 1.0.0-dev.3
-          melos run pub:get
+          dart pub global activate melos
+          melos bootstrap
 
       - name: Run tests for our dart project.
         if: startsWith(matrix.os, 'ubuntu')
@@ -55,6 +55,8 @@ jobs:
       - name: Generate example
         run: |
           melos run example:command
+          # FIXME: https://github.com/invertase/melos/issues/117
+          dart pub global activate build_runner
           melos run example:build_runner
 
       - name: Check for any formatting and statically analyze the code.
