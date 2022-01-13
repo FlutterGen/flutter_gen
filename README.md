@@ -728,7 +728,7 @@ flutter_gen:
     # Optional
     # Set to true if you want this package to be a package dependency
     # See: https://flutter.dev/docs/development/ui/assets-and-images#from-packages
-    package_dependency_enabled: false
+    package_parameter_enabled: false
     # Optional
     # Avaliable values:
     # - camel-case

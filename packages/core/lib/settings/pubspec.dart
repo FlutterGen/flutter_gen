@@ -116,7 +116,7 @@ class FlutterGenAssets {
   @JsonKey(name: 'enabled', required: true)
   final bool enabled;
 
-  @JsonKey(name: 'package_dependency_enabled', required: true)
+  @JsonKey(name: 'package_parameter_enabled', required: true)
   final bool packageDependencyEnabled;
 
   @JsonKey(name: 'style', required: true)
