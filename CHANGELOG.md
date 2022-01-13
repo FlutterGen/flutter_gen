@@ -3,6 +3,7 @@
 **Bug fix**  
 - [#187](https://github.com/FlutterGen/flutter_gen/issues/187) Update dependencies.
   - analyzer
+
 ## 4.1.4
 
 **Feature**
