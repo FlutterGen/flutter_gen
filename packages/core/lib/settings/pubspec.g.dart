@@ -119,20 +119,20 @@ FlutterGenAssets _$FlutterGenAssetsFromJson(Map json) => $checkedCreate(
           json,
           requiredKeys: const [
             'enabled',
-            'package_dependency_enabled',
+            'package_parameter_enabled',
             'style'
           ],
         );
         final val = FlutterGenAssets(
           enabled: $checkedConvert('enabled', (v) => v as bool),
           packageDependencyEnabled:
-              $checkedConvert('package_dependency_enabled', (v) => v as bool),
+              $checkedConvert('package_parameter_enabled', (v) => v as bool),
           style: $checkedConvert('style', (v) => v as String),
         );
         return val;
       },
       fieldKeyMap: const {
-        'packageDependencyEnabled': 'package_dependency_enabled'
+        'packageDependencyEnabled': 'package_parameter_enabled'
       },
     );
 
