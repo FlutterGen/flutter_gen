@@ -23,6 +23,7 @@ class AssetsGenConfig {
     this._packageName,
     this.flutterGen,
     this.assets,
+    this.exclude,
   );
 
   factory AssetsGenConfig.fromConfig(File pubspecFile, Config config) {
@@ -31,6 +32,7 @@ class AssetsGenConfig {
       config.pubspec.packageName,
       config.pubspec.flutterGen,
       config.pubspec.flutter.assets,
+      config.pubspec.flutterGen.exclude,
     );
   }
 
@@ -38,6 +40,7 @@ class AssetsGenConfig {
   final String _packageName;
   final FlutterGen flutterGen;
   final List<String> assets;
+  final List<String> exclude;
 
   String get packageParameterLiteral =>
       flutterGen.assets.packageParameterEnabled ? _packageName : '';
@@ -99,14 +102,20 @@ String generateAssets(
 List<String> _getAssetRelativePathList(
   String rootPath,
   List<String> assets,
+  List<String> excludes,
 ) {
   final assetRelativePathList = <String>[];
   for (final assetName in assets) {
     final assetAbsolutePath = join(rootPath, assetName);
+    if (excludes.any((exclude) => assetAbsolutePath.contains(exclude))) {
+      continue;
+    }
+
     if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
       assetRelativePathList.addAll(Directory(assetAbsolutePath)
           .listSync()
           .whereType<File>()
+          .where((file) => !excludes.any((exclude) => file.path.contains(exclude)))
           .map((e) => relative(e.path, from: rootPath))
           .toList());
     } else if (FileSystemEntity.isFileSync(assetAbsolutePath)) {
@@ -199,7 +208,7 @@ String _dotDelimiterStyleDefinition(
 ) {
   final buffer = StringBuffer();
   final assetRelativePathList =
-      _getAssetRelativePathList(config.rootPath, config.assets);
+      _getAssetRelativePathList(config.rootPath, config.assets, config.exclude);
   final assetsStaticStatements = <_Statement>[];
 
   final assetTypeQueue = ListQueue<AssetType>.from(
@@ -290,7 +299,7 @@ String _flatStyleDefinition(
   List<Integration> integrations,
   String Function(AssetTypeIsUniqueWithoutExtension) createName,
 ) {
-  final statements = _getAssetRelativePathList(config.rootPath, config.assets)
+  final statements = _getAssetRelativePathList(config.rootPath, config.assets, config.exclude)
       .distinct()
       .sorted()
       .map((relativePath) => AssetType(relativePath))
