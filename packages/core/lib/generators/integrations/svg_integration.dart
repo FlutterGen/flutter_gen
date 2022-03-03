@@ -40,6 +40,7 @@ class SvgIntegration extends Integration {
     String? semanticsLabel,
     bool excludeFromSemantics = false,
     Clip clipBehavior = Clip.hardEdge,
+    SvgTheme? theme,
   }) {
     return SvgPicture.asset(
       _assetName,
@@ -58,6 +59,7 @@ class SvgIntegration extends Integration {
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
       clipBehavior: clipBehavior,
+      theme: theme,
     );
   }
 
