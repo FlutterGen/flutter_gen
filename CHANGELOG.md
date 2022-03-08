@@ -1,3 +1,10 @@
+## 4.1.6
+
+**Feature**
+- [#199](https://github.com/FlutterGen/flutter_gen/pull/199) [#201](https://github.com/FlutterGen/flutter_gen/pull/201) Expose some parameters of SvgPicture (flutter_svg).
+  - theme
+  - cacheColorFilter
+
 ## 4.1.5
 
 **Bug fix**  
