@@ -215,14 +215,14 @@ packages:
       path: "../packages/core"
       relative: true
     source: path
-    version: "4.1.5"
+    version: "4.1.6"
   flutter_gen_runner:
     dependency: "direct dev"
     description:
       path: "../packages/runner"
       relative: true
     source: path
-    version: "4.1.5"
+    version: "4.1.6"
   flutter_lints:
     dependency: "direct dev"
     description:
