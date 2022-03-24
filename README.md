@@ -20,6 +20,8 @@
 
 The Flutter code generator for your assets, fonts, colors, … — Get rid of all String-based APIs.
 
+This project is **not related in any way** with the `flutter_gen` package mentioned in the [Internationalizing Flutter apps](https://docs.flutter.dev/development/accessibility-and-localization/internationalization) article.
+
 Inspired by [SwiftGen](https://github.com/SwiftGen/SwiftGen).
 
 ## Motivation
