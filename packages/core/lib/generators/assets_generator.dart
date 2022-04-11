@@ -96,19 +96,19 @@ String generateAssets(
   return formatter.format(buffer.toString());
 }
 
-List<String> _getAssetRelativePathList(
-  String rootPath,
-  List<String> assets,
-) {
+List<String> _getAssetRelativePathList(String rootPath, List<String> assets,
+    {String? packagePathPrefix}) {
   final assetRelativePathList = <String>[];
   for (final assetName in assets) {
     final assetAbsolutePath = join(rootPath, assetName);
     if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
-      assetRelativePathList.addAll(Directory(assetAbsolutePath)
-          .listSync()
-          .whereType<File>()
-          .map((e) => relative(e.path, from: rootPath))
-          .toList());
+      assetRelativePathList.addAll(
+          Directory(assetAbsolutePath).listSync().whereType<File>().map((e) {
+        String relativePath = relative(e.path, from: rootPath);
+        return packagePathPrefix != null
+            ? join(packagePathPrefix, relativePath)
+            : relativePath;
+      }).toList());
     } else if (FileSystemEntity.isFileSync(assetAbsolutePath)) {
       assetRelativePathList.add(relative(assetAbsolutePath, from: rootPath));
     }
@@ -198,8 +198,11 @@ String _dotDelimiterStyleDefinition(
   List<Integration> integrations,
 ) {
   final buffer = StringBuffer();
-  final assetRelativePathList =
-      _getAssetRelativePathList(config.rootPath, config.assets);
+  final assetRelativePathList = _getAssetRelativePathList(
+      config.rootPath, config.assets,
+      packagePathPrefix: config.flutterGen.assets.genForPackage
+          ? "packages/${config._packageName}/"
+          : null);
   final assetsStaticStatements = <_Statement>[];
 
   final assetTypeQueue = ListQueue<AssetType>.from(
@@ -290,7 +293,10 @@ String _flatStyleDefinition(
   List<Integration> integrations,
   String Function(AssetTypeIsUniqueWithoutExtension) createName,
 ) {
-  final statements = _getAssetRelativePathList(config.rootPath, config.assets)
+  final statements = _getAssetRelativePathList(config.rootPath, config.assets,
+          packagePathPrefix: config.flutterGen.assets.genForPackage
+              ? "packages/${config._packageName}/"
+              : null)
       .distinct()
       .sorted()
       .map((relativePath) => AssetType(relativePath))

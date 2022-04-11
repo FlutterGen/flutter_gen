@@ -42,6 +42,9 @@ flutter_gen:
   assets:
     enabled: true
     package_parameter_enabled: false
+    # generate assets for package
+    gen_for_package: false
+
     # Assets.imagesChip
     # style: camel-case
 

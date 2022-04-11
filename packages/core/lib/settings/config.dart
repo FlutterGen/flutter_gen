@@ -44,6 +44,7 @@ flutter_gen:
   assets:
     enabled: true
     package_parameter_enabled: false
+    gen_for_package: false
     style: dot-delimiter
     
   fonts:
