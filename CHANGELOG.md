@@ -1,3 +1,7 @@
+## 4.1.6+1
+**Feature**
+- Added `coverage:ignore-file` comment in generated files to ignore generated files from code coverage.
+
 ## 4.1.6
 
 **Feature**
