@@ -18,7 +18,7 @@ dependencies:
   rive: ^0.8.1
 
   json_annotation: ^4.4.0
-  freezed_annotation: ^1.1.0
+  freezed_annotation: ^2.0.0
 
 dev_dependencies:
   flutter_test:
