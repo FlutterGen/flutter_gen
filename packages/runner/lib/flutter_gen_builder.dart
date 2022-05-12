@@ -49,18 +49,6 @@ class FlutterGenBuilder extends Builder {
       }
     }
 
-    if (pubspec.flutterGen.fonts.enabled) {
-      for (var fontInput in pubspec.flutter.fonts) {
-        for (var fontAsset in fontInput.fonts) {
-          if (fontAsset.asset.isEmpty) continue;
-          await for (var assetId
-              in buildStep.findAssets(Glob(fontAsset.asset))) {
-            assets.add(assetId.path);
-          }
-        }
-      }
-    }
-
     if (pubspec.flutterGen.assets.enabled) {
       for (var assetInput in pubspec.flutter.assets) {
         if (assetInput.isEmpty) continue;
