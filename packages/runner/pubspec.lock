@@ -93,12 +93,12 @@ packages:
     source: hosted
     version: "0.3.5"
   collection:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: collection
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.15.0"
+    version: "1.16.0"
   color:
     dependency: transitive
     description:
@@ -121,12 +121,12 @@ packages:
     source: hosted
     version: "1.0.3"
   crypto:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: crypto
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.1"
+    version: "3.0.2"
   csslib:
     dependency: transitive
     description:
@@ -158,9 +158,9 @@ packages:
   flutter_gen_core:
     dependency: "direct main"
     description:
-      path: "../core"
-      relative: true
-    source: path
+      name: flutter_gen_core
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "4.1.6"
   flutter_lints:
     dependency: "direct dev"
@@ -177,7 +177,7 @@ packages:
     source: hosted
     version: "2.1.2"
   glob:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: glob
       url: "https://pub.dartlang.org"

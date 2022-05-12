@@ -57,6 +57,26 @@ FlutterFonts _$FlutterFontsFromJson(Map json) => $checkedCreate(
         );
         final val = FlutterFonts(
           family: $checkedConvert('family', (v) => v as String),
+          fonts: $checkedConvert(
+              'fonts',
+              (v) => (v as List<dynamic>)
+                  .map((e) => FlutterFontAsset.fromJson(e as Map))
+                  .toList()),
+        );
+        return val;
+      },
+    );
+
+FlutterFontAsset _$FlutterFontAssetFromJson(Map json) => $checkedCreate(
+      'FlutterFontAsset',
+      json,
+      ($checkedConvert) {
+        $checkKeys(
+          json,
+          requiredKeys: const ['asset'],
+        );
+        final val = FlutterFontAsset(
+          asset: $checkedConvert('asset', (v) => v as String),
         );
         return val;
       },

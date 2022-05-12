@@ -41,12 +41,26 @@ class Flutter {
 
 @JsonSerializable()
 class FlutterFonts {
-  FlutterFonts({required this.family});
+  FlutterFonts({required this.family, required this.fonts});
 
   @JsonKey(name: 'family', required: true)
   final String family;
 
+  @JsonKey(name: 'fonts')
+  final List<FlutterFontAsset> fonts;
+
   factory FlutterFonts.fromJson(Map json) => _$FlutterFontsFromJson(json);
+}
+
+@JsonSerializable()
+class FlutterFontAsset {
+  FlutterFontAsset({required this.asset});
+
+  @JsonKey(name: 'asset', required: true)
+  final String asset;
+
+  factory FlutterFontAsset.fromJson(Map json) =>
+      _$FlutterFontAssetFromJson(json);
 }
 
 @JsonSerializable()
