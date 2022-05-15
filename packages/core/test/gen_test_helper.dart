@@ -67,8 +67,8 @@ Future<void> expectedStringsGen(
   final formatter = DartFormatter(
       pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 
-  final actual =
-  generateStrings(pubspecFile, formatter, config.pubspec.flutterGen.strings);
+  final actual = generateStrings(
+      pubspecFile, formatter, config.pubspec.flutterGen.strings);
   final expected = File(fact).readAsStringSync().replaceAll('\r\n', '\n');
 
   expect(

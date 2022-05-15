@@ -102,9 +102,9 @@ packages:
   flutter_gen_core:
     dependency: "direct main"
     description:
-      path: "../core"
-      relative: true
-    source: path
+      name: flutter_gen_core
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "4.1.6"
   flutter_lints:
     dependency: "direct dev"
