@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 import 'gen/assets.gen.dart';
 import 'gen/colors.gen.dart';
 import 'gen/fonts.gen.dart';

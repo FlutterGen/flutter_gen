@@ -6,6 +6,7 @@ import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/generators/assets_generator.dart';
 import 'package:flutter_gen_core/generators/colors_generator.dart';
 import 'package:flutter_gen_core/generators/fonts_generator.dart';
+import 'package:flutter_gen_core/generators/strings_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:path/path.dart';
 import 'package:test/test.dart';
@@ -47,6 +48,27 @@ Future<void> expectedColorsGen(
 
   final actual =
       generateColors(pubspecFile, formatter, config.pubspec.flutterGen.colors);
+  final expected = File(fact).readAsStringSync().replaceAll('\r\n', '\n');
+
+  expect(
+    File(generated).readAsStringSync(),
+    isNotEmpty,
+  );
+  expect(actual, expected);
+}
+
+/// Strings
+Future<void> expectedStringsGen(
+    String pubspec, String generated, String fact) async {
+  await FlutterGenerator(File(pubspec)).build();
+
+  final pubspecFile = File(pubspec);
+  final config = await loadPubspecConfig(pubspecFile);
+  final formatter = DartFormatter(
+      pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
+
+  final actual =
+  generateStrings(pubspecFile, formatter, config.pubspec.flutterGen.strings);
   final expected = File(fact).readAsStringSync().replaceAll('\r\n', '\n');
 
   expect(

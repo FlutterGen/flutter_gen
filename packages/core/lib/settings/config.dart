@@ -52,6 +52,11 @@ flutter_gen:
   colors:
     enabled: true
     inputs: []
+    
+  strings:
+    enabled: true
+    class_name: Strings
+    inputs: []
 
 flutter:
   assets: []

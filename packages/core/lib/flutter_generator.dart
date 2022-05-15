@@ -7,6 +7,7 @@ import 'package:path/path.dart';
 import 'generators/assets_generator.dart';
 import 'generators/colors_generator.dart';
 import 'generators/fonts_generator.dart';
+import 'generators/strings_generator.dart';
 import 'settings/config.dart';
 import 'utils/error.dart';
 import 'utils/file.dart';
@@ -27,6 +28,7 @@ class FlutterGenerator {
   Future<void> build() async {
     stdout.writeln(flutterGenVersion);
     Config config;
+
     try {
       config = await loadPubspecConfig(pubspecFile);
     } on InvalidSettingsException catch (e) {
@@ -75,6 +77,17 @@ class FlutterGenerator {
           File(normalize(join(pubspecFile.parent.path, output, fontsName)));
       writeAsString(generated, file: fonts);
       stdout.writeln('Generated: ${fonts.absolute.path}');
+    }
+
+    if (flutterGen.strings.enabled && flutterGen.strings.inputs.isNotEmpty) {
+      final generated =
+          generateStrings(pubspecFile, formatter, flutterGen.strings);
+      final stringsName =
+          '${flutterGen.strings.className.toLowerCase()}.gen.dart';
+      final strings =
+          File(normalize(join(pubspecFile.parent.path, output, stringsName)));
+      writeAsString(generated, file: strings);
+      stdout.writeln('Generated: ${strings.absolute.path}');
     }
 
     stdout.writeln('FlutterGen finished.');
