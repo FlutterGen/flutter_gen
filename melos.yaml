@@ -20,7 +20,7 @@ scripts:
     run: |
       melos exec -- flutter pub upgrade
 
-  analyze: melos exec -- dart analyze .
+  analyze: dart analyze
 
   format: bash ./scripts/dartfmt.sh
 
