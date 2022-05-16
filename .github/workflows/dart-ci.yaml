@@ -40,7 +40,8 @@ jobs:
         if: startsWith(matrix.os, 'windows')
         run: |
           dart pub global activate melos
-          melos bootstrap
+          # FIXME: CI randomly fail
+          melos bootstrap --no-flutter
 
       - name: Run tests for our dart project.
         if: startsWith(matrix.os, 'ubuntu')
