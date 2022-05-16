@@ -41,7 +41,8 @@ jobs:
         run: |
           dart pub global activate melos
           # FIXME: CI randomly fail
-          melos bootstrap --no-flutter
+          melos exec -c 1 -- flutter pub get
+          melos bootstrap
 
       - name: Run tests for our dart project.
         if: startsWith(matrix.os, 'ubuntu')
