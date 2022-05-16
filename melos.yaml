@@ -52,7 +52,7 @@ scripts:
       scope: example
 
   unit:test:
-    run: melos exec -- dart run test
+    run: melos exec -- dart test
     select-package:
       dir-exists: test
 
