@@ -10,7 +10,7 @@ _copyValues<K, V>(
       }
       _copyValues(from[key] as Map, to[key] as Map, recursive, acceptNull);
     } else {
-      if (from[key] != null || acceptNull) to[key] = from[key]!;
+      if (from[key] != null || acceptNull) to[key] = from[key] as V;
     }
   }
 }

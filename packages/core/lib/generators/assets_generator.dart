@@ -190,6 +190,7 @@ _Statement? _createAssetTypeStatement(
       );
     }
   }
+  return null;
 }
 
 /// Generate style like Assets.foo.bar
