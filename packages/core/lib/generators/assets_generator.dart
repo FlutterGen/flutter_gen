@@ -14,8 +14,8 @@ import '../utils/string.dart';
 import 'generator_helper.dart';
 import 'integrations/flare_integration.dart';
 import 'integrations/integration.dart';
-import 'integrations/svg_integration.dart';
 import 'integrations/rive_integration.dart';
+import 'integrations/svg_integration.dart';
 
 class AssetsGenConfig {
   AssetsGenConfig._(
@@ -368,9 +368,11 @@ class AssetGenImage extends AssetImage {
     ImageErrorWidgetBuilder? errorBuilder,
     String? semanticLabel,
     bool excludeFromSemantics = false,
+    double? scale,
     double? width,
     double? height,
     Color? color,
+    Animation<double>? opacity,
     BlendMode? colorBlendMode,
     BoxFit? fit,
     AlignmentGeometry alignment = Alignment.center,
@@ -389,9 +391,11 @@ class AssetGenImage extends AssetImage {
       errorBuilder: errorBuilder,
       semanticLabel: semanticLabel,
       excludeFromSemantics: excludeFromSemantics,
+      scale: scale,
       width: width,
       height: height,
       color: color,
+      opacity: opacity,
       colorBlendMode: colorBlendMode,
       fit: fit,
       alignment: alignment,
