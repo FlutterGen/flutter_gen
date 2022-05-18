@@ -190,7 +190,6 @@ _Statement? _createAssetTypeStatement(
       );
     }
   }
-
   return null;
 }
 

@@ -3,6 +3,7 @@
 ///  FlutterGen
 /// *****************************************************
 
+// ignore_for_file: type=lint
 // ignore_for_file: directives_ordering,unnecessary_import
 
 import 'package:flutter/widgets.dart';
