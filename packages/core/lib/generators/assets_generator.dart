@@ -354,7 +354,7 @@ class $className {
 }
 
 String _assetGenImageClassDefinition(String packageName) {
-  final packageParameter = packageName.isEmpty ? 'null' : '\'$packageName\'';
+  final packageParameter = packageName.isNotEmpty ? ' = \'$packageName\'' : '';
   return '''
 
 class AssetGenImage {
@@ -382,7 +382,7 @@ class AssetGenImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
-    String? package = $packageParameter,
+    String? package$packageParameter,
     FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,

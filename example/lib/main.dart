@@ -40,6 +40,7 @@ void main() {
               ),
               Assets.images.chip1.image(),
               res.Assets.images.flutter3.image(),
+              res.Assets.images.dart.svg(),
               Assets.images.icons.kmm.svg(key: const Key("kmm_svg")),
               Assets.images.icons.fuchsia.svg(),
               Assets.images.icons.paint.svg(

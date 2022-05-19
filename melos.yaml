@@ -29,7 +29,9 @@ scripts:
     run: |
       melos exec -- dart pub run build_runner build --delete-conflicting-outputs
     select-package:
-      ignore: example
+      ignore: 
+        - example
+        - example_resources
       depends-on: 'build_runner'
 
   build:
