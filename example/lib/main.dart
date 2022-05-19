@@ -37,7 +37,7 @@ void main() {
                   fit: BoxFit.contain,
                 ),
               ),
-              Image(image: Assets.images.chip1),
+              Assets.images.chip1.image(),
               Assets.images.icons.kmm.svg(key: const Key("kmm_svg")),
               Assets.images.icons.fuchsia.svg(),
               Assets.images.icons.paint.svg(
