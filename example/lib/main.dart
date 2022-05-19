@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:example_resources/gen/assets.gen.dart' as res;
 
 import 'gen/assets.gen.dart';
 import 'gen/colors.gen.dart';
@@ -38,6 +39,7 @@ void main() {
                 ),
               ),
               Assets.images.chip1.image(),
+              res.Assets.images.flutter3.image(),
               Assets.images.icons.kmm.svg(key: const Key("kmm_svg")),
               Assets.images.icons.fuchsia.svg(),
               Assets.images.icons.paint.svg(

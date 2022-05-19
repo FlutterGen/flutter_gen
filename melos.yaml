@@ -3,6 +3,7 @@ name: FlutterGen
 packages:
   - packages/**
   - example/*
+  - example_resources/*
 
 ide:
   intellij: true
@@ -50,6 +51,20 @@ scripts:
       -- flutter pub run build_runner build --delete-conflicting-outputs
     select-package:
       scope: example
+
+  example:res:command:
+    run: |
+      melos exec \
+      -- dart ../packages/command/bin/flutter_gen_command.dart --config pubspec.yaml
+    select-package:
+      scope: example_resources
+
+  example:res:build_runner:
+    run: |
+      melos exec \
+      -- flutter pub run build_runner build --delete-conflicting-outputs
+    select-package:
+      scope: example_resources
 
   unit:test:
     run: melos exec -- dart test
