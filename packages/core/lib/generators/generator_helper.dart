@@ -1,6 +1,5 @@
 String get header {
-  return '''// coverage:ignore-file
-/// GENERATED CODE - DO NOT MODIFY BY HAND
+  return '''/// GENERATED CODE - DO NOT MODIFY BY HAND
 /// *****************************************************
 ///  FlutterGen
 /// *****************************************************
@@ -8,8 +7,9 @@ String get header {
 ''';
 }
 
-String get ignoreAnalysis {
-  return '''// ignore_for_file: type=lint
+String get ignore {
+  return '''// coverage:ignore-file
+// ignore_for_file: type=lint
 // ignore_for_file: directives_ordering,unnecessary_import
   
 ''';
