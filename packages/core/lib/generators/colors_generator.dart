@@ -24,7 +24,7 @@ String generateColors(
 
   final buffer = StringBuffer();
   buffer.writeln(header);
-  buffer.writeln(ignoreAnalysis);
+  buffer.writeln(ignore);
   buffer.writeln("import 'package:flutter/painting.dart';");
   buffer.writeln("import 'package:flutter/material.dart';");
   buffer.writeln();

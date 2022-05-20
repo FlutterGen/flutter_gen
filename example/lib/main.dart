@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:example_resources/gen/assets.gen.dart' as res;
 
 import 'gen/assets.gen.dart';
 import 'gen/colors.gen.dart';
@@ -38,7 +38,10 @@ void main() {
                   fit: BoxFit.contain,
                 ),
               ),
-              Image(image: Assets.images.chip1),
+              Assets.images.chip1.image(),
+              // Use from example_resource package.
+              res.Assets.images.flutter3.image(),
+              res.Assets.images.dart.svg(),
               Assets.images.icons.kmm.svg(key: const Key("kmm_svg")),
               Assets.images.icons.fuchsia.svg(),
               Assets.images.icons.paint.svg(
