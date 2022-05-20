@@ -1,5 +1,6 @@
 String get header {
-  return '''/// GENERATED CODE - DO NOT MODIFY BY HAND
+  return '''// coverage:ignore-file
+/// GENERATED CODE - DO NOT MODIFY BY HAND
 /// *****************************************************
 ///  FlutterGen
 /// *****************************************************
