@@ -1,0 +1,35 @@
+name: example_resources
+description: A sample project using FlutterGen.
+
+publish_to: 'none'
+
+version: 1.0.0+2
+
+environment:
+  sdk: '>=2.14.0 <3.0.0'
+  flutter: '>=2.5.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_svg: ^1.0.1
+
+dev_dependencies:
+  build_runner: ^2.1.7
+  flutter_gen_runner: ^4.1.6
+
+flutter_gen:
+  output: lib/gen/
+  line_length: 80
+  
+  integrations:
+    flutter_svg: true
+
+  assets:
+    enabled: true
+    package_parameter_enabled: true
+
+flutter:
+  assets:
+    - assets/images/

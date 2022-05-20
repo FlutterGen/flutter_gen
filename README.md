@@ -179,7 +179,7 @@ Example results of `assets/images/chip.jpg`:
 
 ```dart
 Widget build(BuildContext context) {
-  return Image(image: Assets.images.chip);
+  return Assets.images.chip.image();
 }
 
 Widget build(BuildContext context) {

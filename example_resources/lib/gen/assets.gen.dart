@@ -8,19 +8,24 @@
 // ignore_for_file: directives_ordering,unnecessary_import
 
 import 'package:flutter/widgets.dart';
-import 'package:rive/rive.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
 
-class $AssetsRiveGen {
-  const $AssetsRiveGen();
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
 
-  /// File path: assets/rive/vehicles.riv
-  RiveGenImage get vehicles => const RiveGenImage('assets/rive/vehicles.riv');
+  /// File path: assets/images/dart.svg
+  SvgGenImage get dart => const SvgGenImage('assets/images/dart.svg');
+
+  /// File path: assets/images/flutter3.jpg
+  AssetGenImage get flutter3 =>
+      const AssetGenImage('assets/images/flutter3.jpg');
 }
 
 class Assets {
   Assets._();
 
-  static const $AssetsRiveGen rive = $AssetsRiveGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
 class AssetGenImage {
@@ -48,7 +53,7 @@ class AssetGenImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
-    String? package,
+    String? package = 'example_resources',
     FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,
@@ -84,33 +89,49 @@ class AssetGenImage {
   String get path => _assetName;
 }
 
-class RiveGenImage {
-  const RiveGenImage(this._assetName);
+class SvgGenImage {
+  const SvgGenImage(this._assetName);
 
   final String _assetName;
 
-  RiveAnimation rive({
-    String? artboard,
-    List<String> animations = const [],
-    List<String> stateMachines = const [],
-    BoxFit? fit,
-    Alignment? alignment,
-    Widget? placeHolder,
-    bool antialiasing = true,
-    List<RiveAnimationController> controllers = const [],
-    OnInitCallback? onInit,
+  SvgPicture svg({
+    Key? key,
+    bool matchTextDirection = false,
+    AssetBundle? bundle,
+    String? package = 'example_resources',
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.contain,
+    AlignmentGeometry alignment = Alignment.center,
+    bool allowDrawingOutsideViewBox = false,
+    WidgetBuilder? placeholderBuilder,
+    Color? color,
+    BlendMode colorBlendMode = BlendMode.srcIn,
+    String? semanticsLabel,
+    bool excludeFromSemantics = false,
+    Clip clipBehavior = Clip.hardEdge,
+    bool cacheColorFilter = false,
+    SvgTheme? theme,
   }) {
-    return RiveAnimation.asset(
+    return SvgPicture.asset(
       _assetName,
-      artboard: artboard,
-      animations: animations,
-      stateMachines: stateMachines,
+      key: key,
+      matchTextDirection: matchTextDirection,
+      bundle: bundle,
+      package: package,
+      width: width,
+      height: height,
       fit: fit,
       alignment: alignment,
-      placeHolder: placeHolder,
-      antialiasing: antialiasing,
-      controllers: controllers,
-      onInit: onInit,
+      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
+      placeholderBuilder: placeholderBuilder,
+      color: color,
+      colorBlendMode: colorBlendMode,
+      semanticsLabel: semanticsLabel,
+      excludeFromSemantics: excludeFromSemantics,
+      clipBehavior: clipBehavior,
+      cacheColorFilter: cacheColorFilter,
+      theme: theme,
     );
   }
 
