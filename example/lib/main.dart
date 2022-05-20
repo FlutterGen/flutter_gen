@@ -39,6 +39,7 @@ void main() {
                 ),
               ),
               Assets.images.chip1.image(),
+              // Use from example_resource package.
               res.Assets.images.flutter3.image(),
               res.Assets.images.dart.svg(),
               Assets.images.icons.kmm.svg(key: const Key("kmm_svg")),
