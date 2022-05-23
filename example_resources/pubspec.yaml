@@ -30,6 +30,15 @@ flutter_gen:
     enabled: true
     package_parameter_enabled: true
 
+  fonts:
+    enabled: true
+
+  colors:
+    enabled: true
+    inputs:
+      - assets/color/colors.xml
+
+
 flutter:
   assets:
     - assets/images/

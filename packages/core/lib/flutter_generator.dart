@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
-import 'package:flutter_gen_core/utils/version.dart';
 import 'package:path/path.dart';
 
 import 'generators/assets_generator.dart';
@@ -41,10 +40,7 @@ class FlutterGenerator {
   }
 
   Future<void> build({Config? config}) async {
-    stdout.writeln(flutterGenVersion);
-
     config ??= await getConfig();
-
     if (config == null) return;
 
     final flutter = config.pubspec.flutter;

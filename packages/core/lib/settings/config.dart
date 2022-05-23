@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter_gen_core/utils/version.dart';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
 
@@ -14,7 +15,7 @@ class Config {
 }
 
 Future<Config> loadPubspecConfig(File pubspecFile) async {
-  stdout.writeln('FlutterGen Loading ... '
+  stdout.writeln('$flutterGenVersion Loading ... '
       '${normalize(join(
     basename(pubspecFile.parent.path),
     basename(pubspecFile.path),

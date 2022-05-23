@@ -17,6 +17,11 @@ dependencies:
   flare_flutter: ^3.0.2
   rive: ^0.8.1
 
+  # Dependency check
+  collection: ^1.15.0
+  crypto: ^3.0.0
+  glob: ^2.0.0
+
   json_annotation: ^4.5.0
   freezed_annotation: ^2.0.3
     
