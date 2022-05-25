@@ -1,3 +1,43 @@
+## 4.2.0
+
+**Feature**
+- [#208](https://github.com/FlutterGen/flutter_gen/pull/208) Add scale and opacity parameters to Image().
+- [#221](https://github.com/FlutterGen/flutter_gen/pull/221) Support for build_runner watch.
+- [#227](https://github.com/FlutterGen/flutter_gen/pull/227) Maintenance for Flutter3 (flutter_lints to 2.0.1). 
+- [#229](https://github.com/FlutterGen/flutter_gen/pull/229) Removed the AssetImage inheritance from AssetGenImage.
+  - [Extending package information to asset types other than AssetGenImage.](https://github.com/FlutterGen/flutter_gen/pull/162) 
+  - [Added 'gen_for_package:true/false' param to support asset generation for a package.](https://github.com/FlutterGen/flutter_gen/pull/213) 
+  ```dart
+  // Before
+  Widget build(BuildContext context) {
+    return Image(image: Assets.images.chip);  // Can't use this.
+  }
+  // After
+  Widget build(BuildContext context) {
+    return Assets.images.chip.image();
+  }
+  ```
+  
+  - Added example_resource package for how to use another package resources from an app.
+  ```dart
+  # file: example_resources/pubspec.yaml
+  # ... 
+  flutter_gen:
+    # ...
+    assets:
+      enabled: true
+      package_parameter_enabled: true
+
+  #...
+  ```
+- [#230](https://github.com/FlutterGen/flutter_gen/pull/230) Add coverage ignore comment on generated file headers.
+
+
+**Development**
+- Update to Dart 2.17.1
+- Update to Flutter 3.0.1
+
+
 ## 4.1.6
 
 **Feature**
