@@ -17,7 +17,6 @@
     return Assets.images.chip.image();
   }
   ```
-  
   - Added example_resource package for how to use another package resources from an app.
   ```dart
   # file: example_resources/pubspec.yaml
@@ -31,6 +30,8 @@
   #...
   ```
 - [#230](https://github.com/FlutterGen/flutter_gen/pull/230) Add coverage ignore comment on generated file headers.
+- Update collection to 1.16.0.
+- Update min dart sdk to >=2.14.0 <3.0.0.
 
 
 **Development**
