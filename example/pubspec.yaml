@@ -21,6 +21,7 @@ dependencies:
   collection: ^1.16.0
   crypto: ^3.0.2
   glob: ^2.0.2
+  
   firebase_analytics: 9.1.8
   firebase_core: 1.14.1
   firebase_auth: 3.3.18
