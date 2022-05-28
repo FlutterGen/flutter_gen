@@ -20,7 +20,7 @@ String generateStrings(
 
   final buffer = StringBuffer();
   buffer.writeln(header);
-  buffer.writeln(ignoreAnalysis);
+  buffer.writeln(ignore);
   buffer.writeln();
   buffer.writeln('class ${strings.className} {');
   buffer.writeln('${strings.className}._();');
