@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
-import 'package:flutter_gen_core/utils/version.dart';
 import 'package:path/path.dart';
 
 import 'generators/assets_generator.dart';
@@ -25,19 +24,25 @@ class FlutterGenerator {
   final String colorsName;
   final String fontsName;
 
-  Future<void> build() async {
-    stdout.writeln(flutterGenVersion);
+  Future<Config?> getConfig() async {
     Config config;
 
     try {
       config = await loadPubspecConfig(pubspecFile);
     } on InvalidSettingsException catch (e) {
       stderr.writeln(e.message);
-      return;
+      return null;
     } on FileSystemException catch (e) {
       stderr.writeln(e.message);
-      return;
+      return null;
     }
+
+    return config;
+  }
+
+  Future<void> build({Config? config}) async {
+    config ??= await getConfig();
+    if (config == null) return;
 
     final flutter = config.pubspec.flutter;
     final flutterGen = config.pubspec.flutterGen;

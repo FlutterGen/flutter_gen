@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter_gen_core/utils/version.dart';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
 
@@ -7,13 +8,14 @@ import '../utils/map.dart';
 import 'pubspec.dart';
 
 class Config {
-  Config._({required this.pubspec});
+  Config._({required this.pubspec, required this.pubspecFile});
 
   final Pubspec pubspec;
+  final File pubspecFile;
 }
 
 Future<Config> loadPubspecConfig(File pubspecFile) async {
-  stdout.writeln('FlutterGen Loading ... '
+  stdout.writeln('$flutterGenVersion Loading ... '
       '${normalize(join(
     basename(pubspecFile.parent.path),
     basename(pubspecFile.path),
@@ -26,7 +28,7 @@ Future<Config> loadPubspecConfig(File pubspecFile) async {
   final defaultMap = loadYaml(_defaultConfig) as Map?;
   final mergedMap = mergeMap([defaultMap, userMap]);
   final pubspec = Pubspec.fromJson(mergedMap);
-  return Config._(pubspec: pubspec);
+  return Config._(pubspec: pubspec, pubspecFile: pubspecFile);
 }
 
 const _defaultConfig = '''

@@ -7,8 +7,10 @@ String get header {
 ''';
 }
 
-String get ignoreAnalysis {
-  return '''// ignore_for_file: directives_ordering,unnecessary_import
+String get ignore {
+  return '''// coverage:ignore-file
+// ignore_for_file: type=lint
+// ignore_for_file: directives_ordering,unnecessary_import
   
 ''';
 }

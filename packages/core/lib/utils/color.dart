@@ -105,11 +105,11 @@ Color _mix(
 ) {
   assert(amount >= 0 && amount <= 100);
   final p = amount / 100;
-  final _color1 = color1.toRgbColor();
-  final _color2 = color2.toRgbColor();
+  final c1 = color1.toRgbColor();
+  final c2 = color2.toRgbColor();
   return Color.rgb(
-    ((_color2.r - _color1.r) * p + _color1.r).round(),
-    ((_color2.g - _color1.g) * p + _color1.g).round(),
-    ((_color2.b - _color1.b) * p + _color1.b).round(),
+    ((c2.r - c1.r) * p + c1.r).round(),
+    ((c2.g - c1.g) * p + c1.g).round(),
+    ((c2.b - c1.b) * p + c1.b).round(),
   );
 }

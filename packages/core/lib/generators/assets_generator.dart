@@ -14,8 +14,8 @@ import '../utils/string.dart';
 import 'generator_helper.dart';
 import 'integrations/flare_integration.dart';
 import 'integrations/integration.dart';
-import 'integrations/svg_integration.dart';
 import 'integrations/rive_integration.dart';
+import 'integrations/svg_integration.dart';
 
 class AssetsGenConfig {
   AssetsGenConfig._(
@@ -90,7 +90,7 @@ String generateAssets(
   final buffer = StringBuffer();
 
   buffer.writeln(header);
-  buffer.writeln(ignoreAnalysis);
+  buffer.writeln(ignore);
   buffer.writeln(importsBuffer.toString());
   buffer.writeln(classesBuffer.toString());
   return formatter.format(buffer.toString());
@@ -354,23 +354,26 @@ class $className {
 }
 
 String _assetGenImageClassDefinition(String packageName) {
-  final optionalParameter =
-      packageName.isNotEmpty ? ', package: \'$packageName\'' : '';
+  final packageParameter = packageName.isNotEmpty ? ' = \'$packageName\'' : '';
   return '''
 
-class AssetGenImage extends AssetImage {
-  const AssetGenImage(String assetName) : super(assetName$optionalParameter);
+class AssetGenImage {
+  const AssetGenImage(this._assetName);
+
+  final String _assetName;
 
   Image image({
     Key? key,
+    AssetBundle? bundle,
     ImageFrameBuilder? frameBuilder,
-    ImageLoadingBuilder? loadingBuilder,
     ImageErrorWidgetBuilder? errorBuilder,
     String? semanticLabel,
     bool excludeFromSemantics = false,
+    double? scale = 1.0,
     double? width,
     double? height,
     Color? color,
+    Animation<double>? opacity,
     BlendMode? colorBlendMode,
     BoxFit? fit,
     AlignmentGeometry alignment = Alignment.center,
@@ -379,19 +382,24 @@ class AssetGenImage extends AssetImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
+    String? package$packageParameter,
     FilterQuality filterQuality = FilterQuality.low,
+    int? cacheWidth,
+    int? cacheHeight,
   }) {
-    return Image(
+    return Image.asset(
+      _assetName,
       key: key,
-      image: this,
+      bundle: bundle,
       frameBuilder: frameBuilder,
-      loadingBuilder: loadingBuilder,
       errorBuilder: errorBuilder,
       semanticLabel: semanticLabel,
       excludeFromSemantics: excludeFromSemantics,
+      scale: scale,
       width: width,
       height: height,
       color: color,
+      opacity: opacity,
       colorBlendMode: colorBlendMode,
       fit: fit,
       alignment: alignment,
@@ -400,11 +408,14 @@ class AssetGenImage extends AssetImage {
       matchTextDirection: matchTextDirection,
       gaplessPlayback: gaplessPlayback,
       isAntiAlias: isAntiAlias,
+      package: package,
       filterQuality: filterQuality,
+      cacheWidth: cacheWidth,
+      cacheHeight: cacheHeight,
     );
   }
 
-  String get path => assetName;
+  String get path => _assetName;
 }
 ''';
 }

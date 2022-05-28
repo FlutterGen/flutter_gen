@@ -12,31 +12,7 @@ part of 'freezed_sample.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$UnionTearOff {
-  const _$UnionTearOff();
-
-  Data call(int value) {
-    return Data(
-      value,
-    );
-  }
-
-  Loading loading() {
-    return const Loading();
-  }
-
-  ErrorDetails error([String? message]) {
-    return ErrorDetails(
-      message,
-    );
-  }
-}
-
-/// @nodoc
-const $Union = _$UnionTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$Union {
@@ -102,26 +78,26 @@ class _$UnionCopyWithImpl<$Res> implements $UnionCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $DataCopyWith<$Res> {
-  factory $DataCopyWith(Data value, $Res Function(Data) then) =
-      _$DataCopyWithImpl<$Res>;
+abstract class _$$DataCopyWith<$Res> {
+  factory _$$DataCopyWith(_$Data value, $Res Function(_$Data) then) =
+      __$$DataCopyWithImpl<$Res>;
   $Res call({int value});
 }
 
 /// @nodoc
-class _$DataCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
-    implements $DataCopyWith<$Res> {
-  _$DataCopyWithImpl(Data _value, $Res Function(Data) _then)
-      : super(_value, (v) => _then(v as Data));
+class __$$DataCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
+    implements _$$DataCopyWith<$Res> {
+  __$$DataCopyWithImpl(_$Data _value, $Res Function(_$Data) _then)
+      : super(_value, (v) => _then(v as _$Data));
 
   @override
-  Data get _value => super._value as Data;
+  _$Data get _value => super._value as _$Data;
 
   @override
   $Res call({
     Object? value = freezed,
   }) {
-    return _then(Data(
+    return _then(_$Data(
       value == freezed
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -155,7 +131,7 @@ class _$Data with DiagnosticableTreeMixin implements Data {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is Data &&
+            other is _$Data &&
             const DeepCollectionEquality().equals(other.value, value));
   }
 
@@ -165,8 +141,8 @@ class _$Data with DiagnosticableTreeMixin implements Data {
 
   @JsonKey(ignore: true)
   @override
-  $DataCopyWith<Data> get copyWith =>
-      _$DataCopyWithImpl<Data>(this, _$identity);
+  _$$DataCopyWith<_$Data> get copyWith =>
+      __$$DataCopyWithImpl<_$Data>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -238,27 +214,27 @@ class _$Data with DiagnosticableTreeMixin implements Data {
 }
 
 abstract class Data implements Union {
-  const factory Data(int value) = _$Data;
+  const factory Data(final int value) = _$Data;
 
-  int get value;
+  int get value => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $DataCopyWith<Data> get copyWith => throw _privateConstructorUsedError;
+  _$$DataCopyWith<_$Data> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LoadingCopyWith<$Res> {
-  factory $LoadingCopyWith(Loading value, $Res Function(Loading) then) =
-      _$LoadingCopyWithImpl<$Res>;
+abstract class _$$LoadingCopyWith<$Res> {
+  factory _$$LoadingCopyWith(_$Loading value, $Res Function(_$Loading) then) =
+      __$$LoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$LoadingCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
-    implements $LoadingCopyWith<$Res> {
-  _$LoadingCopyWithImpl(Loading _value, $Res Function(Loading) _then)
-      : super(_value, (v) => _then(v as Loading));
+class __$$LoadingCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
+    implements _$$LoadingCopyWith<$Res> {
+  __$$LoadingCopyWithImpl(_$Loading _value, $Res Function(_$Loading) _then)
+      : super(_value, (v) => _then(v as _$Loading));
 
   @override
-  Loading get _value => super._value as Loading;
+  _$Loading get _value => super._value as _$Loading;
 }
 
 /// @nodoc
@@ -274,13 +250,13 @@ class _$Loading with DiagnosticableTreeMixin implements Loading {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'Union.loading'));
+    properties.add(DiagnosticsProperty('type', 'Union.loading'));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is Loading);
+        (other.runtimeType == runtimeType && other is _$Loading);
   }
 
   @override
@@ -360,28 +336,28 @@ abstract class Loading implements Union {
 }
 
 /// @nodoc
-abstract class $ErrorDetailsCopyWith<$Res> {
-  factory $ErrorDetailsCopyWith(
-          ErrorDetails value, $Res Function(ErrorDetails) then) =
-      _$ErrorDetailsCopyWithImpl<$Res>;
+abstract class _$$ErrorDetailsCopyWith<$Res> {
+  factory _$$ErrorDetailsCopyWith(
+          _$ErrorDetails value, $Res Function(_$ErrorDetails) then) =
+      __$$ErrorDetailsCopyWithImpl<$Res>;
   $Res call({String? message});
 }
 
 /// @nodoc
-class _$ErrorDetailsCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
-    implements $ErrorDetailsCopyWith<$Res> {
-  _$ErrorDetailsCopyWithImpl(
-      ErrorDetails _value, $Res Function(ErrorDetails) _then)
-      : super(_value, (v) => _then(v as ErrorDetails));
+class __$$ErrorDetailsCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
+    implements _$$ErrorDetailsCopyWith<$Res> {
+  __$$ErrorDetailsCopyWithImpl(
+      _$ErrorDetails _value, $Res Function(_$ErrorDetails) _then)
+      : super(_value, (v) => _then(v as _$ErrorDetails));
 
   @override
-  ErrorDetails get _value => super._value as ErrorDetails;
+  _$ErrorDetails get _value => super._value as _$ErrorDetails;
 
   @override
   $Res call({
     Object? message = freezed,
   }) {
-    return _then(ErrorDetails(
+    return _then(_$ErrorDetails(
       message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -415,7 +391,7 @@ class _$ErrorDetails with DiagnosticableTreeMixin implements ErrorDetails {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is ErrorDetails &&
+            other is _$ErrorDetails &&
             const DeepCollectionEquality().equals(other.message, message));
   }
 
@@ -425,8 +401,8 @@ class _$ErrorDetails with DiagnosticableTreeMixin implements ErrorDetails {
 
   @JsonKey(ignore: true)
   @override
-  $ErrorDetailsCopyWith<ErrorDetails> get copyWith =>
-      _$ErrorDetailsCopyWithImpl<ErrorDetails>(this, _$identity);
+  _$$ErrorDetailsCopyWith<_$ErrorDetails> get copyWith =>
+      __$$ErrorDetailsCopyWithImpl<_$ErrorDetails>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -498,10 +474,10 @@ class _$ErrorDetails with DiagnosticableTreeMixin implements ErrorDetails {
 }
 
 abstract class ErrorDetails implements Union {
-  const factory ErrorDetails([String? message]) = _$ErrorDetails;
+  const factory ErrorDetails([final String? message]) = _$ErrorDetails;
 
-  String? get message;
+  String? get message => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ErrorDetailsCopyWith<ErrorDetails> get copyWith =>
+  _$$ErrorDetailsCopyWith<_$ErrorDetails> get copyWith =>
       throw _privateConstructorUsedError;
 }
