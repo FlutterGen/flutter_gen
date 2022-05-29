@@ -62,7 +62,7 @@ dependencies:
   flutter_layout_grid: 2.0.0
   video_player: 2.4.0
   audio_service: 0.18.4
-  cached_network_image: 3.2.0
+  cached_network_image: 3.2.1
   flutter_cache_manager: 3.3.0
   visibility_detector: 0.2.2
   sliver_tools: 0.2.6
