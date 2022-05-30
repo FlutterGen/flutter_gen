@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:dartx/dartx.dart';
+import 'package:glob/glob.dart';
 import 'package:path/path.dart';
 
 import '../settings/asset_type.dart';
@@ -107,7 +108,8 @@ List<String> _getAssetRelativePathList(
   final assetRelativePathList = <String>[];
   for (final assetName in assets) {
     final assetAbsolutePath = join(rootPath, assetName);
-    if (excludes.any((exclude) => assetAbsolutePath.contains(exclude))) {
+    if (excludes
+        .any((exclude) => Glob('**/$exclude').matches(assetAbsolutePath))) {
       continue;
     }
 
@@ -115,15 +117,15 @@ List<String> _getAssetRelativePathList(
       assetRelativePathList.addAll(Directory(assetAbsolutePath)
           .listSync()
           .whereType<File>()
-          .where(
-              (file) => !excludes.any((exclude) => file.path.contains(exclude)))
           .map((e) => relative(e.path, from: rootPath))
           .toList());
     } else if (FileSystemEntity.isFileSync(assetAbsolutePath)) {
       assetRelativePathList.add(relative(assetAbsolutePath, from: rootPath));
     }
   }
-  return assetRelativePathList;
+  return assetRelativePathList
+      .where((file) => !excludes.any((exclude) => Glob(exclude).matches(file)))
+      .toList();
 }
 
 AssetType _constructAssetTree(List<String> assetRelativePathList) {

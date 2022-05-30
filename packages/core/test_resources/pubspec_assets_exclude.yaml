@@ -8,8 +8,10 @@ flutter_gen:
     flutter_svg: true
 
   exclude:
-    - assets/images/chip3/
+    - assets/images/chip3/*.jpg
     - assets/images/icons/dart@test.svg
+    - assets/**/icons/*.svg
+    - assets/images/*.png
 
 flutter:
   uses-material-design: true

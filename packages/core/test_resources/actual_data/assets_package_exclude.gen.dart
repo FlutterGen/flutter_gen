@@ -8,8 +8,6 @@
 // ignore_for_file: directives_ordering,unnecessary_import
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter/services.dart';
 
 class $PicturesGen {
   const $PicturesGen();
@@ -28,18 +26,9 @@ class $AssetsImagesGen {
   AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
 
   $AssetsImagesChip4Gen get chip4 => const $AssetsImagesChip4Gen();
-  $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
-
-  /// File path: assets/images/logo.png
-  AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
   /// File path: assets/images/profile.jpg
-  AssetGenImage get profileJpg =>
-      const AssetGenImage('assets/images/profile.jpg');
-
-  /// File path: assets/images/profile.png
-  AssetGenImage get profilePng =>
-      const AssetGenImage('assets/images/profile.png');
+  AssetGenImage get profile => const AssetGenImage('assets/images/profile.jpg');
 }
 
 class $AssetsJsonGen {
@@ -55,20 +44,6 @@ class $AssetsImagesChip4Gen {
   /// File path: assets/images/chip4/chip4.jpg
   AssetGenImage get chip4 =>
       const AssetGenImage('assets/images/chip4/chip4.jpg');
-}
-
-class $AssetsImagesIconsGen {
-  const $AssetsImagesIconsGen();
-
-  /// File path: assets/images/icons/fuchsia.svg
-  SvgGenImage get fuchsia =>
-      const SvgGenImage('assets/images/icons/fuchsia.svg');
-
-  /// File path: assets/images/icons/kmm.svg
-  SvgGenImage get kmm => const SvgGenImage('assets/images/icons/kmm.svg');
-
-  /// File path: assets/images/icons/paint.svg
-  SvgGenImage get paint => const SvgGenImage('assets/images/icons/paint.svg');
 }
 
 class Assets {
@@ -134,55 +109,6 @@ class AssetGenImage {
       filterQuality: filterQuality,
       cacheWidth: cacheWidth,
       cacheHeight: cacheHeight,
-    );
-  }
-
-  String get path => _assetName;
-}
-
-class SvgGenImage {
-  const SvgGenImage(this._assetName);
-
-  final String _assetName;
-
-  SvgPicture svg({
-    Key? key,
-    bool matchTextDirection = false,
-    AssetBundle? bundle,
-    String? package,
-    double? width,
-    double? height,
-    BoxFit fit = BoxFit.contain,
-    AlignmentGeometry alignment = Alignment.center,
-    bool allowDrawingOutsideViewBox = false,
-    WidgetBuilder? placeholderBuilder,
-    Color? color,
-    BlendMode colorBlendMode = BlendMode.srcIn,
-    String? semanticsLabel,
-    bool excludeFromSemantics = false,
-    Clip clipBehavior = Clip.hardEdge,
-    bool cacheColorFilter = false,
-    SvgTheme? theme,
-  }) {
-    return SvgPicture.asset(
-      _assetName,
-      key: key,
-      matchTextDirection: matchTextDirection,
-      bundle: bundle,
-      package: package,
-      width: width,
-      height: height,
-      fit: fit,
-      alignment: alignment,
-      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
-      placeholderBuilder: placeholderBuilder,
-      color: color,
-      colorBlendMode: colorBlendMode,
-      semanticsLabel: semanticsLabel,
-      excludeFromSemantics: excludeFromSemantics,
-      clipBehavior: clipBehavior,
-      cacheColorFilter: cacheColorFilter,
-      theme: theme,
     );
   }
 
