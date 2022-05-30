@@ -55,6 +55,8 @@ flutter_gen:
     enabled: true
     inputs: []
 
+  exclude: []
+
 flutter:
   assets: []
   fonts: []
