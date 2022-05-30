@@ -36,7 +36,7 @@ dependencies:
   adjust_sdk: 4.29.2
   google_sign_in: 5.3.0
   twitter_login: 4.2.3
-  flutter_facebook_auth: 4.3.3
+  flutter_facebook_auth: 4.3.4
   sign_in_with_apple: 3.3.0
   local_auth: 2.0.1
   flutter_hooks: 0.18.3
