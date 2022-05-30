@@ -53,7 +53,7 @@ dependencies:
   json_annotation: ^4.5.0
   freezed_annotation: 2.0.1
   intl: 0.17.0
-  fixnum: 1.0.0
+  fixnum: 1.0.1
   shared_preferences: 2.0.13
   flutter_secure_storage: 5.0.2
   auto_route: 3.2.4
