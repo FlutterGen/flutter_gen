@@ -1,3 +1,8 @@
+## 4.2.1
+
+**Bug fix**
+- [#236](https://github.com/FlutterGen/flutter_gen/issues/236) The crypto package 3.0.2 conflict in flutter_gen_runner 4.2.0 with integration_test.
+
 ## 4.2.0
 
 **Feature**
