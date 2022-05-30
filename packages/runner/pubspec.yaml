@@ -13,9 +13,9 @@ environment:
 dependencies:
   flutter_gen_core: ^4.2.0
   build: '>=2.0.0 <3.0.0'
-  collection: ^1.16.0
-  crypto: ^3.0.2
-  glob: ^2.0.2
+  collection: '>=1.15.0 <2.0.0'
+  crypto: '>=3.0.0 <4.0.0'
+  glob: '>=2.0.0 <3.0.0'
 
 dev_dependencies:
   flutter_lints: ^2.0.1
