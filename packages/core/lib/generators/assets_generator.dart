@@ -355,6 +355,11 @@ class $className {
 
 String _assetGenImageClassDefinition(String packageName) {
   final packageParameter = packageName.isNotEmpty ? ' = \'$packageName\'' : '';
+
+  final path = packageName.isNotEmpty
+      ? '\'packages/$packageParameter/\$_assetName\''
+      : '_assetName';
+
   return '''
 
 class AssetGenImage {
@@ -415,7 +420,7 @@ class AssetGenImage {
     );
   }
 
-  String get path => _assetName;
+  String get path => $path;
 }
 ''';
 }
