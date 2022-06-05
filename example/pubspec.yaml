@@ -89,7 +89,7 @@ dependencies:
   camera: 0.9.5
   flutter_local_notifications: 9.4.1
   logger: 1.1.0
-  geolocator: 8.2.0
+  geolocator: 8.2.1
   geocoding: 2.0.4
   android_intent_plus: 3.1.1
   share_plus: 4.0.4
