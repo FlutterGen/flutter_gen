@@ -39,7 +39,7 @@ dependencies:
   flutter_facebook_auth: 4.3.3
   sign_in_with_apple: 3.3.0
   local_auth: 2.0.1
-  flutter_hooks: 0.18.3
+  flutter_hooks: 0.18.4
   hooks_riverpod: 1.0.3
   async: 2.8.2
   dio: 4.0.6
