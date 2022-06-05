@@ -34,7 +34,7 @@ dependencies:
   sentry_flutter: 6.5.1
   sentry_dio: 6.5.1
   adjust_sdk: 4.29.2
-  google_sign_in: 5.3.0
+  google_sign_in: 5.3.2
   twitter_login: 4.2.3
   flutter_facebook_auth: 4.3.3
   sign_in_with_apple: 3.3.0
