@@ -15,4 +15,5 @@
   "lockFileMaintenance": {
     "enabled": true
   }
+  "ignorePaths": ["**/example/**", "**/example_resources/**"]
 }
