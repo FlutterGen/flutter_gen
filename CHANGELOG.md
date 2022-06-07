@@ -1,4 +1,4 @@
-## 4.2.1
+## 4.2.1, 4.2.1+1
 
 **Bug fix**
 - [#236](https://github.com/FlutterGen/flutter_gen/issues/236) The crypto package 3.0.2 conflict in flutter_gen_runner 4.2.0 with integration_test.
@@ -44,7 +44,7 @@
 - Update to Flutter 3.0.1
 
 
-## 4.1.6
+## 4.1.6, 4.1.6+1
 
 **Feature**
 - [#199](https://github.com/FlutterGen/flutter_gen/pull/199) [#201](https://github.com/FlutterGen/flutter_gen/pull/201) Expose some parameters of SvgPicture (flutter_svg).
