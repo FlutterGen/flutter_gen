@@ -87,6 +87,8 @@ class AssetGenImage {
   }
 
   String get path => _assetName;
+
+  String get keyName => 'packages/example_resources/$_assetName';
 }
 
 class SvgGenImage {
