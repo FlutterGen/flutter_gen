@@ -1,3 +1,11 @@
+## 4.3.0
+
+**Feature**
+- [#264](https://github.com/FlutterGen/flutter_gen/pull/264) Add `keyName` to asset generate file.
+
+**Bug fix**
+- [#247](https://github.com/FlutterGen/flutter_gen/pull/247) Make the default scale value null, so Flutter decides the one to use.
+
 ## 4.2.1, 4.2.1+1
 
 **Bug fix**
