@@ -363,7 +363,7 @@ class $className {
   $statementsBlock
 
   /// List of all assets
-  List<$commonType> get values => [$names];
+  List<$commonType> get values => [$names,];
 }
 ''';
 }
