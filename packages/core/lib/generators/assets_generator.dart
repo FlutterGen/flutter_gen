@@ -333,6 +333,16 @@ class Assets {
 ''';
 }
 
+/// tries to determine a common type or returns 'dynamic'
+String _typeOfMultipleStatements(List<_Statement> statements) {
+  String? type;
+  for (var statement in statements) {
+    type ??= statement.type;
+    if (statement.type != type) return 'dynamic';
+  }
+  return type ?? 'dynamic';
+}
+
 String _directoryClassGenDefinition(
   String className,
   List<_Statement> statements,
@@ -344,11 +354,16 @@ String _directoryClassGenDefinition(
           '''
           : statement.toGetterString())
       .join('\n');
+  final commonType = _typeOfMultipleStatements(statements);
+  final names = statements.map((statement) => statement.name).join(', ');
   return '''
 class $className {
   const $className();
   
   $statementsBlock
+
+  /// List of all assets
+  List<$commonType> get values => [$names];
 }
 ''';
 }
