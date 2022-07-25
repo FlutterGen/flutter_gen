@@ -33,7 +33,9 @@ class AssetsGenConfig {
       config.pubspec.packageName,
       config.pubspec.flutterGen,
       config.pubspec.flutter.assets,
-      config.pubspec.flutterGen.exclude,
+      config.pubspec.flutterGen.exclude
+          .map((pattern) => Glob(pattern))
+          .toList(),
     );
   }
 
@@ -41,7 +43,7 @@ class AssetsGenConfig {
   final String _packageName;
   final FlutterGen flutterGen;
   final List<String> assets;
-  final List<String> exclude;
+  final List<Glob> exclude;
 
   String get packageParameterLiteral =>
       flutterGen.assets.packageParameterEnabled ? _packageName : '';
@@ -103,16 +105,11 @@ String generateAssets(
 List<String> _getAssetRelativePathList(
   String rootPath,
   List<String> assets,
-  List<String> excludes,
+  List<Glob> excludes,
 ) {
   final assetRelativePathList = <String>[];
   for (final assetName in assets) {
     final assetAbsolutePath = join(rootPath, assetName);
-    if (excludes
-        .any((exclude) => Glob('**/$exclude').matches(assetAbsolutePath))) {
-      continue;
-    }
-
     if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
       assetRelativePathList.addAll(Directory(assetAbsolutePath)
           .listSync()
@@ -124,7 +121,7 @@ List<String> _getAssetRelativePathList(
     }
   }
   return assetRelativePathList
-      .where((file) => !excludes.any((exclude) => Glob(exclude).matches(file)))
+      .where((file) => !excludes.any((exclude) => exclude.matches(file)))
       .toList();
 }
 

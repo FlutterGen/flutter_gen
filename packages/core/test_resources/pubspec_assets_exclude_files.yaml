@@ -9,9 +9,8 @@ flutter_gen:
 
   exclude:
     - assets/images/chip3/*.jpg
-    - assets/images/icons/dart@test.svg
-    - assets/**/icons/*.svg
     - assets/images/*.png
+    - assets/**/icons/*
 
 flutter:
   uses-material-design: true
