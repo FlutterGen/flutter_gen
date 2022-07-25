@@ -120,9 +120,12 @@ List<String> _getAssetRelativePathList(
       assetRelativePathList.add(relative(assetAbsolutePath, from: rootPath));
     }
   }
-  return assetRelativePathList
-      .where((file) => !excludes.any((exclude) => exclude.matches(file)))
-      .toList();
+
+  return excludes.isEmpty
+      ? assetRelativePathList
+      : assetRelativePathList
+          .where((file) => !excludes.any((exclude) => exclude.matches(file)))
+          .toList();
 }
 
 AssetType _constructAssetTree(List<String> assetRelativePathList) {
