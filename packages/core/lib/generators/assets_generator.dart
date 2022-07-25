@@ -373,7 +373,12 @@ class $className {
 }
 
 String _assetGenImageClassDefinition(String packageName) {
-  final packageParameter = packageName.isNotEmpty ? ' = \'$packageName\'' : '';
+  final packageParameter = packageName.isNotEmpty ? " = '$packageName'" : '';
+
+  final keyName = packageName.isEmpty
+      ? '_assetName'
+      : "'packages/$packageName/\$_assetName'";
+
   return '''
 
 class AssetGenImage {
@@ -388,7 +393,7 @@ class AssetGenImage {
     ImageErrorWidgetBuilder? errorBuilder,
     String? semanticLabel,
     bool excludeFromSemantics = false,
-    double? scale = 1.0,
+    double? scale,
     double? width,
     double? height,
     Color? color,
@@ -435,6 +440,8 @@ class AssetGenImage {
   }
 
   String get path => _assetName;
+
+  String get keyName => $keyName;
 }
 ''';
 }

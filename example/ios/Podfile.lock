@@ -240,6 +240,8 @@ PODS:
     - Flutter
   - in_app_review (0.2.0):
     - Flutter
+  - integration_test (0.0.1):
+    - Flutter
   - is_firebase_test_lab_activated (0.0.1):
     - Flutter
   - libwebp (1.2.1):
@@ -336,6 +338,7 @@ DEPENDENCIES:
   - image_editor (from `.symlinks/plugins/image_editor/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - in_app_review (from `.symlinks/plugins/in_app_review/ios`)
+  - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - is_firebase_test_lab_activated (from `.symlinks/plugins/is_firebase_test_lab_activated/ios`)
   - local_auth_ios (from `.symlinks/plugins/local_auth_ios/ios`)
   - native_device_orientation (from `.symlinks/plugins/native_device_orientation/ios`)
@@ -444,6 +447,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   in_app_review:
     :path: ".symlinks/plugins/in_app_review/ios"
+  integration_test:
+    :path: ".symlinks/plugins/integration_test/ios"
   is_firebase_test_lab_activated:
     :path: ".symlinks/plugins/is_firebase_test_lab_activated/ios"
   local_auth_ios:
@@ -532,6 +537,7 @@ SPEC CHECKSUMS:
   image_editor: c1d038630eedea60d2dee9c14f36aa66c7f9cfab
   image_picker_ios: b786a5dcf033a8336a657191401bfdf12017dabb
   in_app_review: 4a97249f7a2f539a0f294c2d9196b7fe35e49541
+  integration_test: a1e7d09bd98eca2fc37aefd79d4f41ad37bdbbe5
   is_firebase_test_lab_activated: 84effe92e5d79a58455a2861b5e1ba688016cf57
   libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
   local_auth_ios: 0d333dde7780f669e66f19d2ff6005f3ea84008d
