@@ -1,0 +1,12 @@
+name: test
+
+flutter_gen:
+  output: lib/gen/
+  line_length: 80
+
+  integrations:
+    lottie: true
+
+flutter:
+  assets:
+    - assets/lottie/hamburger_arrow_lottie.json

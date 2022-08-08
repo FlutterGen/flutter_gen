@@ -45,6 +45,13 @@ void main() async {
                   fit: BoxFit.contain,
                 ),
               ),
+              SizedBox(
+                width: 200,
+                height: 200,
+                child: Assets.lottie.hamburgerArrow.lottie(
+                  fit: BoxFit.contain,
+                ),
+              ),
               Assets.images.chip1.image(),
               // Use from example_resource package.
               res.Assets.images.flutter3.image(),

@@ -1,5 +1,6 @@
 @TestOn('vm')
 import 'package:flutter_gen_core/generators/integrations/flare_integration.dart';
+import 'package:flutter_gen_core/generators/integrations/lottie_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/rive_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/svg_integration.dart';
 import 'package:flutter_gen_core/settings/asset_type.dart';
@@ -69,6 +70,51 @@ void main() {
           'RiveGenImage(\'assets/path\')');
       expect(integration.isSupport(AssetType('assets/path/dog.riv')), isTrue);
       expect(integration.isSupport(AssetType('assets/path/dog.json')), isFalse);
+      expect(integration.isConstConstructor, isTrue);
+    });
+
+    test('Assets with Lottie integrations on pubspec.yaml', () async {
+      const pubspec = 'test_resources/pubspec_assets_lottie_integrations.yaml';
+      const fact =
+          'test_resources/actual_data/assets_lottie_integrations.gen.dart';
+      const generated =
+          'test_resources/lib/gen/assets_lottie_integrations.gen.dart';
+
+      await expectedAssetsGen(pubspec, generated, fact);
+
+      final integration = LottieIntegration();
+      expect(integration.className, 'LottieGenImage');
+      expect(integration.classInstantiate('assets/path'),
+          'LottieGenImage(\'assets/path\')');
+      expect(
+          integration
+              .isSupport(AssetType('assets/path/hamburger_arrow_lottie.json')),
+          isTrue);
+      expect(
+          integration.isSupport(AssetType('assets/path/hamburger_arrow.json')),
+          isFalse);
+      expect(integration.isConstConstructor, isTrue);
+    });
+    test('Assets with Lottie integrations on pubspec.yaml', () async {
+      const pubspec = 'test_resources/pubspec_assets_lottie_integrations.yaml';
+      const fact =
+          'test_resources/actual_data/assets_lottie_integrations.gen.dart';
+      const generated =
+          'test_resources/lib/gen/assets_lottie_integrations.gen.dart';
+
+      await expectedAssetsGen(pubspec, generated, fact);
+
+      final integration = LottieIntegration();
+      expect(integration.className, 'LottieGenImage');
+      expect(integration.classInstantiate('assets/path'),
+          'LottieGenImage(\'assets/path\')');
+      expect(
+          integration
+              .isSupport(AssetType('assets/path/hamburger_arrow_lottie.json')),
+          isTrue);
+      expect(
+          integration.isSupport(AssetType('assets/path/hamburger_arrow.json')),
+          isFalse);
       expect(integration.isConstConstructor, isTrue);
     });
   });

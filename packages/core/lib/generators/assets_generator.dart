@@ -16,6 +16,7 @@ import 'integrations/flare_integration.dart';
 import 'integrations/integration.dart';
 import 'integrations/rive_integration.dart';
 import 'integrations/svg_integration.dart';
+import 'integrations/lottie_integration.dart';
 
 class AssetsGenConfig {
   AssetsGenConfig._(
@@ -60,6 +61,7 @@ String generateAssets(
       SvgIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.flareFlutter) FlareIntegration(),
     if (config.flutterGen.integrations.rive) RiveIntegration(),
+    if (config.flutterGen.integrations.lottie) LottieIntegration(),
   ];
 
   if (config.flutterGen.assets.isDotDelimiterStyle) {
@@ -187,6 +189,7 @@ _Statement? _createAssetTypeStatement(
         value: integration.classInstantiate(posixStyle(assetType.path)),
         isConstConstructor: integration.isConstConstructor,
         needDartDoc: true,
+        hasLottie: integrations.contains(LottieIntegration()),
       );
     }
   }
@@ -236,13 +239,13 @@ String _dotDelimiterStyleDefinition(
         // if we are not under the default asset folder
         if (dirname(assetType.path) == '.') {
           assetsStaticStatements.add(_Statement(
-            type: className,
-            filePath: assetType.path,
-            name: assetType.baseName.camelCase(),
-            value: '$className()',
-            isConstConstructor: true,
-            needDartDoc: true,
-          ));
+              type: className,
+              filePath: assetType.path,
+              name: assetType.baseName.camelCase(),
+              value: '$className()',
+              isConstConstructor: true,
+              needDartDoc: true,
+              hasLottie: integrations.contains(LottieIntegration())));
         }
       }
 
@@ -310,10 +313,12 @@ String _flatStyleDefinition(
 }
 
 String _flatStyleAssetsClassDefinition(List<_Statement> statements) {
-  final statementsBlock =
-      statements.map((statement) => '''${statement.toDartDocString()}
+  final statementsBlock = statements
+      .map((statement) =>
+          '''${statement.toDartDocString()}
            ${statement.toStaticFieldString()}
-           ''').join('\n');
+           ''')
+      .join('\n');
   return _assetsClassDefinition(statementsBlock);
 }
 
@@ -435,6 +440,7 @@ class _Statement {
     required this.value,
     required this.isConstConstructor,
     required this.needDartDoc,
+    this.hasLottie = false,
   });
 
   final String type;
@@ -443,11 +449,20 @@ class _Statement {
   final String value;
   final bool isConstConstructor;
   final bool needDartDoc;
+  final bool hasLottie;
 
   String toDartDocString() => '/// File path: ${posixStyle(filePath)}';
 
   String toGetterString() =>
-      '$type get $name => ${isConstConstructor ? 'const' : ''} $value;';
+      '$type get ${hasLottie ? name : toStippedLottie(name)} => ${isConstConstructor ? 'const' : ''} $value;';
 
   String toStaticFieldString() => 'static const $type $name = $value;';
+
+  String toStippedLottie(String name) {
+    int index = name.toLowerCase().indexOf('lottie');
+    if (index == -1) {
+      return name;
+    }
+    return name.replaceRange(index, index + 6, '');
+  }
 }
