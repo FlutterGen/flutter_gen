@@ -124,6 +124,7 @@ flutter_gen:
     flutter_svg: true
     flare_flutter: true
     rive: true
+    lottie: true
 
   colors:
     inputs:
@@ -225,6 +226,8 @@ Widget build(BuildContext context) {
 |[flutter_svg](https://pub.dev/packages/flutter_svg)|.svg| `flutter_svg: true` |Assets.images.icons.paint.**svg()**|
 |[flare_flutter](https://pub.dev/packages/flare_flutter)|.flr| `flare_flutter: true` |Assets.flare.penguin.**flare()**|
 |[rive](https://pub.dev/packages/rive)|.flr| `rive: true` |Assets.rive.vehicles.**rive()**|
+|[lottie](https://pub.dev/packages/lottie)|_lottie.json| `lottie: true` |Assets.lottie.hamburgerArrow.**lottie()**|
+
 
 <br/>
 
@@ -725,6 +728,7 @@ flutter_gen:
     flutter_svg: false
     flare_flutter: false
     rive: false
+    lottie: false
 
   assets:
     # Optional
