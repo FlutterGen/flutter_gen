@@ -45,6 +45,7 @@ flutter_gen:
 
   assets:
     enabled: true
+    output_class: Assets
     package_parameter_enabled: false
     style: dot-delimiter
     

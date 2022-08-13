@@ -61,7 +61,6 @@ String generateAssets(
     if (config.flutterGen.integrations.flareFlutter) FlareIntegration(),
     if (config.flutterGen.integrations.rive) RiveIntegration(),
   ];
-
   if (config.flutterGen.assets.isDotDelimiterStyle) {
     classesBuffer.writeln(_dotDelimiterStyleDefinition(config, integrations));
   } else if (config.flutterGen.assets.isSnakeCaseStyle) {
@@ -249,8 +248,10 @@ String _dotDelimiterStyleDefinition(
       assetTypeQueue.addAll(assetType.children);
     }
   }
-  buffer
-      .writeln(_dotDelimiterStyleAssetsClassDefinition(assetsStaticStatements));
+  buffer.writeln(_dotDelimiterStyleAssetsClassDefinition(
+    assetsStaticStatements,
+    config.flutterGen.assets.outputClass,
+  ));
   return buffer.toString();
 }
 
@@ -306,27 +307,36 @@ String _flatStyleDefinition(
       )
       .whereType<_Statement>()
       .toList();
-  return _flatStyleAssetsClassDefinition(statements);
+  return _flatStyleAssetsClassDefinition(
+    statements,
+    config.flutterGen.assets.outputClass,
+  );
 }
 
-String _flatStyleAssetsClassDefinition(List<_Statement> statements) {
+String _flatStyleAssetsClassDefinition(
+  List<_Statement> statements,
+  String outputClassName,
+) {
   final statementsBlock =
       statements.map((statement) => '''${statement.toDartDocString()}
            ${statement.toStaticFieldString()}
            ''').join('\n');
-  return _assetsClassDefinition(statementsBlock);
+  return _assetsClassDefinition(statementsBlock, outputClassName);
 }
 
-String _dotDelimiterStyleAssetsClassDefinition(List<_Statement> statements) {
+String _dotDelimiterStyleAssetsClassDefinition(
+  List<_Statement> statements,
+  String outputClassName,
+) {
   final statementsBlock =
       statements.map((statement) => statement.toStaticFieldString()).join('\n');
-  return _assetsClassDefinition(statementsBlock);
+  return _assetsClassDefinition(statementsBlock, outputClassName);
 }
 
-String _assetsClassDefinition(String statementsBlock) {
+String _assetsClassDefinition(String statementsBlock, String outputClassName) {
   return '''
-class Assets {
-  Assets._();
+class $outputClassName {
+  $outputClassName._();
   
   $statementsBlock
 }
