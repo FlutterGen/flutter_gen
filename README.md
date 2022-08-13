@@ -117,7 +117,6 @@ Default configuration can be found [here](#default-configuration).
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
-  output_class: Assets # Optional (default: Assets)
   line_length: 80 # Optional (default: 80)
 
   # Optional
@@ -719,8 +718,6 @@ flutter_gen:
   # Optional
   output: lib/gen/
   # Optional
-  output_class: Assets
-  # Optional
   line_length: 80
 
   # Optional
@@ -732,6 +729,8 @@ flutter_gen:
   assets:
     # Optional
     enabled: true
+    # Optional (default: Assets)
+    output_class: Assets 
     # Optional
     # Set to true if you want this package to be a package dependency
     # See: https://flutter.dev/docs/development/ui/assets-and-images#from-packages
