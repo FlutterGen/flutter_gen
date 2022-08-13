@@ -74,5 +74,13 @@ void main() {
 
       await expectedAssetsGen(pubspec, generated, fact);
     });
+
+    test('Assets with custom class name', () async {
+      const pubspec = 'test_resources/pubspec_assets_output_class.yaml';
+      const fact = 'test_resources/actual_data/assets_output_class.gen.dart';
+      const generated = 'test_resources/lib/gen/assets_output_class.gen.dart';
+
+      await expectedAssetsGen(pubspec, generated, fact);
+    });
   });
 }

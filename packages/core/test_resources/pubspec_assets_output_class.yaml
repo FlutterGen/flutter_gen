@@ -1,0 +1,12 @@
+name: test
+
+flutter_gen:
+  output: lib/gen/ # Optional (default: lib/gen/)
+  line_length: 80   # Optional (default: 80)
+  
+  assets:
+    output_class: MyAssets
+
+flutter:
+  assets:
+    - assets/images/chip3/chip3.jpg
