@@ -117,6 +117,7 @@ Default configuration can be found [here](#default-configuration).
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
+  output_class: Assets # Optional (default: Assets)
   line_length: 80 # Optional (default: 80)
 
   # Optional
@@ -717,6 +718,8 @@ The options you set in `pubspec.yaml` will override the corresponding default op
 flutter_gen:
   # Optional
   output: lib/gen/
+  # Optional
+  output_class: Assets
   # Optional
   line_length: 80
 
