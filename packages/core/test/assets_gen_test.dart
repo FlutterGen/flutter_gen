@@ -74,5 +74,15 @@ void main() {
 
       await expectedAssetsGen(pubspec, generated, fact);
     });
+
+    test('Assets with excluded files and directories', () async {
+      const pubspec = 'test_resources/pubspec_assets_exclude_files.yaml';
+      const fact =
+          'test_resources/actual_data/assets_package_exclude_files.gen.dart';
+      const generated =
+          'test_resources/lib/gen/assets_package_exclude_files.gen.dart';
+
+      await expectedAssetsGen(pubspec, generated, fact);
+    });
   });
 }

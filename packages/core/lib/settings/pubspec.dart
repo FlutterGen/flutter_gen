@@ -58,6 +58,7 @@ class FlutterGen {
     required this.fonts,
     required this.integrations,
     required this.colors,
+    required this.exclude,
   });
 
   @JsonKey(name: 'output', required: true)
@@ -77,6 +78,9 @@ class FlutterGen {
 
   @JsonKey(name: 'colors', required: true)
   final FlutterGenColors colors;
+
+  @JsonKey(name: 'exclude', required: true)
+  final List<String> exclude;
 
   factory FlutterGen.fromJson(Map json) => _$FlutterGenFromJson(json);
 }
