@@ -1,4 +1,4 @@
 {
-    "dart.flutterSdkPath": "~/.asdf/installs/flutter/3.0.1-stable",
-    "dart.sdkPath": "~/.asdf/installs/dart/2.17.1/dart-sdk"
+    "dart.flutterSdkPath": "~/.asdf/installs/flutter/3.0.5-stable",
+    "dart.sdkPath": "~/.asdf/installs/dart/2.17.6/dart-sdk"
 }
