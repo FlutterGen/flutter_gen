@@ -7,7 +7,7 @@ version: 1.0.0+2
 
 environment:
   sdk: ">=2.16.0 <3.0.0"
-  flutter: ">=2.10.4"
+  flutter: ">=3.0.0"
 
 dependencies:
   flutter:
@@ -131,6 +131,10 @@ flutter_gen:
 
     # Assets.images.chip (default style)
     # style: dot-delimiter
+    exclude: 
+      - assets/images/chip3/chip3.jpg
+      - pictures/chip5.jpg
+      - assets/flare/
 
   fonts:
     enabled: true

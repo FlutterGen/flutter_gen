@@ -33,7 +33,7 @@ class AssetsGenConfig {
       config.pubspec.packageName,
       config.pubspec.flutterGen,
       config.pubspec.flutter.assets,
-      config.pubspec.flutterGen.exclude
+      config.pubspec.flutterGen.assets.exclude
           .map((pattern) => Glob(pattern))
           .toList(),
     );

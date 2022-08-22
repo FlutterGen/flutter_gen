@@ -7,10 +7,11 @@ flutter_gen:
   integrations:
     flutter_svg: true
 
-  exclude:
-    - assets/images/chip3/*.jpg
-    - assets/images/*.png
-    - assets/**/icons/*
+  assets: 
+    exclude:
+      - assets/images/chip3/*.jpg
+      - assets/images/*.png
+      - assets/**/icons/*
 
 flutter:
   uses-material-design: true
