@@ -58,7 +58,6 @@ class FlutterGen {
     required this.fonts,
     required this.integrations,
     required this.colors,
-    required this.exclude,
   });
 
   @JsonKey(name: 'output', required: true)
@@ -78,9 +77,6 @@ class FlutterGen {
 
   @JsonKey(name: 'colors', required: true)
   final FlutterGenColors colors;
-
-  @JsonKey(name: 'exclude', required: true)
-  final List<String> exclude;
 
   factory FlutterGen.fromJson(Map json) => _$FlutterGenFromJson(json);
 }
@@ -109,6 +105,7 @@ class FlutterGenAssets {
     required this.enabled,
     required this.packageParameterEnabled,
     required this.style,
+    required this.exclude,
   }) {
     if (style != dotDelimiterStyle &&
         style != snakeCaseStyle &&
@@ -125,6 +122,9 @@ class FlutterGenAssets {
 
   @JsonKey(name: 'style', required: true)
   final String style;
+
+  @JsonKey(name: 'exclude', required: true)
+  final List<String> exclude;
 
   bool get isDotDelimiterStyle => style == dotDelimiterStyle;
 

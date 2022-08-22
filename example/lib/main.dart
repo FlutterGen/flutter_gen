@@ -55,12 +55,12 @@ void main() async {
                 width: 120,
                 height: 120,
               ),
-              Assets.pictures.chip5.image(
-                key: const Key("chip5"),
-                width: 120,
-                height: 120,
-                fit: BoxFit.scaleDown,
-              ),
+              // Assets.pictures.chip5.image(
+              //   key: const Key("chip5"),
+              //   width: 120,
+              //   height: 120,
+              //   fit: BoxFit.scaleDown,
+              // ),
               const Text(
                 'Hi there, I\'m FlutterGen',
                 style: TextStyle(
