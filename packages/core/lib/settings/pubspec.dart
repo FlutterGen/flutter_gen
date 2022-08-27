@@ -105,6 +105,7 @@ class FlutterGenAssets {
     required this.enabled,
     required this.packageParameterEnabled,
     required this.style,
+    required this.exclude,
   }) {
     if (style != dotDelimiterStyle &&
         style != snakeCaseStyle &&
@@ -121,6 +122,9 @@ class FlutterGenAssets {
 
   @JsonKey(name: 'style', required: true)
   final String style;
+
+  @JsonKey(name: 'exclude', required: true)
+  final List<String> exclude;
 
   bool get isDotDelimiterStyle => style == dotDelimiterStyle;
 

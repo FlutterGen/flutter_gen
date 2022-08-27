@@ -1,0 +1,28 @@
+name: test
+
+flutter_gen:
+  output: lib/gen/
+  line_length: 80
+
+  integrations:
+    flutter_svg: true
+
+  assets: 
+    exclude:
+      - assets/images/chip3/*.jpg
+      - assets/images/*.png
+      - assets/**/icons/*
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/images/chip3/chip3.jpg
+    - assets/images/chip3/chip3.jpg # duplicated
+    - assets/images/chip4/
+    - assets/images/icons/fuchsia.svg
+    - assets/images/icons/kmm.svg
+    - assets/images/icons/paint.svg
+    - assets/images/icons/dart@test.svg
+    - assets/json/fruits.json
+    - pictures/chip5.jpg

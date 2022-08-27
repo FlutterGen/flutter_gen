@@ -15,13 +15,6 @@ import 'package:flare_flutter/flare_controller.dart';
 import 'package:rive/rive.dart';
 import 'package:lottie/lottie.dart';
 
-class $PicturesGen {
-  const $PicturesGen();
-
-  /// File path: pictures/chip5.jpg
-  AssetGenImage get chip5 => const AssetGenImage('pictures/chip5.jpg');
-}
-
 class $AssetsFlareGen {
   const $AssetsFlareGen();
 
@@ -38,7 +31,6 @@ class $AssetsImagesGen {
   /// File path: assets/images/chip2.jpg
   AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
 
-  $AssetsImagesChip3Gen get chip3 => const $AssetsImagesChip3Gen();
   $AssetsImagesChip4Gen get chip4 => const $AssetsImagesChip4Gen();
   $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
 
@@ -96,14 +88,6 @@ class $AssetsUnknownGen {
   String get unknownMimeType => 'assets/unknown/unknown_mime_type.bk';
 }
 
-class $AssetsImagesChip3Gen {
-  const $AssetsImagesChip3Gen();
-
-  /// File path: assets/images/chip3/chip3.jpg
-  AssetGenImage get chip3 =>
-      const AssetGenImage('assets/images/chip3/chip3.jpg');
-}
-
 class $AssetsImagesChip4Gen {
   const $AssetsImagesChip4Gen();
 
@@ -140,7 +124,6 @@ class Assets {
   static const $AssetsMovieGen movie = $AssetsMovieGen();
   static const $AssetsRiveGen rive = $AssetsRiveGen();
   static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
-  static const $PicturesGen pictures = $PicturesGen();
 }
 
 class AssetGenImage {

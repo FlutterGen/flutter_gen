@@ -48,6 +48,7 @@ flutter_gen:
     enabled: true
     package_parameter_enabled: false
     style: dot-delimiter
+    exclude: []
     
   fonts:
     enabled: true
