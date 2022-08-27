@@ -108,6 +108,6 @@ class LottieIntegration extends Integration {
     var version = int.tryParse(versions.replaceAll('.', '')) ?? 0;
     // Lottie version 4.4.0 is the first version that supports BodyMovin.
     // https://github.com/xvrh/lottie-flutter/blob/0e7499d82ea1370b6acf023af570395bbb59b42f/lib/src/parser/lottie_composition_parser.dart#L60
-    return version / 1000 > 0.440;
+    return version / 1000 >= 0.440;
   }
 }
