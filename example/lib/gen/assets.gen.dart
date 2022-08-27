@@ -56,9 +56,9 @@ class $AssetsJsonGen {
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
-  /// File path: assets/lottie/hamburger_arrow_lottie.json
+  /// File path: assets/lottie/hamburger_arrow.json
   LottieGenImage get hamburgerArrow =>
-      const LottieGenImage('assets/lottie/hamburger_arrow_lottie.json');
+      const LottieGenImage('assets/lottie/hamburger_arrow.json');
 }
 
 class $AssetsMovieGen {

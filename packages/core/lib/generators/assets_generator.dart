@@ -30,7 +30,7 @@ class AssetsGenConfig {
 
   factory AssetsGenConfig.fromConfig(File pubspecFile, Config config) {
     return AssetsGenConfig._(
-      pubspecFile.parent.path,
+      pubspecFile.parent.absolute.path,
       config.pubspec.packageName,
       config.pubspec.flutterGen,
       config.pubspec.flutter.assets,
@@ -132,15 +132,16 @@ List<String> _getAssetRelativePathList(
       .toList();
 }
 
-AssetType _constructAssetTree(List<String> assetRelativePathList) {
+AssetType _constructAssetTree(
+    List<String> assetRelativePathList, String rootPath) {
   // Relative path is the key
   final assetTypeMap = <String, AssetType>{
-    '.': AssetType('.'),
+    '.': AssetType('.', rootPath),
   };
   for (final assetPath in assetRelativePathList) {
     var path = assetPath;
     while (path != '.') {
-      assetTypeMap.putIfAbsent(path, () => AssetType(path));
+      assetTypeMap.putIfAbsent(path, () => AssetType(path, rootPath));
       path = dirname(path);
     }
   }
@@ -203,7 +204,6 @@ _Statement? _createAssetTypeStatement(
         value: integration.classInstantiate(posixStyle(assetType.path)),
         isConstConstructor: integration.isConstConstructor,
         needDartDoc: true,
-        hasLottie: integrations.contains(LottieIntegration()),
       );
     }
   }
@@ -224,7 +224,7 @@ String _dotDelimiterStyleDefinition(
   final assetsStaticStatements = <_Statement>[];
 
   final assetTypeQueue = ListQueue<AssetType>.from(
-      _constructAssetTree(assetRelativePathList).children);
+      _constructAssetTree(assetRelativePathList, config.rootPath).children);
 
   while (assetTypeQueue.isNotEmpty) {
     final assetType = assetTypeQueue.removeFirst();
@@ -256,13 +256,13 @@ String _dotDelimiterStyleDefinition(
         // if we are not under the default asset folder
         if (dirname(assetType.path) == '.') {
           assetsStaticStatements.add(_Statement(
-              type: className,
-              filePath: assetType.path,
-              name: assetType.baseName.camelCase(),
-              value: '$className()',
-              isConstConstructor: true,
-              needDartDoc: true,
-              hasLottie: integrations.contains(LottieIntegration())));
+            type: className,
+            filePath: assetType.path,
+            name: assetType.baseName.camelCase(),
+            value: '$className()',
+            isConstConstructor: true,
+            needDartDoc: true,
+          ));
         }
       }
 
@@ -318,7 +318,7 @@ String _flatStyleDefinition(
   )
       .distinct()
       .sorted()
-      .map((relativePath) => AssetType(relativePath))
+      .map((relativePath) => AssetType(relativePath, config.rootPath))
       .mapToIsUniqueWithoutExtension()
       .map(
         (e) => _createAssetTypeStatement(
@@ -461,7 +461,6 @@ class _Statement {
     required this.value,
     required this.isConstConstructor,
     required this.needDartDoc,
-    this.hasLottie = false,
   });
 
   final String type;
@@ -470,20 +469,11 @@ class _Statement {
   final String value;
   final bool isConstConstructor;
   final bool needDartDoc;
-  final bool hasLottie;
 
   String toDartDocString() => '/// File path: ${posixStyle(filePath)}';
 
   String toGetterString() =>
-      '$type get ${hasLottie ? name : toStippedLottie(name)} => ${isConstConstructor ? 'const' : ''} $value;';
+      '$type get $name => ${isConstConstructor ? 'const' : ''} $value;';
 
   String toStaticFieldString() => 'static const $type $name = $value;';
-
-  String toStippedLottie(String name) {
-    int index = name.toLowerCase().indexOf('lottie');
-    if (index == -1) {
-      return name;
-    }
-    return name.replaceRange(index, index + 6, '');
-  }
 }

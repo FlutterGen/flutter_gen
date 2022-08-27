@@ -9,4 +9,4 @@ flutter_gen:
 
 flutter:
   assets:
-    - assets/lottie/hamburger_arrow_lottie.json
+    - assets/lottie/hamburger_arrow.json
