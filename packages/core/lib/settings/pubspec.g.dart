@@ -106,6 +106,11 @@ FlutterGenColors _$FlutterGenColorsFromJson(Map json) => $checkedCreate(
           enabled: $checkedConvert('enabled', (v) => v as bool),
           inputs: $checkedConvert('inputs',
               (v) => (v as List<dynamic>).map((e) => e as String).toList()),
+          outputs: $checkedConvert(
+              'outputs',
+              (v) => v == null
+                  ? null
+                  : FlutterGenElementOutputs.fromJson(v as Map)),
         );
         return val;
       },
@@ -129,6 +134,11 @@ FlutterGenAssets _$FlutterGenAssetsFromJson(Map json) => $checkedCreate(
           packageParameterEnabled:
               $checkedConvert('package_parameter_enabled', (v) => v as bool),
           style: $checkedConvert('style', (v) => v as String),
+          outputs: $checkedConvert(
+              'outputs',
+              (v) => v == null
+                  ? null
+                  : FlutterGenElementOutputs.fromJson(v as Map)),
           exclude: $checkedConvert('exclude',
               (v) => (v as List<dynamic>).map((e) => e as String).toList()),
         );
@@ -149,6 +159,11 @@ FlutterGenFonts _$FlutterGenFontsFromJson(Map json) => $checkedCreate(
         );
         final val = FlutterGenFonts(
           enabled: $checkedConvert('enabled', (v) => v as bool),
+          outputs: $checkedConvert(
+              'outputs',
+              (v) => v == null
+                  ? null
+                  : FlutterGenElementOutputs.fromJson(v as Map)),
         );
         return val;
       },
@@ -174,4 +189,17 @@ FlutterGenIntegrations _$FlutterGenIntegrationsFromJson(Map json) =>
         'flutterSvg': 'flutter_svg',
         'flareFlutter': 'flare_flutter'
       },
+    );
+
+FlutterGenElementOutputs _$FlutterGenElementOutputsFromJson(Map json) =>
+    $checkedCreate(
+      'FlutterGenElementOutputs',
+      json,
+      ($checkedConvert) {
+        final val = FlutterGenElementOutputs(
+          className: $checkedConvert('class_name', (v) => v as String?),
+        );
+        return val;
+      },
+      fieldKeyMap: const {'className': 'class_name'},
     );
