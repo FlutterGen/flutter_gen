@@ -15,15 +15,15 @@ import 'generator_helper.dart';
 String generateColors(
   File pubspecFile,
   DartFormatter formatter,
-  FlutterGenColors genColors,
+  FlutterGenColors colorsConfig,
 ) {
-  if (genColors.inputs.isEmpty) {
+  if (colorsConfig.inputs.isEmpty) {
     throw const InvalidSettingsException(
         'The value of "flutter_gen/colors:" is incorrect.');
   }
 
   final buffer = StringBuffer();
-  final className = genColors.outputs?.className ?? 'ColorName';
+  final className = colorsConfig.outputs.className;
   buffer.writeln(header);
   buffer.writeln(ignore);
   buffer.writeln("import 'package:flutter/painting.dart';");
@@ -34,7 +34,7 @@ String generateColors(
   buffer.writeln();
 
   final colorList = <_Color>[];
-  genColors.inputs
+  colorsConfig.inputs
       .map((file) => ColorPath(join(pubspecFile.parent.path, file)))
       .forEach((colorFile) {
     final data = colorFile.file.readAsStringSync();
