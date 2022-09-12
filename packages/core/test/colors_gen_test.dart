@@ -53,5 +53,15 @@ void main() {
           ColorPath('test_resources/assets/json/fruits.json');
       expect(wrongColorPath.isXml, isFalse);
     });
+
+    test('Change the class name', () async {
+      const pubspec = 'test_resources/pubspec_colors_change_class_name.yaml';
+      const fact =
+          'test_resources/actual_data/colors_change_class_name.gen.dart';
+      const generated =
+          'test_resources/lib/gen/colors_change_class_name.gen.dart';
+
+      await expectedColorsGen(pubspec, generated, fact);
+    });
   });
 }

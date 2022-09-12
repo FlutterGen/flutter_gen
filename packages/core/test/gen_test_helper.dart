@@ -38,7 +38,8 @@ Future<void> expectedAssetsGen(
 /// Colors
 Future<void> expectedColorsGen(
     String pubspec, String generated, String fact) async {
-  await FlutterGenerator(File(pubspec)).build();
+  await FlutterGenerator(File(pubspec), colorsName: basename(generated))
+      .build();
 
   final pubspecFile = File(pubspec);
   final config = await loadPubspecConfig(pubspecFile);
@@ -47,7 +48,8 @@ Future<void> expectedColorsGen(
 
   final actual =
       generateColors(pubspecFile, formatter, config.pubspec.flutterGen.colors);
-  final expected = File(fact).readAsStringSync().replaceAll('\r\n', '\n');
+  final expected =
+      formatter.format(File(fact).readAsStringSync().replaceAll('\r\n', '\n'));
 
   expect(
     File(generated).readAsStringSync(),
@@ -59,15 +61,17 @@ Future<void> expectedColorsGen(
 /// Fonts
 Future<void> expectedFontsGen(
     String pubspec, String generated, String fact) async {
-  await FlutterGenerator(File(pubspec)).build();
+  await FlutterGenerator(File(pubspec), fontsName: basename(generated)).build();
 
   final pubspecFile = File(pubspec);
   final config = await loadPubspecConfig(pubspecFile);
   final formatter = DartFormatter(
       pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 
-  final actual = generateFonts(formatter, config.pubspec.flutter.fonts);
-  final expected = File(fact).readAsStringSync().replaceAll('\r\n', '\n');
+  final actual = generateFonts(
+      formatter, config.pubspec.flutter.fonts, config.pubspec.flutterGen.fonts);
+  final expected =
+      formatter.format(File(fact).readAsStringSync().replaceAll('\r\n', '\n'));
 
   expect(
     File(generated).readAsStringSync(),

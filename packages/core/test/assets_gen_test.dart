@@ -84,5 +84,15 @@ void main() {
 
       await expectedAssetsGen(pubspec, generated, fact);
     });
+
+    test('Assets with change the class name', () async {
+      const pubspec = 'test_resources/pubspec_assets_change_class_name.yaml';
+      const fact =
+          'test_resources/actual_data/assets_change_class_name.gen.dart';
+      const generated =
+          'test_resources/lib/gen/assets_change_class_name.gen.dart';
+
+      await expectedAssetsGen(pubspec, generated, fact);
+    });
   });
 }
