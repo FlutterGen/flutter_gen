@@ -47,14 +47,20 @@ flutter_gen:
     enabled: true
     package_parameter_enabled: false
     style: dot-delimiter
+    outputs:
+      class_name: Assets
     exclude: []
     
   fonts:
     enabled: true
+    outputs:
+      class_name: FontFamily
 
   colors:
     enabled: true
     inputs: []
+    outputs:
+      class_name: ColorName
 
 flutter:
   assets: []

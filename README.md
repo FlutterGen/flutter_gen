@@ -739,16 +739,28 @@ flutter_gen:
     # - snake-case
     # - dot-delimiter
     style: dot-delimiter
+    # Optional
+    outputs:
+      # Default is Assets
+      class_name: MyAssets
     
   fonts:
     # Optional
     enabled: true
+    # Optional
+    outputs:
+      # Default is FontFamily
+      class_name: MyFontFamily
 
   colors:
     # Optional
     enabled: true
     # Optional
     inputs: []
+    # Optional
+    outputs:
+      # Default is ColorName
+      class_name: MyColorName 
 
 flutter:
   # See: https://flutter.dev/docs/development/ui/assets-and-images#specifying-assets

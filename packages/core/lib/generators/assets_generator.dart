@@ -213,6 +213,7 @@ String _dotDelimiterStyleDefinition(
   List<Integration> integrations,
 ) {
   final buffer = StringBuffer();
+  final className = config.flutterGen.assets.outputs?.className;
   final assetRelativePathList = _getAssetRelativePathList(
     config.rootPath,
     config.assets,
@@ -266,8 +267,8 @@ String _dotDelimiterStyleDefinition(
       assetTypeQueue.addAll(assetType.children);
     }
   }
-  buffer
-      .writeln(_dotDelimiterStyleAssetsClassDefinition(assetsStaticStatements));
+  buffer.writeln(_dotDelimiterStyleAssetsClassDefinition(
+      className, assetsStaticStatements));
   return buffer.toString();
 }
 
@@ -327,27 +328,34 @@ String _flatStyleDefinition(
       )
       .whereType<_Statement>()
       .toList();
-  return _flatStyleAssetsClassDefinition(statements);
+  final className = config.flutterGen.assets.outputs?.className;
+  return _flatStyleAssetsClassDefinition(className, statements);
 }
 
-String _flatStyleAssetsClassDefinition(List<_Statement> statements) {
+String _flatStyleAssetsClassDefinition(
+  String? className,
+  List<_Statement> statements,
+) {
   final statementsBlock =
       statements.map((statement) => '''${statement.toDartDocString()}
            ${statement.toStaticFieldString()}
            ''').join('\n');
-  return _assetsClassDefinition(statementsBlock);
+  return _assetsClassDefinition(className, statementsBlock);
 }
 
-String _dotDelimiterStyleAssetsClassDefinition(List<_Statement> statements) {
+String _dotDelimiterStyleAssetsClassDefinition(
+  String? className,
+  List<_Statement> statements,
+) {
   final statementsBlock =
       statements.map((statement) => statement.toStaticFieldString()).join('\n');
-  return _assetsClassDefinition(statementsBlock);
+  return _assetsClassDefinition(className, statementsBlock);
 }
 
-String _assetsClassDefinition(String statementsBlock) {
+String _assetsClassDefinition(String? className, String statementsBlock) {
   return '''
-class Assets {
-  Assets._();
+class ${className ?? 'Assets'} {
+  ${className ?? 'Assets'}._();
   
   $statementsBlock
 }
