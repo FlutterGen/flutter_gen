@@ -28,6 +28,6 @@
                 "--config",
                 "${workspaceFolder}/example/pubspec.yaml"
             ]
-        },
+        }
     ]
 }

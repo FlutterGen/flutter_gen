@@ -1,0 +1,11 @@
+name: test
+
+flutter_gen:
+  output: lib/gen/ # Optional (default: lib/gen/)
+  line_length: 80 # Optional (default: 80)
+
+  colors:
+    outputs:
+      class_name: MyColorName
+    inputs:
+      - assets/color/colors.xml

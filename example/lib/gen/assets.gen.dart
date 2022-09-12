@@ -105,8 +105,8 @@ class $AssetsImagesIconsGen {
   SvgGenImage get paint => const SvgGenImage('assets/images/icons/paint.svg');
 }
 
-class Assets {
-  Assets._();
+class MyAssets {
+  MyAssets._();
 
   static const $AssetsFlareGen flare = $AssetsFlareGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();

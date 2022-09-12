@@ -27,8 +27,19 @@ void main() {
           pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 
       expect(() {
-        return generateFonts(formatter, config.pubspec.flutter.fonts);
+        return generateFonts(formatter, config.pubspec.flutter.fonts,
+            config.pubspec.flutterGen.fonts);
       }, throwsA(isA<InvalidSettingsException>()));
+    });
+
+    test('Change the class name', () async {
+      const pubspec = 'test_resources/pubspec_fonts_change_class_name.yaml';
+      const fact =
+          'test_resources/actual_data/fonts_change_class_name.gen.dart';
+      const generated =
+          'test_resources/lib/gen/fonts_change_class_name.gen.dart';
+
+      await expectedFontsGen(pubspec, generated, fact);
     });
   });
 }

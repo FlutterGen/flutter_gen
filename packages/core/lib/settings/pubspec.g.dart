@@ -100,17 +100,14 @@ FlutterGenColors _$FlutterGenColorsFromJson(Map json) => $checkedCreate(
       ($checkedConvert) {
         $checkKeys(
           json,
-          requiredKeys: const ['enabled', 'inputs'],
+          requiredKeys: const ['enabled', 'inputs', 'outputs'],
         );
         final val = FlutterGenColors(
           enabled: $checkedConvert('enabled', (v) => v as bool),
           inputs: $checkedConvert('inputs',
               (v) => (v as List<dynamic>).map((e) => e as String).toList()),
           outputs: $checkedConvert(
-              'outputs',
-              (v) => v == null
-                  ? null
-                  : FlutterGenElementOutputs.fromJson(v as Map)),
+              'outputs', (v) => FlutterGenElementOutputs.fromJson(v as Map)),
         );
         return val;
       },
@@ -126,6 +123,7 @@ FlutterGenAssets _$FlutterGenAssetsFromJson(Map json) => $checkedCreate(
             'enabled',
             'package_parameter_enabled',
             'style',
+            'outputs',
             'exclude'
           ],
         );
@@ -135,10 +133,7 @@ FlutterGenAssets _$FlutterGenAssetsFromJson(Map json) => $checkedCreate(
               $checkedConvert('package_parameter_enabled', (v) => v as bool),
           style: $checkedConvert('style', (v) => v as String),
           outputs: $checkedConvert(
-              'outputs',
-              (v) => v == null
-                  ? null
-                  : FlutterGenElementOutputs.fromJson(v as Map)),
+              'outputs', (v) => FlutterGenElementOutputs.fromJson(v as Map)),
           exclude: $checkedConvert('exclude',
               (v) => (v as List<dynamic>).map((e) => e as String).toList()),
         );
@@ -155,15 +150,12 @@ FlutterGenFonts _$FlutterGenFontsFromJson(Map json) => $checkedCreate(
       ($checkedConvert) {
         $checkKeys(
           json,
-          requiredKeys: const ['enabled'],
+          requiredKeys: const ['enabled', 'outputs'],
         );
         final val = FlutterGenFonts(
           enabled: $checkedConvert('enabled', (v) => v as bool),
           outputs: $checkedConvert(
-              'outputs',
-              (v) => v == null
-                  ? null
-                  : FlutterGenElementOutputs.fromJson(v as Map)),
+              'outputs', (v) => FlutterGenElementOutputs.fromJson(v as Map)),
         );
         return val;
       },
@@ -196,8 +188,12 @@ FlutterGenElementOutputs _$FlutterGenElementOutputsFromJson(Map json) =>
       'FlutterGenElementOutputs',
       json,
       ($checkedConvert) {
+        $checkKeys(
+          json,
+          requiredKeys: const ['class_name'],
+        );
         final val = FlutterGenElementOutputs(
-          className: $checkedConvert('class_name', (v) => v as String?),
+          className: $checkedConvert('class_name', (v) => v as String),
         );
         return val;
       },

@@ -213,7 +213,7 @@ String _dotDelimiterStyleDefinition(
   List<Integration> integrations,
 ) {
   final buffer = StringBuffer();
-  final className = config.flutterGen.assets.outputs?.className;
+  final className = config.flutterGen.assets.outputs.className;
   final assetRelativePathList = _getAssetRelativePathList(
     config.rootPath,
     config.assets,
@@ -328,12 +328,12 @@ String _flatStyleDefinition(
       )
       .whereType<_Statement>()
       .toList();
-  final className = config.flutterGen.assets.outputs?.className;
+  final className = config.flutterGen.assets.outputs.className;
   return _flatStyleAssetsClassDefinition(className, statements);
 }
 
 String _flatStyleAssetsClassDefinition(
-  String? className,
+  String className,
   List<_Statement> statements,
 ) {
   final statementsBlock =
@@ -344,7 +344,7 @@ String _flatStyleAssetsClassDefinition(
 }
 
 String _dotDelimiterStyleAssetsClassDefinition(
-  String? className,
+  String className,
   List<_Statement> statements,
 ) {
   final statementsBlock =
@@ -352,10 +352,10 @@ String _dotDelimiterStyleAssetsClassDefinition(
   return _assetsClassDefinition(className, statementsBlock);
 }
 
-String _assetsClassDefinition(String? className, String statementsBlock) {
+String _assetsClassDefinition(String className, String statementsBlock) {
   return '''
-class ${className ?? 'Assets'} {
-  ${className ?? 'Assets'}._();
+class $className {
+  $className._();
   
   $statementsBlock
 }
