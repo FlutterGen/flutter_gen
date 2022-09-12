@@ -7,8 +7,8 @@
 // ignore_for_file: type=lint
 // ignore_for_file: directives_ordering,unnecessary_import
 
-class FontFamily {
-  FontFamily._();
+class MyFontFamily {
+  MyFontFamily._();
 
   /// Font family: Raleway
   static const String raleway = 'Raleway';

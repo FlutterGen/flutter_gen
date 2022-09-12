@@ -202,11 +202,11 @@ PODS:
     - GoogleUtilities/Network (~> 7.7)
     - "GoogleUtilities/NSData+zlib (~> 7.7)"
     - nanopb (~> 2.30908.0)
-  - GoogleDataTransport (9.1.4):
+  - GoogleDataTransport (9.2.0):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleSignIn (6.2.1):
+  - GoogleSignIn (6.2.3):
     - AppAuth (~> 1.5)
     - GTMAppAuth (~> 1.3)
     - GTMSessionFetcher/Core (~> 1.1)
@@ -244,15 +244,15 @@ PODS:
     - Flutter
   - is_firebase_test_lab_activated (0.0.1):
     - Flutter
-  - libwebp (1.2.1):
-    - libwebp/demux (= 1.2.1)
-    - libwebp/mux (= 1.2.1)
-    - libwebp/webp (= 1.2.1)
-  - libwebp/demux (1.2.1):
+  - libwebp (1.2.3):
+    - libwebp/demux (= 1.2.3)
+    - libwebp/mux (= 1.2.3)
+    - libwebp/webp (= 1.2.3)
+  - libwebp/demux (1.2.3):
     - libwebp/webp
-  - libwebp/mux (1.2.1):
+  - libwebp/mux (1.2.3):
     - libwebp/demux
-  - libwebp/webp (1.2.1)
+  - libwebp/webp (1.2.3)
   - local_auth_ios (0.0.1):
     - Flutter
   - Mantle (2.2.0):
@@ -272,14 +272,14 @@ PODS:
     - Flutter
   - permission_handler_apple (9.0.4):
     - Flutter
-  - PromisesObjC (2.1.0)
+  - PromisesObjC (2.1.1)
   - ReachabilitySwift (5.0.0)
-  - SDWebImage (5.12.5):
-    - SDWebImage/Core (= 5.12.5)
-  - SDWebImage/Core (5.12.5)
-  - SDWebImageWebPCoder (0.8.4):
+  - SDWebImage (5.13.2):
+    - SDWebImage/Core (= 5.13.2)
+  - SDWebImage/Core (5.13.2)
+  - SDWebImageWebPCoder (0.9.1):
     - libwebp (~> 1.0)
-    - SDWebImage/Core (~> 5.10)
+    - SDWebImage/Core (~> 5.13)
   - Sentry (7.11.0):
     - Sentry/Core (= 7.11.0)
   - Sentry/Core (7.11.0)
@@ -518,7 +518,7 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 5ebc42d281567658a2cb72b9ef3506e4a1a1a6e4
   FirebasePerformance: ecaa182ba9c6654e2e3813e759036d80e22269a8
   FirebaseRemoteConfig: a5d9188d8f57f602636f111eca6460ebe32b9b71
-  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_facebook_auth: a030aef1c2552fdc7cb090acc716ac836e3bb63c
   flutter_image_compress: fd2b476345226e1a10ea352fa306af95704642c1
   flutter_inappwebview: bfd58618f49dc62f2676de690fc6dcda1d6c3721
@@ -527,10 +527,10 @@ SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   geocoding: 32cfcdb16d38d907caaba65e2e42ad10d38bee58
   geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
-  google_sign_in_ios: 90eec6616c4c2105b9f9fe5c774773d13565b504
+  google_sign_in_ios: 4f85eb9f937450765c8573bb85fd8cd6a5af675c
   GoogleAppMeasurement: 71156240babd3cc6ced03e0d54816f01a880c730
-  GoogleDataTransport: 5fffe35792f8b96ec8d6775f5eccd83c998d5a3b
-  GoogleSignIn: 9c69f4188921d8f789816e4c99ba2a1f5f868ddc
+  GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
+  GoogleSignIn: f4d3939cc0d9264d7509c4b9a924a6c987e30b54
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   GTMAppAuth: 4d8f864896f3646f0c33baf38a28362f4c601e15
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
@@ -539,7 +539,7 @@ SPEC CHECKSUMS:
   in_app_review: 4a97249f7a2f539a0f294c2d9196b7fe35e49541
   integration_test: a1e7d09bd98eca2fc37aefd79d4f41ad37bdbbe5
   is_firebase_test_lab_activated: 84effe92e5d79a58455a2861b5e1ba688016cf57
-  libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
+  libwebp: 60305b2e989864154bd9be3d772730f08fc6a59c
   local_auth_ios: 0d333dde7780f669e66f19d2ff6005f3ea84008d
   Mantle: c5aa8794a29a022dfbbfc9799af95f477a69b62d
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
@@ -548,10 +548,10 @@ SPEC CHECKSUMS:
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
-  PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
+  PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
-  SDWebImage: 0905f1b7760fc8ac4198cae0036600d67478751e
-  SDWebImageWebPCoder: f93010f3f6c031e2f8fb3081ca4ee6966c539815
+  SDWebImage: 72f86271a6f3139cc7e4a89220946489d4b9a866
+  SDWebImageWebPCoder: 18503de6621dd2c420d680e33d46bf8e1d5169b0
   Sentry: 0c5cd63d714187b4a39c331c1f0eb04ba7868341
   sentry_flutter: efb3df2c203cd03aad255892a8d628a458656d14
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
@@ -568,4 +568,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: cc1f88378b4bfcf93a6ce00d2c587857c6008d3b
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
