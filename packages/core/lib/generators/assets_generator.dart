@@ -400,12 +400,13 @@ String _assetValuesDefinition(List<_Statement> statements) {
   final values = statements.where((element) => !element.isDirectory);
   if (values.isEmpty) return '';
   final names = values.map((value) => value.name).join(', ');
-  String? type;
+  var type = values.first.type;
   for (var value in values) {
-    type ??= value.type;
-    if (value.type != type) type = 'dynamic';
+    if (type != value.type) {
+      type = 'dynamic';
+      break;
+    }
   }
-  type ??= 'dynamic';
 
   return '''
   /// List of all assets
