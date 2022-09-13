@@ -44,6 +44,15 @@ void main() async {
                 ),
               ),
               MyAssets.images.chip1.image(),
+              Container(
+                height: 400,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: MyAssets.images.chip1.provider(),
+                  ),
+                ),
+                child: const Center(child: Text('Deco')),
+              ),
               // Use from example_resource package.
               res.Assets.images.flutter3.image(),
               res.Assets.images.dart.svg(),
