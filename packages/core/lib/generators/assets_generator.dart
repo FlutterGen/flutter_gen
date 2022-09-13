@@ -357,6 +357,23 @@ String _dotDelimiterStyleAssetsClassDefinition(
   return _assetsClassDefinition(className, statements, statementsBlock);
 }
 
+String _assetValuesDefinition(List<_Statement> statements) {
+  final values = statements.where((element) => !element.isDirectory);
+  if (values.isEmpty) return '';
+  final names = values.map((value) => value.name).join(', ');
+  var type = values.first.type;
+  for (var value in values) {
+    if (type != value.type) {
+      type = 'dynamic';
+      break;
+    }
+  }
+
+  return '''
+  /// List of all assets
+  List<$type> get values => [$names];''';
+}
+
 String _assetsClassDefinition(
   String className,
   List<_Statement> statements,
@@ -394,23 +411,6 @@ class $className {
   $valuesBlock
 }
 ''';
-}
-
-String _assetValuesDefinition(List<_Statement> statements) {
-  final values = statements.where((element) => !element.isDirectory);
-  if (values.isEmpty) return '';
-  final names = values.map((value) => value.name).join(', ');
-  var type = values.first.type;
-  for (var value in values) {
-    if (type != value.type) {
-      type = 'dynamic';
-      break;
-    }
-  }
-
-  return '''
-  /// List of all assets
-  List<$type> get values => [$names];''';
 }
 
 String _assetGenImageClassDefinition(String packageName) {
