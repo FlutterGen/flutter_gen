@@ -16,6 +16,9 @@ class $AssetsFlareGen {
 
   /// File path: assets/flare/Penguin.flr
   FlareGenImage get penguin => const FlareGenImage('assets/flare/Penguin.flr');
+
+  /// List of all assets
+  List<FlareGenImage> get values => [penguin];
 }
 
 class Assets {

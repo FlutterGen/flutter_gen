@@ -28,6 +28,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/profile.png
   AssetGenImage get profilePng =>
       const AssetGenImage('assets/images/profile.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values =>
+      [chip1, chip2, logo, profileJpg, profilePng];
 }
 
 class MyAssets {
