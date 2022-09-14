@@ -68,13 +68,14 @@ String generateAssets(
     if (config.flutterGen.integrations.rive) RiveIntegration(),
   ];
 
+  // TODO: Will delete this code after.
   // ignore: deprecated_member_use_from_same_package
   if (config.flutterGen.assets.style != null) {
     stderr.writeln('''
     ┌────────────────────────────────────────────────────────────────────────────┐
     │ Warning:                                                                   │
-    │   the `style` property moved from asset to under asset.output.             │
-    │   it should be changed in the following ways                               │
+    │   The `style` property moved from asset to under asset.output.             │
+    │   It should be changed in the following ways                               │
     │   https://github.com/FlutterGen/flutter_gen/pull/294                       │
     │                                                                            │
     │ [pubspec.yaml]                                                             │
@@ -85,6 +86,8 @@ String generateAssets(
     │        style: snake-case                                                   │
     └────────────────────────────────────────────────────────────────────────────┘''');
   }
+
+  // TODO: Will delete this code after.
   // ignore: deprecated_member_use_from_same_package
   if (config.flutterGen.assets.packageParameterEnabled != null) {
     stderr.writeln('''
