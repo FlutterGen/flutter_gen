@@ -75,6 +75,7 @@ String generateAssets(
     │ Warning:                                                                   │
     │   the `style` property moved from asset to under asset.output.             │
     │   it should be changed in the following ways                               │
+    │   https://github.com/FlutterGen/flutter_gen/pull/294                       │
     │                                                                            │
     │ [pubspec.yaml]                                                             │
     │                                                                            │
@@ -91,6 +92,7 @@ String generateAssets(
     │ Warning:                                                                                  │
     │   The `package_parameter_enabled` property moved from asset to under asset.output.        │
     │   It should be changed in the following pubspec.yaml.                                     │
+    │   https://github.com/FlutterGen/flutter_gen/pull/294                                      │
     │                                                                                           │
     │ [pubspec.yaml]                                                                            │
     │                                                                                           │
