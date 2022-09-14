@@ -10,7 +10,7 @@ import 'settings/config.dart';
 import 'utils/file.dart';
 
 class FlutterGenerator {
-  FlutterGenerator(
+  const FlutterGenerator(
     this.pubspecFile, {
     this.assetsName = 'assets.gen.dart',
     this.colorsName = 'colors.gen.dart',
