@@ -21,7 +21,7 @@ dependencies:
   collection: ^1.16.0
   crypto: ^3.0.1
   glob: ^2.0.2
-  
+
   firebase_analytics: 9.1.8
   firebase_core: 1.14.1
   firebase_auth: 3.3.18
@@ -122,18 +122,21 @@ flutter_gen:
 
   assets:
     enabled: true
+
     package_parameter_enabled: false
-    # Assets.imagesChip
-    # style: camel-case
-
-    # Assets.images_chip
-    # style: snake-case
-
-    # Assets.images.chip (default style)
-    # style: dot-delimiter
+    style: snake-case
 
     outputs:
       class_name: MyAssets
+      # package_parameter_enabled: false
+      # Assets.imagesChip
+      # style: camel-case
+
+      # Assets.images_chip
+      # style: snake-case
+
+      # Assets.images.chip (default style)
+      # style: snake-case
 
     exclude:
       - assets/images/chip3/chip3.jpg

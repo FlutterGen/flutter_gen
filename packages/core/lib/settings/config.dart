@@ -54,10 +54,10 @@ flutter_gen:
 
   assets:
     enabled: true
-    package_parameter_enabled: false
-    style: dot-delimiter
     outputs:
       class_name: Assets
+      package_parameter_enabled: false
+      style: dot-delimiter
     exclude: []
     
   fonts:

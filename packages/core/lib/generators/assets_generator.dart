@@ -46,7 +46,7 @@ class AssetsGenConfig {
   final List<Glob> exclude;
 
   String get packageParameterLiteral =>
-      flutterGen.assets.packageParameterEnabled ? _packageName : '';
+      flutterGen.assets.outputs.packageParameterEnabled ? _packageName : '';
 }
 
 String generateAssets(
@@ -68,11 +68,44 @@ String generateAssets(
     if (config.flutterGen.integrations.rive) RiveIntegration(),
   ];
 
-  if (config.flutterGen.assets.isDotDelimiterStyle) {
+  // ignore: deprecated_member_use_from_same_package
+  if (config.flutterGen.assets.style != null) {
+    stderr.writeln('''
+    ┌────────────────────────────────────────────────────────────────────────────┐
+    │ Warning:                                                                   │
+    │   the `style` property moved from asset to under asset.output.             │
+    │   it should be changed in the following ways                               │
+    │                                                                            │
+    │ [pubspec.yaml]                                                             │
+    │                                                                            │
+    │  fluttergen:                                                               │
+    │    assets:                                                                 │
+    │      outputs:                                                              │
+    │        style: snake-case                                                   │
+    └────────────────────────────────────────────────────────────────────────────┘''');
+  }
+  // ignore: deprecated_member_use_from_same_package
+  if (config.flutterGen.assets.packageParameterEnabled != null) {
+    stderr.writeln('''
+    ┌───────────────────────────────────────────────────────────────────────────────────────────┐
+    │ Warning:                                                                                  │
+    │   The `package_parameter_enabled` property moved from asset to under asset.output.        │
+    │   It should be changed in the following pubspec.yaml.                                     │
+    │                                                                                           │
+    │ [pubspec.yaml]                                                                            │
+    │                                                                                           │
+    │  fluttergen:                                                                              │
+    │    assets:                                                                                │
+    │      outputs:                                                                             │
+    │        package_parameter_enabled: true                                                    │
+    └───────────────────────────────────────────────────────────────────────────────────────────┘''');
+  }
+
+  if (config.flutterGen.assets.outputs.isDotDelimiterStyle) {
     classesBuffer.writeln(_dotDelimiterStyleDefinition(config, integrations));
-  } else if (config.flutterGen.assets.isSnakeCaseStyle) {
+  } else if (config.flutterGen.assets.outputs.isSnakeCaseStyle) {
     classesBuffer.writeln(_snakeCaseStyleDefinition(config, integrations));
-  } else if (config.flutterGen.assets.isCamelCaseStyle) {
+  } else if (config.flutterGen.assets.outputs.isCamelCaseStyle) {
     classesBuffer.writeln(_camelCaseStyleDefinition(config, integrations));
   } else {
     throw 'The value of "flutter_gen/assets/style." is incorrect.';

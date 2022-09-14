@@ -730,19 +730,19 @@ flutter_gen:
     # Optional
     enabled: true
     # Optional
-    # Set to true if you want this package to be a package dependency
-    # See: https://flutter.dev/docs/development/ui/assets-and-images#from-packages
-    package_parameter_enabled: false
-    # Optional
-    # Avaliable values:
-    # - camel-case
-    # - snake-case
-    # - dot-delimiter
-    style: dot-delimiter
-    # Optional
     outputs:
       # Default is Assets
       class_name: MyAssets
+      # Optional
+      # Set to true if you want this package to be a package dependency
+      # See: https://flutter.dev/docs/development/ui/assets-and-images#from-packages
+      package_parameter_enabled: false
+      # Optional
+      # Avaliable values:
+      # - camel-case
+      # - snake-case
+      # - dot-delimiter
+      style: dot-delimiter
     
   fonts:
     # Optional
