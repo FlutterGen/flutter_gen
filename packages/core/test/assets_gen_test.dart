@@ -55,7 +55,7 @@ void main() {
 
     test('Assets with No lists on pubspec.yaml', () async {
       final pubspec = File('test_resources/pubspec_assets_no_list.yaml');
-      final config = await loadPubspecConfig(pubspec);
+      final config = loadPubspecConfig(pubspec);
       final formatter = DartFormatter(
           pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 

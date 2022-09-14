@@ -19,7 +19,7 @@ Future<void> expectedAssetsGen(
       .build();
 
   final pubspecFile = File(pubspec);
-  final config = await loadPubspecConfig(pubspecFile);
+  final config = loadPubspecConfig(pubspecFile);
   final formatter = DartFormatter(
       pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 
@@ -42,7 +42,7 @@ Future<void> expectedColorsGen(
       .build();
 
   final pubspecFile = File(pubspec);
-  final config = await loadPubspecConfig(pubspecFile);
+  final config = loadPubspecConfig(pubspecFile);
   final formatter = DartFormatter(
       pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 
@@ -64,7 +64,7 @@ Future<void> expectedFontsGen(
   await FlutterGenerator(File(pubspec), fontsName: basename(generated)).build();
 
   final pubspecFile = File(pubspec);
-  final config = await loadPubspecConfig(pubspecFile);
+  final config = loadPubspecConfig(pubspecFile);
   final formatter = DartFormatter(
       pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 
