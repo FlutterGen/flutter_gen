@@ -30,35 +30,15 @@ jobs:
         with:
           sdk: stable
 
-      - name: Set environment for macos and ubuntu
-        if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
+      - name: Set environment
         run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
-      - name: Set environment for Windows
-        if: startsWith(matrix.os, 'windows')
-        run: echo "%LOCALAPPDATA%\Pub\Cache\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-
-      - name: Get dependencies for macos and ubuntu
-        if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
-        run: |
-          dart pub global activate melos
-          melos bootstrap
-    
-      - name: Get dependencies for Windows
-        if: startsWith(matrix.os, 'windows')
+      - name: Get dependencies
         run: |
           dart pub global activate melos
           melos bootstrap
 
-      - name: Running build for macos
-        if: matrix.os == 'macos-latest'
-        run: |
-          cd packages/command/
-          mkdir -p bin/${{ matrix.target }}
-          dart compile exe bin/flutter_gen_command.dart -o bin/${{ matrix.target }}/fluttergen
-
-      - name: Running build for ubuntu
-        if: matrix.os == 'ubuntu-latest'
+      - name: Running build
         run: |
           cd packages/command/
           mkdir -p bin/${{ matrix.target }}
@@ -80,6 +60,33 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - uses: actions/upload-artifact@v3
+        with:
+          name: sha256
+          path: packages/command/bin/${{ matrix.target }}/fluttergen-${{ matrix.artifact_prefix }}.sha256
+
+  update:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: sha256
+
+      - id: version
+        run: echo "::set-output name=version::${GITHUB_REF##*/}"
+
+      - id: checksum
+        shell: bash
+        run: |
+          echo ::set-output name=sha256_linux::$(cat fluttergen-linux.sha256 | awk '{ print $1 }')
+          echo ::set-output name=sha256_macos::$(cat fluttergen-macos.sha256 | awk '{ print $1 }')
+      - uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.PAT_FLUTTERGEN }}
+          repository: FlutterGen/homebrew-tap
+          event-type: update-tap
+          client-payload: '{ "sha256_linux": "${{ steps.checksum.outputs.sha256_linux }}", "sha256_macos": "${{ steps.checksum.outputs.sha256_macos }}", "version": "${{ steps.version.outputs.version }}" }'
 
 #  publish:
 #    name: Publishing
