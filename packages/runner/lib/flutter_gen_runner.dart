@@ -8,29 +8,52 @@ import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 
 import 'package:glob/glob.dart';
+import 'package:path/path.dart';
 
 Builder build(BuilderOptions options) => FlutterGenBuilder();
 
 class FlutterGenBuilder extends Builder {
-  final FlutterGenerator generator = FlutterGenerator(File('pubspec.yaml'));
+  static AssetId _output(BuildStep buildStep, String path) {
+    return AssetId(
+      buildStep.inputId.package,
+      path,
+    );
+  }
+
+  final generator = FlutterGenerator(File('pubspec.yaml'));
+  late final _config = loadPubspecConfigOrNull(generator.pubspecFile);
   _FlutterGenBuilderState? _currentState;
 
   @override
   Future<void> build(BuildStep buildStep) async {
-    final config = await generator.getConfig();
-    if (config == null) return;
-
-    final state = await _createState(config, buildStep);
-    if (_currentState != null && _currentState!.equals(state)) return;
+    if (_config == null) return;
+    final state = await _createState(_config!, buildStep);
+    if (state.shouldSkipGenerate(_currentState)) return;
     _currentState = state;
 
-    await generator.build(config: config);
+    await generator.build(
+      config: _config,
+      writer: (contents, path) {
+        buildStep.writeAsString(_output(buildStep, path), contents);
+      },
+    );
   }
 
   @override
-  Map<String, List<String>> get buildExtensions => {
-        "\$package\$": ['.gen.dart']
-      };
+  Map<String, List<String>> get buildExtensions {
+    if (_config == null) return {};
+    final ouput = _config!.pubspec.flutterGen.output;
+    return {
+      r'$package$': [
+        for (final name in [
+          generator.assetsName,
+          generator.colorsName,
+          generator.fontsName
+        ])
+          join(ouput, name),
+      ],
+    };
+  }
 
   Future<_FlutterGenBuilderState> _createState(
       Config config, BuildStep buildStep) async {
@@ -63,7 +86,11 @@ class FlutterGenBuilder extends Builder {
 
     final pubspecDigest = await buildStep.digest(pubspecAsset);
 
-    return _FlutterGenBuilderState(pubspecDigest, assets, colors);
+    return _FlutterGenBuilderState(
+      pubspecDigest: pubspecDigest,
+      assets: assets,
+      colors: colors,
+    );
   }
 }
 
@@ -72,11 +99,16 @@ class _FlutterGenBuilderState {
   final HashSet<String> assets;
   final HashMap<String, Digest> colors;
 
-  _FlutterGenBuilderState(this.pubspecDigest, this.assets, this.colors);
+  _FlutterGenBuilderState({
+    required this.pubspecDigest,
+    required this.assets,
+    required this.colors,
+  });
 
-  bool equals(_FlutterGenBuilderState state) {
-    return pubspecDigest == state.pubspecDigest &&
-        const SetEquality().equals(assets, state.assets) &&
-        const MapEquality().equals(colors, state.colors);
+  bool shouldSkipGenerate(_FlutterGenBuilderState? previous) {
+    if (previous == null) return false;
+    return pubspecDigest == previous.pubspecDigest &&
+        const SetEquality().equals(assets, previous.assets) &&
+        const MapEquality().equals(colors, previous.colors);
   }
 }
