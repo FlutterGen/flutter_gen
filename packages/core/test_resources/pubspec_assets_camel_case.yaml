@@ -5,7 +5,8 @@ flutter_gen:
   line_length: 80   # Optional (default: 80)
 
   assets:
-    style: camel-case
+    outputs:
+      style: camel-case
 
 flutter:
   assets:
