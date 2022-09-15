@@ -123,12 +123,13 @@ flutter_gen:
   assets:
     enabled: true
 
-    package_parameter_enabled: false
-    style: snake-case
+    # Moved under outputs:
+    # package_parameter_enabled: false
+    # style: snake-case
 
     outputs:
       class_name: MyAssets
-      # package_parameter_enabled: false
+      package_parameter_enabled: false
       # Assets.imagesChip
       # style: camel-case
 
@@ -136,7 +137,7 @@ flutter_gen:
       # style: snake-case
 
       # Assets.images.chip (default style)
-      # style: snake-case
+      style: dot-delimiter
 
     exclude:
       - assets/images/chip3/chip3.jpg
