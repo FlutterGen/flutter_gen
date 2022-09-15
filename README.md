@@ -243,14 +243,15 @@ final json = await rootBundle.loadString(Assets.json.fruits);
 # pubspec.yaml
 flutter_gen:
   assets:
-    # Assets.imagesChip
-    # style: camel-case
+    outputs:
+      # Assets.imagesChip
+      # style: camel-case
 
-    # Assets.images_chip
-    # style: snake-case
+      # Assets.images_chip
+      # style: snake-case
 
-    # Assets.images.chip (default style)
-    # style: dot-delimiter
+      # Assets.images.chip (default style)
+      # style: dot-delimiter
 
 flutter:
   assets:
