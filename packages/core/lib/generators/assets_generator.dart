@@ -68,42 +68,42 @@ String generateAssets(
     if (config.flutterGen.integrations.rive) RiveIntegration(),
   ];
 
-  // TODO: Will delete this code after.
+  // TODO: This code will be removed.
   // ignore: deprecated_member_use_from_same_package
   if (config.flutterGen.assets.style != null) {
     stderr.writeln('''
-    ┌────────────────────────────────────────────────────────────────────────────┐
-    │ Warning:                                                                   │
-    │   The `style` property moved from asset to under asset.output.             │
-    │   It should be changed in the following ways                               │
-    │   https://github.com/FlutterGen/flutter_gen/pull/294                       │
-    │                                                                            │
-    │ [pubspec.yaml]                                                             │
-    │                                                                            │
-    │  fluttergen:                                                               │
-    │    assets:                                                                 │
-    │      outputs:                                                              │
-    │        style: snake-case                                                   │
-    └────────────────────────────────────────────────────────────────────────────┘''');
+    ┌───────────────────────────────────────────────────────────────────────┐
+    │ Warning:                                                              │
+    │   The `style` property moved from asset to under asset.output.        │
+    │   It should be changed in the following ways                          │
+    │   https://github.com/FlutterGen/flutter_gen/pull/294                  │
+    │                                                                       │
+    │ [pubspec.yaml]                                                        │
+    │                                                                       │
+    │  fluttergen:                                                          │
+    │    assets:                                                            │
+    │      outputs:                                                         │
+    │        style: snake-case                                              │
+    └───────────────────────────────────────────────────────────────────────┘''');
   }
 
-  // TODO: Will delete this code after.
+  // TODO: This code will be removed.
   // ignore: deprecated_member_use_from_same_package
   if (config.flutterGen.assets.packageParameterEnabled != null) {
     stderr.writeln('''
-    ┌───────────────────────────────────────────────────────────────────────────────────────────┐
-    │ Warning:                                                                                  │
-    │   The `package_parameter_enabled` property moved from asset to under asset.output.        │
-    │   It should be changed in the following pubspec.yaml.                                     │
-    │   https://github.com/FlutterGen/flutter_gen/pull/294                                      │
-    │                                                                                           │
-    │ [pubspec.yaml]                                                                            │
-    │                                                                                           │
-    │  fluttergen:                                                                              │
-    │    assets:                                                                                │
-    │      outputs:                                                                             │
-    │        package_parameter_enabled: true                                                    │
-    └───────────────────────────────────────────────────────────────────────────────────────────┘''');
+    ┌────────────────────────────────────────────────────────────────────────────────────────┐
+    │ Warning:                                                                               │
+    │   The `package_parameter_enabled` property moved from asset to under asset.output.     │
+    │   It should be changed in the following pubspec.yaml.                                  │
+    │   https://github.com/FlutterGen/flutter_gen/pull/294                                   │
+    │                                                                                        │
+    │ [pubspec.yaml]                                                                         │
+    │                                                                                        │
+    │  fluttergen:                                                                           │
+    │    assets:                                                                             │
+    │      outputs:                                                                          │
+    │        package_parameter_enabled: true                                                 │
+    └────────────────────────────────────────────────────────────────────────────────────────┘''');
   }
 
   if (config.flutterGen.assets.outputs.isDotDelimiterStyle) {
