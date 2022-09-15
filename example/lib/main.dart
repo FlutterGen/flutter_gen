@@ -46,7 +46,7 @@ void main() async {
               SizedBox(
                 width: 200,
                 height: 200,
-                child: Assets.lottie.hamburgerArrow.lottie(
+                child: MyAssets.lottie.hamburgerArrow.lottie(
                   fit: BoxFit.contain,
                 ),
               ),
