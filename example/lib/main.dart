@@ -1,24 +1,22 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 import 'package:example_resources/gen/assets.gen.dart' as res;
+import 'package:flutter/material.dart';
 
-import 'firebase_options.dart';
 import 'gen/assets.gen.dart';
 import 'gen/colors.gen.dart';
 import 'gen/fonts.gen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
 
   runApp(MaterialApp(
     title: 'Flutter Demo',
     theme: ThemeData(
       // Auto generated font from FlutterGen.
-      fontFamily: FontFamily.raleway,
-      primarySwatch: ColorName.crimsonRed,
+      fontFamily: MyFontFamily.raleway,
+      primarySwatch: MyColorName.crimsonRed,
     ),
     home: Scaffold(
       appBar: AppBar(
@@ -33,7 +31,7 @@ void main() async {
               SizedBox(
                 width: 200,
                 height: 200,
-                child: Assets.flare.penguin.flare(
+                child: MyAssets.flare.penguin.flare(
                   animation: 'walk',
                   fit: BoxFit.contain,
                 ),
@@ -41,7 +39,7 @@ void main() async {
               SizedBox(
                 width: 200,
                 height: 200,
-                child: Assets.rive.vehicles.rive(
+                child: MyAssets.rive.vehicles.rive(
                   fit: BoxFit.contain,
                 ),
               ),
@@ -52,17 +50,17 @@ void main() async {
                   fit: BoxFit.contain,
                 ),
               ),
-              Assets.images.chip1.image(),
+              MyAssets.images.chip1.image(),
               // Use from example_resource package.
               res.Assets.images.flutter3.image(),
               res.Assets.images.dart.svg(),
-              Assets.images.icons.kmm.svg(key: const Key("kmm_svg")),
-              Assets.images.icons.fuchsia.svg(),
-              Assets.images.icons.paint.svg(
+              MyAssets.images.icons.kmm.svg(key: const Key("kmm_svg")),
+              MyAssets.images.icons.fuchsia.svg(),
+              MyAssets.images.icons.paint.svg(
                 width: 120,
                 height: 120,
               ),
-              // Assets.pictures.chip5.image(
+              // MyAssets.pictures.chip5.image(
               //   key: const Key("chip5"),
               //   width: 120,
               //   height: 120,
@@ -72,11 +70,11 @@ void main() async {
                 'Hi there, I\'m FlutterGen',
                 style: TextStyle(
                   // Auto generated color from FlutterGen.
-                  color: ColorName.black60,
+                  color: MyColorName.black60,
 
                   // Auto generated font from FlutterGen.
-                  fontFamily: FontFamily.robotoMono,
-                  fontFamilyFallback: [FontFamily.raleway],
+                  fontFamily: MyFontFamily.robotoMono,
+                  fontFamilyFallback: [MyFontFamily.raleway],
                 ),
               ),
             ],

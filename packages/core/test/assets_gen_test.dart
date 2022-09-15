@@ -55,7 +55,7 @@ void main() {
 
     test('Assets with No lists on pubspec.yaml', () async {
       final pubspec = File('test_resources/pubspec_assets_no_list.yaml');
-      final config = await loadPubspecConfig(pubspec);
+      final config = loadPubspecConfig(pubspec);
       final formatter = DartFormatter(
           pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 
@@ -81,6 +81,16 @@ void main() {
           'test_resources/actual_data/assets_package_exclude_files.gen.dart';
       const generated =
           'test_resources/lib/gen/assets_package_exclude_files.gen.dart';
+
+      await expectedAssetsGen(pubspec, generated, fact);
+    });
+
+    test('Assets with change the class name', () async {
+      const pubspec = 'test_resources/pubspec_assets_change_class_name.yaml';
+      const fact =
+          'test_resources/actual_data/assets_change_class_name.gen.dart';
+      const generated =
+          'test_resources/lib/gen/assets_change_class_name.gen.dart';
 
       await expectedAssetsGen(pubspec, generated, fact);
     });

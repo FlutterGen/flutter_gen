@@ -108,23 +108,15 @@ class __$$DataCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Data with DiagnosticableTreeMixin implements Data {
+class _$Data implements Data {
   const _$Data(this.value);
 
   @override
   final int value;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'Union(value: $value)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Union'))
-      ..add(DiagnosticsProperty('value', value));
   }
 
   @override
@@ -216,7 +208,7 @@ class _$Data with DiagnosticableTreeMixin implements Data {
 abstract class Data implements Union {
   const factory Data(final int value) = _$Data;
 
-  int get value => throw _privateConstructorUsedError;
+  int get value;
   @JsonKey(ignore: true)
   _$$DataCopyWith<_$Data> get copyWith => throw _privateConstructorUsedError;
 }
@@ -239,18 +231,12 @@ class __$$LoadingCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Loading with DiagnosticableTreeMixin implements Loading {
+class _$Loading implements Loading {
   const _$Loading();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'Union.loading()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'Union.loading'));
   }
 
   @override
@@ -368,23 +354,15 @@ class __$$ErrorDetailsCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorDetails with DiagnosticableTreeMixin implements ErrorDetails {
+class _$ErrorDetails implements ErrorDetails {
   const _$ErrorDetails([this.message]);
 
   @override
   final String? message;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'Union.error(message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Union.error'))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -476,7 +454,7 @@ class _$ErrorDetails with DiagnosticableTreeMixin implements ErrorDetails {
 abstract class ErrorDetails implements Union {
   const factory ErrorDetails([final String? message]) = _$ErrorDetails;
 
-  String? get message => throw _privateConstructorUsedError;
+  String? get message;
   @JsonKey(ignore: true)
   _$$ErrorDetailsCopyWith<_$ErrorDetails> get copyWith =>
       throw _privateConstructorUsedError;

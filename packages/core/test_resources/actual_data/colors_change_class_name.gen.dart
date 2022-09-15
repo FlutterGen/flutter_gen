@@ -16,18 +16,6 @@ class MyColorName {
   /// Color: #000000
   static const Color black = Color(0xFF000000);
 
-  /// Color: #4D000000
-  static const Color black30 = Color(0x4D000000);
-
-  /// Color: #66000000
-  static const Color black40 = Color(0x66000000);
-
-  /// Color: #80000000
-  static const Color black50 = Color(0x80000000);
-
-  /// Color: #99000000
-  static const Color black60 = Color(0x99000000);
-
   /// MaterialColor:
   ///   50: #FFF9E5E5
   ///   100: #FFF1BFBF

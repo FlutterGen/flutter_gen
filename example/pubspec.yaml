@@ -41,7 +41,6 @@ dependencies:
   local_auth: 2.0.1
   flutter_hooks: 0.18.3
   hooks_riverpod: 1.0.3
-  async: 2.8.2
   dio: 4.0.6
   connectivity_plus: 2.3.0
   ua_client_hints: 1.1.0
@@ -51,7 +50,7 @@ dependencies:
   protobuf: 2.0.1
   json_serializable: 6.2.0
   json_annotation: ^4.5.0
-  freezed_annotation: 2.0.1
+  freezed_annotation: ^2.1.0
   intl: 0.17.0
   fixnum: 1.0.0
   shared_preferences: 2.0.13
@@ -107,6 +106,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   build_runner: ^2.1.11
+  freezed: ^2.1.0+1
   flutter_gen_runner: ^4.3.0
 
   flutter_lints: ^2.0.1
@@ -132,16 +132,24 @@ flutter_gen:
 
     # Assets.images.chip (default style)
     # style: dot-delimiter
-    exclude: 
+
+    outputs:
+      class_name: MyAssets
+
+    exclude:
       - assets/images/chip3/chip3.jpg
       - pictures/chip5.jpg
       - assets/flare/
 
   fonts:
     enabled: true
+    outputs:
+      class_name: MyFontFamily
 
   colors:
     enabled: true
+    outputs:
+      class_name: MyColorName
     inputs:
       - assets/color/colors.xml
       - assets/color/colors2.xml

@@ -11,6 +11,7 @@ import 'generator_helper.dart';
 String generateFonts(
   DartFormatter formatter,
   List<FlutterFonts> fonts,
+  FlutterGenFonts fontsConfig,
 ) {
   if (fonts.isEmpty) {
     throw InvalidSettingsException(
@@ -18,10 +19,11 @@ String generateFonts(
   }
 
   final buffer = StringBuffer();
+  final className = fontsConfig.outputs.className;
   buffer.writeln(header);
   buffer.writeln(ignore);
-  buffer.writeln('class FontFamily {');
-  buffer.writeln('FontFamily._();');
+  buffer.writeln('class $className {');
+  buffer.writeln('$className._();');
   buffer.writeln();
 
   fonts.map((element) => element.family).distinct().sorted().forEach((family) {

@@ -22,7 +22,7 @@ void main() {
 
     test('Wrong colors settings on pubspec.yaml', () async {
       final pubspec = File('test_resources/pubspec_colors_no_inputs.yaml');
-      final config = await loadPubspecConfig(pubspec);
+      final config = loadPubspecConfig(pubspec);
       final formatter = DartFormatter(
           pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 
@@ -34,7 +34,7 @@ void main() {
 
     test('Wrong colors settings on pubspec.yaml', () async {
       final pubspec = File('test_resources/pubspec_colors_no_inputs_list.yaml');
-      final config = await loadPubspecConfig(pubspec);
+      final config = loadPubspecConfig(pubspec);
       final formatter = DartFormatter(
           pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 
@@ -52,6 +52,16 @@ void main() {
       const wrongColorPath =
           ColorPath('test_resources/assets/json/fruits.json');
       expect(wrongColorPath.isXml, isFalse);
+    });
+
+    test('Change the class name', () async {
+      const pubspec = 'test_resources/pubspec_colors_change_class_name.yaml';
+      const fact =
+          'test_resources/actual_data/colors_change_class_name.gen.dart';
+      const generated =
+          'test_resources/lib/gen/colors_change_class_name.gen.dart';
+
+      await expectedColorsGen(pubspec, generated, fact);
     });
   });
 }

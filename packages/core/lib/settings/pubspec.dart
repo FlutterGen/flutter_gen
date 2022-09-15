@@ -28,7 +28,10 @@ class Pubspec {
 
 @JsonSerializable()
 class Flutter {
-  Flutter({required this.assets, required this.fonts});
+  Flutter({
+    required this.assets,
+    required this.fonts,
+  });
 
   @JsonKey(name: 'assets', required: true)
   final List<String> assets;
@@ -83,13 +86,20 @@ class FlutterGen {
 
 @JsonSerializable()
 class FlutterGenColors {
-  FlutterGenColors({required this.enabled, required this.inputs});
+  FlutterGenColors({
+    required this.enabled,
+    required this.inputs,
+    required this.outputs,
+  });
 
   @JsonKey(name: 'enabled', required: true)
   final bool enabled;
 
   @JsonKey(name: 'inputs', required: true)
   final List<String> inputs;
+
+  @JsonKey(name: 'outputs', required: true)
+  final FlutterGenElementOutputs outputs;
 
   factory FlutterGenColors.fromJson(Map json) =>
       _$FlutterGenColorsFromJson(json);
@@ -105,6 +115,7 @@ class FlutterGenAssets {
     required this.enabled,
     required this.packageParameterEnabled,
     required this.style,
+    required this.outputs,
     required this.exclude,
   }) {
     if (style != dotDelimiterStyle &&
@@ -123,6 +134,9 @@ class FlutterGenAssets {
   @JsonKey(name: 'style', required: true)
   final String style;
 
+  @JsonKey(name: 'outputs', required: true)
+  final FlutterGenElementOutputs outputs;
+
   @JsonKey(name: 'exclude', required: true)
   final List<String> exclude;
 
@@ -138,10 +152,16 @@ class FlutterGenAssets {
 
 @JsonSerializable()
 class FlutterGenFonts {
-  FlutterGenFonts({required this.enabled});
+  FlutterGenFonts({
+    required this.enabled,
+    required this.outputs,
+  });
 
   @JsonKey(name: 'enabled', required: true)
   final bool enabled;
+
+  @JsonKey(name: 'outputs', required: true)
+  final FlutterGenElementOutputs outputs;
 
   factory FlutterGenFonts.fromJson(Map json) => _$FlutterGenFontsFromJson(json);
 }
@@ -169,4 +189,15 @@ class FlutterGenIntegrations {
 
   factory FlutterGenIntegrations.fromJson(Map json) =>
       _$FlutterGenIntegrationsFromJson(json);
+}
+
+@JsonSerializable()
+class FlutterGenElementOutputs {
+  FlutterGenElementOutputs({required this.className});
+
+  @JsonKey(name: 'class_name', required: true)
+  final String className;
+
+  factory FlutterGenElementOutputs.fromJson(Map json) =>
+      _$FlutterGenElementOutputsFromJson(json);
 }
