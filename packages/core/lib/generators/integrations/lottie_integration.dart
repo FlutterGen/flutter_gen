@@ -1,3 +1,5 @@
+import 'package:flutter_gen_core/utils/version.dart';
+
 import '../../settings/asset_type.dart';
 import 'integration.dart';
 import 'dart:convert';
@@ -14,6 +16,12 @@ class LottieIntegration extends Integration {
     'v', // // Must include version
     'layers', // Must include layers
   ];
+
+  // Semver regular expression
+  // https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
+  final semVer = RegExp(
+      r'^(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$',
+      multiLine: true);
 
   @override
   List<String> get requiredImports => [
@@ -92,22 +100,28 @@ class LottieIntegration extends Integration {
   bool get isConstConstructor => true;
 
   bool isLottieFile(AssetType type) {
-    if (!type.path.endsWith('.json')) {
-      return false;
+    try {
+      if (type.extension != '.json') {
+        return false;
+      }
+      String input = File(type.absolutePath).readAsStringSync();
+      final fileKeys = jsonDecode(input) as Map<String, dynamic>;
+      if (lottieKeys.every((key) => fileKeys.containsKey(key)) &&
+          fileKeys['v'] != null &&
+          semVer.hasMatch(fileKeys['v'])) {
+        var version = semVer.firstMatch(fileKeys['v'].replaceAll(' ', ''))!;
+
+        int major = int.parse(version.namedGroup('major')!);
+        int minor = int.parse(version.namedGroup('minor')!);
+        int patch = int.parse(version.namedGroup('patch')!);
+        // Lottie version 4.4.0 is the first version that supports BodyMovin.
+        // https://github.com/xvrh/lottie-flutter/blob/0e7499d82ea1370b6acf023af570395bbb59b42f/lib/src/parser/lottie_composition_parser.dart#L60
+        return isAtLeastVersion(major, minor, patch, 4, 4, 0);
+      }
+    } on FormatException catch (e) {
+      // Catches bad/corrupted json and reports it to user.
+      stderr.writeln(e.message);
     }
-    var input = File(type.absolutePath).readAsStringSync();
-    var fileKeys = jsonDecode(input);
-    if (fileKeys.runtimeType != Map &&
-        !lottieKeys.every((key) => fileKeys.containsKey(key))) {
-      return false;
-    }
-    var versions = fileKeys['v'];
-    if (versions is! String) {
-      return false;
-    }
-    var version = int.tryParse(versions.replaceAll('.', '')) ?? 0;
-    // Lottie version 4.4.0 is the first version that supports BodyMovin.
-    // https://github.com/xvrh/lottie-flutter/blob/0e7499d82ea1370b6acf023af570395bbb59b42f/lib/src/parser/lottie_composition_parser.dart#L60
-    return version / 1000 >= 0.440;
+    return false;
   }
 }
