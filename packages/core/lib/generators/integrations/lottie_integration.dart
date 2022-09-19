@@ -1,4 +1,4 @@
-import 'package:flutter_gen_core/utils/version.dart';
+import 'package:pub_semver/pub_semver.dart';
 
 import '../../settings/asset_type.dart';
 import 'integration.dart';
@@ -107,16 +107,11 @@ class LottieIntegration extends Integration {
       String input = File(type.absolutePath).readAsStringSync();
       final fileKeys = jsonDecode(input) as Map<String, dynamic>;
       if (lottieKeys.every((key) => fileKeys.containsKey(key)) &&
-          fileKeys['v'] != null &&
-          semVer.hasMatch(fileKeys['v'])) {
-        var version = semVer.firstMatch(fileKeys['v'].replaceAll(' ', ''))!;
-
-        int major = int.parse(version.namedGroup('major')!);
-        int minor = int.parse(version.namedGroup('minor')!);
-        int patch = int.parse(version.namedGroup('patch')!);
+          fileKeys['v'] != null) {
+        var version = Version.parse(fileKeys['v']);
         // Lottie version 4.4.0 is the first version that supports BodyMovin.
         // https://github.com/xvrh/lottie-flutter/blob/0e7499d82ea1370b6acf023af570395bbb59b42f/lib/src/parser/lottie_composition_parser.dart#L60
-        return isAtLeastVersion(major, minor, patch, 4, 4, 0);
+        return version >= Version(4, 4, 0);
       }
     } on FormatException catch (e) {
       // Catches bad/corrupted json and reports it to user.
