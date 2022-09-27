@@ -8,7 +8,8 @@
             "type": "dart",
             "args": [
                 "--debug"
-            ]
+            ],
+            "cwd": "${workspaceFolder}/example/"
         },
         {
             "name": "Run on build_runner",
@@ -17,7 +18,8 @@
             "type": "dart",
             "args": [
                 "build"
-            ]
+            ],
+            "cwd": "${workspaceFolder}/example/"
         },
         {
             "name": "Run on flutter_gen_command",
@@ -27,7 +29,8 @@
             "args": [
                 "--config",
                 "${workspaceFolder}/example/pubspec.yaml"
-            ]
+            ],
+            "cwd": "${workspaceFolder}/packages/command/"
         }
     ]
 }

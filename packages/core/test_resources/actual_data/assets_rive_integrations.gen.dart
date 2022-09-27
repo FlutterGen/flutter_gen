@@ -15,6 +15,9 @@ class $AssetsRiveGen {
 
   /// File path: assets/rive/vehicles.riv
   RiveGenImage get vehicles => const RiveGenImage('assets/rive/vehicles.riv');
+
+  /// List of all assets
+  List<RiveGenImage> get values => [vehicles];
 }
 
 class Assets {
@@ -80,6 +83,8 @@ class AssetGenImage {
       cacheHeight: cacheHeight,
     );
   }
+
+  ImageProvider provider() => AssetImage(_assetName);
 
   String get path => _assetName;
 
