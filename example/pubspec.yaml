@@ -123,10 +123,6 @@ flutter_gen:
   assets:
     enabled: true
 
-    # Moved under outputs:
-    # package_parameter_enabled: false
-    # style: snake-case
-
     outputs:
       class_name: MyAssets
       package_parameter_enabled: false

@@ -70,10 +70,59 @@ String generateAssets(
 
   // TODO: This code will be removed.
   // ignore: deprecated_member_use_from_same_package
-  if (config.flutterGen.assets.style != null) {
+  final deprecatedStyle = config.flutterGen.assets.style != null;
+  final deprecatedPackageParam =
+      // ignore: deprecated_member_use_from_same_package
+      config.flutterGen.assets.packageParameterEnabled != null;
+  if (deprecatedStyle || deprecatedPackageParam) {
+    stderr.writeln('''
+                                                                                        
+                ░░░░                                                                    
+                                                                                        
+                                            ██                                          
+                                          ██░░██                                        
+  ░░          ░░                        ██░░░░░░██                            ░░░░      
+                                      ██░░░░░░░░░░██                                    
+                                      ██░░░░░░░░░░██                                    
+                                    ██░░░░░░░░░░░░░░██                                  
+                                  ██░░░░░░██████░░░░░░██                                
+                                  ██░░░░░░██████░░░░░░██                                
+                                ██░░░░░░░░██████░░░░░░░░██                              
+                                ██░░░░░░░░██████░░░░░░░░██                              
+                              ██░░░░░░░░░░██████░░░░░░░░░░██                            
+                            ██░░░░░░░░░░░░██████░░░░░░░░░░░░██                          
+                            ██░░░░░░░░░░░░██████░░░░░░░░░░░░██                          
+                          ██░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░██                        
+                          ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██                        
+                        ██░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░██                      
+                        ██░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░██                      
+                      ██░░░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░░░██                    
+        ░░            ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██                    
+                        ██████████████████████████████████████████                      
+                                                                                        
+                                                                                        
+                  ░░''');
+  }
+  if (deprecatedStyle && deprecatedPackageParam) {
+    stderr.writeln('''
+    ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+    │ ⚠️  Warning                                                                                     │
+    │   The `style` and `package_parameter_enabled` property moved from asset to under asset.output. │
+    │   It should be changed in the following pubspec.yaml.                                          │
+    │   https://github.com/FlutterGen/flutter_gen/pull/294                                           │
+    │                                                                                                │
+    │ [pubspec.yaml]                                                                                 │
+    │                                                                                                │
+    │  fluttergen:                                                                                   │
+    │    assets:                                                                                     │
+    │      outputs:                                                                                  │
+    │        style: snake-case                                                                       │
+    │        package_parameter_enabled: true                                                         │
+    └────────────────────────────────────────────────────────────────────────────────────────────────┘''');
+  } else if (deprecatedStyle) {
     stderr.writeln('''
     ┌───────────────────────────────────────────────────────────────────────┐
-    │ Warning:                                                              │
+    │ ⚠️  Warning                                                            │
     │   The `style` property moved from asset to under asset.output.        │
     │   It should be changed in the following ways                          │
     │   https://github.com/FlutterGen/flutter_gen/pull/294                  │
@@ -85,14 +134,10 @@ String generateAssets(
     │      outputs:                                                         │
     │        style: snake-case                                              │
     └───────────────────────────────────────────────────────────────────────┘''');
-  }
-
-  // TODO: This code will be removed.
-  // ignore: deprecated_member_use_from_same_package
-  if (config.flutterGen.assets.packageParameterEnabled != null) {
+  } else if (deprecatedPackageParam) {
     stderr.writeln('''
     ┌────────────────────────────────────────────────────────────────────────────────────────┐
-    │ Warning:                                                                               │
+    │ ⚠️  Warning                                                                             │
     │   The `package_parameter_enabled` property moved from asset to under asset.output.     │
     │   It should be changed in the following pubspec.yaml.                                  │
     │   https://github.com/FlutterGen/flutter_gen/pull/294                                   │
