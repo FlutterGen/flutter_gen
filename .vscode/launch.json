@@ -6,10 +6,8 @@
             "program": "${workspaceFolder}/example/lib/main.dart",
             "request": "launch",
             "type": "dart",
-            "args": [
-                "--debug"
-            ],
-            "cwd": "${workspaceFolder}/example/"
+            "flutterMode": "debug",
+            "cwd": "example/"
         },
         {
             "name": "Run on build_runner",
@@ -19,18 +17,14 @@
             "args": [
                 "build"
             ],
-            "cwd": "${workspaceFolder}/example/"
+            "cwd": "example/"
         },
         {
             "name": "Run on flutter_gen_command",
             "program": "${workspaceFolder}/packages/command/bin/flutter_gen_command.dart",
             "request": "launch",
             "type": "dart",
-            "args": [
-                "--config",
-                "${workspaceFolder}/example/pubspec.yaml"
-            ],
-            "cwd": "${workspaceFolder}/packages/command/"
+            "cwd": "example/"
         }
     ]
 }
