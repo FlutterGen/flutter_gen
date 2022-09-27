@@ -59,6 +59,23 @@ class Assets {
   /// File path: pictures/chip5.jpg
   static const AssetGenImage pictures_chip5 =
       AssetGenImage('pictures/chip5.jpg');
+
+  /// List of all assets
+  List<dynamic> get values => [
+        images_chip1,
+        images_chip2,
+        images_chip3_chip3,
+        images_chip4_chip4,
+        images_icons_dart_test,
+        images_icons_fuchsia,
+        images_icons_kmm,
+        images_icons_paint,
+        images_logo,
+        images_profile_jpg,
+        images_profile_png,
+        json_fruits,
+        pictures_chip5
+      ];
 }
 
 class AssetGenImage {

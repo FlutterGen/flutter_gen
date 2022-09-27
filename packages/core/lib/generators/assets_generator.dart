@@ -167,6 +167,7 @@ _Statement? _createAssetTypeStatement(
       name: name,
       value: 'AssetGenImage(\'${posixStyle(assetType.path)}\')',
       isConstConstructor: true,
+      isDirectory: false,
       needDartDoc: true,
     );
   } else if (FileSystemEntity.isDirectorySync(childAssetAbsolutePath)) {
@@ -177,6 +178,7 @@ _Statement? _createAssetTypeStatement(
       name: name,
       value: '$childClassName()',
       isConstConstructor: true,
+      isDirectory: true,
       needDartDoc: false,
     );
   } else if (!assetType.isIgnoreFile) {
@@ -190,6 +192,7 @@ _Statement? _createAssetTypeStatement(
         name: name,
         value: '\'${posixStyle(assetType.path)}\'',
         isConstConstructor: false,
+        isDirectory: false,
         needDartDoc: true,
       );
     } else {
@@ -200,6 +203,7 @@ _Statement? _createAssetTypeStatement(
         name: name,
         value: integration.classInstantiate(posixStyle(assetType.path)),
         isConstConstructor: integration.isConstConstructor,
+        isDirectory: false,
         needDartDoc: true,
       );
     }
@@ -259,6 +263,7 @@ String _dotDelimiterStyleDefinition(
             name: assetType.baseName.camelCase(),
             value: '$className()',
             isConstConstructor: true,
+            isDirectory: true,
             needDartDoc: true,
           ));
         }
@@ -340,7 +345,7 @@ String _flatStyleAssetsClassDefinition(
       statements.map((statement) => '''${statement.toDartDocString()}
            ${statement.toStaticFieldString()}
            ''').join('\n');
-  return _assetsClassDefinition(className, statementsBlock);
+  return _assetsClassDefinition(className, statements, statementsBlock);
 }
 
 String _dotDelimiterStyleAssetsClassDefinition(
@@ -349,15 +354,38 @@ String _dotDelimiterStyleAssetsClassDefinition(
 ) {
   final statementsBlock =
       statements.map((statement) => statement.toStaticFieldString()).join('\n');
-  return _assetsClassDefinition(className, statementsBlock);
+  return _assetsClassDefinition(className, statements, statementsBlock);
 }
 
-String _assetsClassDefinition(String className, String statementsBlock) {
+String _assetValuesDefinition(List<_Statement> statements) {
+  final values = statements.where((element) => !element.isDirectory);
+  if (values.isEmpty) return '';
+  final names = values.map((value) => value.name).join(', ');
+  var type = values.first.type;
+  for (var value in values) {
+    if (type != value.type) {
+      type = 'dynamic';
+      break;
+    }
+  }
+
+  return '''
+  /// List of all assets
+  List<$type> get values => [$names];''';
+}
+
+String _assetsClassDefinition(
+  String className,
+  List<_Statement> statements,
+  String statementsBlock,
+) {
+  final valuesBlock = _assetValuesDefinition(statements);
   return '''
 class $className {
   $className._();
   
   $statementsBlock
+  $valuesBlock
 }
 ''';
 }
@@ -373,11 +401,14 @@ String _directoryClassGenDefinition(
           '''
           : statement.toGetterString())
       .join('\n');
+  final valuesBlock = _assetValuesDefinition(statements);
+
   return '''
 class $className {
   const $className();
   
   $statementsBlock
+  $valuesBlock
 }
 ''';
 }
@@ -463,6 +494,7 @@ class _Statement {
     required this.name,
     required this.value,
     required this.isConstConstructor,
+    required this.isDirectory,
     required this.needDartDoc,
   });
 
@@ -471,6 +503,7 @@ class _Statement {
   final String name;
   final String value;
   final bool isConstConstructor;
+  final bool isDirectory;
   final bool needDartDoc;
 
   String toDartDocString() => '/// File path: ${posixStyle(filePath)}';

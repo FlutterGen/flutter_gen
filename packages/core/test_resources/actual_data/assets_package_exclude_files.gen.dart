@@ -14,6 +14,9 @@ class $PicturesGen {
 
   /// File path: pictures/chip5.jpg
   AssetGenImage get chip5 => const AssetGenImage('pictures/chip5.jpg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [chip5];
 }
 
 class $AssetsImagesGen {
@@ -29,6 +32,9 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/profile.jpg
   AssetGenImage get profile => const AssetGenImage('assets/images/profile.jpg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [chip1, chip2, profile];
 }
 
 class $AssetsJsonGen {
@@ -36,6 +42,9 @@ class $AssetsJsonGen {
 
   /// File path: assets/json/fruits.json
   String get fruits => 'assets/json/fruits.json';
+
+  /// List of all assets
+  List<String> get values => [fruits];
 }
 
 class $AssetsImagesChip4Gen {
@@ -44,6 +53,9 @@ class $AssetsImagesChip4Gen {
   /// File path: assets/images/chip4/chip4.jpg
   AssetGenImage get chip4 =>
       const AssetGenImage('assets/images/chip4/chip4.jpg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [chip4];
 }
 
 class Assets {
