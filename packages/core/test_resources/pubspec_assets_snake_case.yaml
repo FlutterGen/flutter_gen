@@ -5,7 +5,8 @@ flutter_gen:
   line_length: 80   # Optional (default: 80)
 
   assets:
-    style: snake-case
+    outputs:
+      style: snake-case
 
 flutter:
   assets:
