@@ -20,6 +20,9 @@ class $AssetsFlareGen {
 
   /// File path: assets/flare/Penguin.flr
   FlareGenImage get penguin => const FlareGenImage('assets/flare/Penguin.flr');
+
+  /// List of all assets
+  List<FlareGenImage> get values => [penguin];
 }
 
 class $AssetsImagesGen {
@@ -44,6 +47,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/profile.png
   AssetGenImage get profilePng =>
       const AssetGenImage('assets/images/profile.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values =>
+      [chip1, chip2, logo, profileJpg, profilePng];
 }
 
 class $AssetsJsonGen {
@@ -51,6 +58,9 @@ class $AssetsJsonGen {
 
   /// File path: assets/json/fruits.json
   String get fruits => 'assets/json/fruits.json';
+
+  /// List of all assets
+  List<String> get values => [fruits];
 }
 
 class $AssetsLottieGen {
@@ -66,6 +76,9 @@ class $AssetsMovieGen {
 
   /// File path: assets/movie/the_earth.mp4
   String get theEarth => 'assets/movie/the_earth.mp4';
+
+  /// List of all assets
+  List<String> get values => [theEarth];
 }
 
 class $AssetsRiveGen {
@@ -73,6 +86,9 @@ class $AssetsRiveGen {
 
   /// File path: assets/rive/vehicles.riv
   RiveGenImage get vehicles => const RiveGenImage('assets/rive/vehicles.riv');
+
+  /// List of all assets
+  List<RiveGenImage> get values => [vehicles];
 }
 
 class $AssetsUnknownGen {
@@ -86,6 +102,9 @@ class $AssetsUnknownGen {
 
   /// File path: assets/unknown/unknown_mime_type.bk
   String get unknownMimeType => 'assets/unknown/unknown_mime_type.bk';
+
+  /// List of all assets
+  List<String> get values => [changelog, readme, unknownMimeType];
 }
 
 class $AssetsImagesChip4Gen {
@@ -94,6 +113,9 @@ class $AssetsImagesChip4Gen {
   /// File path: assets/images/chip4/chip4.jpg
   AssetGenImage get chip4 =>
       const AssetGenImage('assets/images/chip4/chip4.jpg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [chip4];
 }
 
 class $AssetsImagesIconsGen {
@@ -112,6 +134,9 @@ class $AssetsImagesIconsGen {
 
   /// File path: assets/images/icons/paint.svg
   SvgGenImage get paint => const SvgGenImage('assets/images/icons/paint.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [dartTest, fuchsia, kmm, paint];
 }
 
 class MyAssets {
@@ -183,6 +208,8 @@ class AssetGenImage {
       cacheHeight: cacheHeight,
     );
   }
+
+  ImageProvider provider() => AssetImage(_assetName);
 
   String get path => _assetName;
 

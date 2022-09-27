@@ -107,44 +107,30 @@ class FlutterGenColors {
 
 @JsonSerializable()
 class FlutterGenAssets {
-  static const String dotDelimiterStyle = 'dot-delimiter';
-  static const String snakeCaseStyle = 'snake-case';
-  static const String camelCaseStyle = 'camel-case';
-
   FlutterGenAssets({
     required this.enabled,
-    required this.packageParameterEnabled,
-    required this.style,
+    this.packageParameterEnabled,
+    this.style,
     required this.outputs,
     required this.exclude,
-  }) {
-    if (style != dotDelimiterStyle &&
-        style != snakeCaseStyle &&
-        style != camelCaseStyle) {
-      throw ArgumentError.value(style, 'style');
-    }
-  }
+  });
 
   @JsonKey(name: 'enabled', required: true)
   final bool enabled;
 
-  @JsonKey(name: 'package_parameter_enabled', required: true)
-  final bool packageParameterEnabled;
+  @Deprecated('Moved to under outputs')
+  @JsonKey(name: 'package_parameter_enabled', required: false)
+  final bool? packageParameterEnabled;
 
-  @JsonKey(name: 'style', required: true)
-  final String style;
+  @Deprecated('Moved to under outputs')
+  @JsonKey(name: 'style', required: false)
+  final String? style;
 
   @JsonKey(name: 'outputs', required: true)
-  final FlutterGenElementOutputs outputs;
+  final FlutterGenElementAssetsOutputs outputs;
 
   @JsonKey(name: 'exclude', required: true)
   final List<String> exclude;
-
-  bool get isDotDelimiterStyle => style == dotDelimiterStyle;
-
-  bool get isSnakeCaseStyle => style == snakeCaseStyle;
-
-  bool get isCamelCaseStyle => style == camelCaseStyle;
 
   factory FlutterGenAssets.fromJson(Map json) =>
       _$FlutterGenAssetsFromJson(json);
@@ -193,11 +179,47 @@ class FlutterGenIntegrations {
 
 @JsonSerializable()
 class FlutterGenElementOutputs {
-  FlutterGenElementOutputs({required this.className});
+  FlutterGenElementOutputs({
+    required this.className,
+  });
 
   @JsonKey(name: 'class_name', required: true)
   final String className;
 
   factory FlutterGenElementOutputs.fromJson(Map json) =>
       _$FlutterGenElementOutputsFromJson(json);
+}
+
+@JsonSerializable()
+class FlutterGenElementAssetsOutputs extends FlutterGenElementOutputs {
+  static const String dotDelimiterStyle = 'dot-delimiter';
+  static const String snakeCaseStyle = 'snake-case';
+  static const String camelCaseStyle = 'camel-case';
+
+  FlutterGenElementAssetsOutputs({
+    required String className,
+    required this.packageParameterEnabled,
+    required this.style,
+  }) : super(className: className) {
+    if (style != dotDelimiterStyle &&
+        style != snakeCaseStyle &&
+        style != camelCaseStyle) {
+      throw ArgumentError.value(style, 'style');
+    }
+  }
+
+  @JsonKey(name: 'package_parameter_enabled', required: true)
+  final bool packageParameterEnabled;
+
+  @JsonKey(name: 'style', required: true)
+  final String style;
+
+  bool get isDotDelimiterStyle => style == dotDelimiterStyle;
+
+  bool get isSnakeCaseStyle => style == snakeCaseStyle;
+
+  bool get isCamelCaseStyle => style == camelCaseStyle;
+
+  factory FlutterGenElementAssetsOutputs.fromJson(Map json) =>
+      _$FlutterGenElementAssetsOutputsFromJson(json);
 }

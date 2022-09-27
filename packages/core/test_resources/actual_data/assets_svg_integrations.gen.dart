@@ -27,6 +27,9 @@ class $AssetsImagesIconsGen {
   /// File path: assets/images/icons/fuchsia.svg
   SvgGenImage get fuchsia =>
       const SvgGenImage('assets/images/icons/fuchsia.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [dartTest, fuchsia];
 }
 
 class Assets {
@@ -92,6 +95,8 @@ class AssetGenImage {
       cacheHeight: cacheHeight,
     );
   }
+
+  ImageProvider provider() => AssetImage(_assetName);
 
   String get path => _assetName;
 

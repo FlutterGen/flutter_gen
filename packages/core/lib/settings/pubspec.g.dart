@@ -119,21 +119,15 @@ FlutterGenAssets _$FlutterGenAssetsFromJson(Map json) => $checkedCreate(
       ($checkedConvert) {
         $checkKeys(
           json,
-          requiredKeys: const [
-            'enabled',
-            'package_parameter_enabled',
-            'style',
-            'outputs',
-            'exclude'
-          ],
+          requiredKeys: const ['enabled', 'outputs', 'exclude'],
         );
         final val = FlutterGenAssets(
           enabled: $checkedConvert('enabled', (v) => v as bool),
           packageParameterEnabled:
-              $checkedConvert('package_parameter_enabled', (v) => v as bool),
-          style: $checkedConvert('style', (v) => v as String),
-          outputs: $checkedConvert(
-              'outputs', (v) => FlutterGenElementOutputs.fromJson(v as Map)),
+              $checkedConvert('package_parameter_enabled', (v) => v as bool?),
+          style: $checkedConvert('style', (v) => v as String?),
+          outputs: $checkedConvert('outputs',
+              (v) => FlutterGenElementAssetsOutputs.fromJson(v as Map)),
           exclude: $checkedConvert('exclude',
               (v) => (v as List<dynamic>).map((e) => e as String).toList()),
         );
@@ -204,4 +198,32 @@ FlutterGenElementOutputs _$FlutterGenElementOutputsFromJson(Map json) =>
         return val;
       },
       fieldKeyMap: const {'className': 'class_name'},
+    );
+
+FlutterGenElementAssetsOutputs _$FlutterGenElementAssetsOutputsFromJson(
+        Map json) =>
+    $checkedCreate(
+      'FlutterGenElementAssetsOutputs',
+      json,
+      ($checkedConvert) {
+        $checkKeys(
+          json,
+          requiredKeys: const [
+            'class_name',
+            'package_parameter_enabled',
+            'style'
+          ],
+        );
+        final val = FlutterGenElementAssetsOutputs(
+          className: $checkedConvert('class_name', (v) => v as String),
+          packageParameterEnabled:
+              $checkedConvert('package_parameter_enabled', (v) => v as bool),
+          style: $checkedConvert('style', (v) => v as String),
+        );
+        return val;
+      },
+      fieldKeyMap: const {
+        'className': 'class_name',
+        'packageParameterEnabled': 'package_parameter_enabled'
+      },
     );

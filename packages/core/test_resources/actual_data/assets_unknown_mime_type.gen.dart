@@ -14,6 +14,9 @@ class $AssetsUnknownGen {
 
   /// File path: assets/unknown/unknown_mime_type.bk
   String get unknownMimeType => 'assets/unknown/unknown_mime_type.bk';
+
+  /// List of all assets
+  List<String> get values => [unknownMimeType];
 }
 
 class Assets {
@@ -79,6 +82,8 @@ class AssetGenImage {
       cacheHeight: cacheHeight,
     );
   }
+
+  ImageProvider provider() => AssetImage(_assetName);
 
   String get path => _assetName;
 

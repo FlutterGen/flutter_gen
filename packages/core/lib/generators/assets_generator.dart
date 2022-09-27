@@ -47,7 +47,7 @@ class AssetsGenConfig {
   final List<Glob> exclude;
 
   String get packageParameterLiteral =>
-      flutterGen.assets.packageParameterEnabled ? _packageName : '';
+      flutterGen.assets.outputs.packageParameterEnabled ? _packageName : '';
 }
 
 String generateAssets(
@@ -70,11 +70,94 @@ String generateAssets(
     if (config.flutterGen.integrations.lottie) LottieIntegration(),
   ];
 
-  if (config.flutterGen.assets.isDotDelimiterStyle) {
+  // TODO: This code will be removed.
+  // ignore: deprecated_member_use_from_same_package
+  final deprecatedStyle = config.flutterGen.assets.style != null;
+  final deprecatedPackageParam =
+      // ignore: deprecated_member_use_from_same_package
+      config.flutterGen.assets.packageParameterEnabled != null;
+  if (deprecatedStyle || deprecatedPackageParam) {
+    stderr.writeln('''
+                                                                                        
+                ░░░░                                                                    
+                                                                                        
+                                            ██                                          
+                                          ██░░██                                        
+  ░░          ░░                        ██░░░░░░██                            ░░░░      
+                                      ██░░░░░░░░░░██                                    
+                                      ██░░░░░░░░░░██                                    
+                                    ██░░░░░░░░░░░░░░██                                  
+                                  ██░░░░░░██████░░░░░░██                                
+                                  ██░░░░░░██████░░░░░░██                                
+                                ██░░░░░░░░██████░░░░░░░░██                              
+                                ██░░░░░░░░██████░░░░░░░░██                              
+                              ██░░░░░░░░░░██████░░░░░░░░░░██                            
+                            ██░░░░░░░░░░░░██████░░░░░░░░░░░░██                          
+                            ██░░░░░░░░░░░░██████░░░░░░░░░░░░██                          
+                          ██░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░██                        
+                          ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██                        
+                        ██░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░██                      
+                        ██░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░██                      
+                      ██░░░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░░░██                    
+        ░░            ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██                    
+                        ██████████████████████████████████████████                      
+                                                                                        
+                                                                                        
+                  ░░''');
+  }
+  if (deprecatedStyle && deprecatedPackageParam) {
+    stderr.writeln('''
+    ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+    │ ⚠️  Warning                                                                                     │
+    │   The `style` and `package_parameter_enabled` property moved from asset to under asset.output. │
+    │   It should be changed in the following pubspec.yaml.                                          │
+    │   https://github.com/FlutterGen/flutter_gen/pull/294                                           │
+    │                                                                                                │
+    │ [pubspec.yaml]                                                                                 │
+    │                                                                                                │
+    │  fluttergen:                                                                                   │
+    │    assets:                                                                                     │
+    │      outputs:                                                                                  │
+    │        style: snake-case                                                                       │
+    │        package_parameter_enabled: true                                                         │
+    └────────────────────────────────────────────────────────────────────────────────────────────────┘''');
+  } else if (deprecatedStyle) {
+    stderr.writeln('''
+    ┌───────────────────────────────────────────────────────────────────────┐
+    │ ⚠️  Warning                                                            │
+    │   The `style` property moved from asset to under asset.output.        │
+    │   It should be changed in the following ways                          │
+    │   https://github.com/FlutterGen/flutter_gen/pull/294                  │
+    │                                                                       │
+    │ [pubspec.yaml]                                                        │
+    │                                                                       │
+    │  fluttergen:                                                          │
+    │    assets:                                                            │
+    │      outputs:                                                         │
+    │        style: snake-case                                              │
+    └───────────────────────────────────────────────────────────────────────┘''');
+  } else if (deprecatedPackageParam) {
+    stderr.writeln('''
+    ┌────────────────────────────────────────────────────────────────────────────────────────┐
+    │ ⚠️  Warning                                                                             │
+    │   The `package_parameter_enabled` property moved from asset to under asset.output.     │
+    │   It should be changed in the following pubspec.yaml.                                  │
+    │   https://github.com/FlutterGen/flutter_gen/pull/294                                   │
+    │                                                                                        │
+    │ [pubspec.yaml]                                                                         │
+    │                                                                                        │
+    │  fluttergen:                                                                           │
+    │    assets:                                                                             │
+    │      outputs:                                                                          │
+    │        package_parameter_enabled: true                                                 │
+    └────────────────────────────────────────────────────────────────────────────────────────┘''');
+  }
+
+  if (config.flutterGen.assets.outputs.isDotDelimiterStyle) {
     classesBuffer.writeln(_dotDelimiterStyleDefinition(config, integrations));
-  } else if (config.flutterGen.assets.isSnakeCaseStyle) {
+  } else if (config.flutterGen.assets.outputs.isSnakeCaseStyle) {
     classesBuffer.writeln(_snakeCaseStyleDefinition(config, integrations));
-  } else if (config.flutterGen.assets.isCamelCaseStyle) {
+  } else if (config.flutterGen.assets.outputs.isCamelCaseStyle) {
     classesBuffer.writeln(_camelCaseStyleDefinition(config, integrations));
   } else {
     throw 'The value of "flutter_gen/assets/style." is incorrect.';
@@ -170,6 +253,7 @@ _Statement? _createAssetTypeStatement(
       name: name,
       value: 'AssetGenImage(\'${posixStyle(assetType.path)}\')',
       isConstConstructor: true,
+      isDirectory: false,
       needDartDoc: true,
     );
   } else if (FileSystemEntity.isDirectorySync(childAssetAbsolutePath)) {
@@ -180,6 +264,7 @@ _Statement? _createAssetTypeStatement(
       name: name,
       value: '$childClassName()',
       isConstConstructor: true,
+      isDirectory: true,
       needDartDoc: false,
     );
   } else if (!assetType.isIgnoreFile) {
@@ -193,6 +278,7 @@ _Statement? _createAssetTypeStatement(
         name: name,
         value: '\'${posixStyle(assetType.path)}\'',
         isConstConstructor: false,
+        isDirectory: false,
         needDartDoc: true,
       );
     } else {
@@ -203,6 +289,7 @@ _Statement? _createAssetTypeStatement(
         name: name,
         value: integration.classInstantiate(posixStyle(assetType.path)),
         isConstConstructor: integration.isConstConstructor,
+        isDirectory: false,
         needDartDoc: true,
       );
     }
@@ -262,6 +349,7 @@ String _dotDelimiterStyleDefinition(
             name: assetType.baseName.camelCase(),
             value: '$className()',
             isConstConstructor: true,
+            isDirectory: true,
             needDartDoc: true,
           ));
         }
@@ -339,13 +427,11 @@ String _flatStyleAssetsClassDefinition(
   String className,
   List<_Statement> statements,
 ) {
-  final statementsBlock = statements
-      .map((statement) =>
-          '''${statement.toDartDocString()}
+  final statementsBlock =
+      statements.map((statement) => '''${statement.toDartDocString()}
            ${statement.toStaticFieldString()}
-           ''')
-      .join('\n');
-  return _assetsClassDefinition(className, statementsBlock);
+           ''').join('\n');
+  return _assetsClassDefinition(className, statements, statementsBlock);
 }
 
 String _dotDelimiterStyleAssetsClassDefinition(
@@ -354,15 +440,38 @@ String _dotDelimiterStyleAssetsClassDefinition(
 ) {
   final statementsBlock =
       statements.map((statement) => statement.toStaticFieldString()).join('\n');
-  return _assetsClassDefinition(className, statementsBlock);
+  return _assetsClassDefinition(className, statements, statementsBlock);
 }
 
-String _assetsClassDefinition(String className, String statementsBlock) {
+String _assetValuesDefinition(List<_Statement> statements) {
+  final values = statements.where((element) => !element.isDirectory);
+  if (values.isEmpty) return '';
+  final names = values.map((value) => value.name).join(', ');
+  var type = values.first.type;
+  for (var value in values) {
+    if (type != value.type) {
+      type = 'dynamic';
+      break;
+    }
+  }
+
+  return '''
+  /// List of all assets
+  List<$type> get values => [$names];''';
+}
+
+String _assetsClassDefinition(
+  String className,
+  List<_Statement> statements,
+  String statementsBlock,
+) {
+  final valuesBlock = _assetValuesDefinition(statements);
   return '''
 class $className {
   $className._();
   
   $statementsBlock
+  $valuesBlock
 }
 ''';
 }
@@ -378,11 +487,14 @@ String _directoryClassGenDefinition(
           '''
           : statement.toGetterString())
       .join('\n');
+  final valuesBlock = _assetValuesDefinition(statements);
+
   return '''
 class $className {
   const $className();
   
   $statementsBlock
+  $valuesBlock
 }
 ''';
 }
@@ -454,6 +566,8 @@ class AssetGenImage {
     );
   }
 
+  ImageProvider provider() => AssetImage(_assetName);
+
   String get path => _assetName;
 
   String get keyName => $keyName;
@@ -468,6 +582,7 @@ class _Statement {
     required this.name,
     required this.value,
     required this.isConstConstructor,
+    required this.isDirectory,
     required this.needDartDoc,
   });
 
@@ -476,6 +591,7 @@ class _Statement {
   final String name;
   final String value;
   final bool isConstConstructor;
+  final bool isDirectory;
   final bool needDartDoc;
 
   String toDartDocString() => '/// File path: ${posixStyle(filePath)}';

@@ -14,6 +14,9 @@ class $PicturesGen {
 
   /// File path: pictures/chip5.jpg
   AssetGenImage get chip5 => const AssetGenImage('pictures/chip5.jpg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [chip5];
 }
 
 class $AssetsImagesGen {
@@ -39,6 +42,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/profile.png
   AssetGenImage get profilePng =>
       const AssetGenImage('assets/images/profile.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values =>
+      [chip1, chip2, logo, profileJpg, profilePng];
 }
 
 class $AssetsJsonGen {
@@ -46,6 +53,9 @@ class $AssetsJsonGen {
 
   /// File path: assets/json/fruits.json
   String get fruits => 'assets/json/fruits.json';
+
+  /// List of all assets
+  List<String> get values => [fruits];
 }
 
 class $AssetsImagesChip3Gen {
@@ -54,6 +64,9 @@ class $AssetsImagesChip3Gen {
   /// File path: assets/images/chip3/chip3.jpg
   AssetGenImage get chip3 =>
       const AssetGenImage('assets/images/chip3/chip3.jpg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [chip3];
 }
 
 class $AssetsImagesChip4Gen {
@@ -62,6 +75,9 @@ class $AssetsImagesChip4Gen {
   /// File path: assets/images/chip4/chip4.jpg
   AssetGenImage get chip4 =>
       const AssetGenImage('assets/images/chip4/chip4.jpg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [chip4];
 }
 
 class $AssetsImagesIconsGen {
@@ -78,6 +94,9 @@ class $AssetsImagesIconsGen {
 
   /// File path: assets/images/icons/paint.svg
   String get paint => 'assets/images/icons/paint.svg';
+
+  /// List of all assets
+  List<String> get values => [dartTest, fuchsia, kmm, paint];
 }
 
 class Assets {
@@ -145,6 +164,8 @@ class AssetGenImage {
       cacheHeight: cacheHeight,
     );
   }
+
+  ImageProvider provider() => AssetImage(_assetName);
 
   String get path => _assetName;
 
