@@ -32,7 +32,7 @@
   ```
 - [#291](https://github.com/FlutterGen/flutter_gen/pull/291) Add values list to generated classes for each directory.
   ```dart
-  Assets.images. // <List<AssetGenImage>>[chip1, chip2, logo, profileJpg, profilePng];
+  Assets.images.values // <List<AssetGenImage>>[chip1, chip2, logo, profileJpg, profilePng];
   ```
 - [#292](https://github.com/FlutterGen/flutter_gen/pull/292) Support an ImageProvider.
   ```dart
