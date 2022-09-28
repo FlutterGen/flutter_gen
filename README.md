@@ -176,7 +176,9 @@ Example results of `assets/images/chip.jpg`:
 
 - **`Assets.images.chip`** is an implementation of [`AssetImage class`](https://api.flutter.dev/flutter/painting/AssetImage-class.html).
 - **`Assets.images.chip.image(...)`** returns [`Image class`](https://api.flutter.dev/flutter/widgets/Image-class.html).
+- **`Assets.images.chip.provider(...)`** returns [`ImageProvider class`](https://api.flutter.dev/flutter/painting/ImageProvider-class.html).
 - **`Assets.images.chip.path`** just returns the path string.
+- **`Assets.images.chip.values`** just returns the values list.
 
 ```dart
 Widget build(BuildContext context) {
@@ -226,7 +228,7 @@ Widget build(BuildContext context) {
 |[flutter_svg](https://pub.dev/packages/flutter_svg)|.svg| `flutter_svg: true` |Assets.images.icons.paint.**svg()**|
 |[flare_flutter](https://pub.dev/packages/flare_flutter)|.flr| `flare_flutter: true` |Assets.flare.penguin.**flare()**|
 |[rive](https://pub.dev/packages/rive)|.flr| `rive: true` |Assets.rive.vehicles.**rive()**|
-|[lottie](https://pub.dev/packages/lottie)|_lottie.json| `lottie: true` |Assets.lottie.hamburgerArrow.**lottie()**|
+|[lottie](https://pub.dev/packages/lottie)|.json| `lottie: true` |Assets.lottie.hamburgerArrow.**lottie()**|
 
 
 <br/>
@@ -246,14 +248,15 @@ final json = await rootBundle.loadString(Assets.json.fruits);
 # pubspec.yaml
 flutter_gen:
   assets:
-    # Assets.imagesChip
-    # style: camel-case
+    outputs: 
+      # Assets.imagesChip
+      # style: camel-case
 
-    # Assets.images_chip
-    # style: snake-case
+      # Assets.images_chip
+      # style: snake-case
 
-    # Assets.images.chip (default style)
-    # style: dot-delimiter
+      # Assets.images.chip (default style)
+      # style: dot-delimiter
 
 flutter:
   assets:
@@ -734,20 +737,27 @@ flutter_gen:
     # Optional
     enabled: true
     # Optional
-    # Set to true if you want this package to be a package dependency
-    # See: https://flutter.dev/docs/development/ui/assets-and-images#from-packages
-    package_parameter_enabled: false
-    # Optional
-    # Avaliable values:
-    # - camel-case
-    # - snake-case
-    # - dot-delimiter
-    style: dot-delimiter
+    outputs: 
+      # Optional
+      # Set to true if you want this package to be a package dependency
+      # See: https://flutter.dev/docs/development/ui/assets-and-images#from-packages
+      package_parameter_enabled: false
+      # Optional
+      # Avaliable values:
+      # - camel-case
+      # - snake-case
+      # - dot-delimiter
+      style: dot-delimiter
+      # Default is Assets
+      class_name: MyAssets
     
   fonts:
     # Optional
     enabled: true
     # Optional
+    outputs:
+      # Default is FontFamily
+      class_name: MyFontFamily
 
   colors:
     # Optional
@@ -755,6 +765,9 @@ flutter_gen:
     # Optional
     inputs: []
     # Optional
+    outputs:
+      # Default is ColorName
+      class_name: MyColorName 
 
 flutter:
   # See: https://flutter.dev/docs/development/ui/assets-and-images#specifying-assets
@@ -784,9 +797,3 @@ and open a [pull request](https://github.com/FlutterGen/flutter_gen/pulls).
 [build_runner]: https://pub.dev/packages/build_runner
 [fluttergen]: https://pub.dev/packages/flutter_gen
 
-<br />
-<a href="https://github.com/fluttergen/flutter_gen/graphs/contributors"><img src="https://opencollective.com/fluttergen/contributors.svg?width=890&button=false" /></a>
-<br />
-<br />
-<br />
-<br />
