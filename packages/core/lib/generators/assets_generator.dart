@@ -17,6 +17,7 @@ import 'integrations/flare_integration.dart';
 import 'integrations/integration.dart';
 import 'integrations/rive_integration.dart';
 import 'integrations/svg_integration.dart';
+import 'integrations/lottie_integration.dart';
 
 class AssetsGenConfig {
   AssetsGenConfig._(
@@ -29,7 +30,7 @@ class AssetsGenConfig {
 
   factory AssetsGenConfig.fromConfig(File pubspecFile, Config config) {
     return AssetsGenConfig._(
-      pubspecFile.parent.path,
+      pubspecFile.parent.absolute.path,
       config.pubspec.packageName,
       config.pubspec.flutterGen,
       config.pubspec.flutter.assets,
@@ -66,6 +67,7 @@ String generateAssets(
       SvgIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.flareFlutter) FlareIntegration(),
     if (config.flutterGen.integrations.rive) RiveIntegration(),
+    if (config.flutterGen.integrations.lottie) LottieIntegration(),
   ];
 
   // TODO: This code will be removed.
@@ -213,15 +215,17 @@ List<String> _getAssetRelativePathList(
       .toList();
 }
 
-AssetType _constructAssetTree(List<String> assetRelativePathList) {
+AssetType _constructAssetTree(
+    List<String> assetRelativePathList, String rootPath) {
   // Relative path is the key
   final assetTypeMap = <String, AssetType>{
-    '.': AssetType('.'),
+    '.': AssetType(rootPath: rootPath, path: '.'),
   };
   for (final assetPath in assetRelativePathList) {
     var path = assetPath;
     while (path != '.') {
-      assetTypeMap.putIfAbsent(path, () => AssetType(path));
+      assetTypeMap.putIfAbsent(
+          path, () => AssetType(rootPath: rootPath, path: path));
       path = dirname(path);
     }
   }
@@ -309,7 +313,7 @@ String _dotDelimiterStyleDefinition(
   final assetsStaticStatements = <_Statement>[];
 
   final assetTypeQueue = ListQueue<AssetType>.from(
-      _constructAssetTree(assetRelativePathList).children);
+      _constructAssetTree(assetRelativePathList, config.rootPath).children);
 
   while (assetTypeQueue.isNotEmpty) {
     final assetType = assetTypeQueue.removeFirst();
@@ -404,7 +408,7 @@ String _flatStyleDefinition(
   )
       .distinct()
       .sorted()
-      .map((relativePath) => AssetType(relativePath))
+      .map((assetPath) => AssetType(rootPath: config.rootPath, path: assetPath))
       .mapToIsUniqueWithoutExtension()
       .map(
         (e) => _createAssetTypeStatement(

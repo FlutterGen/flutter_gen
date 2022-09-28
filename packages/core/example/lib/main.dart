@@ -38,6 +38,13 @@ void main() {
                   fit: BoxFit.contain,
                 ),
               ),
+              SizedBox(
+                width: 200,
+                height: 200,
+                child: Assets.lottie.hamburgerArrow.lottie(
+                  fit: BoxFit.contain,
+                ),
+              ),
               Image(image: Assets.images.chip1),
               Assets.images.icons.kmm.svg(key: const Key("kmm_svg")),
               Assets.images.icons.fuchsia.svg(),

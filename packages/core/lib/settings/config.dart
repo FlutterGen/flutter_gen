@@ -51,6 +51,7 @@ flutter_gen:
     flutter_svg: false
     flare_flutter: false
     rive: false
+    lottie: false
 
   assets:
     enabled: true

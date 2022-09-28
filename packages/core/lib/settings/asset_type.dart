@@ -4,8 +4,9 @@ import 'package:path/path.dart' as p;
 
 /// https://github.com/dart-lang/mime/blob/master/lib/src/default_extension_map.dart
 class AssetType {
-  AssetType(this.path);
+  AssetType({required this.rootPath, required this.path});
 
+  final String rootPath;
   final String path;
 
   final List<AssetType> _children = List.empty(growable: true);

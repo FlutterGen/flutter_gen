@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controller.dart';
 import 'package:rive/rive.dart';
+import 'package:lottie/lottie.dart';
 
 class $AssetsFlareGen {
   const $AssetsFlareGen();
@@ -60,6 +61,28 @@ class $AssetsJsonGen {
 
   /// List of all assets
   List<String> get values => [fruits];
+}
+
+class $AssetsLottieGen {
+  const $AssetsLottieGen();
+
+  /// File path: assets/lottie/alarm-clock-lottie-v440.json
+  LottieGenImage get alarmClockLottieV440 =>
+      const LottieGenImage('assets/lottie/alarm-clock-lottie-v440.json');
+
+  /// File path: assets/lottie/geometrical-animation.json
+  LottieGenImage get geometricalAnimation =>
+      const LottieGenImage('assets/lottie/geometrical-animation.json');
+
+  /// File path: assets/lottie/hamburger_arrow.json
+  LottieGenImage get hamburgerArrow =>
+      const LottieGenImage('assets/lottie/hamburger_arrow.json');
+
+  $AssetsLottieWrongGen get wrong => const $AssetsLottieWrongGen();
+
+  /// List of all assets
+  List<LottieGenImage> get values =>
+      [alarmClockLottieV440, geometricalAnimation, hamburgerArrow];
 }
 
 class $AssetsMovieGen {
@@ -130,12 +153,23 @@ class $AssetsImagesIconsGen {
   List<SvgGenImage> get values => [dartTest, fuchsia, kmm, paint];
 }
 
+class $AssetsLottieWrongGen {
+  const $AssetsLottieWrongGen();
+
+  /// File path: assets/lottie/wrong/rocket-lottie-v439.json
+  String get rocketLottieV439 => 'assets/lottie/wrong/rocket-lottie-v439.json';
+
+  /// List of all assets
+  List<String> get values => [rocketLottieV439];
+}
+
 class MyAssets {
   MyAssets._();
 
   static const $AssetsFlareGen flare = $AssetsFlareGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
+  static const $AssetsLottieGen lottie = $AssetsLottieGen();
   static const $AssetsMovieGen movie = $AssetsMovieGen();
   static const $AssetsRiveGen rive = $AssetsRiveGen();
   static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
@@ -323,6 +357,62 @@ class RiveGenImage {
       antialiasing: antialiasing,
       controllers: controllers,
       onInit: onInit,
+    );
+  }
+
+  String get path => _assetName;
+}
+
+class LottieGenImage {
+  const LottieGenImage(this._assetName);
+
+  final String _assetName;
+
+  LottieBuilder lottie({
+    Animation<double>? controller,
+    bool? animate,
+    FrameRate? frameRate,
+    bool? repeat,
+    bool? reverse,
+    LottieDelegates? delegates,
+    LottieOptions? options,
+    void Function(LottieComposition)? onLoaded,
+    LottieImageProviderFactory? imageProviderFactory,
+    Key? key,
+    AssetBundle? bundle,
+    Widget Function(BuildContext, Widget, LottieComposition?)? frameBuilder,
+    ImageErrorWidgetBuilder? errorBuilder,
+    double? width,
+    double? height,
+    BoxFit? fit,
+    AlignmentGeometry? alignment,
+    String? package,
+    bool? addRepaintBoundary,
+    FilterQuality? filterQuality,
+    void Function(String)? onWarning,
+  }) {
+    return Lottie.asset(
+      _assetName,
+      animate: animate,
+      frameRate: frameRate,
+      repeat: repeat,
+      reverse: reverse,
+      delegates: delegates,
+      options: options,
+      onLoaded: onLoaded,
+      imageProviderFactory: imageProviderFactory,
+      key: key,
+      bundle: bundle,
+      frameBuilder: frameBuilder,
+      errorBuilder: errorBuilder,
+      width: width,
+      height: height,
+      fit: fit,
+      alignment: alignment,
+      package: package,
+      addRepaintBoundary: addRepaintBoundary,
+      filterQuality: filterQuality,
+      onWarning: onWarning,
     );
   }
 

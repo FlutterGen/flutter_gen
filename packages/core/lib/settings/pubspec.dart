@@ -158,6 +158,7 @@ class FlutterGenIntegrations {
     required this.flutterSvg,
     required this.flareFlutter,
     required this.rive,
+    required this.lottie,
   });
 
   @JsonKey(name: 'flutter_svg', required: true)
@@ -168,6 +169,9 @@ class FlutterGenIntegrations {
 
   @JsonKey(name: 'rive', required: true)
   final bool rive;
+
+  @JsonKey(name: 'lottie', required: true)
+  final bool lottie;
 
   factory FlutterGenIntegrations.fromJson(Map json) =>
       _$FlutterGenIntegrationsFromJson(json);
