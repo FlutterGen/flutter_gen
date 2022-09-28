@@ -29,7 +29,7 @@ void main() {
 
       await expectedAssetsGen(pubspec, generated, fact);
 
-      final integration = SvgIntegration('package_name');
+      final integration = SvgIntegration('');
       expect(integration.className, 'SvgGenImage');
       expect(integration.classInstantiate('assets/path'),
           'SvgGenImage(\'assets/path\')');
@@ -42,6 +42,14 @@ void main() {
               AssetType(rootPath: resPath, path: 'assets/path/dog.png')),
           isFalse);
       expect(integration.isConstConstructor, isTrue);
+      expect(integration.classOutput.contains('String? package,'), isTrue);
+
+      final integrationWithPackage = SvgIntegration('package_name');
+      expect(
+        integrationWithPackage.classOutput
+            .contains('String? package = \'package_name\','),
+        isTrue,
+      );
     });
 
     test('Assets with Flare integrations on pubspec.yaml', () async {
@@ -53,7 +61,7 @@ void main() {
 
       await expectedAssetsGen(pubspec, generated, fact);
 
-      final integration = FlareIntegration();
+      final integration = FlareIntegration('');
       expect(integration.className, 'FlareGenImage');
       expect(integration.classInstantiate('assets/path'),
           'FlareGenImage(\'assets/path\')');
@@ -66,6 +74,14 @@ void main() {
               AssetType(rootPath: resPath, path: 'assets/path/dog.json')),
           isFalse);
       expect(integration.isConstConstructor, isTrue);
+      expect(integration.classOutput.contains('_assetName,'), isTrue);
+
+      final integrationWithPackage = FlareIntegration('package_name');
+      expect(
+        integrationWithPackage.classOutput
+            .contains('\'packages/package_name/\$_assetName\','),
+        isTrue,
+      );
     });
 
     test('Assets with Rive integrations on pubspec.yaml', () async {
@@ -77,7 +93,7 @@ void main() {
 
       await expectedAssetsGen(pubspec, generated, fact);
 
-      final integration = RiveIntegration();
+      final integration = RiveIntegration('');
       expect(integration.className, 'RiveGenImage');
       expect(integration.classInstantiate('assets/path'),
           'RiveGenImage(\'assets/path\')');
@@ -90,6 +106,14 @@ void main() {
               AssetType(rootPath: resPath, path: 'assets/path/dog.json')),
           isFalse);
       expect(integration.isConstConstructor, isTrue);
+      expect(integration.classOutput.contains('_assetName,'), isTrue);
+
+      final integrationWithPackage = RiveIntegration('package_name');
+      expect(
+        integrationWithPackage.classOutput
+            .contains('\'packages/package_name/\$_assetName\','),
+        isTrue,
+      );
     });
 
     test('Assets with Lottie integrations on pubspec.yaml', () async {
@@ -101,7 +125,7 @@ void main() {
 
       await expectedAssetsGen(pubspec, generated, fact);
 
-      final integration = LottieIntegration();
+      final integration = LottieIntegration('');
       expect(integration.className, 'LottieGenImage');
       expect(integration.classInstantiate('assets/lottie'),
           'LottieGenImage(\'assets/lottie\')');
@@ -115,6 +139,14 @@ void main() {
               path: 'assets/lottie/hamburger_arrow_without_version.json')),
           isFalse);
       expect(integration.isConstConstructor, isTrue);
+      expect(integration.classOutput.contains('String? package,'), isTrue);
+
+      final integrationWithPackage = LottieIntegration('package_name');
+      expect(
+        integrationWithPackage.classOutput
+            .contains('String? package = \'package_name\','),
+        isTrue,
+      );
     });
   });
 }

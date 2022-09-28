@@ -1,6 +1,11 @@
 import '../../settings/asset_type.dart';
 
 abstract class Integration {
+
+  Integration(this.packageParameterLiteral);
+
+  final String packageParameterLiteral;
+
   bool isEnabled = false;
 
   List<String> get requiredImports;
