@@ -17,12 +17,12 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.1.11
-  flutter_gen_runner: ^4.3.0
+  flutter_gen_runner: ^5.0.0
 
 flutter_gen:
   output: lib/gen/
   line_length: 80
-  
+
   integrations:
     flutter_svg: true
 

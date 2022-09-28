@@ -1,3 +1,78 @@
+## 5.0.0
+
+**Feature**  
+- [#285](https://github.com/FlutterGen/flutter_gen/pull/285) [#298](https://github.com/FlutterGen/flutter_gen/pull/298) Add Lottie files integration.
+  ```dart
+  // Assets.lottie.hamburgerArrow.lottie()
+  SizedBox(
+    width: 200,
+    height: 200,
+    child: Assets.lottie.hamburgerArrow.lottie(
+      fit: BoxFit.contain,
+    ),
+  ),
+  ```
+- [#286](https://github.com/FlutterGen/flutter_gen/pull/286) Allow users to change generated class name for assets, fonts, and colors.
+  ```yaml
+  flutter_gen:
+    assets:
+      # Optional
+      outputs: 
+        class_name: MyAssets # Default is `Assets`
+
+    fonts:
+      # Optional
+      outputs:
+        class_name: MyFontFamily # Default is `FontFamily`
+
+    colors:
+      # Optional
+      outputs:
+        class_name: MyColorName # Default is `ColorName`
+  ```
+- [#291](https://github.com/FlutterGen/flutter_gen/pull/291) Add values list to generated classes for each directory.
+  ```dart
+  Assets.images.provider() // <List<AssetGenImage>>[chip1, chip2, logo, profileJpg, profilePng];
+  ```
+- [#292](https://github.com/FlutterGen/flutter_gen/pull/292) Support an ImageProvider.
+  ```dart
+  // Assets.images.chip.provider()
+  Container(
+    height: 400,
+    decoration: BoxDecoration(
+      image: DecorationImage(
+        image: Assets.images.chip.provider(),
+      ),
+    ),
+    child: const Center(child: Text('Deco')),
+  ),
+
+  ```
+- [#294](https://github.com/FlutterGen/flutter_gen/pull/294) [**BREAKING CHANGES**] Moved the `style` and `package_parameter_enabled` to under assets.outputs scope.
+  ```yaml
+
+  flutter_gen:
+    # ...
+    assets:
+      package_parameter_enabled: true
+      style: snake-case
+      outputs:
+        class_name: MyAssets
+
+  flutter_gen:
+    # ...
+    assets:
+      outputs:
+        class_name: MyAssets
+        package_parameter_enabled: true
+        style: snake-case
+  ```
+
+**Bug fix**  
+- [#287 ](https://github.com/FlutterGen/flutter_gen/issues/287) Delete the generated files then flutter_gen won't generate files again
+  - [#dart-lang/build#3364](https://github.com/dart-lang/build/issues/3364) Aggregate builder not rebuild when one of multiple output files is deleted.
+
+
 ## 4.3.0
 
 **Feature**
