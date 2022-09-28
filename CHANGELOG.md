@@ -51,7 +51,7 @@
 - [#294](https://github.com/FlutterGen/flutter_gen/pull/294) [**BREAKING CHANGES**] Moved the `style` and `package_parameter_enabled` to under assets.outputs scope.
   ```yaml
 
-  # Before
+  # ❌ Before
   flutter_gen:
     # ...
     assets:
@@ -60,7 +60,7 @@
       outputs:
         class_name: MyAssets
 
-  # After
+  # ⭕️ After
   flutter_gen:
     # ...
     assets:
