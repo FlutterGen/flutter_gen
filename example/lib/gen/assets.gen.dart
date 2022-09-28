@@ -66,9 +66,23 @@ class $AssetsJsonGen {
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
+  /// File path: assets/lottie/alarm-clock-lottie-v440.json
+  LottieGenImage get alarmClockLottieV440 =>
+      const LottieGenImage('assets/lottie/alarm-clock-lottie-v440.json');
+
+  /// File path: assets/lottie/geometrical-animation.json
+  LottieGenImage get geometricalAnimation =>
+      const LottieGenImage('assets/lottie/geometrical-animation.json');
+
   /// File path: assets/lottie/hamburger_arrow.json
   LottieGenImage get hamburgerArrow =>
       const LottieGenImage('assets/lottie/hamburger_arrow.json');
+
+  $AssetsLottieWrongGen get wrong => const $AssetsLottieWrongGen();
+
+  /// List of all assets
+  List<LottieGenImage> get values =>
+      [alarmClockLottieV440, geometricalAnimation, hamburgerArrow];
 }
 
 class $AssetsMovieGen {
@@ -137,6 +151,16 @@ class $AssetsImagesIconsGen {
 
   /// List of all assets
   List<SvgGenImage> get values => [dartTest, fuchsia, kmm, paint];
+}
+
+class $AssetsLottieWrongGen {
+  const $AssetsLottieWrongGen();
+
+  /// File path: assets/lottie/wrong/rocket-lottie-v439.json
+  String get rocketLottieV439 => 'assets/lottie/wrong/rocket-lottie-v439.json';
+
+  /// List of all assets
+  List<String> get values => [rocketLottieV439];
 }
 
 class MyAssets {

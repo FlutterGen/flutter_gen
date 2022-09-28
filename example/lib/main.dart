@@ -50,6 +50,20 @@ void main() async {
                   fit: BoxFit.contain,
                 ),
               ),
+              SizedBox(
+                width: 200,
+                height: 200,
+                child: MyAssets.lottie.geometricalAnimation.lottie(
+                  fit: BoxFit.contain,
+                ),
+              ),
+              SizedBox(
+                width: 200,
+                height: 200,
+                child: MyAssets.lottie.alarmClockLottieV440.lottie(
+                  fit: BoxFit.contain,
+                ),
+              ),
               MyAssets.images.chip1.image(),
               Container(
                 height: 400,

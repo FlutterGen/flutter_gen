@@ -171,6 +171,7 @@ flutter:
     - assets/flare/
     - assets/rive/
     - assets/lottie/
+    - assets/lottie/wrong/
     - assets/movie/
     - assets/unknown/
   fonts:
