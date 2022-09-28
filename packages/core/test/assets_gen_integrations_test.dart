@@ -33,9 +33,13 @@ void main() {
       expect(integration.className, 'SvgGenImage');
       expect(integration.classInstantiate('assets/path'),
           'SvgGenImage(\'assets/path\')');
-      expect(integration.isSupport(AssetType('assets/path/dog.svg', resPath)),
+      expect(
+          integration.isSupport(
+              AssetType(rootPath: resPath, path: 'assets/path/dog.svg')),
           isTrue);
-      expect(integration.isSupport(AssetType('assets/path/dog.png', resPath)),
+      expect(
+          integration.isSupport(
+              AssetType(rootPath: resPath, path: 'assets/path/dog.png')),
           isFalse);
       expect(integration.isConstConstructor, isTrue);
     });
@@ -53,9 +57,13 @@ void main() {
       expect(integration.className, 'FlareGenImage');
       expect(integration.classInstantiate('assets/path'),
           'FlareGenImage(\'assets/path\')');
-      expect(integration.isSupport(AssetType('assets/path/dog.flr', resPath)),
+      expect(
+          integration.isSupport(
+              AssetType(rootPath: resPath, path: 'assets/path/dog.flr')),
           isTrue);
-      expect(integration.isSupport(AssetType('assets/path/dog.json', resPath)),
+      expect(
+          integration.isSupport(
+              AssetType(rootPath: resPath, path: 'assets/path/dog.json')),
           isFalse);
       expect(integration.isConstConstructor, isTrue);
     });
@@ -73,9 +81,13 @@ void main() {
       expect(integration.className, 'RiveGenImage');
       expect(integration.classInstantiate('assets/path'),
           'RiveGenImage(\'assets/path\')');
-      expect(integration.isSupport(AssetType('assets/path/dog.riv', resPath)),
+      expect(
+          integration.isSupport(
+              AssetType(rootPath: resPath, path: 'assets/path/dog.riv')),
           isTrue);
-      expect(integration.isSupport(AssetType('assets/path/dog.json', resPath)),
+      expect(
+          integration.isSupport(
+              AssetType(rootPath: resPath, path: 'assets/path/dog.json')),
           isFalse);
       expect(integration.isConstConstructor, isTrue);
     });
@@ -94,12 +106,13 @@ void main() {
       expect(integration.classInstantiate('assets/lottie'),
           'LottieGenImage(\'assets/lottie\')');
       expect(
-          integration.isSupport(
-              AssetType('assets/lottie/hamburger_arrow.json', resPath)),
+          integration.isSupport(AssetType(
+              rootPath: resPath, path: 'assets/lottie/hamburger_arrow.json')),
           isTrue);
       expect(
           integration.isSupport(AssetType(
-              'assets/lottie/hamburger_arrow_without_version.json', resPath)),
+              rootPath: resPath,
+              path: 'assets/lottie/hamburger_arrow_without_version.json')),
           isFalse);
       expect(integration.isConstConstructor, isTrue);
     });

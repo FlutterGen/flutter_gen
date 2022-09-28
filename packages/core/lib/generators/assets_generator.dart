@@ -219,12 +219,13 @@ AssetType _constructAssetTree(
     List<String> assetRelativePathList, String rootPath) {
   // Relative path is the key
   final assetTypeMap = <String, AssetType>{
-    '.': AssetType('.', rootPath),
+    '.': AssetType(rootPath: rootPath, path: '.'),
   };
   for (final assetPath in assetRelativePathList) {
     var path = assetPath;
     while (path != '.') {
-      assetTypeMap.putIfAbsent(path, () => AssetType(path, rootPath));
+      assetTypeMap.putIfAbsent(
+          path, () => AssetType(rootPath: rootPath, path: path));
       path = dirname(path);
     }
   }
@@ -407,7 +408,7 @@ String _flatStyleDefinition(
   )
       .distinct()
       .sorted()
-      .map((relativePath) => AssetType(relativePath, config.rootPath))
+      .map((assetPath) => AssetType(rootPath: config.rootPath, path: assetPath))
       .mapToIsUniqueWithoutExtension()
       .map(
         (e) => _createAssetTypeStatement(

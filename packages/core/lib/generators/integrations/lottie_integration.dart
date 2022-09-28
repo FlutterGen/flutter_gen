@@ -4,6 +4,7 @@ import '../../settings/asset_type.dart';
 import 'integration.dart';
 import 'dart:convert';
 import 'dart:io';
+import 'package:path/path.dart' as p;
 
 class LottieIntegration extends Integration {
   // These are required keys for this integration.
@@ -16,12 +17,6 @@ class LottieIntegration extends Integration {
     'v', // // Must include version
     'layers', // Must include layers
   ];
-
-  // Semver regular expression
-  // https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
-  final semVer = RegExp(
-      r'^(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$',
-      multiLine: true);
 
   @override
   List<String> get requiredImports => [
@@ -100,11 +95,12 @@ class LottieIntegration extends Integration {
   bool get isConstConstructor => true;
 
   bool isLottieFile(AssetType type) {
+    if (type.mime != 'application/json') {
+      return false;
+    }
     try {
-      if (type.extension != '.json') {
-        return false;
-      }
-      String input = File(type.absolutePath).readAsStringSync();
+      final absolutePath = p.join(type.rootPath, type.path);
+      String input = File(absolutePath).readAsStringSync();
       final fileKeys = jsonDecode(input) as Map<String, dynamic>;
       if (lottieKeys.every((key) => fileKeys.containsKey(key)) &&
           fileKeys['v'] != null) {
