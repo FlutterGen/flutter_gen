@@ -16,6 +16,9 @@ class $AssetsLottieGen {
   /// File path: assets/lottie/hamburger_arrow.json
   LottieGenImage get hamburgerArrow =>
       const LottieGenImage('assets/lottie/hamburger_arrow.json');
+
+  /// List of all assets
+  List<LottieGenImage> get values => [hamburgerArrow];
 }
 
 class Assets {
@@ -81,6 +84,8 @@ class AssetGenImage {
       cacheHeight: cacheHeight,
     );
   }
+
+  ImageProvider provider() => AssetImage(_assetName);
 
   String get path => _assetName;
 
