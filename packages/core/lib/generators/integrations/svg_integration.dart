@@ -2,7 +2,6 @@ import '../../settings/asset_type.dart';
 import 'integration.dart';
 
 class SvgIntegration extends Integration {
-
   SvgIntegration(String packageParameterLiteral)
       : super(packageParameterLiteral);
 

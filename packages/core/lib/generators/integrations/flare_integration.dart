@@ -2,7 +2,6 @@ import '../../settings/asset_type.dart';
 import 'integration.dart';
 
 class FlareIntegration extends Integration {
-
   FlareIntegration(String packageParameterLiteral)
       : super(packageParameterLiteral);
 

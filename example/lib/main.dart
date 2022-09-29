@@ -1,4 +1,4 @@
-import 'package:example_resources/gen/assets.gen.dart' as res;
+import 'package:example_resources/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 
 import 'gen/assets.gen.dart';
@@ -75,8 +75,6 @@ void main() async {
                 child: const Center(child: Text('Deco')),
               ),
               // Use from example_resource package.
-              res.Assets.images.flutter3.image(),
-              res.Assets.images.dart.svg(),
               MyAssets.images.icons.kmm.svg(key: const Key("kmm_svg")),
               MyAssets.images.icons.fuchsia.svg(),
               MyAssets.images.icons.paint.svg(
@@ -89,6 +87,31 @@ void main() async {
               //   height: 120,
               //   fit: BoxFit.scaleDown,
               // ),
+
+              // example_resource package.
+              ResAssets.images.flutter3.image(),
+              ResAssets.images.dart.svg(),
+              SizedBox(
+                width: 200,
+                height: 200,
+                child: ResAssets.images.skills.rive(
+                  fit: BoxFit.contain,
+                ),
+              ),
+              SizedBox(
+                width: 200,
+                height: 200,
+                child: ResAssets.images.favorite.flare(
+                  shouldClip: false,
+                ),
+              ),
+              SizedBox(
+                width: 200,
+                height: 200,
+                child: ResAssets.images.runningCarOnRoad.lottie(
+                  fit: BoxFit.contain,
+                ),
+              ),
               const Text(
                 'Hi there, I\'m FlutterGen',
                 style: TextStyle(
