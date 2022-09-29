@@ -1,3 +1,13 @@
+## 5.0.1
+
+**Bug fix**  
+- [#300](https://github.com/FlutterGen/flutter_gen/pull/300) Fix `package_parameter_enabled` being ignored for Flare, Rive and Lottie.
+- [#303](https://github.com/FlutterGen/flutter_gen/pull/303) Add `ignore_for_file: implicit_dynamic_list_literal` to generated files.
+
+**Development**  
+- [#306](https://github.com/FlutterGen/flutter_gen/pull/306) Update required `analyzer: '>=4.7.0 <6.0.0'`
+
+
 ## 5.0.0
 
 **Feature**  
