@@ -407,6 +407,7 @@ class LottieGenImage {
   }) {
     return Lottie.asset(
       _assetName,
+      controller: controller,
       animate: animate,
       frameRate: frameRate,
       repeat: repeat,
