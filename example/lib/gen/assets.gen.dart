@@ -5,7 +5,7 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import
+// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -83,6 +83,19 @@ class $AssetsLottieGen {
   /// List of all assets
   List<LottieGenImage> get values =>
       [alarmClockLottieV440, geometricalAnimation, hamburgerArrow];
+}
+
+class $AssetsMixGen {
+  const $AssetsMixGen();
+
+  /// File path: assets/mix/aaa.jpg
+  AssetGenImage get aaa => const AssetGenImage('assets/mix/aaa.jpg');
+
+  /// File path: assets/mix/unknown_mime_type.bk
+  String get unknownMimeType => 'assets/mix/unknown_mime_type.bk';
+
+  /// List of all assets
+  List<dynamic> get values => [aaa, unknownMimeType];
 }
 
 class $AssetsMovieGen {
@@ -170,6 +183,7 @@ class MyAssets {
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
   static const $AssetsLottieGen lottie = $AssetsLottieGen();
+  static const $AssetsMixGen mix = $AssetsMixGen();
   static const $AssetsMovieGen movie = $AssetsMovieGen();
   static const $AssetsRiveGen rive = $AssetsRiveGen();
   static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
