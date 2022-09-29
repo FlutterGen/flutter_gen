@@ -2,6 +2,14 @@ import '../../settings/asset_type.dart';
 import 'integration.dart';
 
 class RiveIntegration extends Integration {
+
+  RiveIntegration(String packageParameterLiteral)
+      : super(packageParameterLiteral);
+
+  String? get packageExpression => packageParameterLiteral.isNotEmpty
+      ? 'packages/$packageParameterLiteral/'
+      : null;
+
   @override
   List<String> get requiredImports => [
         'package:rive/rive.dart',
@@ -10,7 +18,7 @@ class RiveIntegration extends Integration {
   @override
   String get classOutput => _classDefinition;
 
-  final String _classDefinition = '''class RiveGenImage {
+  String get _classDefinition => '''class RiveGenImage {
   const RiveGenImage(this._assetName);
 
   final String _assetName;
@@ -27,7 +35,7 @@ class RiveIntegration extends Integration {
     OnInitCallback? onInit,
   }) {
     return RiveAnimation.asset(
-      _assetName,
+      ${packageExpression == null ? '_assetName' : '\'$packageExpression\$_assetName\''},
       artboard: artboard,
       animations: animations,
       stateMachines: stateMachines,

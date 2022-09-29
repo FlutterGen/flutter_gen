@@ -65,9 +65,12 @@ String generateAssets(
   final integrations = <Integration>[
     if (config.flutterGen.integrations.flutterSvg)
       SvgIntegration(config.packageParameterLiteral),
-    if (config.flutterGen.integrations.flareFlutter) FlareIntegration(),
-    if (config.flutterGen.integrations.rive) RiveIntegration(),
-    if (config.flutterGen.integrations.lottie) LottieIntegration(),
+    if (config.flutterGen.integrations.flareFlutter)
+      FlareIntegration(config.packageParameterLiteral),
+    if (config.flutterGen.integrations.rive)
+      RiveIntegration(config.packageParameterLiteral),
+    if (config.flutterGen.integrations.lottie)
+      LottieIntegration(config.packageParameterLiteral),
   ];
 
   // TODO: This code will be removed.
