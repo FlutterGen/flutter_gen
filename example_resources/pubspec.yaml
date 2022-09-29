@@ -25,10 +25,15 @@ flutter_gen:
 
   integrations:
     flutter_svg: true
+    flare_flutter: true
+    rive: true
+    lottie: true
 
   assets:
     enabled: true
-    package_parameter_enabled: true
+    outputs:
+      package_parameter_enabled: true
+      class_name: ResAssets
 
   fonts:
     enabled: true

@@ -5,11 +5,15 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import
+// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
+import 'package:flare_flutter/flare_actor.dart';
+import 'package:flare_flutter/flare_controller.dart';
+import 'package:rive/rive.dart';
+import 'package:lottie/lottie.dart';
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
@@ -17,13 +21,28 @@ class $AssetsImagesGen {
   /// File path: assets/images/dart.svg
   SvgGenImage get dart => const SvgGenImage('assets/images/dart.svg');
 
+  /// File path: assets/images/favorite.flr
+  FlareGenImage get favorite =>
+      const FlareGenImage('assets/images/favorite.flr');
+
   /// File path: assets/images/flutter3.jpg
   AssetGenImage get flutter3 =>
       const AssetGenImage('assets/images/flutter3.jpg');
+
+  /// File path: assets/images/running-car-on-road.json
+  LottieGenImage get runningCarOnRoad =>
+      const LottieGenImage('assets/images/running-car-on-road.json');
+
+  /// File path: assets/images/skills.riv
+  RiveGenImage get skills => const RiveGenImage('assets/images/skills.riv');
+
+  /// List of all assets
+  List<dynamic> get values =>
+      [dart, favorite, flutter3, runningCarOnRoad, skills];
 }
 
-class Assets {
-  Assets._();
+class ResAssets {
+  ResAssets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
@@ -86,6 +105,8 @@ class AssetGenImage {
     );
   }
 
+  ImageProvider provider() => AssetImage(_assetName);
+
   String get path => _assetName;
 
   String get keyName => 'packages/example_resources/$_assetName';
@@ -134,6 +155,136 @@ class SvgGenImage {
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
       theme: theme,
+    );
+  }
+
+  String get path => _assetName;
+}
+
+class FlareGenImage {
+  const FlareGenImage(this._assetName);
+
+  final String _assetName;
+
+  FlareActor flare({
+    String? boundsNode,
+    String? animation,
+    BoxFit fit = BoxFit.contain,
+    Alignment alignment = Alignment.center,
+    bool isPaused = false,
+    bool snapToEnd = false,
+    FlareController? controller,
+    FlareCompletedCallback? callback,
+    Color? color,
+    bool shouldClip = true,
+    bool sizeFromArtboard = false,
+    String? artboard,
+    bool antialias = true,
+  }) {
+    return FlareActor(
+      'packages/example_resources/$_assetName',
+      boundsNode: boundsNode,
+      animation: animation,
+      fit: fit,
+      alignment: alignment,
+      isPaused: isPaused,
+      snapToEnd: snapToEnd,
+      controller: controller,
+      callback: callback,
+      color: color,
+      shouldClip: shouldClip,
+      sizeFromArtboard: sizeFromArtboard,
+      artboard: artboard,
+      antialias: antialias,
+    );
+  }
+
+  String get path => _assetName;
+}
+
+class RiveGenImage {
+  const RiveGenImage(this._assetName);
+
+  final String _assetName;
+
+  RiveAnimation rive({
+    String? artboard,
+    List<String> animations = const [],
+    List<String> stateMachines = const [],
+    BoxFit? fit,
+    Alignment? alignment,
+    Widget? placeHolder,
+    bool antialiasing = true,
+    List<RiveAnimationController> controllers = const [],
+    OnInitCallback? onInit,
+  }) {
+    return RiveAnimation.asset(
+      'packages/example_resources/$_assetName',
+      artboard: artboard,
+      animations: animations,
+      stateMachines: stateMachines,
+      fit: fit,
+      alignment: alignment,
+      placeHolder: placeHolder,
+      antialiasing: antialiasing,
+      controllers: controllers,
+      onInit: onInit,
+    );
+  }
+
+  String get path => _assetName;
+}
+
+class LottieGenImage {
+  const LottieGenImage(this._assetName);
+
+  final String _assetName;
+
+  LottieBuilder lottie({
+    Animation<double>? controller,
+    bool? animate,
+    FrameRate? frameRate,
+    bool? repeat,
+    bool? reverse,
+    LottieDelegates? delegates,
+    LottieOptions? options,
+    void Function(LottieComposition)? onLoaded,
+    LottieImageProviderFactory? imageProviderFactory,
+    Key? key,
+    AssetBundle? bundle,
+    Widget Function(BuildContext, Widget, LottieComposition?)? frameBuilder,
+    ImageErrorWidgetBuilder? errorBuilder,
+    double? width,
+    double? height,
+    BoxFit? fit,
+    AlignmentGeometry? alignment,
+    String? package = 'example_resources',
+    bool? addRepaintBoundary,
+    FilterQuality? filterQuality,
+    void Function(String)? onWarning,
+  }) {
+    return Lottie.asset(
+      _assetName,
+      animate: animate,
+      frameRate: frameRate,
+      repeat: repeat,
+      reverse: reverse,
+      delegates: delegates,
+      options: options,
+      onLoaded: onLoaded,
+      imageProviderFactory: imageProviderFactory,
+      key: key,
+      bundle: bundle,
+      frameBuilder: frameBuilder,
+      errorBuilder: errorBuilder,
+      width: width,
+      height: height,
+      fit: fit,
+      alignment: alignment,
+      package: package,
+      addRepaintBoundary: addRepaintBoundary,
+      filterQuality: filterQuality,
+      onWarning: onWarning,
     );
   }
 
