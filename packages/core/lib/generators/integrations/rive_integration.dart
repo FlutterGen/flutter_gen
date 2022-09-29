@@ -2,7 +2,6 @@ import '../../settings/asset_type.dart';
 import 'integration.dart';
 
 class RiveIntegration extends Integration {
-
   RiveIntegration(String packageParameterLiteral)
       : super(packageParameterLiteral);
 

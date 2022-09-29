@@ -7,7 +7,6 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 
 class LottieIntegration extends Integration {
-
   LottieIntegration(String packageParameterLiteral)
       : super(packageParameterLiteral);
 
