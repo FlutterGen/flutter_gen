@@ -12,27 +12,24 @@ runs:
         sdk: stable
 
     - name: Set environment
-      if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
       shell: bash
-      run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+      run: |
+        if startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu'); then
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+        elif startsWith(matrix.os, 'windows')
+          run: echo "%LOCALAPPDATA%\Pub\Cache\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        fi
 
-    - name: Set environment
-      if: startsWith(matrix.os, 'windows')
-      shell: bash
-      run: echo "%LOCALAPPDATA%\Pub\Cache\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-
-    - name: Get dependencies for macos and ubuntu
+    - name: Get dependencies
       if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
       shell: bash
       run: |
-        dart pub global activate melos
-        melos bootstrap
-
-    - name: Get dependencies for Windows
-      if: startsWith(matrix.os, 'windows')
-      shell: bash
-      run: |
-        dart pub global activate melos
-        # FIXME: CI randomly fail
-        melos exec -c 1 -- flutter pub get
-        melos bootstrap
+        if startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu'); then
+          dart pub global activate melos
+          melos bootstrap
+        elif startsWith(matrix.os, 'windows')
+          dart pub global activate melos
+          # FIXME: CI randomly fail
+          melos exec -c 1 -- flutter pub get
+          melos bootstrap
+        fi
