@@ -65,6 +65,25 @@ jobs:
           name: sha256
           path: packages/command/bin/${{ matrix.target }}/fluttergen-${{ matrix.artifact_prefix }}.sha256
 
+      - name: setup credentials
+        run: |
+          mkdir -p ~/.pub-cache
+          cat <<eof > ~/.pub-cache/credentials.json
+          {
+            "accesstoken":"${{ secrets.CREDENTIALS_ACCESS_TOKEN }}",
+            "refreshtoken":"${{ secrets.CREDENTIALS_REFRESH_TOKEN }}",
+            "idtoken":"${{ secrets.CREDENTIALS_ID_TOKEN }}",
+            "tokenendpoint":"https://accounts.google.com/o/oauth2/token",
+            "scopes": [ "openid", "https://www.googleapis.com/auth/userinfo.email" ],
+            "expiration": 1664440281637
+          }
+          eof
+
+      - name: publish to pub.dev
+        run: |
+          melos publish | echo y
+          melos publish --no-dry-run | echo y
+
   update:
     runs-on: ubuntu-latest
     needs: build
@@ -87,20 +106,3 @@ jobs:
           repository: FlutterGen/homebrew-tap
           event-type: update-tap
           client-payload: '{ "sha256_linux": "${{ steps.checksum.outputs.sha256_linux }}", "sha256_macos": "${{ steps.checksum.outputs.sha256_macos }}", "version": "${{ steps.version.outputs.version }}" }'
-
-#  publish:
-#    name: Publishing
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checking out sources
-#        uses: actions/checkout@v2
-#
-#      - name: Publish to pub.dev
-#        uses: sakebook/actions-flutter-pub-publisher@v1.3.1
-#        with:
-#          credential: ${{ secrets.CREDENTIAL_JSON }}
-#          flutter_package: false
-#          skip_test: true
-#          dry_run: false
-

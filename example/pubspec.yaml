@@ -107,7 +107,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.1.11
   freezed: ^2.1.0+1
-  flutter_gen_runner: ^5.0.0
+  flutter_gen_runner: ^5.0.1
 
   flutter_lints: ^2.0.1
 
@@ -174,6 +174,7 @@ flutter:
     - assets/lottie/wrong/
     - assets/movie/
     - assets/unknown/
+    - assets/mix/
   fonts:
     - family: Raleway
       fonts:

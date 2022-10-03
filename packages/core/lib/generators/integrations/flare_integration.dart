@@ -2,6 +2,13 @@ import '../../settings/asset_type.dart';
 import 'integration.dart';
 
 class FlareIntegration extends Integration {
+  FlareIntegration(String packageParameterLiteral)
+      : super(packageParameterLiteral);
+
+  String? get packageExpression => packageParameterLiteral.isNotEmpty
+      ? 'packages/$packageParameterLiteral/'
+      : null;
+
   @override
   List<String> get requiredImports => [
         'package:flare_flutter/flare_actor.dart',
@@ -11,7 +18,7 @@ class FlareIntegration extends Integration {
   @override
   String get classOutput => _classDefinition;
 
-  final String _classDefinition = '''class FlareGenImage {
+  String get _classDefinition => '''class FlareGenImage {
   const FlareGenImage(this._assetName);
 
   final String _assetName;
@@ -32,7 +39,7 @@ class FlareIntegration extends Integration {
     bool antialias = true,
   }) {
     return FlareActor(
-      _assetName,
+      ${packageExpression == null ? '_assetName' : '\'$packageExpression\$_assetName\''},
       boundsNode: boundsNode,
       animation: animation,
       fit: fit,

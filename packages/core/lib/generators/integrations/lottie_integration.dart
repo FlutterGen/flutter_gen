@@ -7,6 +7,9 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 
 class LottieIntegration extends Integration {
+  LottieIntegration(String packageParameterLiteral)
+      : super(packageParameterLiteral);
+
   // These are required keys for this integration.
   static const lottieKeys = [
     'w', // width
@@ -18,6 +21,10 @@ class LottieIntegration extends Integration {
     'layers', // Must include layers
   ];
 
+  String get packageExpression => packageParameterLiteral.isNotEmpty
+      ? ' = \'$packageParameterLiteral\''
+      : '';
+
   @override
   List<String> get requiredImports => [
         'package:lottie/lottie.dart',
@@ -26,7 +33,7 @@ class LottieIntegration extends Integration {
   @override
   String get classOutput => _classDefinition;
 
-  final String _classDefinition = '''class LottieGenImage {
+  String get _classDefinition => '''class LottieGenImage {
   const LottieGenImage(this._assetName);
 
   final String _assetName;
@@ -49,13 +56,14 @@ class LottieIntegration extends Integration {
     double? height,
     BoxFit? fit,
     AlignmentGeometry? alignment,
-    String? package,
+    String? package$packageExpression,
     bool? addRepaintBoundary,
     FilterQuality? filterQuality,
     void Function(String)? onWarning,
   }) {
     return Lottie.asset(
       _assetName,
+      controller: controller,
       animate: animate,
       frameRate: frameRate,
       repeat: repeat,

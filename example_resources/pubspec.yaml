@@ -14,10 +14,13 @@ dependencies:
     sdk: flutter
 
   flutter_svg: ^1.0.3
+  lottie: 1.4.1
+  flare_flutter: ^3.0.2
+  rive: ^0.8.4
 
 dev_dependencies:
   build_runner: ^2.1.11
-  flutter_gen_runner: ^5.0.0
+  flutter_gen_runner: ^5.0.1
 
 flutter_gen:
   output: lib/gen/
@@ -25,10 +28,15 @@ flutter_gen:
 
   integrations:
     flutter_svg: true
+    flare_flutter: true
+    rive: true
+    lottie: true
 
   assets:
     enabled: true
-    package_parameter_enabled: true
+    outputs:
+      package_parameter_enabled: true
+      class_name: ResAssets
 
   fonts:
     enabled: true
