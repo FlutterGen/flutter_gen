@@ -1,4 +1,4 @@
-name: Build
+name: Ubuntu and macOS Build
 
 on:
   pull_request: {}
@@ -15,17 +15,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup-sdks
-
-      - name: Run tests for our dart project.
-        if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          melos run unit:test
-
-      - name: Run coverage
-        if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          melos run coverage
+      - uses: FlutterGen/flutter_gen/.github/workflows/setup_sdks.yml@main
 
       - name: Generate example
         run: |
@@ -36,3 +26,15 @@ jobs:
         run: |
           melos run format
           melos run analyze
+
+      # Only ubuntu
+      - name: Run tests for our dart project.
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          melos run unit:test
+
+      # Only ubuntu
+      - name: Run coverage
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          melos run coverage

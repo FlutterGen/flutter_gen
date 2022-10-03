@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup-sdks
+      - uses: FlutterGen/flutter_gen/.github/workflows/setup_sdks.yml@main
 
       - name: Running build
         run: |
@@ -80,7 +80,7 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup-sdks
+      - uses: FlutterGen/flutter_gen/.github/workflows/setup_sdks.yml@main
 
       - name: Setup credentials
         run: |
