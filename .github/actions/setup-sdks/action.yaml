@@ -1,3 +1,5 @@
+# Composite Action
+# https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
 name: 'Setup SDKs'
 description: 'Dart, Flutter, and Melos'
 runs:
