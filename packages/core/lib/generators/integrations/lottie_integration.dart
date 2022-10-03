@@ -63,6 +63,7 @@ class LottieIntegration extends Integration {
   }) {
     return Lottie.asset(
       _assetName,
+      controller: controller,
       animate: animate,
       frameRate: frameRate,
       repeat: repeat,
