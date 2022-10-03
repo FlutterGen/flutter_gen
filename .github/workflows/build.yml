@@ -1,10 +1,11 @@
-name: Dart CI
+name: Build
 
 on:
-  pull_request: { }
+  pull_request:
+    types: [opened, synchronize]
   push:
     branches:
-      - 'main'
+      - "main"
 
 jobs:
   build:
@@ -12,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
@@ -35,7 +36,7 @@ jobs:
         run: |
           dart pub global activate melos
           melos bootstrap
-    
+
       - name: Get dependencies for Windows
         if: startsWith(matrix.os, 'windows')
         run: |
