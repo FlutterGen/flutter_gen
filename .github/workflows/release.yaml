@@ -23,20 +23,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-      - uses: dart-lang/setup-dart@v1
-        with:
-          sdk: stable
-
-      - name: Set environment
-        run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-
-      - name: Get dependencies
-        run: |
-          dart pub global activate melos
-          melos bootstrap
+      - uses: ./.github/actions/setup-sdks
 
       - name: Running build
         run: |
@@ -65,7 +52,7 @@ jobs:
           name: sha256
           path: packages/command/bin/${{ matrix.target }}/fluttergen-${{ matrix.artifact_prefix }}.sha256
 
-  update:
+  update-tap:
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -88,19 +75,28 @@ jobs:
           event-type: update-tap
           client-payload: '{ "sha256_linux": "${{ steps.checksum.outputs.sha256_linux }}", "sha256_macos": "${{ steps.checksum.outputs.sha256_macos }}", "version": "${{ steps.version.outputs.version }}" }'
 
-#  publish:
-#    name: Publishing
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checking out sources
-#        uses: actions/checkout@v2
-#
-#      - name: Publish to pub.dev
-#        uses: sakebook/actions-flutter-pub-publisher@v1.3.1
-#        with:
-#          credential: ${{ secrets.CREDENTIAL_JSON }}
-#          flutter_package: false
-#          skip_test: true
-#          dry_run: false
+  publish-pub-dev:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-sdks
 
+      - name: Setup credentials
+        run: |
+          mkdir -p ~/.pub-cache
+          cat <<EOF > ~/.pub-cache/credentials.json
+          {
+            "accessToken":"${{ secrets.CREDENTIALS_ACCESS_TOKEN }}",
+            "refreshToken":"${{ secrets.CREDENTIALS_REFRESH_TOKEN }}",
+            "idToken":"${{ secrets.CREDENTIALS_ID_TOKEN }}",
+            "tokenEndpoint":"https://accounts.google.com/o/oauth2/token",
+            "scopes": [ "openid", "https://www.googleapis.com/auth/userinfo.email" ],
+            "expiration": 1664440281637
+          }
+          EOF
+
+      - name: Publish to pub.dev
+        run: |
+          melos publish | echo y
+          melos publish --no-dry-run | echo y

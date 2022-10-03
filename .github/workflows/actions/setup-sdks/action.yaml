@@ -1,0 +1,34 @@
+name: 'Setup SDKs'
+description: 'Dart, Flutter, and Melos'
+runs:
+  using: "composite"
+  steps:
+    - uses: subosito/flutter-action@v2
+      with:
+        channel: stable
+
+    - uses: dart-lang/setup-dart@v1
+      with:
+        sdk: stable
+
+    - name: Set environment
+      if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
+      run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+
+    - name: Set environment
+      if: startsWith(matrix.os, 'windows')
+      run: echo "%LOCALAPPDATA%\Pub\Cache\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+    - name: Get dependencies for macos and ubuntu
+      if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
+      run: |
+        dart pub global activate melos
+        melos bootstrap
+
+    - name: Get dependencies for Windows
+      if: startsWith(matrix.os, 'windows')
+      run: |
+        dart pub global activate melos
+        # FIXME: CI randomly fail
+        melos exec -c 1 -- flutter pub get
+        melos bootstrap
