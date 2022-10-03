@@ -13,22 +13,30 @@ runs:
       with:
         sdk: stable
 
-    - name: Set environment
+    - name: Set environment for Ubuntu and macOS
       shell: bash
       run: |
         if [ "${{ runner.os }}" == "Linux" ] || [ "${{ runner.os }}" == "macOS" ] ; then
           echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-        elif [ "${{ runner.os }}" == "Windows" ]; then
+        fi
+    - name: Set environment for Windows
+      shell: pwsh
+      run: |
+        if [ "${{ runner.os }}" == "Windows" ]; then
           echo "%LOCALAPPDATA%\Pub\Cache\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
         fi
 
-    - name: Get dependencies
+    - name: Get dependencies for Ubuntu and macOS
       shell: bash
       run: |
         if [ "${{ runner.os }}" == "Linux" ] || [ "${{ runner.os }}" == "macOS" ] ; then
           dart pub global activate melos
           melos bootstrap
-        elif [ "${{ runner.os }}" == "Windows" ]; then
+        fi
+    - name: Get dependencies for Windows
+      shell: pwsh
+      run: |
+        if [ "${{ runner.os }}" == "Windows" ]; then
           dart pub global activate melos
           # FIXME: CI randomly fail
           melos exec -c 1 -- flutter pub get
