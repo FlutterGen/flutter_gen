@@ -1,0 +1,65 @@
+name: Bug Report
+description: File a bug report
+title: "[BUG]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: checkboxes
+    attributes:
+      label: Is there an existing issue for this?
+      description: Please search to see if an issue already exists for the bug you encountered.
+      options:
+        label: I have searched the existing issues
+        required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: What version of our software are you running? ($ fluttergen -v)
+      placeholder: ex. 5.0.0
+    validations:
+      required: false
+  - type: dropdown
+    id: command-type
+    attributes:
+      label: Command type
+      description: What version of our software are you running?
+      options:
+        - build_runner (Default)
+        - Dart command
+        - Homebrew
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Tell us what you see!
+      value: "A bug happened!"
+    validations:
+      required: true
+  - type: textarea
+    id: pubspec
+    attributes:
+      label: Relevant a pubspec.yaml.
+      description: Please copy and pates your pubspec.yaml.
+      placeholder: ex. $ cat pubspec.yaml | pbcopy
+      render: yaml
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output, if any.
+      render: shell
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
