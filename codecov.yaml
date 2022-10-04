@@ -24,4 +24,3 @@ ignore:
   - "example/"
   - "**/*.g.dart"
   - "**/*.gen.dart"
-  - "packages/core/lib/utils/dart_style"
