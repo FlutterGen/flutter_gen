@@ -43,10 +43,17 @@ body:
     validations:
       required: true
   - type: textarea
+    id: pubspec
+    attributes:
+      label: Relevant a pubspec.yaml.
+      description: Please copy and pates your pubspec.yaml.
+      placeholder: ex. $ cat pubspec.yaml | pbcopy
+      render: yaml
+  - type: textarea
     id: logs
     attributes:
       label: Relevant log output
-      description: Please copy and paste any relevant log output.
+      description: Please copy and paste any relevant log output, if any.
       render: shell
   - type: checkboxes
     id: terms
