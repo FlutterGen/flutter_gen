@@ -109,7 +109,7 @@ $ fluttergen -c example/pubspec.yaml
 ## Configuration file
 
 [FlutterGen] generates dart files based on the key **`flutter`** and **`flutter_gen`** of [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).  
-Default configuration can be found [here](#default-configuration). 
+Default configuration can be found [here](https://github.com/FlutterGen/flutter_gen/tree/main/packages/core/lib/settings/config_default.dart). 
 
 ```yaml
 # pubspec.yaml
@@ -713,68 +713,6 @@ class ColorName {
 
 </p>
 </details>
-
-### Default Configuration
-
-The following are the default settings.
-The options you set in `pubspec.yaml` will override the corresponding default options.
-
-```yaml
-flutter_gen:
-  # Optional
-  output: lib/gen/
-  # Optional
-  line_length: 80
-
-  # Optional
-  integrations:
-    flutter_svg: false
-    flare_flutter: false
-    rive: false
-    lottie: false
-
-  assets:
-    # Optional
-    enabled: true
-    # Optional
-    outputs: 
-      # Optional
-      # Set to true if you want this package to be a package dependency
-      # See: https://flutter.dev/docs/development/ui/assets-and-images#from-packages
-      package_parameter_enabled: false
-      # Optional
-      # Avaliable values:
-      # - camel-case
-      # - snake-case
-      # - dot-delimiter
-      style: dot-delimiter
-      # Default is Assets
-      class_name: MyAssets
-    
-  fonts:
-    # Optional
-    enabled: true
-    # Optional
-    outputs:
-      # Default is FontFamily
-      class_name: MyFontFamily
-
-  colors:
-    # Optional
-    enabled: true
-    # Optional
-    inputs: []
-    # Optional
-    outputs:
-      # Default is ColorName
-      class_name: MyColorName 
-
-flutter:
-  # See: https://flutter.dev/docs/development/ui/assets-and-images#specifying-assets
-  assets: []
-  # See: https://flutter.dev/docs/cookbook/design/fonts#2-declare-the-font-in-the-pubspec
-  fonts: []
-```
 
 ## Credits
 

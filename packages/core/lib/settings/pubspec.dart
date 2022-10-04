@@ -2,9 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'pubspec.g.dart';
 
-/// Edit this file, then run `make generate-config-model`
-
-const invalidStringValue = 'FLUTTER_GEN_INVALID';
+// NOTE: Run `melos gen:build_runner` after editing this file
 
 @JsonSerializable()
 class Pubspec {
