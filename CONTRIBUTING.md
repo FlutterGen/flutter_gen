@@ -6,7 +6,21 @@ _See also: [Contributor Covenant Code of Conduct](https://github.com/FlutterGen/
 
  * Linux, Mac OS X, or Windows.
  * Flutter and Dart (Stable channel)
+   * [Melos](https://melos.invertase.dev/)
  * Git
+
+## [Melos](https://melos.invertase.dev/getting-started) Installation
+Melos can be installed as a global package via pub.dev:
+```sh
+$ dart pub global activate melos
+```
+
+Once installed & setup, Melos needs to be bootstrapped. Bootstrapping has 2 primary roles:
+- Installing all package dependencies (internally using pub get).
+- Locally linking any packages together.
+```sh
+$ melos bootstrap
+```
 
 ## Running the FlutterGen
 
@@ -16,24 +30,28 @@ To run `pub get` to make sure its dependencies have been downloaded, and use `da
 $ dart packages/command/bin/flutter_gen_command.dart --config example/pubspec.yaml
 ```
 
+Or melos
+```sh
+$ melos run example:command
+```
+
 #### Use as part of build_runner
 ```sh
 $ cd example
 $ flutter packages pub run build_runner build
 ```
 
-#### Use Intellij
-
-![Run on IDE](./art/run_on_ide.jpg)
-
+Or melos
+```sh
+$ melos run example:build_runner
+```
 
 ## Running the tests
 
 To run the unit tests:
 
 ```
-$ cd packages/core
-$ pub run test 
+$ melos run unit:test
 ```
 
 ## Contributing code
