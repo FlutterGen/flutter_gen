@@ -47,9 +47,9 @@ body:
     attributes:
       label: Relevant a pubspec.yaml.
       description: Please copy and pates your pubspec.yaml.
-      placeholder: 
-        ex. $ cat pubspec.yaml | pbcopy
-      value: |
+      placeholder: |
+        name: app
+
         flutter_gen:
           output: lib/gen/
           line_length: 80
@@ -68,7 +68,8 @@ body:
               class_name: MyFonts
 
         flutter:
-          assets: []
+          assets:
+            - assets/images
       render: yaml
   - type: textarea
     id: logs
