@@ -367,6 +367,29 @@ Please file [FlutterGen] specific issues, bugs, or feature requests in our [issu
 
 Plugin issues that are not specific to [FlutterGen] can be filed in the [Flutter issue tracker](https://github.com/flutter/flutter/issues/new).
 
+### Known Issues
+#### Bad State: No Element when using build_runner
+If you get an error message like this:
+```
+[SEVERE] flutter_gen_runner:flutter_gen_runner on $package$:
+
+Bad state: No element
+[SEVERE] Failed after 16.0s
+```
+
+The you most likely have a customized `build.yaml` to configure the build runner. In that case, all you have to do is to add the `pubspec.yaml` as build source to your `build.yaml`
+
+```yaml
+targets:
+  $default:
+    sources:
+      include:
+        - pubspec.yaml  # add this line
+        - ...
+```
+
+See #268 for the corresponding issue discussion.
+
 ## Contributing
 
 **We are looking for co-developers.**
