@@ -1,3 +1,8 @@
+## 5.0.2
+
+**Bug fix**  
+- [#308](https://github.com/FlutterGen/flutter_gen/issues/308) [#309](https://github.com/FlutterGen/flutter_gen/pull/309) Fix missing add to the `lottie#controller`.
+
 ## 5.0.1
 
 **Bug fix**  
