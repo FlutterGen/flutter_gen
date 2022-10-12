@@ -65,7 +65,7 @@ jobs:
           name: sha256
           path: packages/command/bin/${{ matrix.target }}/fluttergen-${{ matrix.artifact_prefix }}.sha256
 
-      - name: setup credentials
+      - name: Setup credentials
         run: |
           mkdir -p ~/.pub-cache
           cat <<eof > ~/.pub-cache/credentials.json
@@ -79,10 +79,9 @@ jobs:
           }
           eof
 
-      - name: publish to pub.dev
+      - name: Publish to pub.dev
         run: |
-          melos publish | echo y
-          melos publish --no-dry-run | echo y
+          melos publish --no-dry-run --yes
 
   update:
     runs-on: ubuntu-latest
