@@ -65,6 +65,8 @@ class SvgIntegration extends Integration {
   }
 
   String get path => _assetName;
+
+  String get keyName => ${packageParameterLiteral.isEmpty ? '_assetName' : '\'packages/$packageParameterLiteral/\$_assetName\''};
 }''';
 
   @override
