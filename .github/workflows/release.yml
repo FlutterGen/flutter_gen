@@ -66,6 +66,7 @@ jobs:
           path: packages/command/bin/${{ matrix.target }}/fluttergen-${{ matrix.artifact_prefix }}.sha256
 
       - name: Setup credentials
+        if: startsWith(matrix.os, 'ubuntu')
         run: |
           mkdir -p ~/.pub-cache
           cat <<eof > ~/.pub-cache/credentials.json
@@ -80,6 +81,7 @@ jobs:
           eof
 
       - name: Publish to pub.dev
+        if: startsWith(matrix.os, 'ubuntu')
         run: |
           melos publish --no-dry-run --yes
 
