@@ -65,11 +65,14 @@ class $AssetsImagesGen {
 class $AssetsJsonGen {
   const $AssetsJsonGen();
 
-  /// File path: assets/json/fruits.json
-  String get fruits => 'assets/json/fruits.json';
+  /// File path: assets/json/list.json
+  String get list => 'assets/json/list.json';
+
+  /// File path: assets/json/map.json
+  String get map => 'assets/json/map.json';
 
   /// List of all assets
-  List<String> get values => [fruits];
+  List<String> get values => [list, map];
 }
 
 class $AssetsMovieGen {

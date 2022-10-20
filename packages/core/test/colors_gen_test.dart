@@ -50,7 +50,7 @@ void main() {
       expect(colorPath.isXml, isTrue);
 
       const wrongColorPath =
-          ColorPath('test_resources/assets/json/fruits.json');
+          ColorPath('test_resources/assets/json/map.json');
       expect(wrongColorPath.isXml, isFalse);
     });
 

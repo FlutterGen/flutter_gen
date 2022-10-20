@@ -52,8 +52,11 @@ class Assets {
   static const AssetGenImage imagesProfilePng =
       AssetGenImage('assets/images/profile.png');
 
-  /// File path: assets/json/fruits.json
-  static const String jsonFruits = 'assets/json/fruits.json';
+  /// File path: assets/json/list.json
+  static const String jsonList = 'assets/json/list.json';
+
+  /// File path: assets/json/map.json
+  static const String jsonMap = 'assets/json/map.json';
 
   /// File path: pictures/chip5.jpg
   static const AssetGenImage picturesChip5 =
@@ -72,7 +75,8 @@ class Assets {
         imagesLogo,
         imagesProfileJpg,
         imagesProfilePng,
-        jsonFruits,
+        jsonList,
+        jsonMap,
         picturesChip5
       ];
 }
