@@ -161,5 +161,5 @@ class SvgGenImage {
     );
   }
 
-  String get path => _assetName;
+  String get path => 'packages/test/$_assetName';
 }

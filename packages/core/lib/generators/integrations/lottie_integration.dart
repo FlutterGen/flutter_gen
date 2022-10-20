@@ -87,7 +87,7 @@ class LottieIntegration extends Integration {
     );
   }
 
-  String get path => _assetName;
+  String get path => ${packageParameterLiteral.isEmpty ? '_assetName' : '\'packages/$packageParameterLiteral/\$_assetName\''};
 }''';
 
   @override
