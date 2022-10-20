@@ -7,7 +7,7 @@ flutter_gen:
   integrations:
     flutter_svg: true
 
-  assets: 
+  assets:
     exclude:
       - assets/images/chip3/*.jpg
       - assets/images/*.png
@@ -24,5 +24,5 @@ flutter:
     - assets/images/icons/kmm.svg
     - assets/images/icons/paint.svg
     - assets/images/icons/dart@test.svg
-    - assets/json/fruits.json
+    - assets/json/
     - pictures/chip5.jpg

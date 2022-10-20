@@ -120,6 +120,9 @@ class LottieIntegration extends Integration {
     } on FormatException catch (e) {
       // Catches bad/corrupted json and reports it to user.
       stderr.writeln(e.message);
+    } on TypeError catch(e) {
+      // Catches bad/corrupted json and reports it to user.
+      stderr.writeln(e);
     }
     return false;
   }

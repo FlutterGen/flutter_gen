@@ -53,8 +53,11 @@ class Assets {
   static const AssetGenImage images_profile_png =
       AssetGenImage('assets/images/profile.png');
 
-  /// File path: assets/json/fruits.json
-  static const String json_fruits = 'assets/json/fruits.json';
+  /// File path: assets/json/list.json
+  static const String json_list = 'assets/json/list.json';
+
+  /// File path: assets/json/map.json
+  static const String json_map = 'assets/json/map.json';
 
   /// File path: pictures/chip5.jpg
   static const AssetGenImage pictures_chip5 =
@@ -73,7 +76,8 @@ class Assets {
         images_logo,
         images_profile_jpg,
         images_profile_png,
-        json_fruits,
+        json_list,
+        json_map,
         pictures_chip5
       ];
 }
