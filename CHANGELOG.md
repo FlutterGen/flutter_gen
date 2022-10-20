@@ -1,3 +1,9 @@
+## 5.0.3
+
+**Bug fix**  
+- [#322](https://github.com/FlutterGen/flutter_gen/issues/322) Fix wrong package asset path with svg, lottie, flare and rive integrations.
+- [#323](https://github.com/FlutterGen/flutter_gen/issues/323) Fix generate failed when only list in a JSON files.
+
 ## 5.0.2
 
 **Bug fix**  
