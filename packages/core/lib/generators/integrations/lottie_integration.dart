@@ -119,12 +119,14 @@ class LottieIntegration extends Integration {
         // https://github.com/xvrh/lottie-flutter/blob/0e7499d82ea1370b6acf023af570395bbb59b42f/lib/src/parser/lottie_composition_parser.dart#L60
         return version >= Version(4, 4, 0);
       }
-    } on FormatException catch (e) {
+    } on FormatException catch (_) {
       // Catches bad/corrupted json and reports it to user.
-      stderr.writeln(e.message);
-    } on TypeError catch (e) {
+      // stderr.writeln(e.message);
+      // no-op
+    } on TypeError catch (_) {
       // Catches bad/corrupted json and reports it to user.
-      stderr.writeln(e);
+      // stderr.writeln(e);
+      // no-op
     }
     return false;
   }
