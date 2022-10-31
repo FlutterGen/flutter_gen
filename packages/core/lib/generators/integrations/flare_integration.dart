@@ -56,7 +56,9 @@ class FlareIntegration extends Integration {
     );
   }
 
-  String get path => ${packageExpression == null ? '_assetName' : '\'$packageExpression\$_assetName\''};
+  String get path => _assetName;
+
+  String get keyName => ${packageExpression == null ? '_assetName' : '\'$packageExpression\$_assetName\''};
 }''';
 
   @override
