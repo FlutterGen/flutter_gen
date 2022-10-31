@@ -1,3 +1,8 @@
+## 5.1.0
+
+**Feature**  
+- [#322](https://github.com/FlutterGen/flutter_gen/issues/322) [#327](https://github.com/FlutterGen/flutter_gen/issues/327) [**BREAKING CHANGES**] Add keyName to integrations and exchange the `path` value.
+
 ## 5.0.3
 
 **Bug fix**  
