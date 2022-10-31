@@ -89,6 +89,10 @@ void main() async {
               // ),
 
               // example_resource package.
+              Text(MyAssets.images.icons.kmm.path),
+              Text(MyAssets.images.icons.kmm.keyName),
+              Text(ResAssets.images.dart.path),
+              Text(ResAssets.images.dart.keyName),
               ResAssets.images.flutter3.image(),
               ResAssets.images.dart.svg(),
               SizedBox(

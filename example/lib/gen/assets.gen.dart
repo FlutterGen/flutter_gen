@@ -304,6 +304,8 @@ class SvgGenImage {
   }
 
   String get path => _assetName;
+
+  String get keyName => _assetName;
 }
 
 class FlareGenImage {
@@ -345,6 +347,8 @@ class FlareGenImage {
   }
 
   String get path => _assetName;
+
+  String get keyName => _assetName;
 }
 
 class RiveGenImage {
@@ -378,6 +382,8 @@ class RiveGenImage {
   }
 
   String get path => _assetName;
+
+  String get keyName => _assetName;
 }
 
 class LottieGenImage {
@@ -435,4 +441,6 @@ class LottieGenImage {
   }
 
   String get path => _assetName;
+
+  String get keyName => _assetName;
 }

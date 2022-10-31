@@ -49,8 +49,7 @@ void main() {
       expect(colorPath.mime, 'application/xml');
       expect(colorPath.isXml, isTrue);
 
-      const wrongColorPath =
-          ColorPath('test_resources/assets/json/map.json');
+      const wrongColorPath = ColorPath('test_resources/assets/json/map.json');
       expect(wrongColorPath.isXml, isFalse);
     });
 

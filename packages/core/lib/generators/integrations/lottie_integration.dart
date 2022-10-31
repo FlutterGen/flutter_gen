@@ -87,7 +87,9 @@ class LottieIntegration extends Integration {
     );
   }
 
-  String get path => ${packageParameterLiteral.isEmpty ? '_assetName' : '\'packages/$packageParameterLiteral/\$_assetName\''};
+  String get path => _assetName;
+
+  String get keyName => ${packageParameterLiteral.isEmpty ? '_assetName' : '\'packages/$packageParameterLiteral/\$_assetName\''};
 }''';
 
   @override
@@ -120,7 +122,7 @@ class LottieIntegration extends Integration {
     } on FormatException catch (e) {
       // Catches bad/corrupted json and reports it to user.
       stderr.writeln(e.message);
-    } on TypeError catch(e) {
+    } on TypeError catch (e) {
       // Catches bad/corrupted json and reports it to user.
       stderr.writeln(e);
     }

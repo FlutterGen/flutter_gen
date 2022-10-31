@@ -158,7 +158,9 @@ class SvgGenImage {
     );
   }
 
-  String get path => 'packages/example_resources/$_assetName';
+  String get path => _assetName;
+
+  String get keyName => 'packages/example_resources/$_assetName';
 }
 
 class FlareGenImage {
@@ -199,7 +201,9 @@ class FlareGenImage {
     );
   }
 
-  String get path => 'packages/example_resources/$_assetName';
+  String get path => _assetName;
+
+  String get keyName => 'packages/example_resources/$_assetName';
 }
 
 class RiveGenImage {
@@ -232,7 +236,9 @@ class RiveGenImage {
     );
   }
 
-  String get path => 'packages/example_resources/$_assetName';
+  String get path => _assetName;
+
+  String get keyName => 'packages/example_resources/$_assetName';
 }
 
 class LottieGenImage {
@@ -289,5 +295,7 @@ class LottieGenImage {
     );
   }
 
-  String get path => 'packages/example_resources/$_assetName';
+  String get path => _assetName;
+
+  String get keyName => 'packages/example_resources/$_assetName';
 }
