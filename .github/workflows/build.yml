@@ -55,6 +55,11 @@ jobs:
         run: |
           melos run coverage
 
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./packages/core/coverage.lcov
+
       - name: Generate example
         run: |
           melos run example:command
