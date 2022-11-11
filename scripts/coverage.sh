@@ -5,5 +5,6 @@ set -o pipefail
 DIR="${1}"
 cd ${DIR}
 dart pub global activate coverage
-dart test --coverage="coverage"
-format_coverage --lcov --in=coverage --out=coverage.lcov --packages=.packages --report-on=lib
+dart run coverage:test_with_coverage --port=9292
+format_coverage --lcov --in=coverage --out=coverage.lcov --report-on=lib
+

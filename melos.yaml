@@ -76,4 +76,3 @@ scripts:
   coverage:
     run: |
       bash ./scripts/coverage.sh packages/core
-      bash ./scripts/codecov.sh ${CODECOV_TOKEN}
