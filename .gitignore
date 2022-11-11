@@ -95,6 +95,14 @@ ios/fastlane/report.xml
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 
+# macOS related
+**/macos/**/Pods/
+**/macos/**/.symlinks/
+**/macos/build/
+**/macos/Flutter/ephemeral/
+**/macos/**/dgph
+**/macos/**/xcuserdata/
+
 # Web related
 *.dart.js
 *.info.json      # Produced by the --dump-info flag.
