@@ -1,0 +1,126 @@
+PODS:
+  - connectivity_plus_macos (0.0.1):
+    - FlutterMacOS
+    - ReachabilitySwift
+  - device_info_plus_macos (0.0.1):
+    - FlutterMacOS
+  - flutter_local_notifications (0.0.1):
+    - FlutterMacOS
+  - flutter_secure_storage_macos (3.3.1):
+    - FlutterMacOS
+  - FlutterMacOS (1.0.0)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - geolocator_apple (1.2.0):
+    - FlutterMacOS
+  - in_app_review (0.2.0):
+    - FlutterMacOS
+  - package_info_plus_macos (0.0.1):
+    - FlutterMacOS
+  - path_provider_macos (0.0.1):
+    - FlutterMacOS
+  - ReachabilitySwift (5.0.0)
+  - Sentry (7.11.0):
+    - Sentry/Core (= 7.11.0)
+  - Sentry/Core (7.11.0)
+  - sentry_flutter (0.0.1):
+    - Flutter
+    - FlutterMacOS
+    - Sentry (~> 7.11.0)
+  - share_plus_macos (0.0.1):
+    - FlutterMacOS
+  - shared_preferences_macos (0.0.1):
+    - FlutterMacOS
+  - sign_in_with_apple (0.0.1):
+    - FlutterMacOS
+  - sqflite (0.0.2):
+    - FlutterMacOS
+    - FMDB (>= 2.7.5)
+  - url_launcher_macos (0.0.1):
+    - FlutterMacOS
+  - wakelock_macos (0.0.1):
+    - FlutterMacOS
+
+DEPENDENCIES:
+  - connectivity_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/connectivity_plus_macos/macos`)
+  - device_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus_macos/macos`)
+  - flutter_local_notifications (from `Flutter/ephemeral/.symlinks/plugins/flutter_local_notifications/macos`)
+  - flutter_secure_storage_macos (from `Flutter/ephemeral/.symlinks/plugins/flutter_secure_storage_macos/macos`)
+  - FlutterMacOS (from `Flutter/ephemeral`)
+  - geolocator_apple (from `Flutter/ephemeral/.symlinks/plugins/geolocator_apple/macos`)
+  - in_app_review (from `Flutter/ephemeral/.symlinks/plugins/in_app_review/macos`)
+  - package_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus_macos/macos`)
+  - path_provider_macos (from `Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos`)
+  - sentry_flutter (from `Flutter/ephemeral/.symlinks/plugins/sentry_flutter/macos`)
+  - share_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/share_plus_macos/macos`)
+  - shared_preferences_macos (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_macos/macos`)
+  - sign_in_with_apple (from `Flutter/ephemeral/.symlinks/plugins/sign_in_with_apple/macos`)
+  - sqflite (from `Flutter/ephemeral/.symlinks/plugins/sqflite/macos`)
+  - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
+  - wakelock_macos (from `Flutter/ephemeral/.symlinks/plugins/wakelock_macos/macos`)
+
+SPEC REPOS:
+  trunk:
+    - FMDB
+    - ReachabilitySwift
+    - Sentry
+
+EXTERNAL SOURCES:
+  connectivity_plus_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/connectivity_plus_macos/macos
+  device_info_plus_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/device_info_plus_macos/macos
+  flutter_local_notifications:
+    :path: Flutter/ephemeral/.symlinks/plugins/flutter_local_notifications/macos
+  flutter_secure_storage_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/flutter_secure_storage_macos/macos
+  FlutterMacOS:
+    :path: Flutter/ephemeral
+  geolocator_apple:
+    :path: Flutter/ephemeral/.symlinks/plugins/geolocator_apple/macos
+  in_app_review:
+    :path: Flutter/ephemeral/.symlinks/plugins/in_app_review/macos
+  package_info_plus_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/package_info_plus_macos/macos
+  path_provider_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos
+  sentry_flutter:
+    :path: Flutter/ephemeral/.symlinks/plugins/sentry_flutter/macos
+  share_plus_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/share_plus_macos/macos
+  shared_preferences_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/shared_preferences_macos/macos
+  sign_in_with_apple:
+    :path: Flutter/ephemeral/.symlinks/plugins/sign_in_with_apple/macos
+  sqflite:
+    :path: Flutter/ephemeral/.symlinks/plugins/sqflite/macos
+  url_launcher_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos
+  wakelock_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/wakelock_macos/macos
+
+SPEC CHECKSUMS:
+  connectivity_plus_macos: f6e86fd000e971d361e54b5afcadc8c8fa773308
+  device_info_plus_macos: 1ad388a1ef433505c4038e7dd9605aadd1e2e9c7
+  flutter_local_notifications: 3805ca215b2fb7f397d78b66db91f6a747af52e4
+  flutter_secure_storage_macos: 6ceee8fbc7f484553ad17f79361b556259df89aa
+  FlutterMacOS: ae6af50a8ea7d6103d888583d46bd8328a7e9811
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  geolocator_apple: 72a78ae3f3e4ec0db62117bd93e34523f5011d58
+  in_app_review: a850789fad746e89bce03d4aeee8078b45a53fd0
+  package_info_plus_macos: f010621b07802a241d96d01876d6705f15e77c1c
+  path_provider_macos: 3c0c3b4b0d4a76d2bf989a913c2de869c5641a19
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  Sentry: 0c5cd63d714187b4a39c331c1f0eb04ba7868341
+  sentry_flutter: efb3df2c203cd03aad255892a8d628a458656d14
+  share_plus_macos: 853ee48e7dce06b633998ca0735d482dd671ade4
+  shared_preferences_macos: a64dc611287ed6cbe28fd1297898db1336975727
+  sign_in_with_apple: a9e97e744e8edc36aefc2723111f652102a7a727
+  sqflite: a5789cceda41d54d23f31d6de539d65bb14100ea
+  url_launcher_macos: 597e05b8e514239626bcf4a850fcf9ef5c856ec3
+  wakelock_macos: bc3f2a9bd8d2e6c89fee1e1822e7ddac3bd004a9
+
+PODFILE CHECKSUM: 6eac6b3292e5142cfc23bdeb71848a40ec51c14c
+
+COCOAPODS: 1.11.3
