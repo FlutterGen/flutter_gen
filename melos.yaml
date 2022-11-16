@@ -2,8 +2,7 @@ name: FlutterGen
 
 packages:
   - packages/**
-  - example/*
-  - example_resources/*
+  - examples/**
 
 ide:
   intellij: true
@@ -43,7 +42,7 @@ scripts:
   example:command:
     run: |
       melos exec \
-      -- dart ../packages/command/bin/flutter_gen_command.dart --config pubspec.yaml
+      -- dart ../../packages/command/bin/flutter_gen_command.dart --config pubspec.yaml
     select-package:
       scope: example
 
@@ -57,7 +56,7 @@ scripts:
   example:res:command:
     run: |
       melos exec \
-      -- dart ../packages/command/bin/flutter_gen_command.dart --config pubspec.yaml
+      -- dart ../../packages/command/bin/flutter_gen_command.dart --config pubspec.yaml
     select-package:
       scope: example_resources
 
