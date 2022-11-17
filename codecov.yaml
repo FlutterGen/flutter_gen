@@ -21,6 +21,6 @@ coverage:
         paths: null
 
 ignore:
-  - "example/"
+  - "examples/**/*"
   - "**/*.g.dart"
   - "**/*.gen.dart"

@@ -40,7 +40,7 @@ void main(List<String> args) {
     }
   } on FormatException catch (e) {
     stderr.writeAll(
-        <String>[e.message, 'usage: flutter_gen [options...] ', ''], '\n');
+        <String>[e.message, 'usage: flutter_gen [options...]', ''], '\n');
     return;
   }
 
