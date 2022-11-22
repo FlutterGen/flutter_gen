@@ -13,14 +13,15 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_svg: ^1.0.3
-  flare_flutter: ^3.0.2
-  rive: ^0.8.4
+  flutter_svg: 1.0.3
+  flare_flutter: 3.0.2
+  rive: 0.9.1
+  lottie: 2.0.0
 
   # Dependency check
-  collection: ^1.16.0
-  crypto: ^3.0.1
-  glob: ^2.0.2
+  collection: 1.16.0
+  crypto: 3.0.2
+  glob: 2.0.2
 
   # firebase_analytics: 9.1.8
   # firebase_core: 1.14.1
@@ -55,15 +56,14 @@ dependencies:
   fixnum: 1.0.0
   shared_preferences: 2.0.13
   flutter_secure_storage: 5.0.2
-  auto_route: 3.2.4
+  auto_route: 5.0.2
   gap: 2.0.0
-  lottie: 1.4.1
   flutter_layout_grid: 2.0.0
   video_player: 2.4.0
   # audio_service: 0.18.4
   cached_network_image: 3.2.0
   flutter_cache_manager: 3.3.0
-  visibility_detector: 0.2.2
+  visibility_detector: 0.3.3
   sliver_tools: 0.2.6
   dotted_border: 2.0.0+2
   scrollable_positioned_list: 0.2.3
@@ -95,7 +95,7 @@ dependencies:
   stack_trace: 1.10.0
   in_app_review: 2.0.4
   pull_to_refresh: 2.0.0
-  xml: ^5.4.1
+  xml: 5.4.1
 
   example_resources:
     path: ../example_resources
@@ -112,7 +112,7 @@ dev_dependencies:
   flutter_lints: ^2.0.1
 
 flutter_gen:
-  output: lib/gen/ # Optional (default: lib/gen/)
+  output: lib/gen/  # Optional (default: lib/gen/)
   line_length: 80   # Optional (default: 80)
 
   integrations:
