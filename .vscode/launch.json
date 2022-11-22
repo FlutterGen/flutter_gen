@@ -3,28 +3,28 @@
     "configurations": [
         {
             "name": "Run example on main.dart",
-            "program": "${workspaceFolder}/example/lib/main.dart",
+            "program": "${workspaceFolder}/examples/example/lib/main.dart",
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug",
-            "cwd": "example/"
+            "cwd": "examples/example/"
         },
         {
             "name": "Run on build_runner",
-            "program": "${workspaceFolder}/example/.dart_tool/build/entrypoint/build.dart",
+            "program": "${workspaceFolder}/examples/example/.dart_tool/build/entrypoint/build.dart",
             "request": "launch",
             "type": "dart",
             "args": [
                 "build"
             ],
-            "cwd": "example/"
+            "cwd": "examples/example/"
         },
         {
             "name": "Run on flutter_gen_command",
             "program": "${workspaceFolder}/packages/command/bin/flutter_gen_command.dart",
             "request": "launch",
             "type": "dart",
-            "cwd": "example/"
+            "cwd": "examples/example/"
         }
     ]
 }
