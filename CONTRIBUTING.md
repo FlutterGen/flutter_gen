@@ -51,7 +51,7 @@ $ melos run example:build_runner
 To run the unit tests:
 
 ```
-$ melos run unit:test
+$ melos run test
 ```
 
 ## Contributing code

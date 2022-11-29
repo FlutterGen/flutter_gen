@@ -67,7 +67,7 @@ scripts:
     select-package:
       scope: example_resources
 
-  unit:test:
+  test:
     run: melos exec -- dart test
     select-package:
       dir-exists: test

@@ -48,7 +48,7 @@ jobs:
       - name: Run tests for our dart project.
         if: startsWith(matrix.os, 'ubuntu')
         run: |
-          melos run unit:test
+          melos run test
 
       - name: Run coverage
         if: startsWith(matrix.os, 'ubuntu')
