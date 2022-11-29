@@ -22,7 +22,7 @@ scripts:
 
   analyze: dart analyze
 
-  format: bash ./scripts/dartfmt.sh
+  format: dart format --set-exit-if-changed .
 
   gen:build_runner:
     run: |
