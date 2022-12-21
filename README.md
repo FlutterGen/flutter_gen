@@ -390,6 +390,26 @@ targets:
 
 See #268 for the corresponding issue discussion.
 
+### Error with [internationalization](https://docs.flutter.dev/development/accessibility-and-localization/internationalization)
+
+Please try to remove `generate: true` in your `pubspec.yaml` and disable `synthetic-package` in your `l10n.yaml` like:
+
+```yaml
+# pubspec.yaml
+flutter:
+  generate: true <--- ⚠️Remove this line⚠️
+```
+
+```yaml
+# l10n.yaml
+arb-dir: lib/l10n
+template-arb-file: app_en.arb
+output-localization-file: app_localizations.dart
+synthetic-package: false <--- ⚠️Add this line⚠️
+```
+
+If you get 
+
 ## Contributing
 
 **We are looking for co-developers.**
