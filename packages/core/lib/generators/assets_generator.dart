@@ -15,9 +15,9 @@ import '../utils/string.dart';
 import 'generator_helper.dart';
 import 'integrations/flare_integration.dart';
 import 'integrations/integration.dart';
+import 'integrations/lottie_integration.dart';
 import 'integrations/rive_integration.dart';
 import 'integrations/svg_integration.dart';
-import 'integrations/lottie_integration.dart';
 
 class AssetsGenConfig {
   AssetsGenConfig._(
@@ -450,7 +450,10 @@ String _dotDelimiterStyleAssetsClassDefinition(
 String _assetValuesDefinition(List<_Statement> statements) {
   final values = statements.where((element) => !element.isDirectory);
   if (values.isEmpty) return '';
-  final names = values.map((value) => value.name).join(', ');
+  final names = values
+      .where((element) => element.valid)
+      .map((value) => value.name)
+      .join(', ');
   var type = values.first.type;
   for (var value in values) {
     if (type != value.type) {
@@ -601,7 +604,80 @@ class _Statement {
   String toDartDocString() => '/// File path: ${posixStyle(filePath)}';
 
   String toGetterString() =>
-      '$type get $name => ${isConstConstructor ? 'const' : ''} $value;';
+      '${valid ? '' : '/*'}$type get $name => ${isConstConstructor ? 'const' : ''} $value;${valid ? '' : '*/'}';
 
-  String toStaticFieldString() => 'static const $type $name = $value;';
+  String toStaticFieldString() =>
+      '${valid ? '' : '/*'}static const $type $name = $value; ${valid ? '' : '*/'}';
+
+  bool get valid =>
+      !type.startsWith(RegExp('[0-9]')) &&
+      !name.startsWith(RegExp('[0-9]')) &&
+      !keywords.contains(type) &&
+      !keywords.contains(name);
 }
+
+const keywords = [
+  'abstract',
+  'else',
+  'import',
+  'show',
+  'as',
+  'enum',
+  'in',
+  'static',
+  'assert',
+  'export',
+  'interface',
+  'super',
+  'async',
+  'extends',
+  'is',
+  'switch',
+  'await',
+  'extension',
+  'late',
+  'sync',
+  'break',
+  'external',
+  'library',
+  'this',
+  'case',
+  'factory',
+  'mixin',
+  'throw',
+  'catch',
+  'false',
+  'new',
+  'true',
+  'class',
+  'final',
+  'null',
+  'try',
+  'const',
+  'finally',
+  'on',
+  'typedef',
+  'continue',
+  'for',
+  'operator',
+  'var',
+  'covariant',
+  'Function',
+  'part',
+  'void',
+  'default',
+  'get',
+  'required',
+  'while',
+  'deferred',
+  'hide',
+  'rethrow',
+  'with',
+  'do',
+  'if',
+  'return',
+  'yield',
+  'dynamic',
+  'implements',
+  'set'
+];
