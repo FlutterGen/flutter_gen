@@ -4,7 +4,8 @@ part 'json_serializable_sample.g.dart';
 
 @JsonSerializable()
 class Person {
-  final String firstName, lastName;
+  final String firstName;
+  final String lastName;
   final DateTime? dateOfBirth;
 
   Person({required this.firstName, required this.lastName, this.dateOfBirth});

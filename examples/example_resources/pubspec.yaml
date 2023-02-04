@@ -13,7 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_svg: 1.0.3
+  flutter_svg: 2.0.0+1
   flare_flutter: 3.0.2
   rive: 0.9.1
   lottie: 2.0.0
