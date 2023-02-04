@@ -13,13 +13,13 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_svg: 1.0.3
+  flutter_svg: 2.0.0+1
   flare_flutter: 3.0.2
   rive: 0.9.1
   lottie: 2.0.0
 
   # Dependency check
-  collection: 1.16.0
+  collection: 1.17.0
   crypto: 3.0.2
   glob: 2.0.2
 
@@ -43,15 +43,15 @@ dependencies:
   flutter_hooks: 0.18.3
   hooks_riverpod: 1.0.3
   dio: 4.0.6
-  connectivity_plus: 2.3.0
+  connectivity_plus: 3.0.2
   ua_client_hints: 1.1.0
   retrofit: 3.0.1+1
   uuid: 3.0.6
   http_parser: 4.0.0
   protobuf: 2.0.1
-  json_serializable: 6.2.0
-  json_annotation: ^4.5.0
-  freezed_annotation: ^2.1.0
+  json_serializable: 6.6.1
+  json_annotation: ^4.8.0
+  freezed_annotation: ^2.2.0
   intl: 0.17.0
   fixnum: 1.0.0
   shared_preferences: 2.0.13
@@ -92,10 +92,10 @@ dependencies:
   geocoding: 2.0.4
   android_intent_plus: 3.1.1
   share_plus: 4.0.4
-  stack_trace: 1.10.0
+  # stack_trace: 1.10.0
   in_app_review: 2.0.4
   pull_to_refresh: 2.0.0
-  xml: 5.4.1
+  xml: 6.2.2
 
   example_resources:
     path: ../example_resources
@@ -106,7 +106,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   build_runner: ^2.1.11
-  freezed: ^2.1.0+1
+  freezed: ^2.3.2
   flutter_gen_runner: ^5.1.0+1
 
   flutter_lints: ^2.0.1
