@@ -22,6 +22,7 @@ jobs:
         with:
           flutter-version: ${{ steps.asdf.outputs.flutter }}
           channel: stable
+          cache: true
       - uses: dart-lang/setup-dart@v1
         with:
           sdk: ${{ steps.asdf.outputs.dart }}
