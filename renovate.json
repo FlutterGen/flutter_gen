@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "config:base",
-    "group:monorepos"
-  ],
+  "extends": ["config:base", "group:monorepos"],
   "timezone": "Asia/Tokyo",
   "schedule": ["before 10am on monday"],
   "labels": ["dependencies"],

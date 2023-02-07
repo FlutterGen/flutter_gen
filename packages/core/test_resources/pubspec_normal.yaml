@@ -44,4 +44,3 @@ flutter:
         - asset: assets/fonts/RobotoMono-Regular.ttf
         - asset: assets/fonts/RobotoMono-Bold.ttf
           weight: 700
-

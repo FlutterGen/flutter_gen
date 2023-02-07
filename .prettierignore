@@ -1,0 +1,14 @@
+.dart_tool/
+build/
+packages/**/android/
+packages/**/ios/
+packages/**/linux/
+packages/**/macos/
+packages/**/web/
+packages/**/windows/
+examples/**/android/
+examples/**/ios/
+examples/**/linux/
+examples/**/macos/
+examples/**/web/
+examples/**/windows/

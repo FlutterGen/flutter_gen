@@ -16,15 +16,15 @@ command:
     usePubspecOverrides: true
 
 scripts:
-  upgrade: 
+  upgrade:
     run: melos exec -- flutter pub upgrade
     description: flutter pub upgrade
 
-  analyze: 
+  analyze:
     run: dart analyze
     description: dart analyze
 
-  format: 
+  format:
     run: dart format --set-exit-if-changed .
     description: dart format --set-exit-if-changed .
 
