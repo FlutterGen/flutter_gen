@@ -14,6 +14,10 @@ flutter_gen:
     rive: false
     lottie: false
 
+  # Optional
+  app_image_import: 
+    'package:recapet_widgets/recapet_widgets.dart'
+  
   assets:
     # Optional
     enabled: true

@@ -70,6 +70,7 @@ FlutterGen _$FlutterGenFromJson(Map json) => $checkedCreate(
           json,
           requiredKeys: const [
             'output',
+            'app_image_import',
             'line_length',
             'assets',
             'fonts',
@@ -79,6 +80,8 @@ FlutterGen _$FlutterGenFromJson(Map json) => $checkedCreate(
         );
         final val = FlutterGen(
           output: $checkedConvert('output', (v) => v as String),
+          appImageImport: $checkedConvert(
+              'app_image_import', (v) => v as String),
           lineLength: $checkedConvert('line_length', (v) => v as int),
           assets: $checkedConvert(
               'assets', (v) => FlutterGenAssets.fromJson(v as Map)),

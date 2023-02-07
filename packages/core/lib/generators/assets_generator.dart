@@ -170,7 +170,10 @@ String generateAssets(
     config.packageParameterLiteral,
   ));
 
-  final imports = <String>{'package:flutter/widgets.dart'};
+  final imports = <String>{
+    'package:flutter/widgets.dart',
+    config.flutterGen.appImageImport,
+  };
   integrations
       .where((integration) => integration.isEnabled)
       .forEach((integration) {
@@ -512,8 +515,8 @@ String _assetGenImageClassDefinition(String packageName) {
 
   return '''
 
-class AssetGenImage {
-  const AssetGenImage(this._assetName);
+class AssetGenImage extends AppImageGen{
+  const AssetGenImage(this._assetName) : super(_assetName);
 
   final String _assetName;
 
@@ -575,6 +578,31 @@ class AssetGenImage {
   String get path => _assetName;
 
   String get keyName => $keyName;
+}
+
+class AppImageGen {
+  final String _assetPath;
+
+  const AppImageGen(this._assetPath);
+
+  AppImage appImage({
+    Key? key,
+    Color? color,
+    BoxFit? fit,
+    double? width,
+    double? height,
+    String? defaultImage,
+  }) {
+    return AppImage(
+      _assetPath,
+      key: key,
+      color: color,
+      fit: fit,
+      width: width,
+      height: height,
+      defaultImage: defaultImage,
+    );
+  }
 }
 ''';
 }

@@ -19,7 +19,7 @@ class SvgIntegration extends Integration {
   String get classOutput => _classDefinition;
 
   String get _classDefinition => '''class SvgGenImage {
-  const SvgGenImage(this._assetName);
+  const SvgGenImage(this._assetName) : super(_assetName);
 
   final String _assetName;
 

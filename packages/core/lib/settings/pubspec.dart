@@ -54,6 +54,7 @@ class FlutterFonts {
 class FlutterGen {
   FlutterGen({
     required this.output,
+    required this.appImageImport,
     required this.lineLength,
     required this.assets,
     required this.fonts,
@@ -63,6 +64,9 @@ class FlutterGen {
 
   @JsonKey(name: 'output', required: true)
   final String output;
+
+  @JsonKey(name: 'app_image_import', required: true)
+  final String appImageImport;
 
   @JsonKey(name: 'line_length', required: true)
   final int lineLength;
