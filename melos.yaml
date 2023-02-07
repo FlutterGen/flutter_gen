@@ -78,7 +78,7 @@ scripts:
     description: flutter pub run build_runner build --delete-conflicting-outputs
 
   test:
-    run: melos run test:dart --no-select
+    run: melos test:dart --no-select
     description: dart test
 
   test:dart:

@@ -32,7 +32,7 @@ $ dart packages/command/bin/flutter_gen_command.dart --config example/pubspec.ya
 
 Or melos
 ```sh
-$ melos run example:command
+$ melos gen:example:command
 ```
 
 #### Use as part of build_runner
@@ -43,7 +43,7 @@ $ flutter packages pub run build_runner build
 
 Or melos
 ```sh
-$ melos run example:build_runner
+$ melos gen:example:build_runner
 ```
 
 ## Running the tests
@@ -51,7 +51,7 @@ $ melos run example:build_runner
 To run the unit tests:
 
 ```
-$ melos run test
+$ melos test
 ```
 
 ## Contributing code
