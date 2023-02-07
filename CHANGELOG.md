@@ -1,7 +1,7 @@
 ## 5.2.0
 
 **Feature**
-- [#350](https://github.com/FlutterGen/flutter_gen/pull/350) Support flutter_svg 2.0.0.
+- [#350](https://github.com/FlutterGen/flutter_gen/pull/350) Support `flutter_svg 2.0.0`.
 
 ## 5.1.0, 5.1.0+1
 
