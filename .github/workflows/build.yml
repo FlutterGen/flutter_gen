@@ -51,12 +51,12 @@ jobs:
       - name: Run tests for our dart project.
         if: startsWith(matrix.os, 'ubuntu')
         run: |
-          melos run test
+          melos test
 
       - name: Run coverage
         if: startsWith(matrix.os, 'ubuntu')
         run: |
-          melos run coverage
+          melos coverage
 
       - uses: codecov/codecov-action@v3
         with:
@@ -65,10 +65,10 @@ jobs:
 
       - name: Generate example
         run: |
-          melos run example:command
-          melos run example:build_runner
+          melos gen:example:command
+          melos gen:example:build_runner
 
       - name: Check for any formatting and statically analyze the code.
         run: |
-          melos run format
-          melos run analyze
+          melos format
+          melos analyze
