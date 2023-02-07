@@ -49,8 +49,7 @@ dependencies:
   uuid: 3.0.6
   http_parser: 4.0.0
   protobuf: 2.0.1
-  json_serializable: 6.6.1
-  json_annotation: ^4.8.0
+  json_annotation: 4.8.0
   freezed_annotation: ^2.2.0
   intl: 0.17.0
   fixnum: 1.0.0
@@ -107,6 +106,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.1.11
   freezed: ^2.3.2
+  json_serializable: 6.6.1
   flutter_gen_runner: ^5.1.0+1
 
   flutter_lints: ^2.0.1
