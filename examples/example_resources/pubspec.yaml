@@ -6,8 +6,8 @@ publish_to: 'none'
 version: 1.0.0+2
 
 environment:
-  sdk: ">=2.16.0 <3.0.0"
-  flutter: ">=3.0.0"
+  sdk: '>=2.16.0 <3.0.0'
+  flutter: '>=3.0.0'
 
 dependencies:
   flutter:
@@ -45,7 +45,6 @@ flutter_gen:
     enabled: true
     inputs:
       - assets/color/colors.xml
-
 
 flutter:
   assets:

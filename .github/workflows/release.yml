@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - "v*.*.*"
+      - 'v*.*.*'
 
 jobs:
   build:
@@ -23,12 +23,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: wasabeef/import-asdf-tool-versions-action@v1.0.1
+        id: asdf
       - uses: subosito/flutter-action@v2
         with:
+          flutter-version: ${{ steps.asdf.outputs.flutter }}
           channel: stable
+          cache: true
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: stable
+          sdk: ${{ steps.asdf.outputs.dart }}
 
       - name: Set environment
         run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH

@@ -2,7 +2,7 @@ name: test
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
-  line_length: 80   # Optional (default: 80)
+  line_length: 80 # Optional (default: 80)
 
 flutter:
   fonts:
@@ -23,4 +23,3 @@ flutter:
         - asset: assets/fonts/RobotoMono-Regular.ttf
         - asset: assets/fonts/RobotoMono-Bold.ttf
           weight: 700
-
