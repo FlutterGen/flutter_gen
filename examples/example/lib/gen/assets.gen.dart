@@ -155,18 +155,39 @@ class $AssetsImagesIconsGen {
   SvgGenImage get dartTest =>
       const SvgGenImage('assets/images/icons/dart@test.svg');
 
+  /// File path: assets/images/icons/dart@test.svg.vec
+  String get dartTestSvg => 'assets/images/icons/dart@test.svg.vec';
+
   /// File path: assets/images/icons/fuchsia.svg
   SvgGenImage get fuchsia =>
       const SvgGenImage('assets/images/icons/fuchsia.svg');
 
+  /// File path: assets/images/icons/fuchsia.svg.vec
+  String get fuchsiaSvg => 'assets/images/icons/fuchsia.svg.vec';
+
   /// File path: assets/images/icons/kmm.svg
   SvgGenImage get kmm => const SvgGenImage('assets/images/icons/kmm.svg');
+
+  /// File path: assets/images/icons/kmm.svg.vec
+  String get kmmSvg => 'assets/images/icons/kmm.svg.vec';
 
   /// File path: assets/images/icons/paint.svg
   SvgGenImage get paint => const SvgGenImage('assets/images/icons/paint.svg');
 
+  /// File path: assets/images/icons/paint.svg.vec
+  String get paintSvg => 'assets/images/icons/paint.svg.vec';
+
   /// List of all assets
-  List<SvgGenImage> get values => [dartTest, fuchsia, kmm, paint];
+  List<dynamic> get values => [
+        dartTest,
+        dartTestSvg,
+        fuchsia,
+        fuchsiaSvg,
+        kmm,
+        kmmSvg,
+        paint,
+        paintSvg
+      ];
 }
 
 class $AssetsLottieWrongGen {
