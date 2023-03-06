@@ -13,6 +13,7 @@ flutter_gen:
     flare_flutter: false
     rive: false
     lottie: false
+    vector_graphics: false
 
   assets:
     # Optional
