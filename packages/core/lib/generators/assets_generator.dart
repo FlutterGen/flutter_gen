@@ -18,6 +18,7 @@ import 'integrations/integration.dart';
 import 'integrations/rive_integration.dart';
 import 'integrations/svg_integration.dart';
 import 'integrations/lottie_integration.dart';
+import 'integrations/vector_graphics_integration.dart';
 
 class AssetsGenConfig {
   AssetsGenConfig._(
@@ -62,6 +63,12 @@ String generateAssets(
   final importsBuffer = StringBuffer();
   final classesBuffer = StringBuffer();
 
+  if (config.flutterGen.integrations.vectorGraphics &&
+      !config.flutterGen.integrations.flutterSvg) {
+    throw const InvalidSettingsException(
+        'To use "vector_graphics", "flutter_svg" must be enabled as well.');
+  }
+
   final integrations = <Integration>[
     if (config.flutterGen.integrations.flutterSvg)
       SvgIntegration(config.packageParameterLiteral),
@@ -71,6 +78,8 @@ String generateAssets(
       RiveIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.lottie)
       LottieIntegration(config.packageParameterLiteral),
+    if (config.flutterGen.integrations.vectorGraphics)
+      VectorGraphicsIntegration(config.packageParameterLiteral),
   ];
 
   // TODO: This code will be removed.
