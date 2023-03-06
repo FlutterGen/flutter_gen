@@ -3,6 +3,7 @@ import 'package:flutter_gen_core/generators/integrations/flare_integration.dart'
 import 'package:flutter_gen_core/generators/integrations/lottie_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/rive_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/svg_integration.dart';
+import 'package:flutter_gen_core/generators/integrations/vector_graphics_integration.dart';
 import 'package:flutter_gen_core/settings/asset_type.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
@@ -159,22 +160,26 @@ void main() {
 
       await expectedAssetsGen(pubspec, generated, fact);
 
-      final integration = SvgIntegration('');
-      expect(integration.className, 'SvgGenImage');
+      final integration = VectorGraphicsIntegration('');
+      expect(integration.className, 'SvgVecGenImage');
       expect(integration.classInstantiate('assets/path'),
-          'SvgGenImage(\'assets/path\')');
+          'SvgVecGenImage(\'assets/path\')');
       expect(
           integration.isSupport(
-              AssetType(rootPath: resPath, path: 'assets/path/dog.svg')),
+              AssetType(rootPath: resPath, path: 'assets/path/dog.svg.vec')),
           isTrue);
       expect(
           integration.isSupport(
-              AssetType(rootPath: resPath, path: 'assets/path/dog.png')),
+              AssetType(rootPath: resPath, path: 'assets/path/dog.vec')),
+          isTrue);
+      expect(
+          integration.isSupport(
+              AssetType(rootPath: resPath, path: 'assets/path/dog.svg')),
           isFalse);
       expect(integration.isConstConstructor, isTrue);
       expect(integration.classOutput.contains('String? package,'), isTrue);
 
-      final integrationWithPackage = SvgIntegration('package_name');
+      final integrationWithPackage = VectorGraphicsIntegration('package_name');
       expect(
         integrationWithPackage.classOutput
             .contains('String? package = \'package_name\','),
