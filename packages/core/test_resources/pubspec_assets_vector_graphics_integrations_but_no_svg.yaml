@@ -1,0 +1,13 @@
+name: test
+
+flutter_gen:
+  output: lib/gen/
+  line_length: 80
+
+  integrations:
+    vector_graphics: true
+
+flutter:
+  assets:
+    - assets/images/icons/dart@test.svg.vec
+    - assets/images/icons/fuchsia.vec

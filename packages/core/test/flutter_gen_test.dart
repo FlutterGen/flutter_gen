@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:flutter_gen_core/flutter_generator.dart';
+import 'package:flutter_gen_core/utils/error.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -179,6 +180,28 @@ void main() {
       expect(File('test_resources/lib/gen/$assets').existsSync(), false);
       expect(File('test_resources/lib/gen/$fonts').existsSync(), false);
       expect(File('test_resources/lib/gen/$colors').existsSync(), false);
+    });
+
+    test('Vector_graphics is enabled but not flutter_svg', () {
+      const pubspec =
+          'test_resources/pubspec_assets_vector_graphics_integrations_but_no_svg.yaml';
+      const assets =
+          'pubspec_assets_vector_graphics_integrations_but_no_svg_assets.gen.dart';
+      const colors =
+          'pubspec_assets_vector_graphics_integrations_but_no_svg_colors.gen.dart';
+      const fonts =
+          'pubspec_assets_vector_graphics_integrations_but_no_svg_fonts.gen.dart';
+
+      expect(() {
+        return FlutterGenerator(
+          File(pubspec),
+          assetsName: assets,
+          colorsName: colors,
+          fontsName: fonts,
+        ).build();
+      },
+          throwsA(const InvalidSettingsException('To use "vector_graphics", '
+              '"flutter_svg" must be enabled as well.')));
     });
   });
 }
