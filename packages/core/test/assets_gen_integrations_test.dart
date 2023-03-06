@@ -148,5 +148,38 @@ void main() {
         isTrue,
       );
     });
+
+    test('Assets with SvgVec integrations on pubspec.yaml', () async {
+      const pubspec =
+          'test_resources/pubspec_assets_vector_graphics_integrations.yaml';
+      const fact =
+          'test_resources/actual_data/assets_vector_graphics_integrations.gen.dart';
+      const generated =
+          'test_resources/lib/gen/assets_vector_graphics_integrations.gen.dart';
+
+      await expectedAssetsGen(pubspec, generated, fact);
+
+      final integration = SvgIntegration('');
+      expect(integration.className, 'SvgGenImage');
+      expect(integration.classInstantiate('assets/path'),
+          'SvgGenImage(\'assets/path\')');
+      expect(
+          integration.isSupport(
+              AssetType(rootPath: resPath, path: 'assets/path/dog.svg')),
+          isTrue);
+      expect(
+          integration.isSupport(
+              AssetType(rootPath: resPath, path: 'assets/path/dog.png')),
+          isFalse);
+      expect(integration.isConstConstructor, isTrue);
+      expect(integration.classOutput.contains('String? package,'), isTrue);
+
+      final integrationWithPackage = SvgIntegration('package_name');
+      expect(
+        integrationWithPackage.classOutput
+            .contains('String? package = \'package_name\','),
+        isTrue,
+      );
+    });
   });
 }
