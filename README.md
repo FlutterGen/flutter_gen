@@ -125,6 +125,8 @@ flutter_gen:
     flare_flutter: true
     rive: true
     lottie: true
+    # To use "vector_graphics", "flutter_svg" also must be enabled
+    vector_graphics: true
 
   colors:
     inputs:
@@ -160,6 +162,7 @@ flutter:
     - assets/images/chip4/chip.jpg
     - assets/images/icons/paint.svg
     - assets/images/icons/dart@test.svg
+    - assets/images/icons/dart@test.svg.vec
     - assets/json/fruits.json
     - assets/flare/Penguin.flr
     - assets/rive/vehicles.riv
@@ -199,7 +202,7 @@ Widget build(BuildContext context) {
 
 ```
 
-If you are using SVG images with [flutter_svg](https://pub.dev/packages/flutter_svg) you can use the integration feature.
+If you are using SVG images with [flutter_svg][] you can use the integration feature.
 
 ```yaml
 # pubspec.yaml
@@ -221,14 +224,43 @@ Widget build(BuildContext context) {
 }
 ```
 
+You can use [vector_graphics][] integration as well as [flutter_svg][], which
+is an optimized parser of SVG images pre-compiled by [vector_graphics_compiler][].
+For more information, see also [the instruction manual][precompiling-and-optimizing-svgs].
+
+```yaml
+# pubspec.yaml
+flutter_gen:
+  integrations:
+    # To use "vector_graphics", "flutter_svg" also must be enabled
+    flutter_svg: true
+    vector_graphics: true
+
+flutter:
+  assets:
+    # `flutter_gen` consider files ending with the `.vec` extension
+    # as `vector_graphics`-compatible files.
+    - assets/images/icons/paint.vec
+```
+
+```dart
+Widget build(BuildContext context) {
+  return Assets.images.icons.paint.svg(
+    width: 120,
+    height: 120
+  );
+}
+```
+
 **Available Integrations**
 
 |Packages|File extension|Setting|Usage|
 |--|--|--|--|
-|[flutter_svg](https://pub.dev/packages/flutter_svg)|.svg| `flutter_svg: true` |Assets.images.icons.paint.**svg()**|
+|[flutter_svg][]|.svg| `flutter_svg: true` |Assets.images.icons.paint.**svg()**|
 |[flare_flutter](https://pub.dev/packages/flare_flutter)|.flr| `flare_flutter: true` |Assets.flare.penguin.**flare()**|
 |[rive](https://pub.dev/packages/rive)|.flr| `rive: true` |Assets.rive.vehicles.**rive()**|
 |[lottie](https://pub.dev/packages/lottie)|.json| `lottie: true` |Assets.lottie.hamburgerArrow.**lottie()**|
+|[vector_graphics]|.svg.vec *or* .vec| `vector_graphics: true` |Assets.images.icons.paint.**svg()**|
 
 
 <br/>
@@ -420,4 +452,7 @@ and open a [pull request](https://github.com/FlutterGen/flutter_gen/pulls).
 
 [build_runner]: https://pub.dev/packages/build_runner
 [fluttergen]: https://pub.dev/packages/flutter_gen
-
+[flutter_svg]: https://pub.dev/packages/flutter_svg
+[precompiling-and-optimizing-svgs]: https://pub.dev/packages/flutter_svg#precompiling-and-optimizing-svgs
+[vector_graphics]: https://pub.dev/packages/vector_graphics
+[vector_graphics_compiler]: https://pub.dev/packages/vector_graphics_compiler
