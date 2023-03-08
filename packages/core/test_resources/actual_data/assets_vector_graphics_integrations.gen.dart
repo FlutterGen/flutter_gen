@@ -9,8 +9,8 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:vector_graphics/vector_graphics.dart';
 import 'package:flutter/services.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
@@ -104,8 +104,8 @@ class AssetGenImage {
   String get keyName => _assetName;
 }
 
-class SvgVecGenImage {
-  const SvgVecGenImage(this._assetName);
+class SvgGenImage {
+  const SvgGenImage(this._assetName);
 
   final String _assetName;
 
@@ -129,8 +129,8 @@ class SvgVecGenImage {
     @deprecated Clip? clipBehavior,
     @deprecated bool cacheColorFilter = false,
   }) {
-    return SvgPicture(
-      AssetBytesLoader(_assetName),
+    return SvgPicture.asset(
+      _assetName,
       key: key,
       matchTextDirection: matchTextDirection,
       bundle: bundle,
@@ -147,6 +147,60 @@ class SvgVecGenImage {
       colorFilter: colorFilter,
       color: color,
       colorBlendMode: colorBlendMode,
+      clipBehavior: clipBehavior,
+      cacheColorFilter: cacheColorFilter,
+    );
+  }
+
+  String get path => _assetName;
+
+  String get keyName => _assetName;
+}
+
+class SvgVecGenImage implements SvgGenImage {
+  const SvgVecGenImage(this._assetName);
+
+  final String _assetName;
+
+  @override
+  SvgPicture svg({
+    Key? key,
+    bool matchTextDirection = false,
+    AssetBundle? bundle,
+    String? package,
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.contain,
+    AlignmentGeometry alignment = Alignment.center,
+    bool allowDrawingOutsideViewBox = false,
+    WidgetBuilder? placeholderBuilder,
+    String? semanticsLabel,
+    bool excludeFromSemantics = false,
+    SvgTheme theme = const SvgTheme(),
+    ColorFilter? colorFilter,
+    @deprecated Color? color,
+    @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
+    @deprecated Clip? clipBehavior,
+    @deprecated bool cacheColorFilter = false,
+  }) {
+    return SvgPicture(
+      AssetBytesLoader(_assetName, packageName: package, assetBundle: bundle),
+      key: key,
+      matchTextDirection: matchTextDirection,
+      width: width,
+      height: height,
+      fit: fit,
+      alignment: alignment,
+      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
+      placeholderBuilder: placeholderBuilder,
+      semanticsLabel: semanticsLabel,
+      excludeFromSemantics: excludeFromSemantics,
+      theme: theme,
+      colorFilter: colorFilter != null
+          ? colorFilter
+          : color == null
+              ? null
+              : ColorFilter.mode(color, colorBlendMode),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
     );

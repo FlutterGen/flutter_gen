@@ -69,17 +69,19 @@ String generateAssets(
         'To use "vector_graphics", "flutter_svg" must be enabled as well.');
   }
 
+  final svgIntegration = config.flutterGen.integrations.flutterSvg
+      ? SvgIntegration(config.packageParameterLiteral)
+      : null;
   final integrations = <Integration>[
-    if (config.flutterGen.integrations.flutterSvg)
-      SvgIntegration(config.packageParameterLiteral),
+    if (svgIntegration != null) svgIntegration,
     if (config.flutterGen.integrations.flareFlutter)
       FlareIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.rive)
       RiveIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.lottie)
       LottieIntegration(config.packageParameterLiteral),
-    if (config.flutterGen.integrations.vectorGraphics)
-      VectorGraphicsIntegration(config.packageParameterLiteral),
+    if (config.flutterGen.integrations.vectorGraphics && svgIntegration != null)
+      VectorGraphicsIntegration(config.packageParameterLiteral, svgIntegration),
   ];
 
   // TODO: This code will be removed.

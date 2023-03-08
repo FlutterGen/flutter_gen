@@ -160,7 +160,7 @@ void main() {
 
       await expectedAssetsGen(pubspec, generated, fact);
 
-      final integration = VectorGraphicsIntegration('');
+      final integration = VectorGraphicsIntegration('', SvgIntegration(''));
       expect(integration.className, 'SvgVecGenImage');
       expect(integration.classInstantiate('assets/path'),
           'SvgVecGenImage(\'assets/path\')');
@@ -179,7 +179,10 @@ void main() {
       expect(integration.isConstConstructor, isTrue);
       expect(integration.classOutput.contains('String? package,'), isTrue);
 
-      final integrationWithPackage = VectorGraphicsIntegration('package_name');
+      final integrationWithPackage = VectorGraphicsIntegration(
+        'package_name',
+        SvgIntegration('package_name'),
+      );
       expect(
         integrationWithPackage.classOutput
             .contains('String? package = \'package_name\','),

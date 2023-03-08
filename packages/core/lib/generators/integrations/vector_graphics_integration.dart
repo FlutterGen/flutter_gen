@@ -1,13 +1,30 @@
+import 'package:flutter_gen_core/generators/integrations/svg_integration.dart';
+
 import '../../settings/asset_type.dart';
 import 'integration.dart';
 
+/// An implementation of [Integration] for `flutter_svg` and `vector_graphics`.
+///
+/// This integration depends on [SvgIntegration].
 class VectorGraphicsIntegration extends Integration {
-  VectorGraphicsIntegration(String packageParameterLiteral)
-      : super(packageParameterLiteral);
+  VectorGraphicsIntegration(
+    String packageParameterLiteral,
+    this._svgIntegration,
+  ) : super(packageParameterLiteral);
+
+  final SvgIntegration _svgIntegration;
 
   String get packageExpression => packageParameterLiteral.isNotEmpty
       ? ' = \'$packageParameterLiteral\''
       : '';
+
+  @override
+  set isEnabled(bool value) {
+    super.isEnabled = value;
+    if (value && !_svgIntegration.isEnabled) {
+      _svgIntegration.isEnabled = true;
+    }
+  }
 
   @override
   List<String> get requiredImports => [
@@ -19,11 +36,13 @@ class VectorGraphicsIntegration extends Integration {
   @override
   String get classOutput => _classDefinition;
 
-  String get _classDefinition => '''class SvgVecGenImage {
+  String get _classDefinition =>
+      '''class SvgVecGenImage implements SvgGenImage {
   const SvgVecGenImage(this._assetName);
 
   final String _assetName;
 
+  @override
   SvgPicture svg({
     Key? key,
     bool matchTextDirection = false,
@@ -45,11 +64,9 @@ class VectorGraphicsIntegration extends Integration {
     @deprecated bool cacheColorFilter = false,
   }) {
     return SvgPicture(
-      AssetBytesLoader(_assetName),
+      AssetBytesLoader(_assetName, packageName: package, assetBundle: bundle),
       key: key,
       matchTextDirection: matchTextDirection,
-      bundle: bundle,
-      package: package,
       width: width,
       height: height,
       fit: fit,
@@ -59,9 +76,11 @@ class VectorGraphicsIntegration extends Integration {
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
       theme: theme,
-      colorFilter: colorFilter,
-      color: color,
-      colorBlendMode: colorBlendMode,
+      colorFilter: colorFilter != null
+          ? colorFilter
+          : color == null
+              ? null
+              : ColorFilter.mode(color, colorBlendMode),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
     );
