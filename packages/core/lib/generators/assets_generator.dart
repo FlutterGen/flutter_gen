@@ -505,6 +505,7 @@ class $className {
 
 String _assetGenImageClassDefinition(String packageName) {
   final packageParameter = packageName.isNotEmpty ? " = '$packageName'" : '';
+  final package = packageName.isNotEmpty ? "'$packageName'" : null;
 
   final keyName = packageName.isEmpty
       ? '_assetName'
@@ -570,7 +571,7 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider() => AssetImage(_assetName);
+  ImageProvider provider() => AssetImage(_assetName, package: $package);
 
   String get path => _assetName;
 

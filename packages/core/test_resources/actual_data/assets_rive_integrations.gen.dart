@@ -84,7 +84,7 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider() => AssetImage(_assetName);
+  ImageProvider provider() => AssetImage(_assetName, package: null);
 
   String get path => _assetName;
 
