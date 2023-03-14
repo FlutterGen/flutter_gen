@@ -40,7 +40,7 @@ class SvgIntegration extends Integration {
     ColorFilter? colorFilter,
     @deprecated Color? color,
     @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
-    @deprecated Clip? clipBehavior,
+    @deprecated Clip clipBehavior = Clip.hardEdge,
     @deprecated bool cacheColorFilter = false,
   }) {
     return SvgPicture.asset(
