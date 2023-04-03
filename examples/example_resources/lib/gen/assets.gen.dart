@@ -134,7 +134,7 @@ class SvgGenImage {
     ColorFilter? colorFilter,
     @deprecated Color? color,
     @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
-    @deprecated Clip? clipBehavior,
+    Clip clipBehavior = Clip.none,
     @deprecated bool cacheColorFilter = false,
   }) {
     return SvgPicture.asset(
