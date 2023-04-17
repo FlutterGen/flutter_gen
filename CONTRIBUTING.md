@@ -12,7 +12,7 @@ _See also: [Contributor Covenant Code of Conduct](https://github.com/FlutterGen/
 ## [Melos](https://melos.invertase.dev/getting-started) Installation
 Melos can be installed as a global package via pub.dev:
 ```sh
-$ dart pub global activate melos --version 2.9.0
+$ dart pub global activate melos
 ```
 
 Once installed & setup, Melos needs to be bootstrapped. Bootstrapping has 2 primary roles:
