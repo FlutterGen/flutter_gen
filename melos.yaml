@@ -16,13 +16,17 @@ command:
     usePubspecOverrides: true
 
 scripts:
+  get:
+    exec: flutter pub get
+    description: flutter pub get
+
   upgrade:
     exec: flutter pub upgrade
     description: flutter pub upgrade
 
   analyze:
-    run: dart analyze
-    description: dart analyze
+    run: flutter analyze
+    description: flutter analyze
 
   format:
     run: dart format --set-exit-if-changed .
