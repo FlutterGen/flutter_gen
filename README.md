@@ -420,4 +420,3 @@ and open a [pull request](https://github.com/FlutterGen/flutter_gen/pulls).
 
 [build_runner]: https://pub.dev/packages/build_runner
 [fluttergen]: https://pub.dev/packages/flutter_gen
-
