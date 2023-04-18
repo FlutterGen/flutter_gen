@@ -1,4 +1,17 @@
+## 5.3.0
+
+**Feature**
+- [#361](https://github.com/FlutterGen/flutter_gen/pull/361) Add package parameter to generated asset provider method. [@orevial](https://github.com/orevial)
+
+**Bug fix**  
+- [#396](https://github.com/FlutterGen/flutter_gen/pull/369) Fix `flutter_svg` `>=2.0.4` requires a non-null `clipBehavior` field. [@jetpeter](https://github.com/jetpeter) [@hasanmhallak](https://github.com/hasanmhallak)
+
+**Development**  
+- [#380](https://github.com/FlutterGen/flutter_gen/pull/380) Migrate to melos v3. [@blaugold](https://github.com/blaugold) [@jfacoustic](https://github.com/jfacoustic)
+- Update Dart SDK to `>=2.17.0 <3.0.0`.
+
 ## 5.2.0
+
 
 **Feature**
 - [#350](https://github.com/FlutterGen/flutter_gen/pull/350) [**BREAKING CHANGES**] Upgrade for support of `flutter_svg 2.0.0`.
