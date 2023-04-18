@@ -18,6 +18,17 @@ class $AssetsImagesGen {
   $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
 }
 
+class $AssetsUnknownGen {
+  const $AssetsUnknownGen();
+
+  /// File path: assets/unknown/unknown_mime_type.bk
+  String get unknownMimeType =>
+      'packages/test/assets/unknown/unknown_mime_type.bk';
+
+  /// List of all assets
+  List<String> get values => [unknownMimeType];
+}
+
 class $AssetsImagesChip3Gen {
   const $AssetsImagesChip3Gen();
 
@@ -48,6 +59,7 @@ class Assets {
   Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
 }
 
 class AssetGenImage {
