@@ -16,64 +16,58 @@ command:
     usePubspecOverrides: true
 
 scripts:
+  get:
+    exec: flutter pub get
+    description: flutter pub get
+
   upgrade:
-    run: melos exec -- flutter pub upgrade
+    exec: flutter pub upgrade
     description: flutter pub upgrade
 
   analyze:
-    run: dart analyze
-    description: dart analyze
+    run: flutter analyze
+    description: flutter analyze
 
   format:
     run: dart format --set-exit-if-changed .
     description: dart format --set-exit-if-changed .
 
   build:
-    run: |
-      melos exec -- flutter build apk
-    select-package:
+    exec: flutter build apk
+    packageFilters:
       scope: example
     description: flutter build apk
 
   gen:build_runner:
-    run: |
-      melos exec -- dart pub run build_runner build --delete-conflicting-outputs
-    select-package:
+    exec: dart pub run build_runner build --delete-conflicting-outputs
+    packageFilters:
       ignore:
         - example
         - example_resources
-      depends-on: build_runner
+      dependsOn: build_runner
     description: dart pub run build_runner build --delete-conflicting-outputs
 
   gen:example:command:
-    run: |
-      melos exec \
-      -- dart ../../packages/command/bin/flutter_gen_command.dart --config pubspec.yaml
-    select-package:
+    exec: dart ../../packages/command/bin/flutter_gen_command.dart --config pubspec.yaml
+    packageFilters:
       scope: example
     description: dart ../../packages/command/bin/flutter_gen_command.dart --config pubspec.yaml
 
   gen:example:build_runner:
-    run: |
-      melos exec \
-      -- flutter pub run build_runner build --delete-conflicting-outputs
-    select-package:
+    exec: flutter pub run build_runner build --delete-conflicting-outputs
+    packageFilters:
       scope: example
     description: flutter pub run build_runner build --delete-conflicting-outputs
 
   gen:example:res:command:
-    run: |
-      melos exec \
-      -- dart ../../packages/command/bin/flutter_gen_command.dart --config pubspec.yaml
-    select-package:
+    exec: dart ../../packages/command/bin/flutter_gen_command.dart --config pubspec.yaml
+    packageFilters:
       scope: example_resources
     description: dart ../../packages/command/bin/flutter_gen_command.dart --config pubspec.yaml
 
   gen:example:res:build_runner:
-    run: |
-      melos exec \
-      -- flutter pub run build_runner build --delete-conflicting-outputs
-    select-package:
+    exec: flutter pub run build_runner build --delete-conflicting-outputs
+    packageFilters:
       scope: example_resources
     description: flutter pub run build_runner build --delete-conflicting-outputs
 
@@ -82,10 +76,12 @@ scripts:
     description: dart test
 
   test:dart:
-    run: melos exec --fail-fast dart test
-    select-package:
+    run: dart test
+    exec:
+      failFast: true
+    packageFilters:
       flutter: false
-      depends-on: test
+      dependsOn: test
     description: dart test
 
   coverage:
@@ -94,5 +90,7 @@ scripts:
     description: bash ./scripts/coverage.sh packages/core
 
   postclean:
-    run: melos exec -c 6 -- flutter clean
+    run: flutter clean
+    exec:
+      concurrency: 6
     description: flutter clean

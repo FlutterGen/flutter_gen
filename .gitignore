@@ -45,6 +45,7 @@ pubspec_overrides.yaml
 **/build/
 generated_plugin_registrant.dart
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+!/pubspec.lock
 
 # Fastlane related
 android/fastlane/report.xml
