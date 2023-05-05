@@ -1,4 +1,4 @@
-import '../../settings/asset_type.dart';
+import 'package:flutter_gen_core/settings/asset_type.dart';
 
 abstract class Integration {
   Integration(this.packageParameterLiteral);

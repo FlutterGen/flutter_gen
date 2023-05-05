@@ -1,11 +1,1 @@
-include: package:flutter_lints/flutter.yaml
-
-analyzer:
-  exclude:
-    - 'example'
-    - '**/*.g.dart'
-    - 'test_resources/**'
-
-linter:
-  rules:
-    public_member_api_docs: false
+include: ../../analysis_options.yaml

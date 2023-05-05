@@ -6,6 +6,7 @@ import 'package:flutter_gen_core/generators/integrations/svg_integration.dart';
 import 'package:flutter_gen_core/settings/asset_type.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
+
 import 'gen_test_helper.dart';
 
 void main() {
@@ -31,8 +32,10 @@ void main() {
 
       final integration = SvgIntegration('');
       expect(integration.className, 'SvgGenImage');
-      expect(integration.classInstantiate('assets/path'),
-          'SvgGenImage(\'assets/path\')');
+      expect(
+        integration.classInstantiate('assets/path'),
+        'SvgGenImage(\'assets/path\')',
+      );
       expect(
           integration.isSupport(
               AssetType(rootPath: resPath, path: 'assets/path/dog.svg')),

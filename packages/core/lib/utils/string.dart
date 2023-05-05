@@ -20,7 +20,7 @@ List<String> _intoWords(String path) {
     '.',
     '/',
     '_',
-    '\\',
+    r'\',
     '-',
     '@',
   ];

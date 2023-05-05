@@ -18,7 +18,7 @@ String colorFromHex(String hexColor) {
 /// Constantin/Buckner logic: https://github.com/mbitson/mcg/blob/858cffea0d79ac143d590d110fbe20a1ea54d59d/scripts/controllers/ColorGeneratorCtrl.js#L238
 Map<int, String> swatchFromPrimaryHex(String primaryHex) {
   final primary = Color.hex(primaryHex);
-  final baseLight = Color.hex("ffffff");
+  final baseLight = Color.hex('ffffff');
   final baseDark = primary * primary;
   return {
     50: _mix(baseLight, primary, 12).toHexString(),

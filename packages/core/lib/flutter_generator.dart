@@ -1,13 +1,12 @@
 import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
+import 'package:flutter_gen_core/generators/assets_generator.dart';
+import 'package:flutter_gen_core/generators/colors_generator.dart';
+import 'package:flutter_gen_core/generators/fonts_generator.dart';
+import 'package:flutter_gen_core/settings/config.dart';
+import 'package:flutter_gen_core/utils/file.dart';
 import 'package:path/path.dart';
-
-import 'generators/assets_generator.dart';
-import 'generators/colors_generator.dart';
-import 'generators/fonts_generator.dart';
-import 'settings/config.dart';
-import 'utils/file.dart';
 
 class FlutterGenerator {
   const FlutterGenerator(

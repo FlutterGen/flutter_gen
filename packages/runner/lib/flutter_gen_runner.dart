@@ -6,7 +6,6 @@ import 'package:collection/collection.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
-
 import 'package:glob/glob.dart';
 import 'package:path/path.dart';
 
@@ -56,15 +55,17 @@ class FlutterGenBuilder extends Builder {
   }
 
   Future<_FlutterGenBuilderState> _createState(
-      Config config, BuildStep buildStep) async {
+    Config config,
+    BuildStep buildStep,
+  ) async {
     final pubspec = config.pubspec;
 
     final HashSet<String> assets = HashSet();
     if (pubspec.flutterGen.assets.enabled) {
       for (var assetInput in pubspec.flutter.assets) {
         if (assetInput.isEmpty) continue;
-        if (assetInput.endsWith("/")) assetInput += "*";
-        await for (var assetId in buildStep.findAssets(Glob(assetInput))) {
+        if (assetInput.endsWith('/')) assetInput += '*';
+        await for (final assetId in buildStep.findAssets(Glob(assetInput))) {
           assets.add(assetId.path);
         }
       }
@@ -72,9 +73,9 @@ class FlutterGenBuilder extends Builder {
 
     final HashMap<String, Digest> colors = HashMap();
     if (pubspec.flutterGen.colors.enabled) {
-      for (var colorInput in pubspec.flutterGen.colors.inputs) {
+      for (final colorInput in pubspec.flutterGen.colors.inputs) {
         if (colorInput.isEmpty) continue;
-        await for (var assetId in buildStep.findAssets(Glob(colorInput))) {
+        await for (final assetId in buildStep.findAssets(Glob(colorInput))) {
           final digest = await buildStep.digest(assetId);
           colors[assetId.path] = digest;
         }

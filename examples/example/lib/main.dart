@@ -1,9 +1,8 @@
+import 'package:example/gen/assets.gen.dart';
+import 'package:example/gen/colors.gen.dart';
+import 'package:example/gen/fonts.gen.dart';
 import 'package:example_resources/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
-
-import 'gen/assets.gen.dart';
-import 'gen/colors.gen.dart';
-import 'gen/fonts.gen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -75,7 +74,7 @@ void main() async {
                 child: const Center(child: Text('Deco')),
               ),
               // Use from example_resource package.
-              MyAssets.images.icons.kmm.svg(key: const Key("kmm_svg")),
+              MyAssets.images.icons.kmm.svg(key: const Key('kmm_svg')),
               MyAssets.images.icons.fuchsia.svg(),
               MyAssets.images.icons.paint.svg(
                 width: 120,
