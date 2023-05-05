@@ -12,3 +12,4 @@ flutter:
     - assets/images/chip3/chip3.jpg
     - assets/images/icons/dart@test.svg
     - assets/images/icons/fuchsia.svg
+    - assets/unknown/unknown_mime_type.bk
