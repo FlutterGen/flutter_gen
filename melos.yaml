@@ -19,15 +19,16 @@ command:
 
 scripts:
   get:
-    exec: flutter pub get
+    run: |
+      melos exec -c 6 -- flutter pub get
     description: flutter pub get
 
   upgrade:
-    exec: flutter pub upgrade
+    run: melos exec -c 6 -- flutter pub upgrade
     description: flutter pub upgrade
 
   analyze:
-    run: flutter analyze
+    run: melos exec -c 6 -- flutter analyze
     description: flutter analyze
 
   format:
