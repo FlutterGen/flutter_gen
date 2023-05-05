@@ -12,6 +12,8 @@ class Pubspec {
     required this.flutter,
   });
 
+  factory Pubspec.fromJson(Map json) => _$PubspecFromJson(json);
+
   @JsonKey(name: 'name', required: true)
   final String packageName;
 
@@ -20,8 +22,6 @@ class Pubspec {
 
   @JsonKey(name: 'flutter', required: true)
   final Flutter flutter;
-
-  factory Pubspec.fromJson(Map json) => _$PubspecFromJson(json);
 }
 
 @JsonSerializable()

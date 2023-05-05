@@ -1,0 +1,30 @@
+# See: https://dart-lang.github.io/linter/lints/
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - 'example'
+    - '**.g.dart'
+    - 'test_resources/**'
+
+  errors:
+    unnecessary_import: error
+    unawaited_futures: error
+
+linter:
+  rules:
+    always_use_package_imports: true
+    avoid_equals_and_hash_code_on_mutable_classes: true
+    avoid_classes_with_only_static_members: true
+    directives_ordering: true
+    flutter_style_todos: true
+    prefer_int_literals: true
+    prefer_final_in_for_each: true
+    prefer_single_quotes: true
+    # require_trailing_commas: true
+    # sort_constructors_first: true
+    unawaited_futures: true
+    unnecessary_await_in_return: true
+    use_to_and_as_if_applicable: true
+    unnecessary_lambdas: true
+    use_raw_strings: true

@@ -2,15 +2,14 @@ import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
 import 'package:dartx/dartx.dart';
+import 'package:flutter_gen_core/generators/generator_helper.dart';
+import 'package:flutter_gen_core/settings/color_path.dart';
+import 'package:flutter_gen_core/settings/pubspec.dart';
+import 'package:flutter_gen_core/utils/color.dart';
+import 'package:flutter_gen_core/utils/error.dart';
+import 'package:flutter_gen_core/utils/string.dart';
 import 'package:path/path.dart';
 import 'package:xml/xml.dart';
-
-import '../settings/color_path.dart';
-import '../settings/pubspec.dart';
-import '../utils/color.dart';
-import '../utils/error.dart';
-import '../utils/string.dart';
-import 'generator_helper.dart';
 
 String generateColors(
   File pubspecFile,
@@ -105,6 +104,7 @@ class _Color {
   _Color.fromXmlElement(XmlElement element)
       : this(
           element.getAttribute('name')!,
+          // ignore: deprecated_member_use
           element.text,
           element.getAttribute('type')?.split(' ') ?? List.empty(),
         );

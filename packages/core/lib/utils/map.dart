@@ -3,7 +3,7 @@
 /// Exposes the [mergeMap] function, which... merges Maps.
 _copyValues<K, V>(
     Map<K, V> from, Map<K, V> to, bool recursive, bool acceptNull) {
-  for (var key in from.keys) {
+  for (final key in from.keys) {
     if (from[key] is Map<K, V> && recursive) {
       if (to[key] is! Map<K, V>) {
         to[key] = <K, V>{} as V;

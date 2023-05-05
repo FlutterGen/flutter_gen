@@ -1,5 +1,5 @@
-import '../../settings/asset_type.dart';
-import 'integration.dart';
+import 'package:flutter_gen_core/generators/integrations/integration.dart';
+import 'package:flutter_gen_core/settings/asset_type.dart';
 
 class FlareIntegration extends Integration {
   FlareIntegration(String packageParameterLiteral)
