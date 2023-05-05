@@ -41,10 +41,22 @@ class $AssetsImagesGen {
       [dart, favorite, flutter3, runningCarOnRoad, skills];
 }
 
+class $AssetsUnknownGen {
+  const $AssetsUnknownGen();
+
+  /// File path: assets/unknown/unknown_mime_type.bk
+  String get unknownMimeType =>
+      'packages/example_resources/assets/unknown/unknown_mime_type.bk';
+
+  /// List of all assets
+  List<String> get values => [unknownMimeType];
+}
+
 class ResAssets {
   ResAssets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
 }
 
 class AssetGenImage {
