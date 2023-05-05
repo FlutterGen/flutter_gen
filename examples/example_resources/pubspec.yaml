@@ -49,3 +49,4 @@ flutter_gen:
 flutter:
   assets:
     - assets/images/
+    - assets/unknown/unknown_mime_type.bk
