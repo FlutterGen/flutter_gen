@@ -66,8 +66,8 @@ jobs:
 
       - name: Generate example
         run: |
-          melos gen:example:command
-          melos gen:example:build_runner
+          melos run gen:examples:command --no-select
+          melos run gen:examples:build_runner --no-select
 
       - name: Check for any formatting and statically analyze the code.
         run: |

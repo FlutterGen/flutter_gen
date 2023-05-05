@@ -60,7 +60,8 @@ scripts:
   gen:examples:build_runner:
     exec: flutter pub run build_runner build --delete-conflicting-outputs
     packageFilters:
-      scope: example
+      scope: 
+        - example
         - example_resources
     description: flutter pub run build_runner build --delete-conflicting-outputs
 
