@@ -15,9 +15,9 @@ import '../utils/string.dart';
 import 'generator_helper.dart';
 import 'integrations/flare_integration.dart';
 import 'integrations/integration.dart';
+import 'integrations/lottie_integration.dart';
 import 'integrations/rive_integration.dart';
 import 'integrations/svg_integration.dart';
-import 'integrations/lottie_integration.dart';
 
 class AssetsGenConfig {
   AssetsGenConfig._(
@@ -244,12 +244,12 @@ AssetType _constructAssetTree(
 }
 
 _Statement? _createAssetTypeStatement(
-  String rootPath,
+  AssetsGenConfig config,
   AssetType assetType,
   List<Integration> integrations,
   String name,
 ) {
-  final childAssetAbsolutePath = join(rootPath, assetType.path);
+  final childAssetAbsolutePath = join(config.rootPath, assetType.path);
   if (assetType.isSupportedImage) {
     return _Statement(
       type: 'AssetGenImage',
@@ -276,11 +276,15 @@ _Statement? _createAssetTypeStatement(
       (element) => element.isSupport(assetType),
     );
     if (integration == null) {
+      var assetKey = posixStyle(assetType.path);
+      if (config.flutterGen.assets.outputs.packageParameterEnabled) {
+        assetKey = 'packages/${config._packageName}/$assetKey';
+      }
       return _Statement(
         type: 'String',
         filePath: assetType.path,
         name: name,
-        value: '\'${posixStyle(assetType.path)}\'',
+        value: '\'$assetKey\'',
         isConstConstructor: false,
         isDirectory: false,
         needDartDoc: true,
@@ -327,7 +331,7 @@ String _dotDelimiterStyleDefinition(
           .mapToIsUniqueWithoutExtension()
           .map(
             (e) => _createAssetTypeStatement(
-              config.rootPath,
+              config,
               e.assetType,
               integrations,
               (e.isUniqueWithoutExtension
@@ -415,7 +419,7 @@ String _flatStyleDefinition(
       .mapToIsUniqueWithoutExtension()
       .map(
         (e) => _createAssetTypeStatement(
-          config.rootPath,
+          config,
           e.assetType,
           integrations,
           createName(e),
