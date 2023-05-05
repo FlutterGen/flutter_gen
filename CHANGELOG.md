@@ -1,3 +1,8 @@
+## 5.3.1
+
+**Bug fix**  
+- [#383](https://github.com/FlutterGen/flutter_gen/pull/383) Fix the wrong path for unknown mime types when `packageParameterEnabled` is enabled. [@blaugold](https://github.com/blaugold)
+
 ## 5.3.0
 
 **Feature**
