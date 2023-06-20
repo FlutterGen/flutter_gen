@@ -362,8 +362,19 @@ String _dotDelimiterStyleDefinition(
       assetTypeQueue.addAll(assetType.children);
     }
   }
-  buffer.writeln(_dotDelimiterStyleAssetsClassDefinition(
-      className, assetsStaticStatements));
+  final String? packageName;
+  if (config.flutterGen.assets.outputs.packageParameterEnabled) {
+    packageName = config._packageName;
+  } else {
+    packageName = null;
+  }
+  buffer.writeln(
+    _dotDelimiterStyleAssetsClassDefinition(
+      className,
+      assetsStaticStatements,
+      packageName,
+    ),
+  );
   return buffer.toString();
 }
 
@@ -424,27 +435,45 @@ String _flatStyleDefinition(
       .whereType<_Statement>()
       .toList();
   final className = config.flutterGen.assets.outputs.className;
-  return _flatStyleAssetsClassDefinition(className, statements);
+  final String? packageName;
+  if (config.flutterGen.assets.outputs.packageParameterEnabled) {
+    packageName = config._packageName;
+  } else {
+    packageName = null;
+  }
+  return _flatStyleAssetsClassDefinition(className, statements, packageName);
 }
 
 String _flatStyleAssetsClassDefinition(
   String className,
   List<_Statement> statements,
+  String? packageName,
 ) {
   final statementsBlock =
       statements.map((statement) => '''${statement.toDartDocString()}
            ${statement.toStaticFieldString()}
            ''').join('\n');
-  return _assetsClassDefinition(className, statements, statementsBlock);
+  return _assetsClassDefinition(
+    className,
+    statements,
+    statementsBlock,
+    packageName,
+  );
 }
 
 String _dotDelimiterStyleAssetsClassDefinition(
   String className,
   List<_Statement> statements,
+  String? packageName,
 ) {
   final statementsBlock =
       statements.map((statement) => statement.toStaticFieldString()).join('\n');
-  return _assetsClassDefinition(className, statements, statementsBlock);
+  return _assetsClassDefinition(
+    className,
+    statements,
+    statementsBlock,
+    packageName,
+  );
 }
 
 String _assetValuesDefinition(List<_Statement> statements) {
@@ -468,12 +497,14 @@ String _assetsClassDefinition(
   String className,
   List<_Statement> statements,
   String statementsBlock,
+  String? packageName,
 ) {
   final valuesBlock = _assetValuesDefinition(statements);
   return '''
 class $className {
   $className._();
-  
+${packageName != null ? "\n  static const String package = '$packageName';" : ''}
+
   $statementsBlock
   $valuesBlock
 }
@@ -504,7 +535,8 @@ class $className {
 }
 
 String _assetGenImageClassDefinition(String packageName) {
-  final packageParameter = packageName.isNotEmpty ? " = '$packageName'" : '';
+  final bool isPackage = packageName.isNotEmpty;
+  final packageParameter = isPackage ? ' = package' : '';
 
   final keyName = packageName.isEmpty
       ? '_assetName'
@@ -516,6 +548,7 @@ class AssetGenImage {
   const AssetGenImage(this._assetName);
 
   final String _assetName;
+${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   Image image({
     Key? key,
@@ -537,6 +570,7 @@ class AssetGenImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
+${isPackage ? "    @Deprecated('Do not use package for a package asset')" : ''}
     String? package$packageParameter,
     FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,

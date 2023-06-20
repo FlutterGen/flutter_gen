@@ -55,6 +55,8 @@ class $AssetsUnknownGen {
 class ResAssets {
   ResAssets._();
 
+  static const String package = 'example_resources';
+
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
 }
@@ -63,6 +65,8 @@ class AssetGenImage {
   const AssetGenImage(this._assetName);
 
   final String _assetName;
+
+  static const String package = 'example_resources';
 
   Image image({
     Key? key,
@@ -84,7 +88,8 @@ class AssetGenImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
-    String? package = 'example_resources',
+    @Deprecated('Do not use package for a package asset')
+        String? package = package,
     FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,
@@ -119,7 +124,7 @@ class AssetGenImage {
 
   ImageProvider provider({
     AssetBundle? bundle,
-    String? package = 'example_resources',
+    String? package = package,
   }) {
     return AssetImage(
       _assetName,
@@ -138,11 +143,14 @@ class SvgGenImage {
 
   final String _assetName;
 
+  static const String package = 'example_resources';
+
   SvgPicture svg({
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    String? package = 'example_resources',
+    @Deprecated('Do not use package for a package asset')
+        String? package = package,
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,
@@ -154,9 +162,12 @@ class SvgGenImage {
     SvgTheme theme = const SvgTheme(),
     ColorFilter? colorFilter,
     Clip clipBehavior = Clip.hardEdge,
-    @deprecated Color? color,
-    @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
-    @deprecated bool cacheColorFilter = false,
+    @deprecated
+        Color? color,
+    @deprecated
+        BlendMode colorBlendMode = BlendMode.srcIn,
+    @deprecated
+        bool cacheColorFilter = false,
   }) {
     return SvgPicture.asset(
       _assetName,
@@ -190,6 +201,8 @@ class FlareGenImage {
   const FlareGenImage(this._assetName);
 
   final String _assetName;
+
+  static const String package = 'example_resources';
 
   FlareActor flare({
     String? boundsNode,
@@ -234,6 +247,8 @@ class RiveGenImage {
 
   final String _assetName;
 
+  static const String package = 'example_resources';
+
   RiveAnimation rive({
     String? artboard,
     List<String> animations = const [],
@@ -269,6 +284,8 @@ class LottieGenImage {
 
   final String _assetName;
 
+  static const String package = 'example_resources';
+
   LottieBuilder lottie({
     Animation<double>? controller,
     bool? animate,
@@ -287,7 +304,8 @@ class LottieGenImage {
     double? height,
     BoxFit? fit,
     AlignmentGeometry? alignment,
-    String? package = 'example_resources',
+    @Deprecated('Do not use package for a package asset')
+        String? package = package,
     bool? addRepaintBoundary,
     FilterQuality? filterQuality,
     void Function(String)? onWarning,

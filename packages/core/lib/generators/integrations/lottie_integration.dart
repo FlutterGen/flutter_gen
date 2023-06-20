@@ -21,9 +21,7 @@ class LottieIntegration extends Integration {
     'layers', // Must include layers
   ];
 
-  String get packageExpression => packageParameterLiteral.isNotEmpty
-      ? ' = \'$packageParameterLiteral\''
-      : '';
+  String get packageExpression => isPackage ? ' = package' : '';
 
   @override
   List<String> get requiredImports => [
@@ -37,6 +35,7 @@ class LottieIntegration extends Integration {
   const LottieGenImage(this._assetName);
 
   final String _assetName;
+${isPackage ? "\n  static const String package = '$packageParameterLiteral';" : ''}
 
   LottieBuilder lottie({
     Animation<double>? controller,
@@ -56,6 +55,7 @@ class LottieIntegration extends Integration {
     double? height,
     BoxFit? fit,
     AlignmentGeometry? alignment,
+${isPackage ? "    @Deprecated('Do not use package for a package asset')" : ''}
     String? package$packageExpression,
     bool? addRepaintBoundary,
     FilterQuality? filterQuality,
@@ -89,7 +89,7 @@ class LottieIntegration extends Integration {
 
   String get path => _assetName;
 
-  String get keyName => ${packageParameterLiteral.isEmpty ? '_assetName' : '\'packages/$packageParameterLiteral/\$_assetName\''};
+  String get keyName => ${isPackage ? '\'packages/$packageParameterLiteral/\$_assetName\'' : '_assetName'};
 }''';
 
   @override

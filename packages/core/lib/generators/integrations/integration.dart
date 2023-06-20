@@ -4,6 +4,7 @@ abstract class Integration {
   Integration(this.packageParameterLiteral);
 
   final String packageParameterLiteral;
+  late final bool isPackage = packageParameterLiteral.isNotEmpty;
 
   bool isEnabled = false;
 
