@@ -114,7 +114,7 @@ String generateAssets(
     │                                                                                                │
     │ [pubspec.yaml]                                                                                 │
     │                                                                                                │
-    │  fluttergen:                                                                                   │
+    │  flutter_gen:                                                                                  │
     │    assets:                                                                                     │
     │      outputs:                                                                                  │
     │        style: snake-case                                                                       │
@@ -130,7 +130,7 @@ String generateAssets(
     │                                                                       │
     │ [pubspec.yaml]                                                        │
     │                                                                       │
-    │  fluttergen:                                                          │
+    │  flutter_gen:                                                         │
     │    assets:                                                            │
     │      outputs:                                                         │
     │        style: snake-case                                              │
@@ -145,7 +145,7 @@ String generateAssets(
     │                                                                                        │
     │ [pubspec.yaml]                                                                         │
     │                                                                                        │
-    │  fluttergen:                                                                           │
+    │  flutter_gen:                                                                          │
     │    assets:                                                                             │
     │      outputs:                                                                          │
     │        package_parameter_enabled: true                                                 │
