@@ -73,6 +73,16 @@ void main() {
           'test_resources/lib/gen/assets_package_parameter.gen.dart';
 
       await expectedAssetsGen(pubspec, generated, fact);
+
+      // The generated classes have `package` fields.
+      final content = await File(generated).readAsString();
+      expect(content, contains("static const String package = 'test';"));
+      expect(
+        content,
+        contains('''
+    @Deprecated('Do not use package for a package asset')
+        String? package = package,'''),
+      );
     });
 
     test('Assets with excluded files and directories', () async {
