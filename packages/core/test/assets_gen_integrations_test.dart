@@ -49,8 +49,15 @@ void main() {
 
       final integrationWithPackage = SvgIntegration('package_name');
       expect(
-        integrationWithPackage.classOutput
-            .contains('String? package = \'package_name\','),
+        integrationWithPackage.classOutput.contains(
+          'String? package = package,',
+        ),
+        isTrue,
+      );
+      expect(
+        integrationWithPackage.classOutput.contains(
+          "static const String package = 'package_name';",
+        ),
         isTrue,
       );
     });
@@ -146,8 +153,15 @@ void main() {
 
       final integrationWithPackage = LottieIntegration('package_name');
       expect(
-        integrationWithPackage.classOutput
-            .contains('String? package = \'package_name\','),
+        integrationWithPackage.classOutput.contains(
+          'String? package = package,',
+        ),
+        isTrue,
+      );
+      expect(
+        integrationWithPackage.classOutput.contains(
+          "static const String package = 'package_name';",
+        ),
         isTrue,
       );
     });
