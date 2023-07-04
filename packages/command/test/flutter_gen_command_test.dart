@@ -1,13 +1,21 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter_gen_core/utils/version.dart';
 import 'package:test/test.dart';
 import 'package:test_process/test_process.dart';
+
+final separator = Platform.pathSeparator;
 
 void main() {
   test('Execute fluttergen', () async {
     final process =
         await TestProcess.start('dart', ['bin/flutter_gen_command.dart']);
-    expect(await process.stdout.next,
-        equals('$flutterGenVersion Loading ... command/pubspec.yaml'));
+    expect(
+      await process.stdout.next,
+      equals(
+        '$flutterGenVersion Loading ... command${separator}pubspec.yaml',
+      ),
+    );
     await process.shouldExit(0);
   });
 
@@ -15,7 +23,7 @@ void main() {
     var process = await TestProcess.start(
         'dart', ['bin/flutter_gen_command.dart', '--config', 'pubspec.yaml']);
     expect(await process.stdout.next,
-        equals('$flutterGenVersion Loading ... command/pubspec.yaml'));
+        equals('$flutterGenVersion Loading ... command${separator}pubspec.yaml'));
     await process.shouldExit(0);
   });
 
