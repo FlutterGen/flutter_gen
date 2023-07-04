@@ -79,9 +79,11 @@ void main() {
       expect(content, contains("static const String package = 'test';"));
       expect(
         content,
-        contains('''
-    @Deprecated('Do not use package for a package asset')
-        String? package = package,'''),
+        contains("@Deprecated('Do not use package for a package asset')"),
+      );
+      expect(
+        content,
+        contains('String? package = package,'),
       );
     });
 
