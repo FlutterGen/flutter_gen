@@ -168,6 +168,55 @@ flutter:
 
 These configurations will generate **`assets.gen.dart`** under the **`lib/gen/`** directory by default.
 
+#### Generate for packages
+
+If you want to generate assets for a package,
+use `package_parameter_enabled` under `flutter_gen > assets > outputs`.
+
+```yaml
+flutter_gen:
+  assets:
+    outputs:
+      package_parameter_enabled: false # <- Add this line.
+```
+
+This would add the package constant to the generated class. For example:
+
+```dart
+class Assets {
+  Assets._();
+
+  static const String package = 'test';
+
+  static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
+}
+```
+
+Then you can use assets with the package implicitly or explicitly:
+
+```dart
+// Implicit usage for `Image`/`SvgPicture`/`Lottie`.
+Widget build(BuildContext context) {
+  return Assets.images.icons.paint.svg(
+    width: 120,
+    height: 120,
+  );
+}
+```
+or
+```dart
+// Explicit usage for `Image`/`SvgPicture`/`Lottie`.
+Widget build(BuildContext context) {
+  return SvgPicture.asset(
+    Assets.images.icons.paint.path,
+    package: Assets.package,
+    width: 120,
+    height: 120,
+  );
+}
+```
+
 #### Usage Example
 
 [FlutterGen] generates [Image](https://api.flutter.dev/flutter/widgets/Image-class.html) class if the asset is Flutter supported image format.
