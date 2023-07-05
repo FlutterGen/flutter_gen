@@ -186,6 +186,14 @@ String generateAssets(
   return formatter.format(buffer.toString());
 }
 
+String? generatePackageNameForConfig(AssetsGenConfig config) {
+  if (config.flutterGen.assets.outputs.packageParameterEnabled) {
+    return config._packageName;
+  } else {
+    return null;
+  }
+}
+
 List<String> _getAssetRelativePathList(
   String rootPath,
   List<String> assets,
@@ -362,12 +370,7 @@ String _dotDelimiterStyleDefinition(
       assetTypeQueue.addAll(assetType.children);
     }
   }
-  final String? packageName;
-  if (config.flutterGen.assets.outputs.packageParameterEnabled) {
-    packageName = config._packageName;
-  } else {
-    packageName = null;
-  }
+  final String? packageName = generatePackageNameForConfig(config);
   buffer.writeln(
     _dotDelimiterStyleAssetsClassDefinition(
       className,
@@ -435,12 +438,7 @@ String _flatStyleDefinition(
       .whereType<_Statement>()
       .toList();
   final className = config.flutterGen.assets.outputs.className;
-  final String? packageName;
-  if (config.flutterGen.assets.outputs.packageParameterEnabled) {
-    packageName = config._packageName;
-  } else {
-    packageName = null;
-  }
+  final String? packageName = generatePackageNameForConfig(config);
   return _flatStyleAssetsClassDefinition(className, statements, packageName);
 }
 

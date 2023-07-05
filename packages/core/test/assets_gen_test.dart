@@ -107,4 +107,18 @@ void main() {
       await expectedAssetsGen(pubspec, generated, fact);
     });
   });
+
+  group('Test generatePackageNameForConfig', () {
+    test('Assets on pubspec.yaml', () {
+      const pubspec = 'test_resources/pubspec_assets.yaml';
+      const fact = null;
+      expectedPackageNameGen(pubspec, fact);
+    });
+
+    test('Assets with package parameter enabled', () {
+      const pubspec = 'test_resources/pubspec_assets_package_parameter.yaml';
+      const fact = 'test';
+      expectedPackageNameGen(pubspec, fact);
+    });
+  });
 }
