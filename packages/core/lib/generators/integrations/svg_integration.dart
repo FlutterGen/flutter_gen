@@ -26,8 +26,7 @@ ${isPackage ? "\n  static const String package = '$packageParameterLiteral';" : 
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-${isPackage ? """    @Deprecated('Do not use package for a package asset')
-        String? package$packageExpression""" : '    String? package$packageExpression'},
+    ${isPackage ? '@deprecated ' : ''}String? package$packageExpression,
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,

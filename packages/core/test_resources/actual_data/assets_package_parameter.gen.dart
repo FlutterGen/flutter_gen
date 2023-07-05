@@ -91,8 +91,7 @@ class AssetGenImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
-    @Deprecated('Do not use package for a package asset')
-        String? package = package,
+    @deprecated String? package = package,
     FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,
@@ -152,8 +151,7 @@ class SvgGenImage {
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    @Deprecated('Do not use package for a package asset')
-        String? package = package,
+    @deprecated String? package = package,
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,
