@@ -55,8 +55,8 @@ ${isPackage ? "\n  static const String package = '$packageParameterLiteral';" : 
     double? height,
     BoxFit? fit,
     AlignmentGeometry? alignment,
-${isPackage ? "    @Deprecated('Do not use package for a package asset')" : ''}
-    String? package$packageExpression,
+${isPackage ? """    @Deprecated('Do not use package for a package asset')
+        String? package$packageExpression""" : '    String? package$packageExpression'},
     bool? addRepaintBoundary,
     FilterQuality? filterQuality,
     void Function(String)? onWarning,

@@ -570,8 +570,8 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
-${isPackage ? "    @Deprecated('Do not use package for a package asset')" : ''}
-    String? package$packageParameter,
+${isPackage ? """    @Deprecated('Do not use package for a package asset')
+        String? package$packageParameter""" : '    String? package$packageParameter'},
     FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,
