@@ -19,7 +19,7 @@ dependencies:
     path: ../example_resources
 
 dev_dependencies:
-  flutter_lints: ^2.0.1
+  lints: ^2.0.0
   build_runner: ^2.0.0
   flutter_gen_runner: ^5.3.1
 

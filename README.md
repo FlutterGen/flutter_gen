@@ -13,8 +13,8 @@
   <a href="https://codecov.io/gh/FlutterGen/flutter_gen">
     <img src="https://codecov.io/gh/FlutterGen/flutter_gen/branch/main/graph/badge.svg" />
   </a>
-  <a href="https://pub.dev/packages/flutter_lints">
-    <img src="https://img.shields.io/badge/style-flutter__lints-40c4ff.svg" />
+  <a href="https://pub.dev/packages/lints">
+    <img src="https://img.shields.io/badge/style-lints-40c4ff.svg" />
   </a>
 </p>
 
