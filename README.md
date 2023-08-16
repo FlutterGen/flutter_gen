@@ -381,7 +381,7 @@ The you most likely have a customized `build.yaml` to configure the build runner
 
 ```yaml
 targets:
-  default:
+  $default:
     sources:
       include:
         - pubspec.yaml  # add this line
