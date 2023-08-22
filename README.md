@@ -177,7 +177,7 @@ use `package_parameter_enabled` under `flutter_gen > assets > outputs`.
 flutter_gen:
   assets:
     outputs:
-      package_parameter_enabled: false # <- Add this line.
+      package_parameter_enabled: true # <- Add this line.
 ```
 
 This would add the package constant to the generated class. For example:
