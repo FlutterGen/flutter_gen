@@ -74,7 +74,8 @@ FlutterGen _$FlutterGenFromJson(Map json) => $checkedCreate(
             'assets',
             'fonts',
             'integrations',
-            'colors'
+            'colors',
+            'strings'
           ],
         );
         final val = FlutterGen(
@@ -88,6 +89,8 @@ FlutterGen _$FlutterGenFromJson(Map json) => $checkedCreate(
               'integrations', (v) => FlutterGenIntegrations.fromJson(v as Map)),
           colors: $checkedConvert(
               'colors', (v) => FlutterGenColors.fromJson(v as Map)),
+          strings: $checkedConvert(
+              'strings', (v) => FlutterGenStrings.fromJson(v as Map)),
         );
         return val;
       },
@@ -225,5 +228,24 @@ FlutterGenElementAssetsOutputs _$FlutterGenElementAssetsOutputsFromJson(
       fieldKeyMap: const {
         'className': 'class_name',
         'packageParameterEnabled': 'package_parameter_enabled'
+      },
+    );
+
+FlutterGenStrings _$FlutterGenStringsFromJson(Map json) => $checkedCreate(
+      'FlutterGenStrings',
+      json,
+      ($checkedConvert) {
+        $checkKeys(
+          json,
+          requiredKeys: const ['enabled', 'inputs', 'outputs'],
+        );
+        final val = FlutterGenStrings(
+          enabled: $checkedConvert('enabled', (v) => v as bool),
+          inputs: $checkedConvert('inputs',
+              (v) => (v as List<dynamic>).map((e) => e as String).toList()),
+          outputs: $checkedConvert(
+              'outputs', (v) => FlutterGenElementOutputs.fromJson(v as Map)),
+        );
+        return val;
       },
     );

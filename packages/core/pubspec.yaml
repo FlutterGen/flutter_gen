@@ -29,6 +29,7 @@ dependencies:
   args: '>=2.0.0 <3.0.0'
   pub_semver: '>=2.0.0 <3.0.0'
   source_span: '>=1.8.0 <2.0.0'
+  mime_type: ^1.0.0
 
 dev_dependencies:
   test: '>=1.16.0 <2.0.0'

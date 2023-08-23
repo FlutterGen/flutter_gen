@@ -19,7 +19,7 @@ dependencies:
   lottie: 2.0.0
 
   # Dependency check
-  collection: 1.17.0
+  collection: ^1.17.2
   crypto: 3.0.2
   glob: 2.0.2
 

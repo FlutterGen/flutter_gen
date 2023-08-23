@@ -59,6 +59,7 @@ class FlutterGen {
     required this.fonts,
     required this.integrations,
     required this.colors,
+    required this.strings,
   });
 
   @JsonKey(name: 'output', required: true)
@@ -78,6 +79,9 @@ class FlutterGen {
 
   @JsonKey(name: 'colors', required: true)
   final FlutterGenColors colors;
+
+  @JsonKey(name: 'strings', required: true)
+  final FlutterGenStrings strings;
 
   factory FlutterGen.fromJson(Map json) => _$FlutterGenFromJson(json);
 }
@@ -220,4 +224,26 @@ class FlutterGenElementAssetsOutputs extends FlutterGenElementOutputs {
 
   factory FlutterGenElementAssetsOutputs.fromJson(Map json) =>
       _$FlutterGenElementAssetsOutputsFromJson(json);
+}
+@JsonSerializable()
+class FlutterGenStrings {
+
+  @JsonKey(name: 'enabled', required: true)
+  final bool enabled;
+
+  @JsonKey(name: 'inputs', required: true)
+  final List<String> inputs;
+
+  @JsonKey(name: 'outputs', required: true)
+  final FlutterGenElementOutputs outputs;
+
+  FlutterGenStrings({
+    required this.enabled,
+    required this.inputs,
+    required this.outputs,
+  });
+
+  factory FlutterGenStrings.fromJson(Map json) =>
+      _$FlutterGenStringsFromJson(json);
+
 }

@@ -1,0 +1,16 @@
+name: test
+
+flutter_gen:
+  output: lib/gen/ # Optional (default: lib/gen/)
+  line_length: 80 # Optional (default: 80)
+
+  strings:
+    enabled: true
+    outputs:
+      class_name: AppStrings
+      style: camel-case
+    inputs:
+      - assets/strings/strings.yaml
+      - assets/strings/strings.json
+      - assets/strings/strings.csv
+      - assets/strings/strings.yaml # duplicated

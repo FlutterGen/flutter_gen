@@ -1,8 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run on build_runner" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
-    <option name="arguments" value="build" />
-    <option name="filePath" value="$PROJECT_DIR$/example/.dart_tool/build/entrypoint/build.dart" />
-    <option name="workingDirectory" value="$PROJECT_DIR$/example" />
-    <method v="2" />
-  </configuration>
-</component>
