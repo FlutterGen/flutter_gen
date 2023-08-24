@@ -1,3 +1,5 @@
 strings:
   a: A string
   b: B String
+  c-why-some-times: because
+  d-is-more-difficult: it has a ' character

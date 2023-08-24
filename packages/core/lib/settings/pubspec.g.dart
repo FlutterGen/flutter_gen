@@ -241,11 +241,26 @@ FlutterGenStrings _$FlutterGenStringsFromJson(Map json) => $checkedCreate(
         );
         final val = FlutterGenStrings(
           enabled: $checkedConvert('enabled', (v) => v as bool),
-          inputs: $checkedConvert('inputs',
-              (v) => (v as List<dynamic>).map((e) => e as String).toList()),
-          outputs: $checkedConvert(
-              'outputs', (v) => FlutterGenElementOutputs.fromJson(v as Map)),
+          inputs: $checkedConvert('inputs', (v) => (v as List<dynamic>).map((e) => e as String).toList()),
+          outputs: $checkedConvert('outputs', (v) => FlutterGenElementStringsOutputs.fromJson(v as Map)),
         );
         return val;
       },
+    );
+
+FlutterGenElementStringsOutputs _$FlutterGenElementStringsOutputsFromJson(Map json) => $checkedCreate(
+      'FlutterGenElementStringsOutputs',
+      json,
+      ($checkedConvert) {
+        $checkKeys(
+          json,
+          requiredKeys: const ['class_name', 'style'],
+        );
+        final val = FlutterGenElementStringsOutputs(
+          className: $checkedConvert('class_name', (v) => v as String),
+          style: $checkedConvert('style', (v) => v as String),
+        );
+        return val;
+      },
+      fieldKeyMap: const {'className': 'class_name'},
     );

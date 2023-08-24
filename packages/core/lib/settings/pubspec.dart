@@ -225,6 +225,7 @@ class FlutterGenElementAssetsOutputs extends FlutterGenElementOutputs {
   factory FlutterGenElementAssetsOutputs.fromJson(Map json) =>
       _$FlutterGenElementAssetsOutputsFromJson(json);
 }
+
 @JsonSerializable()
 class FlutterGenStrings {
 
@@ -235,7 +236,7 @@ class FlutterGenStrings {
   final List<String> inputs;
 
   @JsonKey(name: 'outputs', required: true)
-  final FlutterGenElementOutputs outputs;
+  final FlutterGenElementStringsOutputs outputs;
 
   FlutterGenStrings({
     required this.enabled,
@@ -243,7 +244,34 @@ class FlutterGenStrings {
     required this.outputs,
   });
 
-  factory FlutterGenStrings.fromJson(Map json) =>
-      _$FlutterGenStringsFromJson(json);
+  factory FlutterGenStrings.fromJson(Map json) => _$FlutterGenStringsFromJson(json);
+}
 
+// TODO(brads): the FlutterGenElementAssetsOutputs has a required packageParameterEnabled field
+// TODO(brads): need to come up with a design that avoids the redundancy here
+@JsonSerializable()
+class FlutterGenElementStringsOutputs extends FlutterGenElementOutputs {
+  static const String dotDelimiterStyle = 'dot-delimiter';
+  static const String snakeCaseStyle = 'snake-case';
+  static const String camelCaseStyle = 'camel-case';
+
+  FlutterGenElementStringsOutputs({
+    required String className,
+    required this.style,
+  }) : super(className: className) {
+    if (style != dotDelimiterStyle && style != snakeCaseStyle && style != camelCaseStyle) {
+      throw ArgumentError.value(style, 'style');
+    }
+  }
+
+  @JsonKey(name: 'style', required: true)
+  final String style;
+
+  bool get isDotDelimiterStyle => style == dotDelimiterStyle;
+
+  bool get isSnakeCaseStyle => style == snakeCaseStyle;
+
+  bool get isCamelCaseStyle => style == camelCaseStyle;
+
+  factory FlutterGenElementStringsOutputs.fromJson(Map json) => _$FlutterGenElementStringsOutputsFromJson(json);
 }

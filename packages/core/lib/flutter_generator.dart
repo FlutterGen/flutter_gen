@@ -4,6 +4,7 @@ import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen_core/generators/assets_generator.dart';
 import 'package:flutter_gen_core/generators/colors_generator.dart';
 import 'package:flutter_gen_core/generators/fonts_generator.dart';
+import 'package:flutter_gen_core/generators/strings_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:flutter_gen_core/utils/file.dart';
 import 'package:path/path.dart';
@@ -14,12 +15,14 @@ class FlutterGenerator {
     this.assetsName = 'assets.gen.dart',
     this.colorsName = 'colors.gen.dart',
     this.fontsName = 'fonts.gen.dart',
+    this.stringsName = 'strings.gen.dart',
   });
 
   final File pubspecFile;
   final String assetsName;
   final String colorsName;
   final String fontsName;
+  final String stringsName;
 
   Future<void> build({Config? config, FileWriter? writer}) async {
     config ??= loadPubspecConfigOrNull(pubspecFile);
@@ -41,17 +44,14 @@ class FlutterGenerator {
 
     writer ??= defaultWriter;
 
-    final absoluteOutput =
-        Directory(normalize(join(pubspecFile.parent.path, output)));
+    final absoluteOutput = Directory(normalize(join(pubspecFile.parent.path, output)));
     if (!absoluteOutput.existsSync()) {
       absoluteOutput.createSync(recursive: true);
     }
 
     if (flutterGen.colors.enabled && flutterGen.colors.inputs.isNotEmpty) {
-      final generated =
-          generateColors(pubspecFile, formatter, flutterGen.colors);
-      final colorsPath =
-          normalize(join(pubspecFile.parent.path, output, colorsName));
+      final generated = generateColors(pubspecFile, formatter, flutterGen.colors);
+      final colorsPath = normalize(join(pubspecFile.parent.path, output, colorsName));
       writer(generated, colorsPath);
       stdout.writeln('Generated: $colorsPath');
     }
@@ -61,19 +61,23 @@ class FlutterGenerator {
         AssetsGenConfig.fromConfig(pubspecFile, config),
         formatter,
       );
-      final assetsPath =
-          normalize(join(pubspecFile.parent.path, output, assetsName));
+      final assetsPath = normalize(join(pubspecFile.parent.path, output, assetsName));
       writer(generated, assetsPath);
       stdout.writeln('Generated: $assetsPath');
     }
 
     if (flutterGen.fonts.enabled && flutter.fonts.isNotEmpty) {
-      final generated =
-          generateFonts(formatter, flutter.fonts, flutterGen.fonts);
-      final fontsPath =
-          normalize(join(pubspecFile.parent.path, output, fontsName));
+      final generated = generateFonts(formatter, flutter.fonts, flutterGen.fonts);
+      final fontsPath = normalize(join(pubspecFile.parent.path, output, fontsName));
       writer(generated, fontsPath);
       stdout.writeln('Generated: $fontsPath');
+    }
+
+    if (flutterGen.strings.enabled && flutterGen.strings.inputs.isNotEmpty) {
+      final generated = generateStrings(pubspecFile, formatter, flutterGen.strings);
+      final stringsPath = normalize(join(pubspecFile.parent.path, output, stringsName));
+      writer(generated, stringsPath);
+      stdout.writeln('Generated:  $stringsPath');
     }
 
     stdout.writeln('FlutterGen finished.');

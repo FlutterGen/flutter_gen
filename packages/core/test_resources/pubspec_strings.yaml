@@ -9,6 +9,7 @@ flutter_gen:
     outputs:
       class_name: AppStrings
       style: camel-case
+
     inputs:
       - assets/strings/strings.yaml
       - assets/strings/strings.json
