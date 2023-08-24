@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">srts_sensors_android</string>
+    <string name="hide_simulator">Hide Simulator</string>
+    <string name="show_simulator">Show Simulator</string>
+    <string name="start_calibration">Start Calibrating</string>
+    <string name="stop_calibration">Stop Calibrating</string>
+    <string name="coherence_format">%1$.0f%%</string>
+    <string name="nil_coherence">--%</string>
+</resources>

@@ -9,6 +9,7 @@ import 'package:flutter_gen_core/settings/string_path.dart';
 import 'package:flutter_gen_core/utils/error.dart';
 import 'package:flutter_gen_core/utils/string.dart';
 import 'package:path/path.dart';
+import 'package:xml/xml.dart';
 import 'package:yaml/yaml.dart';
 
 String generateStrings(File pubspecFile,
@@ -29,19 +30,22 @@ String generateStrings(File pubspecFile,
   buffer.writeln();
 
   final rawStringMap = <String, String>{};
+  final stringList = <_String>[];
 
   stringsConfig.inputs.map((file) => StringPath(join(pubspecFile.parent.path, file))).forEach((stringFile) {
     print('\n\nstringFile.file.path -> ${stringFile.file.path}, stringFile.mime -> ${stringFile.mime}');
     print(
         'stringFile.isYaml -> ${stringFile.isYaml}, stringFile.isJson -> ${stringFile.isJson}, stringFile.isCsv -> ${stringFile.isCsv}\n\n');
     if (stringFile.isYaml) {
-      // TODO(brads): add type (camel-case, dot-delimited, etc. support)
       rawStringMap.addAll(StringsYaml.fromJson(loadYaml(stringFile.file.readAsStringSync())).strings);
-      print('rawStringMap.strings -> $rawStringMap');
+    } else if (stringFile.isXml) {
+      stringList.addAll(XmlDocument.parse(stringFile.file.readAsStringSync()).findAllElements('string').map((element) {
+        return _String.fromXmlElement(element);
+      }));
     }
   });
 
-  final stringList = <_String>[];
+  // TODO(brads): add type (camel-case, dot-delimited, etc. support)
   if (stringsConfig.outputs.isCamelCaseStyle) {
     rawStringMap.forEach((key, value) {
       stringList.add(_String(key, key.camelCase(), value));
@@ -62,9 +66,15 @@ String generateStrings(File pubspecFile,
 class _String {
   _String(this.rawName, this.name, this.value);
 
-  final String rawName;
-  final String name;
-  final String value;
+  late final String rawName;
+  late final String name;
+  late final String value;
+
+  _String.fromXmlElement(XmlElement element) {
+    rawName = element.getAttribute('name')!;
+    name = rawName.camelCase();
+    value = element.text;
+  }
 
   String asStringStatement() {
     final buffer = StringBuffer();
@@ -72,7 +82,7 @@ class _String {
     //   /// com-scan-system-manager: System Manager               (comment line)
     //   final String comScanSystemManager = 'System Manager';     (string var. def. line)
 
-    final String escapedValue = value.replaceAll("'", r"\'");
+    final String escapedValue = value.replaceAll("'", r"\'").replaceAll(r'$', r'\$');
 
     buffer.writeln('');
     // generate the comment line

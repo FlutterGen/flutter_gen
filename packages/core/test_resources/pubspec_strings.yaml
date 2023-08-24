@@ -14,4 +14,5 @@ flutter_gen:
       - assets/strings/strings.yaml
       - assets/strings/strings.json
       - assets/strings/strings.csv
+      - assets/strings/strings.xml
       - assets/strings/strings.yaml # duplicated

@@ -74,23 +74,16 @@ FlutterGen _$FlutterGenFromJson(Map json) => $checkedCreate(
             'assets',
             'fonts',
             'integrations',
-            'colors',
-            'strings'
-          ],
+            'colors'],
         );
         final val = FlutterGen(
           output: $checkedConvert('output', (v) => v as String),
           lineLength: $checkedConvert('line_length', (v) => v as int),
-          assets: $checkedConvert(
-              'assets', (v) => FlutterGenAssets.fromJson(v as Map)),
-          fonts: $checkedConvert(
-              'fonts', (v) => FlutterGenFonts.fromJson(v as Map)),
-          integrations: $checkedConvert(
-              'integrations', (v) => FlutterGenIntegrations.fromJson(v as Map)),
-          colors: $checkedConvert(
-              'colors', (v) => FlutterGenColors.fromJson(v as Map)),
-          strings: $checkedConvert(
-              'strings', (v) => FlutterGenStrings.fromJson(v as Map)),
+          assets: $checkedConvert('assets', (v) => FlutterGenAssets.fromJson(v as Map)),
+          fonts: $checkedConvert('fonts', (v) => FlutterGenFonts.fromJson(v as Map)),
+          integrations: $checkedConvert('integrations', (v) => FlutterGenIntegrations.fromJson(v as Map)),
+          colors: $checkedConvert('colors', (v) => FlutterGenColors.fromJson(v as Map)),
+          strings: $checkedConvert('strings', (v) => v == null ? null : FlutterGenStrings.fromJson(v as Map)),
         );
         return val;
       },

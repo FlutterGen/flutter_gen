@@ -19,6 +19,7 @@ class StringPath {
 
   bool get isCsv => mime == 'text/csv';
 
+  bool get isXml => mime == 'application/xml';
 }
 
 /*

@@ -73,11 +73,14 @@ class FlutterGenerator {
       stdout.writeln('Generated: $fontsPath');
     }
 
-    if (flutterGen.strings.enabled && flutterGen.strings.inputs.isNotEmpty) {
-      final generated = generateStrings(pubspecFile, formatter, flutterGen.strings);
-      final stringsPath = normalize(join(pubspecFile.parent.path, output, stringsName));
-      writer(generated, stringsPath);
-      stdout.writeln('Generated:  $stringsPath');
+    if (flutterGen.strings != null) {
+      var flutterGenStrings = flutterGen.strings!;
+      if (flutterGenStrings.enabled && flutterGenStrings.inputs.isNotEmpty) {
+        final generated = generateStrings(pubspecFile, formatter, flutterGenStrings);
+        final stringsPath = normalize(join(pubspecFile.parent.path, output, stringsName));
+        writer(generated, stringsPath);
+        stdout.writeln('Generated:  $stringsPath');
+      }
     }
 
     stdout.writeln('FlutterGen finished.');

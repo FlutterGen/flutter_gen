@@ -80,8 +80,8 @@ class FlutterGen {
   @JsonKey(name: 'colors', required: true)
   final FlutterGenColors colors;
 
-  @JsonKey(name: 'strings', required: true)
-  final FlutterGenStrings strings;
+  @JsonKey(name: 'strings', required: false)
+  final FlutterGenStrings? strings;
 
   factory FlutterGen.fromJson(Map json) => _$FlutterGenFromJson(json);
 }
