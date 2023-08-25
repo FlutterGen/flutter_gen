@@ -33,9 +33,6 @@ String generateStrings(File pubspecFile,
   final stringList = <_String>[];
 
   stringsConfig.inputs.map((file) => StringPath(join(pubspecFile.parent.path, file))).forEach((stringFile) {
-    print('\n\nstringFile.file.path -> ${stringFile.file.path}, stringFile.mime -> ${stringFile.mime}');
-    print(
-        'stringFile.isYaml -> ${stringFile.isYaml}, stringFile.isJson -> ${stringFile.isJson}, stringFile.isCsv -> ${stringFile.isCsv}\n\n');
     if (stringFile.isYaml) {
       rawStringMap.addAll(StringsYaml.fromJson(loadYaml(stringFile.file.readAsStringSync())).strings);
     } else if (stringFile.isXml) {
@@ -45,13 +42,12 @@ String generateStrings(File pubspecFile,
     }
   });
 
-  // TODO(brads): add type (camel-case, dot-delimited, etc. support)
+  // TODO(brads): add type (camel-case ✓, dot-delimited, etc. support)
   if (stringsConfig.outputs.isCamelCaseStyle) {
     rawStringMap.forEach((key, value) {
       stringList.add(_String(key, key.camelCase(), value));
     });
   }
-  print('stringList -> $stringList');
 
   stringList
       .distinctBy((string) => string.name)
@@ -59,7 +55,6 @@ String generateStrings(File pubspecFile,
       .forEach((string) => buffer.write(string.asStringStatement()));
 
   buffer.writeln('}');
-  print(buffer.toString());
   return formatter.format(buffer.toString());
 }
 

@@ -6,6 +6,7 @@ import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/generators/assets_generator.dart';
 import 'package:flutter_gen_core/generators/colors_generator.dart';
 import 'package:flutter_gen_core/generators/fonts_generator.dart';
+import 'package:flutter_gen_core/generators/strings_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:path/path.dart';
 import 'package:test/test.dart';
@@ -70,12 +71,26 @@ Future<void> expectedFontsGen(
 
   final actual = generateFonts(
       formatter, config.pubspec.flutter.fonts, config.pubspec.flutterGen.fonts);
-  final expected =
-      formatter.format(File(fact).readAsStringSync().replaceAll('\r\n', '\n'));
+  final expected = formatter.format(File(fact).readAsStringSync().replaceAll('\r\n', '\n'));
 
   expect(
     File(generated).readAsStringSync(),
     isNotEmpty,
   );
+  expect(actual, expected);
+}
+
+/// Strings
+Future<void> expectedStringsGen(String pubspec, String generated, String fact) async {
+  await FlutterGenerator(File(pubspec), stringsName: basename(generated)).build();
+
+  final pubspecFile = File(pubspec);
+  final config = loadPubspecConfig(pubspecFile);
+  final formatter = DartFormatter(pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
+
+  final actual = generateStrings(pubspecFile, formatter, config.pubspec.flutterGen.strings!);
+  final expected = formatter.format(File(fact).readAsStringSync().replaceAll('\r\n', '\n'));
+
+  expect(File(generated).readAsStringSync(), isNotEmpty);
   expect(actual, expected);
 }
