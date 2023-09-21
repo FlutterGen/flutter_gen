@@ -21,7 +21,7 @@ dependencies:
 dev_dependencies:
   lints: ^2.0.0
   build_runner: ^2.0.0
-  flutter_gen_runner: ^5.3.1
+  flutter_gen_runner: ^5.3.2
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
