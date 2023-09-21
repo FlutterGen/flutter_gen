@@ -93,7 +93,7 @@ $ flutter pub get
 3. Use [FlutterGen]
 
 ```
-$ Dart run build_runner build
+$ dart run build_runner build
 ```
 
 ## Usage
