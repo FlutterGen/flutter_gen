@@ -18,7 +18,7 @@
     "husky": "8.0.3",
     "lint-staged": "^13.1.0",
     "node-actionlint": "^1.2.2",
-    "prettier": "^2.8.3",
+    "prettier": "^3.0.0",
     "prettier-plugin-packagejson": "^2.4.0"
   },
   "packageManager": "pnpm@8.6.2"

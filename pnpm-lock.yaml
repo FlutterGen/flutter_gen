@@ -15,11 +15,11 @@ devDependencies:
     specifier: ^1.2.2
     version: 1.2.2
   prettier:
-    specifier: ^2.8.3
-    version: 2.8.3
+    specifier: ^3.0.0
+    version: 3.0.0
   prettier-plugin-packagejson:
     specifier: ^2.4.0
-    version: 2.4.2(prettier@2.8.3)
+    version: 2.4.2(prettier@3.0.0)
 
 packages:
 
@@ -604,7 +604,7 @@ packages:
     hasBin: true
     dev: true
 
-  /prettier-plugin-packagejson@2.4.2(prettier@2.8.3):
+  /prettier-plugin-packagejson@2.4.2(prettier@3.0.0):
     resolution: {integrity: sha512-Y/sW29qq0FhEQRA+85K98VOlMW7/Wicrm0Tm2j/EZ+Eh7F6jVUpGVv7WIMku+WsaEab/PyxaA5ckmTd3E0seNg==}
     peerDependencies:
       prettier: '>= 1.16.0'
@@ -612,14 +612,14 @@ packages:
       prettier:
         optional: true
     dependencies:
-      prettier: 2.8.3
+      prettier: 3.0.0
       sort-package-json: 2.2.0
       synckit: 0.8.5
     dev: true
 
-  /prettier@2.8.3:
-    resolution: {integrity: sha512-tJ/oJ4amDihPoufT5sM0Z1SKEuKay8LfVAMlbbhnnkvt6BUserZylqo2PN+p9KeljLr0OHa2rXHU1T8reeoTrw==}
-    engines: {node: '>=10.13.0'}
+  /prettier@3.0.0:
+    resolution: {integrity: sha512-zBf5eHpwHOGPC47h0zrPyNn+eAEIdEzfywMoYn2XPi0P44Zp0tSq64rq0xAREh4auw2cJZHo9QUob+NqCQky4g==}
+    engines: {node: '>=14'}
     hasBin: true
     dev: true
 
