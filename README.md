@@ -13,8 +13,8 @@
   <a href="https://codecov.io/gh/FlutterGen/flutter_gen">
     <img src="https://codecov.io/gh/FlutterGen/flutter_gen/branch/main/graph/badge.svg" />
   </a>
-  <a href="https://pub.dev/packages/flutter_lints">
-    <img src="https://img.shields.io/badge/style-flutter__lints-40c4ff.svg" />
+  <a href="https://pub.dev/packages/lints">
+    <img src="https://img.shields.io/badge/style-lints-40c4ff.svg" />
   </a>
 </p>
 
@@ -61,7 +61,7 @@ Widget build(BuildContext context) {
 Works with macOS and Linux.
 
 ```sh
-$ brew install FlutterGen/tap/fluttergen
+brew install FlutterGen/tap/fluttergen
 ```
 
 ### Pub Global
@@ -69,7 +69,7 @@ $ brew install FlutterGen/tap/fluttergen
 Works with macOS, Linux and Windows.
 
 ```sh
-$ dart pub global activate flutter_gen
+dart pub global activate flutter_gen
 ```
 
 You might need to [set up your path](https://dart.dev/tools/pub/cmd/pub-global#running-a-script-from-your-path).
@@ -87,13 +87,13 @@ dev_dependencies:
 2. Install [FlutterGen]
 
 ```sh
-$ flutter pub get
+flutter pub get
 ```
 
 3. Use [FlutterGen]
 
-```
-$ dart run build_runner build
+```sh
+dart run build_runner build
 ```
 
 ## Usage
@@ -101,9 +101,9 @@ $ dart run build_runner build
 Run `fluttergen` after the configuration [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
 
 ```sh
-$ fluttergen -h
+fluttergen -h
 
-$ fluttergen -c example/pubspec.yaml
+fluttergen -c example/pubspec.yaml
 ```
 
 ## Configuration file
