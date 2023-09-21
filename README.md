@@ -61,7 +61,7 @@ Widget build(BuildContext context) {
 Works with macOS and Linux.
 
 ```sh
- brew install FlutterGen/tap/fluttergen
+brew install FlutterGen/tap/fluttergen
 ```
 
 ### Pub Global
