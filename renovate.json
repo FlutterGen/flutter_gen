@@ -21,7 +21,5 @@
   "patch": {
     "stabilityDays": 2
   },
-  "assignees": ["@JUMPTOON/app"],
-  "assigneesSampleSize": 1,
   "ignorePaths": ["examples/**"]
 }
