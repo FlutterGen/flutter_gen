@@ -92,8 +92,8 @@ flutter pub get
 
 3. Use [FlutterGen]
 
-```
-flutter packages pub run build_runner build
+```sh
+dart run build_runner build
 ```
 
 ## Usage
