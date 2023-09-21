@@ -371,7 +371,7 @@ Plugin issues that are not specific to [FlutterGen] can be filed in the [Flutter
 #### Bad State: No Element when using build_runner
 If you get an error message like this:
 ```
-[SEVERE] flutter_gen_runner:flutter_gen_runner on package:
+[SEVERE] flutter_gen_runner:flutter_gen_runner on $package$:
 
 Bad state: No element
 [SEVERE] Failed after 16.0s
