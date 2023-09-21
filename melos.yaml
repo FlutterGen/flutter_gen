@@ -42,13 +42,13 @@ scripts:
     description: flutter build apk
 
   gen:build_runner:
-    exec: dart pub run build_runner build --delete-conflicting-outputs
+    exec: dart run build_runner build --delete-conflicting-outputs
     packageFilters:
       ignore:
         - example
         - example_resources
       dependsOn: build_runner
-    description: dart pub run build_runner build --delete-conflicting-outputs
+    description: dart run build_runner build --delete-conflicting-outputs
 
   gen:examples:command:
     exec: dart ../../packages/command/bin/flutter_gen_command.dart --config pubspec.yaml
