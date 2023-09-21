@@ -33,8 +33,8 @@ android/.idea/
 
 # Flutter/Dart/Pub related
 # Libraries should not include pubspec.lock, per https://dart.dev/guides/libraries/private-files#pubspeclock.
-pubspec.lock
-pubspec_overrides.yaml
+**/pubspec.lock
+**/pubspec_overrides.yaml
 **/doc/api/
 .dart_tool/
 .flutter-plugins
@@ -45,7 +45,6 @@ pubspec_overrides.yaml
 **/build/
 generated_plugin_registrant.dart
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
-!/pubspec.lock
 
 # Fastlane related
 android/fastlane/report.xml
