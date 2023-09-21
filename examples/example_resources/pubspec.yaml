@@ -1,25 +1,22 @@
 name: example_resources
 description: A sample project using FlutterGen.
-
 publish_to: 'none'
 
-version: 1.0.0+2
-
 environment:
-  sdk: '>=2.16.0 <3.0.0'
+  sdk: '>=2.16.0 <4.0.0'
   flutter: '>=3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
-  flutter_svg: 2.0.5
-  flare_flutter: 3.0.2
-  rive: 0.9.1
-  lottie: 2.0.0
+  flutter_svg: ^2.0.0
+  flare_flutter: ^3.0.0
+  rive: ^0.11.0
+  lottie: ^2.0.0
 
 dev_dependencies:
-  build_runner: ^2.1.11
+  build_runner: ^2.0.0
   flutter_gen_runner: ^5.3.1
 
 flutter_gen:
