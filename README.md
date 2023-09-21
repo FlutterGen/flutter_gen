@@ -86,7 +86,7 @@ dev_dependencies:
 
 2. Install [FlutterGen]
 
-```
+```sh
 flutter pub get
 ```
 
@@ -100,7 +100,7 @@ flutter packages pub run build_runner build
 
 Run `fluttergen` after the configuration [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).
 
-```
+```sh
 fluttergen -h
 
 fluttergen -c example/pubspec.yaml
