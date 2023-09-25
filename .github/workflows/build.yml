@@ -15,7 +15,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: wasabeef/import-asdf-tool-versions-action@v1.0.1
         id: asdf
       - uses: subosito/flutter-action@v2
