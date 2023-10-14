@@ -17,10 +17,10 @@ abstract class Integration {
 
   String get className;
 
-  String classInstantiate(String path);
+  String classInstantiate(AssetType asset);
 
   /// Is this asset type supported by this integration?
-  bool isSupport(AssetType type);
+  bool isSupport(AssetType asset);
 
   bool get isConstConstructor;
 }

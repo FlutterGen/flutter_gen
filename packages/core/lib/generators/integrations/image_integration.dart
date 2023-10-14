@@ -101,7 +101,8 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
   String get className => 'AssetGenImage';
 
   @override
-  String classInstantiate(String path) => 'AssetGenImage(\'$path\')';
+  String classInstantiate(AssetType asset) =>
+      'AssetGenImage(\'${asset.posixStylePath}\')';
 
   @override
   bool isSupport(AssetType type) {

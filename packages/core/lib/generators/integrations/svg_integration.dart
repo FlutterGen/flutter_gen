@@ -76,10 +76,11 @@ class SvgIntegration extends Integration {
   String get className => 'SvgGenImage';
 
   @override
-  String classInstantiate(String path) => 'SvgGenImage(\'$path\')';
+  String classInstantiate(AssetType asset) =>
+      'SvgGenImage(\'${asset.posixStylePath}\')';
 
   @override
-  bool isSupport(AssetType type) => type.mime == 'image/svg+xml';
+  bool isSupport(AssetType asset) => asset.mime == 'image/svg+xml';
 
   @override
   bool get isConstConstructor => true;

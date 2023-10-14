@@ -64,10 +64,11 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
   String get className => 'FlareGenImage';
 
   @override
-  String classInstantiate(String path) => 'FlareGenImage(\'$path\')';
+  String classInstantiate(AssetType asset) =>
+      'FlareGenImage(\'${asset.posixStylePath}\')';
 
   @override
-  bool isSupport(AssetType type) => type.extension == '.flr';
+  bool isSupport(AssetType asset) => asset.extension == '.flr';
 
   @override
   bool get isConstConstructor => true;
