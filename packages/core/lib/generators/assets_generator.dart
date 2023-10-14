@@ -63,7 +63,8 @@ String generateAssets(
   final integrations = <Integration>[
     ImageIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.flutterSvg)
-      SvgIntegration(config.packageParameterLiteral),
+      SvgIntegration(config.packageParameterLiteral,
+          parseMetadata: config.flutterGen.parseMetadata),
     if (config.flutterGen.integrations.flareFlutter)
       FlareIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.rive)
