@@ -459,13 +459,9 @@ String _assetValuesDefinition(
   final values = statements.where((element) => !element.isDirectory);
   if (values.isEmpty) return '';
   final names = values.map((value) => value.name).join(', ');
-  var type = values.first.type;
-  for (final value in values) {
-    if (type != value.type) {
-      type = 'dynamic';
-      break;
-    }
-  }
+  final type = values.every((element) => element.type == values.first.type)
+      ? values.first.type
+      : 'dynamic';
 
   return '''
   /// List of all assets
