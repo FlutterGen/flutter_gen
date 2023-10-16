@@ -48,6 +48,11 @@ class AssetType {
   void addChild(AssetType type) {
     _children.add(type);
   }
+
+  /// Returns a name for this asset.
+  String get name {
+    return withoutExtension(path);
+  }
 }
 
 class AssetTypeIsUniqueWithoutExtension {
