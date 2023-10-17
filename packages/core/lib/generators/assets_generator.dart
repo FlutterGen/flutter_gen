@@ -453,7 +453,6 @@ String _dotDelimiterStyleAssetsClassDefinition(
 
 String _assetValuesDefinition(
   List<_Statement> statements, {
-  /// Should the values definition be static
   bool static = false,
 }) {
   final values = statements.where((element) => !element.isDirectory);
