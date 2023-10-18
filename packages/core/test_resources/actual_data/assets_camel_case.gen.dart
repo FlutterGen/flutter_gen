@@ -63,7 +63,7 @@ class Assets {
       AssetGenImage('pictures/chip5.jpg');
 
   /// List of all assets
-  List<dynamic> get values => [
+  static List<dynamic> get values => [
         imagesChip1,
         imagesChip2,
         imagesChip3Chip3,
