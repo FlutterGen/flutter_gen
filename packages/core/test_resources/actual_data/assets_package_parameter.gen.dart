@@ -126,7 +126,7 @@ class AssetGenImage {
 
   ImageProvider provider({
     AssetBundle? bundle,
-    String? package = package,
+    @deprecated String? package = package,
   }) {
     return AssetImage(
       _assetName,
