@@ -61,7 +61,8 @@ String generateAssets(
   final classesBuffer = StringBuffer();
 
   final integrations = <Integration>[
-    ImageIntegration(config.packageParameterLiteral),
+    ImageIntegration(config.packageParameterLiteral,
+        parseMetadata: config.flutterGen.parseMetadata),
     if (config.flutterGen.integrations.flutterSvg)
       SvgIntegration(config.packageParameterLiteral,
           parseMetadata: config.flutterGen.parseMetadata),

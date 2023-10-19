@@ -1,12 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter_gen_core/generators/integrations/integration.dart';
 import 'package:flutter_gen_core/settings/asset_type.dart';
+import 'package:image_size_getter/file_input.dart';
+import 'package:image_size_getter/image_size_getter.dart';
 
 /// The main image integration, supporting all image asset types. See
 /// [isSupport] for the exact supported mime types.
 ///
 /// This integration is by enabled by default.
 class ImageIntegration extends Integration {
-  ImageIntegration(String packageName) : super(packageName);
+  ImageIntegration(String packageName, {super.parseMetadata})
+      : super(packageName);
 
   String get packageParameter => isPackage ? ' = package' : '';
 
@@ -20,10 +25,12 @@ class ImageIntegration extends Integration {
   String get classOutput => _classDefinition;
 
   String get _classDefinition => '''class AssetGenImage {
-  const AssetGenImage(this._assetName);
+  const AssetGenImage(this._assetName, {this.size = null});
 
   final String _assetName;
 ${isPackage ? "\n  static const String package = '$packageName';" : ''}
+
+  final Size? size;
 
   Image image({
     Key? key,
@@ -101,14 +108,19 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
   String get className => 'AssetGenImage';
 
   @override
-  String classInstantiate(AssetType asset) =>
-      'AssetGenImage(\'${asset.posixStylePath}\')';
+  String classInstantiate(AssetType asset) {
+    ImageMetadata? info = parseMetadata ? _getMetadata(asset) : null;
+
+    return 'AssetGenImage(\'${asset.posixStylePath}\''
+        '${(info != null) ? ', size: Size(${info.width}, ${info.height})' : ''}'
+        ')';
+  }
 
   @override
-  bool isSupport(AssetType type) {
+  bool isSupport(AssetType asset) {
     /// Flutter official supported image types. See
     /// https://api.flutter.dev/flutter/widgets/Image-class.html
-    switch (type.mime) {
+    switch (asset.mime) {
       case 'image/jpeg':
       case 'image/png':
       case 'image/gif':
@@ -123,4 +135,16 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   @override
   bool get isConstConstructor => true;
+
+  /// Extract metadata from the asset.
+  ImageMetadata? _getMetadata(AssetType asset) {
+    try {
+      final size = ImageSizeGetter.getSize(FileInput(File(asset.fullPath)));
+      return ImageMetadata(size.width.toDouble(), size.height.toDouble());
+    } catch (e) {
+      stderr
+          .writeln('[WARNING] Failed to parse \'${asset.path}\' metadata: $e');
+    }
+    return null;
+  }
 }

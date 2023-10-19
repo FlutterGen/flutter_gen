@@ -42,6 +42,7 @@ class SvgGenImage {
   const SvgGenImage(this._assetName, {this.size = null});
 
   final String _assetName;
+
   final Size? size;
 
   SvgPicture svg({

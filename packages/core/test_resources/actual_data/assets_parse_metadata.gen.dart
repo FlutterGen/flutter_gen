@@ -17,7 +17,8 @@ class $PicturesGen {
   const $PicturesGen();
 
   /// File path: pictures/chip5.jpg
-  AssetGenImage get chip5 => const AssetGenImage('pictures/chip5.jpg');
+  AssetGenImage get chip5 =>
+      const AssetGenImage('pictures/chip5.jpg', size: Size(600.0, 403.0));
 
   /// List of all assets
   List<AssetGenImage> get values => [chip5];
@@ -37,7 +38,8 @@ class $AssetsImagesGen {
   const $AssetsImagesGen();
 
   /// File path: assets/images/chip1.jpg
-  AssetGenImage get chip1 => const AssetGenImage('assets/images/chip1.jpg');
+  AssetGenImage get chip1 =>
+      const AssetGenImage('assets/images/chip1.jpg', size: Size(600.0, 403.0));
 
   /// File path: assets/images/chip2.jpg
   AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
@@ -47,7 +49,8 @@ class $AssetsImagesGen {
   $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
 
   /// File path: assets/images/logo.png
-  AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
+  AssetGenImage get logo =>
+      const AssetGenImage('assets/images/logo.png', size: Size(209.0, 49.0));
 
   /// File path: assets/images/profile.jpg
   AssetGenImage get profileJpg =>
@@ -100,7 +103,8 @@ class $AssetsImagesChip3Gen {
 
   /// File path: assets/images/chip3/chip3.jpg
   AssetGenImage get chip3 =>
-      const AssetGenImage('assets/images/chip3/chip3.jpg');
+      const AssetGenImage('assets/images/chip3/chip3.jpg',
+          size: Size(600.0, 403.0));
 
   /// List of all assets
   List<AssetGenImage> get values => [chip3];
@@ -111,7 +115,8 @@ class $AssetsImagesChip4Gen {
 
   /// File path: assets/images/chip4/chip4.jpg
   AssetGenImage get chip4 =>
-      const AssetGenImage('assets/images/chip4/chip4.jpg');
+      const AssetGenImage('assets/images/chip4/chip4.jpg',
+          size: Size(600.0, 403.0));
 
   /// List of all assets
   List<AssetGenImage> get values => [chip4];
@@ -158,9 +163,11 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName);
+  const AssetGenImage(this._assetName, {this.size = null});
 
   final String _assetName;
+
+  final Size? size;
 
   Image image({
     Key? key,
@@ -235,6 +242,7 @@ class SvgGenImage {
   const SvgGenImage(this._assetName, {this.size = null});
 
   final String _assetName;
+
   final Size? size;
 
   SvgPicture svg({
