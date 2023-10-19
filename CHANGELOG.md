@@ -1,3 +1,18 @@
+## 5.3.2
+
+**Bug fix**  
+- [#409](https://github.com/FlutterGen/flutter_gen/pull/409) Update dependencies.
+  - Update Dart SDK to `>=2.17.0 <4.0.0`.
+
+
+**Development**
+- Update to Dart 3.1.2.
+- Update to Flutter 3.13.5.
+
+
+**Team**
+- Welcome [@AlexV525](https://github.com/AlexV525) 🎉
+
 ## 5.3.1
 
 **Bug fix**  
@@ -16,7 +31,6 @@
 - Update Dart SDK to `>=2.17.0 <3.0.0`.
 
 ## 5.2.0
-
 
 **Feature**
 - [#350](https://github.com/FlutterGen/flutter_gen/pull/350) [**BREAKING CHANGES**] Upgrade for support of `flutter_svg 2.0.0`.

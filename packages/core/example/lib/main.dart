@@ -75,7 +75,7 @@ void main() async {
                 child: const Center(child: Text('Deco')),
               ),
               // Use from example_resource package.
-              MyAssets.images.icons.kmm.svg(key: const Key("kmm_svg")),
+              MyAssets.images.icons.kmm.svg(key: const Key('kmm_svg')),
               MyAssets.images.icons.fuchsia.svg(),
               MyAssets.images.icons.paint.svg(
                 width: 120,

@@ -114,7 +114,7 @@ String generateAssets(
     │                                                                                                │
     │ [pubspec.yaml]                                                                                 │
     │                                                                                                │
-    │  fluttergen:                                                                                   │
+    │  flutter_gen:                                                                                  │
     │    assets:                                                                                     │
     │      outputs:                                                                                  │
     │        style: snake-case                                                                       │
@@ -130,7 +130,7 @@ String generateAssets(
     │                                                                       │
     │ [pubspec.yaml]                                                        │
     │                                                                       │
-    │  fluttergen:                                                          │
+    │  flutter_gen:                                                         │
     │    assets:                                                            │
     │      outputs:                                                         │
     │        style: snake-case                                              │
@@ -145,7 +145,7 @@ String generateAssets(
     │                                                                                        │
     │ [pubspec.yaml]                                                                         │
     │                                                                                        │
-    │  fluttergen:                                                                           │
+    │  flutter_gen:                                                                          │
     │    assets:                                                                             │
     │      outputs:                                                                          │
     │        package_parameter_enabled: true                                                 │
@@ -451,10 +451,12 @@ String _flatStyleAssetsClassDefinition(
       statements.map((statement) => '''${statement.toDartDocString()}
            ${statement.toStaticFieldString()}
            ''').join('\n');
+  final valuesBlock = _assetValuesDefinition(statements, static: true);
   return _assetsClassDefinition(
     className,
     statements,
     statementsBlock,
+    valuesBlock,
     packageName,
   );
 }
@@ -466,38 +468,39 @@ String _dotDelimiterStyleAssetsClassDefinition(
 ) {
   final statementsBlock =
       statements.map((statement) => statement.toStaticFieldString()).join('\n');
+  final valuesBlock = _assetValuesDefinition(statements, static: true);
   return _assetsClassDefinition(
     className,
     statements,
     statementsBlock,
+    valuesBlock,
     packageName,
   );
 }
 
-String _assetValuesDefinition(List<_Statement> statements) {
+String _assetValuesDefinition(
+  List<_Statement> statements, {
+  bool static = false,
+}) {
   final values = statements.where((element) => !element.isDirectory);
   if (values.isEmpty) return '';
   final names = values.map((value) => value.name).join(', ');
-  var type = values.first.type;
-  for (final value in values) {
-    if (type != value.type) {
-      type = 'dynamic';
-      break;
-    }
-  }
+  final type = values.every((element) => element.type == values.first.type)
+      ? values.first.type
+      : 'dynamic';
 
   return '''
   /// List of all assets
-  List<$type> get values => [$names];''';
+  ${static ? 'static ' : ''}List<$type> get values => [$names];''';
 }
 
 String _assetsClassDefinition(
   String className,
   List<_Statement> statements,
   String statementsBlock,
+  String valuesBlock,
   String? packageName,
 ) {
-  final valuesBlock = _assetValuesDefinition(statements);
   return '''
 class $className {
   $className._();
