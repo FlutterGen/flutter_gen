@@ -6,7 +6,9 @@ packages:
   - examples/**
 
 ide:
-  intellij: true
+  intellij:
+    enabled: true
+    moduleNamePrefix: ''
   vscode: true
 
 command:
