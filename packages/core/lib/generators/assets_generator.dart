@@ -606,7 +606,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   ImageProvider provider({
     AssetBundle? bundle,
-    String? package$packageParameter,
+    ${isPackage ? '@deprecated ' : ''}String? package$packageParameter,
   }) {
     return AssetImage(
       _assetName,
