@@ -58,6 +58,8 @@ class $AssetsImagesIconsGen {
 class Assets {
   Assets._();
 
+  static const String package = 'test';
+
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
 }
@@ -66,6 +68,8 @@ class AssetGenImage {
   const AssetGenImage(this._assetName);
 
   final String _assetName;
+
+  static const String package = 'test';
 
   Image image({
     Key? key,
@@ -87,7 +91,7 @@ class AssetGenImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
-    String? package = 'test',
+    @deprecated String? package = package,
     FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,
@@ -122,7 +126,7 @@ class AssetGenImage {
 
   ImageProvider provider({
     AssetBundle? bundle,
-    String? package = 'test',
+    String? package = package,
   }) {
     return AssetImage(
       _assetName,
@@ -141,11 +145,13 @@ class SvgGenImage {
 
   final String _assetName;
 
+  static const String package = 'test';
+
   SvgPicture svg({
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    String? package = 'test',
+    @deprecated String? package = package,
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,

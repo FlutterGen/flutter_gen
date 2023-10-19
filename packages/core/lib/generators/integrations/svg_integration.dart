@@ -5,9 +5,7 @@ class SvgIntegration extends Integration {
   SvgIntegration(String packageParameterLiteral)
       : super(packageParameterLiteral);
 
-  String get packageExpression => packageParameterLiteral.isNotEmpty
-      ? ' = \'$packageParameterLiteral\''
-      : '';
+  String get packageExpression => isPackage ? ' = package' : '';
 
   @override
   List<String> get requiredImports => [
@@ -22,12 +20,13 @@ class SvgIntegration extends Integration {
   const SvgGenImage(this._assetName);
 
   final String _assetName;
+${isPackage ? "\n  static const String package = '$packageParameterLiteral';" : ''}
 
   SvgPicture svg({
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    String? package$packageExpression,
+    ${isPackage ? '@deprecated ' : ''}String? package$packageExpression,
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,
@@ -68,7 +67,7 @@ class SvgIntegration extends Integration {
 
   String get path => _assetName;
 
-  String get keyName => ${packageParameterLiteral.isEmpty ? '_assetName' : '\'packages/$packageParameterLiteral/\$_assetName\''};
+  String get keyName => ${isPackage ? '\'packages/$packageParameterLiteral/\$_assetName\'' : '_assetName'};
 }''';
 
   @override

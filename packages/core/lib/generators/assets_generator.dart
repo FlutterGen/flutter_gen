@@ -186,6 +186,14 @@ String generateAssets(
   return formatter.format(buffer.toString());
 }
 
+String? generatePackageNameForConfig(AssetsGenConfig config) {
+  if (config.flutterGen.assets.outputs.packageParameterEnabled) {
+    return config._packageName;
+  } else {
+    return null;
+  }
+}
+
 List<String> _getAssetRelativePathList(
   String rootPath,
   List<String> assets,
@@ -362,8 +370,14 @@ String _dotDelimiterStyleDefinition(
       assetTypeQueue.addAll(assetType.children);
     }
   }
-  buffer.writeln(_dotDelimiterStyleAssetsClassDefinition(
-      className, assetsStaticStatements));
+  final String? packageName = generatePackageNameForConfig(config);
+  buffer.writeln(
+    _dotDelimiterStyleAssetsClassDefinition(
+      className,
+      assetsStaticStatements,
+      packageName,
+    ),
+  );
   return buffer.toString();
 }
 
@@ -424,12 +438,14 @@ String _flatStyleDefinition(
       .whereType<_Statement>()
       .toList();
   final className = config.flutterGen.assets.outputs.className;
-  return _flatStyleAssetsClassDefinition(className, statements);
+  final String? packageName = generatePackageNameForConfig(config);
+  return _flatStyleAssetsClassDefinition(className, statements, packageName);
 }
 
 String _flatStyleAssetsClassDefinition(
   String className,
   List<_Statement> statements,
+  String? packageName,
 ) {
   final statementsBlock =
       statements.map((statement) => '''${statement.toDartDocString()}
@@ -437,18 +453,29 @@ String _flatStyleAssetsClassDefinition(
            ''').join('\n');
   final valuesBlock = _assetValuesDefinition(statements, static: true);
   return _assetsClassDefinition(
-      className, statements, statementsBlock, valuesBlock);
+    className,
+    statements,
+    statementsBlock,
+    valuesBlock,
+    packageName,
+  );
 }
 
 String _dotDelimiterStyleAssetsClassDefinition(
   String className,
   List<_Statement> statements,
+  String? packageName,
 ) {
   final statementsBlock =
       statements.map((statement) => statement.toStaticFieldString()).join('\n');
   final valuesBlock = _assetValuesDefinition(statements, static: true);
   return _assetsClassDefinition(
-      className, statements, statementsBlock, valuesBlock);
+    className,
+    statements,
+    statementsBlock,
+    valuesBlock,
+    packageName,
+  );
 }
 
 String _assetValuesDefinition(
@@ -472,11 +499,13 @@ String _assetsClassDefinition(
   List<_Statement> statements,
   String statementsBlock,
   String valuesBlock,
+  String? packageName,
 ) {
   return '''
 class $className {
   $className._();
-  
+${packageName != null ? "\n  static const String package = '$packageName';" : ''}
+
   $statementsBlock
   $valuesBlock
 }
@@ -507,7 +536,8 @@ class $className {
 }
 
 String _assetGenImageClassDefinition(String packageName) {
-  final packageParameter = packageName.isNotEmpty ? " = '$packageName'" : '';
+  final bool isPackage = packageName.isNotEmpty;
+  final packageParameter = isPackage ? ' = package' : '';
 
   final keyName = packageName.isEmpty
       ? '_assetName'
@@ -519,6 +549,7 @@ class AssetGenImage {
   const AssetGenImage(this._assetName);
 
   final String _assetName;
+${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   Image image({
     Key? key,
@@ -540,7 +571,7 @@ class AssetGenImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
-    String? package$packageParameter,
+    ${isPackage ? '@deprecated ' : ''}String? package$packageParameter,
     FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,

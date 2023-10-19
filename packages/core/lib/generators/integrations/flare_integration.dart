@@ -5,9 +5,8 @@ class FlareIntegration extends Integration {
   FlareIntegration(String packageParameterLiteral)
       : super(packageParameterLiteral);
 
-  String? get packageExpression => packageParameterLiteral.isNotEmpty
-      ? 'packages/$packageParameterLiteral/'
-      : null;
+  String? get packageExpression =>
+      isPackage ? 'packages/$packageParameterLiteral/' : null;
 
   @override
   List<String> get requiredImports => [
@@ -22,6 +21,7 @@ class FlareIntegration extends Integration {
   const FlareGenImage(this._assetName);
 
   final String _assetName;
+${isPackage ? "\n  static const String package = '$packageParameterLiteral';" : ''}
 
   FlareActor flare({
     String? boundsNode,
@@ -39,7 +39,7 @@ class FlareIntegration extends Integration {
     bool antialias = true,
   }) {
     return FlareActor(
-      ${packageExpression == null ? '_assetName' : '\'$packageExpression\$_assetName\''},
+      ${isPackage ? '\'$packageExpression\$_assetName\'' : '_assetName'},
       boundsNode: boundsNode,
       animation: animation,
       fit: fit,
@@ -58,7 +58,7 @@ class FlareIntegration extends Integration {
 
   String get path => _assetName;
 
-  String get keyName => ${packageExpression == null ? '_assetName' : '\'$packageExpression\$_assetName\''};
+  String get keyName => ${isPackage ? '\'$packageExpression\$_assetName\'' : '_assetName'};
 }''';
 
   @override
