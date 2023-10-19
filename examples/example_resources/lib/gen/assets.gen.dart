@@ -148,8 +148,7 @@ class SvgGenImage {
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    @Deprecated('Do not use package for a package asset')
-    String? package = package,
+    @deprecated String? package = package,
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,
@@ -300,8 +299,7 @@ class LottieGenImage {
     double? height,
     BoxFit? fit,
     AlignmentGeometry? alignment,
-    @Deprecated('Do not use package for a package asset')
-    String? package = package,
+    @deprecated String? package = package,
     bool? addRepaintBoundary,
     FilterQuality? filterQuality,
     void Function(String)? onWarning,
