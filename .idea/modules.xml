@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/examples/example/example.iml" filepath="$PROJECT_DIR$/examples/example/example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/examples/example_resources/example_resources.iml" filepath="$PROJECT_DIR$/examples/example_resources/example_resources.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/command/flutter_gen.iml" filepath="$PROJECT_DIR$/packages/command/flutter_gen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/core/flutter_gen_core.iml" filepath="$PROJECT_DIR$/packages/core/flutter_gen_core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/runner/flutter_gen_runner.iml" filepath="$PROJECT_DIR$/packages/runner/flutter_gen_runner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fluttergen.iml" filepath="$PROJECT_DIR$/fluttergen.iml" />
+    </modules>
+  </component>
+</project>
