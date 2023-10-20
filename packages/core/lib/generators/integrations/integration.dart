@@ -20,3 +20,8 @@ abstract class Integration {
 
   bool get isConstConstructor;
 }
+
+/// The deprecation message for the package argument
+/// if the asset is a library asset.
+const String deprecationMessagePackage =
+    "@Deprecated('Do not specify package for a generated library asset')";
