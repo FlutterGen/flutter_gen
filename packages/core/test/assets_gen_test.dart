@@ -79,7 +79,13 @@ void main() {
       expect(content, contains("static const String package = 'test';"));
       expect(
         content,
-        contains('@deprecated String? package = package,'),
+        contains(
+          "@Deprecated('Do not specify package for a generated library asset')",
+        ),
+      );
+      expect(
+        content,
+        contains('String? package = package,'),
       );
     });
 

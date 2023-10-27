@@ -91,7 +91,8 @@ class AssetGenImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
-    @deprecated String? package = package,
+    @Deprecated('Do not specify package for a generated library asset')
+    String? package = package,
     FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,
@@ -126,6 +127,7 @@ class AssetGenImage {
 
   ImageProvider provider({
     AssetBundle? bundle,
+    @Deprecated('Do not specify package for a generated library asset')
     String? package = package,
   }) {
     return AssetImage(
@@ -151,7 +153,8 @@ class SvgGenImage {
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    @deprecated String? package = package,
+    @Deprecated('Do not specify package for a generated library asset')
+    String? package = package,
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,

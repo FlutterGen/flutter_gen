@@ -88,7 +88,8 @@ class AssetGenImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
-    @deprecated String? package = package,
+    @Deprecated('Do not specify package for a generated library asset')
+    String? package = package,
     FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,
@@ -148,7 +149,7 @@ class SvgGenImage {
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    @Deprecated('Do not use package for a package asset')
+    @Deprecated('Do not specify package for a generated library asset')
     String? package = package,
     double? width,
     double? height,
@@ -300,7 +301,7 @@ class LottieGenImage {
     double? height,
     BoxFit? fit,
     AlignmentGeometry? alignment,
-    @Deprecated('Do not use package for a package asset')
+    @Deprecated('Do not specify package for a generated library asset')
     String? package = package,
     bool? addRepaintBoundary,
     FilterQuality? filterQuality,

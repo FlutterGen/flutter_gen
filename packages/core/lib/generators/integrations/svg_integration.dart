@@ -20,13 +20,15 @@ class SvgIntegration extends Integration {
   const SvgGenImage(this._assetName);
 
   final String _assetName;
-${isPackage ? "\n  static const String package = '$packageParameterLiteral';" : ''}
+
+  ${isPackage ? "static const String package = '$packageParameterLiteral';" : ''}
 
   SvgPicture svg({
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    ${isPackage ? '@deprecated ' : ''}String? package$packageExpression,
+    ${isPackage ? deprecationMessagePackage : ''}
+    String? package$packageExpression,
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,

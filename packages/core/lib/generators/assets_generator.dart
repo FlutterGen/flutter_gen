@@ -571,7 +571,8 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
-    ${isPackage ? '@deprecated ' : ''}String? package$packageParameter,
+    ${isPackage ? deprecationMessagePackage : ''}
+    String? package$packageParameter,
     FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,
@@ -606,6 +607,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   ImageProvider provider({
     AssetBundle? bundle,
+    ${isPackage ? deprecationMessagePackage : ''}
     String? package$packageParameter,
   }) {
     return AssetImage(
