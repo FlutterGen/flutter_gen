@@ -18,5 +18,5 @@ dependencies:
   path: ^1.8.0
 
 dev_dependencies:
-  lints: ^3.0.0
+  lints: any # Ignoring the version to allow editing across SDK versions.
   build_test: ^2.0.0

@@ -17,6 +17,6 @@ dependencies:
   args: ^2.0.0
 
 dev_dependencies:
-  lints: ^3.0.0
+  lints: any # Ignoring the version to allow editing across SDK versions.
   test: ^1.16.0
   test_process: ^2.0.0
