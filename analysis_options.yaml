@@ -6,7 +6,6 @@ analyzer:
     - 'example'
     - '**.g.dart'
     - 'test_resources/**'
-
   errors:
     unnecessary_import: error
     unawaited_futures: error
@@ -28,3 +27,4 @@ linter:
     use_to_and_as_if_applicable: true
     unnecessary_lambdas: true
     use_raw_strings: true
+    use_super_parameters: false
