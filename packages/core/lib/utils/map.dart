@@ -1,4 +1,4 @@
-/// Copy from https://pub.dev/packages/merge_map
+// Copy from https://pub.dev/packages/merge_map
 
 /// Exposes the [mergeMap] function, which... merges Maps.
 _copyValues<K, V>(
