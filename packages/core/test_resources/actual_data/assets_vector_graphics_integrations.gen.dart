@@ -113,12 +113,11 @@ class AssetGenImage {
   String get keyName => _assetName;
 }
 
-class SvgVecGenImage implements SvgGenImage {
+class SvgVecGenImage {
   const SvgVecGenImage(this._assetName);
 
   final String _assetName;
 
-  @override
   SvgPicture svg({
     Key? key,
     bool matchTextDirection = false,

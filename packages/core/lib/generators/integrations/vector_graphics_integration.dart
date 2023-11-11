@@ -24,13 +24,11 @@ class VectorGraphicsIntegration extends Integration {
   @override
   String get classOutput => _classDefinition;
 
-  String get _classDefinition =>
-      '''class SvgVecGenImage implements SvgGenImage {
+  String get _classDefinition => '''class SvgVecGenImage {
   const SvgVecGenImage(this._assetName);
 
   final String _assetName;
 
-  @override
   SvgPicture svg({
     Key? key,
     bool matchTextDirection = false,
