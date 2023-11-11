@@ -1,16 +1,25 @@
 {
-  "extends": ["config:base", "group:monorepos"],
+  "extends": [
+    "config:base",
+    "group:monorepos",
+    ":semanticCommits",
+    ":semanticCommitTypeAll(upgrade)",
+    ":semanticCommitScopeDisabled"
+  ],
   "timezone": "Asia/Tokyo",
-  "schedule": ["before 10am on monday"],
-  "labels": ["dependencies"],
-  "branchPrefix": "chore-renovate-",
-  "semanticCommits": "auto",
-  "semanticCommitType": "build",
-  "semanticCommitScope": null,
-  "rangeStrategy": "replace",
-  "rebaseWhen": "conflicted",
-  "lockFileMaintenance": {
-    "enabled": true
+  "schedule": ["every weekend"],
+  "branchConcurrentLimit": 5,
+  "branchPrefix": "upgrade-renovate-",
+  "dependencyDashboard": false,
+  "ignorePaths": [".github/"],
+  "major": {
+    "stabilityDays": 7
   },
-  "ignorePaths": ["**/example/**", "**/example_resources/**"]
+  "minor": {
+    "stabilityDays": 3
+  },
+  "patch": {
+    "stabilityDays": 2
+  },
+  "ignorePaths": ["examples/**"]
 }

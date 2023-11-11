@@ -15,7 +15,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: wasabeef/import-asdf-tool-versions-action@v1.0.1
         id: asdf
       - uses: subosito/flutter-action@v2
@@ -66,8 +66,8 @@ jobs:
 
       - name: Generate example
         run: |
-          melos gen:example:command
-          melos gen:example:build_runner
+          melos run gen:examples:command --no-select
+          melos run gen:examples:build_runner --no-select
 
       - name: Check for any formatting and statically analyze the code.
         run: |

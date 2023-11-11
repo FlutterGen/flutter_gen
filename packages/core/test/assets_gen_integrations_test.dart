@@ -7,6 +7,7 @@ import 'package:flutter_gen_core/generators/integrations/vector_graphics_integra
 import 'package:flutter_gen_core/settings/asset_type.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
+
 import 'gen_test_helper.dart';
 
 void main() {
@@ -32,8 +33,10 @@ void main() {
 
       final integration = SvgIntegration('');
       expect(integration.className, 'SvgGenImage');
-      expect(integration.classInstantiate('assets/path'),
-          'SvgGenImage(\'assets/path\')');
+      expect(
+        integration.classInstantiate('assets/path'),
+        'SvgGenImage(\'assets/path\')',
+      );
       expect(
           integration.isSupport(
               AssetType(rootPath: resPath, path: 'assets/path/dog.svg')),
@@ -47,8 +50,15 @@ void main() {
 
       final integrationWithPackage = SvgIntegration('package_name');
       expect(
-        integrationWithPackage.classOutput
-            .contains('String? package = \'package_name\','),
+        integrationWithPackage.classOutput.contains(
+          'String? package = package,',
+        ),
+        isTrue,
+      );
+      expect(
+        integrationWithPackage.classOutput.contains(
+          "static const String package = 'package_name';",
+        ),
         isTrue,
       );
     });
@@ -144,8 +154,15 @@ void main() {
 
       final integrationWithPackage = LottieIntegration('package_name');
       expect(
-        integrationWithPackage.classOutput
-            .contains('String? package = \'package_name\','),
+        integrationWithPackage.classOutput.contains(
+          'String? package = package,',
+        ),
+        isTrue,
+      );
+      expect(
+        integrationWithPackage.classOutput.contains(
+          "static const String package = 'package_name';",
+        ),
         isTrue,
       );
     });

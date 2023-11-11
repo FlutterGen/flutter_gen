@@ -1,13 +1,11 @@
-import '../../settings/asset_type.dart';
-import 'integration.dart';
+import 'package:flutter_gen_core/generators/integrations/integration.dart';
+import 'package:flutter_gen_core/settings/asset_type.dart';
 
 class SvgIntegration extends Integration {
   SvgIntegration(String packageParameterLiteral)
       : super(packageParameterLiteral);
 
-  String get packageExpression => packageParameterLiteral.isNotEmpty
-      ? ' = \'$packageParameterLiteral\''
-      : '';
+  String get packageExpression => isPackage ? ' = package' : '';
 
   @override
   List<String> get requiredImports => [
@@ -23,10 +21,13 @@ class SvgIntegration extends Integration {
 
   final String _assetName;
 
+  ${isPackage ? "static const String package = '$packageParameterLiteral';" : ''}
+
   SvgPicture svg({
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
+    ${isPackage ? deprecationMessagePackage : ''}
     String? package$packageExpression,
     double? width,
     double? height,
@@ -68,7 +69,7 @@ class SvgIntegration extends Integration {
 
   String get path => _assetName;
 
-  String get keyName => ${packageParameterLiteral.isEmpty ? '_assetName' : '\'packages/$packageParameterLiteral/\$_assetName\''};
+  String get keyName => ${isPackage ? '\'packages/$packageParameterLiteral/\$_assetName\'' : '_assetName'};
 }''';
 
   @override

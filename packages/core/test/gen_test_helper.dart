@@ -7,7 +7,7 @@ import 'package:flutter_gen_core/generators/assets_generator.dart';
 import 'package:flutter_gen_core/generators/colors_generator.dart';
 import 'package:flutter_gen_core/generators/fonts_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
-import 'package:path/path.dart';
+import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
 Future<void> clearTestResults() async {}
@@ -15,7 +15,7 @@ Future<void> clearTestResults() async {}
 /// Assets
 Future<void> expectedAssetsGen(
     String pubspec, String generated, String fact) async {
-  await FlutterGenerator(File(pubspec), assetsName: basename(generated))
+  await FlutterGenerator(File(pubspec), assetsName: p.basename(generated))
       .build();
 
   final pubspecFile = File(pubspec);
@@ -38,7 +38,7 @@ Future<void> expectedAssetsGen(
 /// Colors
 Future<void> expectedColorsGen(
     String pubspec, String generated, String fact) async {
-  await FlutterGenerator(File(pubspec), colorsName: basename(generated))
+  await FlutterGenerator(File(pubspec), colorsName: p.basename(generated))
       .build();
 
   final pubspecFile = File(pubspec);
@@ -61,7 +61,8 @@ Future<void> expectedColorsGen(
 /// Fonts
 Future<void> expectedFontsGen(
     String pubspec, String generated, String fact) async {
-  await FlutterGenerator(File(pubspec), fontsName: basename(generated)).build();
+  await FlutterGenerator(File(pubspec), fontsName: p.basename(generated))
+      .build();
 
   final pubspecFile = File(pubspec);
   final config = loadPubspecConfig(pubspecFile);
@@ -78,4 +79,18 @@ Future<void> expectedFontsGen(
     isNotEmpty,
   );
   expect(actual, expected);
+}
+
+/// Verify generated package name.
+void expectedPackageNameGen(
+  String pubspec,
+  String? fact,
+) {
+  final pubspecFile = File(pubspec);
+  final config = AssetsGenConfig.fromConfig(
+    pubspecFile,
+    loadPubspecConfig(pubspecFile),
+  );
+  final actual = generatePackageNameForConfig(config);
+  expect(actual, equals(fact));
 }

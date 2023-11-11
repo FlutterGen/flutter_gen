@@ -22,7 +22,7 @@ jobs:
             target: x86_64-unknown-linux-gnu
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: wasabeef/import-asdf-tool-versions-action@v1.0.1
         id: asdf
       - uses: subosito/flutter-action@v2

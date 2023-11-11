@@ -1,13 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter_gen_core/settings/config_default.dart';
+import 'package:flutter_gen_core/settings/pubspec.dart';
+import 'package:flutter_gen_core/utils/error.dart';
+import 'package:flutter_gen_core/utils/map.dart';
+import 'package:flutter_gen_core/utils/version.dart';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
-
-import '../utils/error.dart';
-import '../utils/map.dart';
-import '../utils/version.dart';
-import 'pubspec.dart';
 
 class Config {
   Config._({required this.pubspec, required this.pubspecFile});

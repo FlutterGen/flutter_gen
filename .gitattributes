@@ -1,2 +1,2 @@
-example/lib/gen/* linguist-generated=false
+examples/**/lib/gen/* linguist-generated=false
 test_resources/actual_data/* linguist-generated=false

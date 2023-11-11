@@ -1,115 +1,27 @@
 name: example
 description: A sample project using FlutterGen.
-
 publish_to: 'none'
 
-version: 1.0.0+2
-
 environment:
-  sdk: '>=2.16.0 <3.0.0'
+  sdk: '>=2.16.0 <4.0.0'
   flutter: '>=3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
-  flutter_svg: 2.0.5
-  flare_flutter: 3.0.2
-  rive: 0.9.1
-  lottie: 2.0.0
-
-  # Dependency check
-  collection: 1.17.0
-  crypto: 3.0.2
-  glob: 2.0.2
-
-  # firebase_analytics: 9.1.8
-  # firebase_core: 1.14.1
-  # firebase_auth: 3.3.18
-  # firebase_remote_config: 2.0.7
-  # firebase_dynamic_links: 4.1.3
-  # firebase_performance: 0.8.0+7
-  # firebase_messaging: 11.2.13
-  # firebase_app_installations: 0.1.0+8
-  # is_firebase_test_lab_activated: 2.0.0
-  sentry_flutter: 6.5.1
-  sentry_dio: 6.5.1
-  adjust_sdk: 4.29.2
-  google_sign_in: 5.3.0
-  twitter_login: 4.2.3
-  flutter_facebook_auth: 4.3.3
-  sign_in_with_apple: 3.3.0
-  local_auth: 2.0.1
-  flutter_hooks: 0.18.3
-  hooks_riverpod: 1.0.3
-  dio: 4.0.6
-  connectivity_plus: 3.0.2
-  ua_client_hints: 1.1.0
-  retrofit: 3.0.1+1
-  uuid: 3.0.6
-  http_parser: 4.0.0
-  protobuf: 2.0.1
-  json_annotation: 4.8.0
-  freezed_annotation: ^2.2.0
-  intl: 0.17.0
-  fixnum: 1.0.0
-  shared_preferences: 2.0.13
-  flutter_secure_storage: 5.0.2
-  auto_route: 5.0.2
-  gap: 2.0.0
-  flutter_layout_grid: 2.0.0
-  video_player: 2.4.0
-  # audio_service: 0.18.4
-  cached_network_image: 3.2.0
-  flutter_cache_manager: 3.3.0
-  visibility_detector: 0.3.3
-  sliver_tools: 0.2.6
-  dotted_border: 2.0.0+2
-  scrollable_positioned_list: 0.2.3
-  sticky_headers: 0.2.0
-  infinite_listview: 1.1.0
-  built_collection: 5.1.1
-  dartx: 1.1.0
-  rxdart: 0.27.3
-  flutter_inappwebview: 5.4.3+7
-  webview_flutter: 3.0.2
-  uni_links: 0.5.1
-  url_launcher: 6.1.0
-  package_info_plus: 1.4.2
-  native_device_orientation: 1.0.0
-  wakelock: 0.6.1+1
-  device_info_plus: 3.2.3
-  playbook: 0.0.3
-  image_picker: 0.8.5
-  flutter_image_compress: 1.1.0
-  image_editor: 1.0.2
-  permission_handler: 9.2.0
-  camera: 0.9.5
-  flutter_local_notifications: 9.4.1
-  logger: 1.1.0
-  geolocator: 8.2.0
-  geocoding: 2.0.4
-  android_intent_plus: 3.1.1
-  share_plus: 4.0.4
-  # stack_trace: 1.10.0
-  in_app_review: 2.0.4
-  pull_to_refresh: 2.0.0
-  xml: 6.2.2
+  flutter_svg: ^2.0.0
+  flare_flutter: ^3.0.0
+  rive: ^0.11.0
+  lottie: ^2.0.0
 
   example_resources:
     path: ../example_resources
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  integration_test:
-    sdk: flutter
-  build_runner: ^2.1.11
-  freezed: ^2.3.2
-  json_serializable: 6.6.1
-  flutter_gen_runner: ^5.3.0
-
-  flutter_lints: ^2.0.1
+  lints: ^2.0.0
+  build_runner: ^2.0.0
+  flutter_gen_runner: ^5.3.2
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)

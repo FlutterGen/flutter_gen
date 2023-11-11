@@ -1,13 +1,12 @@
-import '../../settings/asset_type.dart';
-import 'integration.dart';
+import 'package:flutter_gen_core/generators/integrations/integration.dart';
+import 'package:flutter_gen_core/settings/asset_type.dart';
 
 class RiveIntegration extends Integration {
   RiveIntegration(String packageParameterLiteral)
       : super(packageParameterLiteral);
 
-  String? get packageExpression => packageParameterLiteral.isNotEmpty
-      ? 'packages/$packageParameterLiteral/'
-      : null;
+  String? get packageExpression =>
+      isPackage ? 'packages/$packageParameterLiteral/' : null;
 
   @override
   List<String> get requiredImports => [
@@ -21,6 +20,7 @@ class RiveIntegration extends Integration {
   const RiveGenImage(this._assetName);
 
   final String _assetName;
+${isPackage ? "\n  static const String package = '$packageParameterLiteral';" : ''}
 
   RiveAnimation rive({
     String? artboard,
@@ -34,7 +34,7 @@ class RiveIntegration extends Integration {
     OnInitCallback? onInit,
   }) {
     return RiveAnimation.asset(
-      ${packageExpression == null ? '_assetName' : '\'$packageExpression\$_assetName\''},
+      ${isPackage ? '\'$packageExpression\$_assetName\'' : '_assetName'},
       artboard: artboard,
       animations: animations,
       stateMachines: stateMachines,
@@ -49,7 +49,7 @@ class RiveIntegration extends Integration {
 
   String get path => _assetName;
 
-  String get keyName => ${packageExpression == null ? '_assetName' : '\'$packageExpression\$_assetName\''};
+  String get keyName => ${isPackage ? '\'$packageExpression\$_assetName\'' : '_assetName'};
 }''';
 
   @override
