@@ -10,6 +10,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controller.dart';
 import 'package:rive/rive.dart';
@@ -156,26 +157,30 @@ class $AssetsImagesIconsGen {
       const SvgGenImage('assets/images/icons/dart@test.svg');
 
   /// File path: assets/images/icons/dart@test.svg.vec
-  String get dartTestSvg => 'assets/images/icons/dart@test.svg.vec';
+  SvgVecGenImage get dartTestSvg =>
+      const SvgVecGenImage('assets/images/icons/dart@test.svg.vec');
 
   /// File path: assets/images/icons/fuchsia.svg
   SvgGenImage get fuchsia =>
       const SvgGenImage('assets/images/icons/fuchsia.svg');
 
   /// File path: assets/images/icons/fuchsia.svg.vec
-  String get fuchsiaSvg => 'assets/images/icons/fuchsia.svg.vec';
+  SvgVecGenImage get fuchsiaSvg =>
+      const SvgVecGenImage('assets/images/icons/fuchsia.svg.vec');
 
   /// File path: assets/images/icons/kmm.svg
   SvgGenImage get kmm => const SvgGenImage('assets/images/icons/kmm.svg');
 
   /// File path: assets/images/icons/kmm.svg.vec
-  String get kmmSvg => 'assets/images/icons/kmm.svg.vec';
+  SvgVecGenImage get kmmSvg =>
+      const SvgVecGenImage('assets/images/icons/kmm.svg.vec');
 
   /// File path: assets/images/icons/paint.svg
   SvgGenImage get paint => const SvgGenImage('assets/images/icons/paint.svg');
 
   /// File path: assets/images/icons/paint.svg.vec
-  String get paintSvg => 'assets/images/icons/paint.svg.vec';
+  SvgVecGenImage get paintSvg =>
+      const SvgVecGenImage('assets/images/icons/paint.svg.vec');
 
   /// List of all assets
   List<dynamic> get values => [
@@ -332,6 +337,49 @@ class SvgGenImage {
       colorBlendMode: colorBlendMode,
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
+    );
+  }
+
+  String get path => _assetName;
+
+  String get keyName => _assetName;
+}
+
+class SvgVecGenImage {
+  const SvgVecGenImage(this._assetName);
+
+  final String _assetName;
+
+  SvgPicture svg({
+    Key? key,
+    bool matchTextDirection = false,
+    AssetBundle? bundle,
+    String? package,
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.contain,
+    AlignmentGeometry alignment = Alignment.center,
+    bool allowDrawingOutsideViewBox = false,
+    WidgetBuilder? placeholderBuilder,
+    String? semanticsLabel,
+    bool excludeFromSemantics = false,
+    ColorFilter? colorFilter,
+    Clip clipBehavior = Clip.hardEdge,
+  }) {
+    return SvgPicture(
+      AssetBytesLoader(_assetName, packageName: package, assetBundle: bundle),
+      key: key,
+      matchTextDirection: matchTextDirection,
+      width: width,
+      height: height,
+      fit: fit,
+      alignment: alignment,
+      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
+      placeholderBuilder: placeholderBuilder,
+      semanticsLabel: semanticsLabel,
+      excludeFromSemantics: excludeFromSemantics,
+      colorFilter: colorFilter,
+      clipBehavior: clipBehavior,
     );
   }
 
