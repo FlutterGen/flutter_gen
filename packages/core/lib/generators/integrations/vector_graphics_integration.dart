@@ -1,7 +1,6 @@
+import 'package:flutter_gen_core/generators/integrations/integration.dart';
 import 'package:flutter_gen_core/generators/integrations/svg_integration.dart';
-
-import '../../settings/asset_type.dart';
-import 'integration.dart';
+import 'package:flutter_gen_core/settings/asset_type.dart';
 
 /// An implementation of [Integration] for `flutter_svg` and `vector_graphics`.
 ///
@@ -56,12 +55,8 @@ class VectorGraphicsIntegration extends Integration {
     WidgetBuilder? placeholderBuilder,
     String? semanticsLabel,
     bool excludeFromSemantics = false,
-    SvgTheme theme = const SvgTheme(),
     ColorFilter? colorFilter,
-    @deprecated Color? color,
-    @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
-    @deprecated Clip? clipBehavior,
-    @deprecated bool cacheColorFilter = false,
+    Clip clipBehavior = Clip.hardEdge,
   }) {
     return SvgPicture(
       AssetBytesLoader(_assetName, packageName: package, assetBundle: bundle),
@@ -75,14 +70,8 @@ class VectorGraphicsIntegration extends Integration {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      theme: theme,
-      colorFilter: colorFilter != null
-          ? colorFilter
-          : color == null
-              ? null
-              : ColorFilter.mode(color, colorBlendMode),
+      colorFilter: colorFilter,
       clipBehavior: clipBehavior,
-      cacheColorFilter: cacheColorFilter,
     );
   }
 
