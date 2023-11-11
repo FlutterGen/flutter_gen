@@ -125,8 +125,6 @@ flutter_gen:
     flare_flutter: true
     rive: true
     lottie: true
-    # To use "vector_graphics", "flutter_svg" also must be enabled
-    vector_graphics: true
 
   colors:
     inputs:
@@ -281,9 +279,8 @@ For more information, see also [the instruction manual][precompiling-and-optimiz
 # pubspec.yaml
 flutter_gen:
   integrations:
-    # To use "vector_graphics", "flutter_svg" also must be enabled
+    # To use "vector_graphics", "flutter_svg" must be enabled
     flutter_svg: true
-    vector_graphics: true
 
 flutter:
   assets:
@@ -309,7 +306,7 @@ Widget build(BuildContext context) {
 |[flare_flutter](https://pub.dev/packages/flare_flutter)|.flr| `flare_flutter: true` |Assets.flare.penguin.**flare()**|
 |[rive](https://pub.dev/packages/rive)|.flr| `rive: true` |Assets.rive.vehicles.**rive()**|
 |[lottie](https://pub.dev/packages/lottie)|.json| `lottie: true` |Assets.lottie.hamburgerArrow.**lottie()**|
-|[vector_graphics]|.svg.vec *or* .vec| `vector_graphics: true` |Assets.images.icons.paint.**svg()**|
+|[vector_graphics]|.svg.vec *or* .vec| `flutter_svg: true` |Assets.images.icons.paint.**svg()**|
 
 
 <br/>
