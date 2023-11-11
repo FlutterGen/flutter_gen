@@ -60,25 +60,17 @@ String generateAssets(
   final importsBuffer = StringBuffer();
   final classesBuffer = StringBuffer();
 
-  if (config.flutterGen.integrations.vectorGraphics &&
-      !config.flutterGen.integrations.flutterSvg) {
-    throw const InvalidSettingsException(
-        'To use "vector_graphics", "flutter_svg" must be enabled as well.');
-  }
-
-  final svgIntegration = config.flutterGen.integrations.flutterSvg
-      ? SvgIntegration(config.packageParameterLiteral)
-      : null;
   final integrations = <Integration>[
-    if (svgIntegration != null) svgIntegration,
+    if (config.flutterGen.integrations.flutterSvg) ...[
+      SvgIntegration(config.packageParameterLiteral),
+      VectorGraphicsIntegration(config.packageParameterLiteral)
+    ],
     if (config.flutterGen.integrations.flareFlutter)
       FlareIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.rive)
       RiveIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.lottie)
       LottieIntegration(config.packageParameterLiteral),
-    if (config.flutterGen.integrations.vectorGraphics && svgIntegration != null)
-      VectorGraphicsIntegration(config.packageParameterLiteral, svgIntegration),
   ];
 
   // ignore: deprecated_member_use_from_same_package

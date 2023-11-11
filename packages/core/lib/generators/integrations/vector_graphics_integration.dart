@@ -8,28 +8,17 @@ import 'package:flutter_gen_core/settings/asset_type.dart';
 class VectorGraphicsIntegration extends Integration {
   VectorGraphicsIntegration(
     String packageParameterLiteral,
-    this._svgIntegration,
   ) : super(packageParameterLiteral);
-
-  final SvgIntegration _svgIntegration;
 
   String get packageExpression => packageParameterLiteral.isNotEmpty
       ? ' = \'$packageParameterLiteral\''
       : '';
 
   @override
-  set isEnabled(bool value) {
-    super.isEnabled = value;
-    if (value && !_svgIntegration.isEnabled) {
-      _svgIntegration.isEnabled = true;
-    }
-  }
-
-  @override
   List<String> get requiredImports => [
         'package:flutter_svg/flutter_svg.dart',
-        'package:vector_graphics/vector_graphics.dart',
         'package:flutter/services.dart',
+        'package:vector_graphics/vector_graphics.dart',
       ];
 
   @override

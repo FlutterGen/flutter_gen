@@ -166,8 +166,7 @@ FlutterGenIntegrations _$FlutterGenIntegrationsFromJson(Map json) =>
             'flutter_svg',
             'flare_flutter',
             'rive',
-            'lottie',
-            'vector_graphics'
+            'lottie'
           ],
         );
         final val = FlutterGenIntegrations(
@@ -175,14 +174,12 @@ FlutterGenIntegrations _$FlutterGenIntegrationsFromJson(Map json) =>
           flareFlutter: $checkedConvert('flare_flutter', (v) => v as bool),
           rive: $checkedConvert('rive', (v) => v as bool),
           lottie: $checkedConvert('lottie', (v) => v as bool),
-          vectorGraphics: $checkedConvert('vector_graphics', (v) => v as bool),
         );
         return val;
       },
       fieldKeyMap: const {
         'flutterSvg': 'flutter_svg',
-        'flareFlutter': 'flare_flutter',
-        'vectorGraphics': 'vector_graphics'
+        'flareFlutter': 'flare_flutter'
       },
     );
 
