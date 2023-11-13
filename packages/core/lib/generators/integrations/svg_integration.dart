@@ -2,13 +2,13 @@ import 'package:flutter_gen_core/generators/integrations/integration.dart';
 import 'package:flutter_gen_core/settings/asset_type.dart';
 
 class SvgIntegration extends Integration {
-  SvgIntegration(String packageParameterLiteral)
-      : super(packageParameterLiteral);
+  SvgIntegration(String packageName) : super(packageName);
 
   String get packageExpression => isPackage ? ' = package' : '';
 
   @override
   List<String> get requiredImports => [
+        'package:flutter/widgets.dart',
         'package:flutter_svg/flutter_svg.dart',
         'package:flutter/services.dart',
       ];
@@ -21,7 +21,7 @@ class SvgIntegration extends Integration {
 
   final String _assetName;
 
-  ${isPackage ? "static const String package = '$packageParameterLiteral';" : ''}
+  ${isPackage ? "static const String package = '$packageName';" : ''}
 
   SvgPicture svg({
     Key? key,
@@ -69,7 +69,7 @@ class SvgIntegration extends Integration {
 
   String get path => _assetName;
 
-  String get keyName => ${isPackage ? '\'packages/$packageParameterLiteral/\$_assetName\'' : '_assetName'};
+  String get keyName => ${isPackage ? '\'packages/$packageName/\$_assetName\'' : '_assetName'};
 }''';
 
   @override

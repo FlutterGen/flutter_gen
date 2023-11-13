@@ -7,8 +7,7 @@ import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
 class LottieIntegration extends Integration {
-  LottieIntegration(String packageParameterLiteral)
-      : super(packageParameterLiteral);
+  LottieIntegration(String packageName) : super(packageName);
 
   // These are required keys for this integration.
   static const lottieKeys = [
@@ -25,6 +24,7 @@ class LottieIntegration extends Integration {
 
   @override
   List<String> get requiredImports => [
+        'package:flutter/widgets.dart',
         'package:lottie/lottie.dart',
       ];
 
@@ -35,7 +35,7 @@ class LottieIntegration extends Integration {
   const LottieGenImage(this._assetName);
 
   final String _assetName;
-${isPackage ? "\n  static const String package = '$packageParameterLiteral';" : ''}
+${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   LottieBuilder lottie({
     Animation<double>? controller,
@@ -89,7 +89,7 @@ ${isPackage ? "\n  static const String package = '$packageParameterLiteral';" : 
 
   String get path => _assetName;
 
-  String get keyName => ${isPackage ? '\'packages/$packageParameterLiteral/\$_assetName\'' : '_assetName'};
+  String get keyName => ${isPackage ? '\'packages/$packageName/\$_assetName\'' : '_assetName'};
 }''';
 
   @override
