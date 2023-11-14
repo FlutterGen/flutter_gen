@@ -1,10 +1,13 @@
 import 'package:flutter_gen_core/settings/asset_type.dart';
 
+/// A base class for all integrations. An integration is a class that
+/// generates code for a specific asset type.
 abstract class Integration {
-  Integration(this.packageParameterLiteral);
+  Integration(this.packageName);
 
-  final String packageParameterLiteral;
-  late final bool isPackage = packageParameterLiteral.isNotEmpty;
+  /// The package name for this asset. If empty, the asset is not in a package.
+  final String packageName;
+  late final bool isPackage = packageName.isNotEmpty;
 
   bool isEnabled = false;
 
@@ -16,6 +19,7 @@ abstract class Integration {
 
   String classInstantiate(String path);
 
+  /// Is this asset type supported by this integration?
   bool isSupport(AssetType type);
 
   bool get isConstConstructor;

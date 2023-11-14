@@ -15,21 +15,6 @@ class AssetType {
 
   String? get mime => lookupMimeType(path);
 
-  /// https://api.flutter.dev/flutter/widgets/Image-class.html
-  bool get isSupportedImage {
-    switch (mime) {
-      case 'image/jpeg':
-      case 'image/png':
-      case 'image/gif':
-      case 'image/bmp':
-      case 'image/vnd.wap.wbmp':
-      case 'image/webp':
-        return true;
-      default:
-        return false;
-    }
-  }
-
   bool get isIgnoreFile {
     switch (baseName) {
       case '.DS_Store':

@@ -6,6 +6,7 @@ import 'package:dart_style/dart_style.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter_gen_core/generators/generator_helper.dart';
 import 'package:flutter_gen_core/generators/integrations/flare_integration.dart';
+import 'package:flutter_gen_core/generators/integrations/image_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/integration.dart';
 import 'package:flutter_gen_core/generators/integrations/lottie_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/rive_integration.dart';
@@ -60,6 +61,7 @@ String generateAssets(
   final classesBuffer = StringBuffer();
 
   final integrations = <Integration>[
+    ImageIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.flutterSvg)
       SvgIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.flareFlutter)
@@ -162,11 +164,7 @@ String generateAssets(
     throw 'The value of "flutter_gen/assets/style." is incorrect.';
   }
 
-  classesBuffer.writeln(_assetGenImageClassDefinition(
-    config.packageParameterLiteral,
-  ));
-
-  final imports = <String>{'package:flutter/widgets.dart'};
+  final imports = <String>{};
   integrations
       .where((integration) => integration.isEnabled)
       .forEach((integration) {
@@ -254,17 +252,7 @@ _Statement? _createAssetTypeStatement(
   String name,
 ) {
   final childAssetAbsolutePath = join(config.rootPath, assetType.path);
-  if (assetType.isSupportedImage) {
-    return _Statement(
-      type: 'AssetGenImage',
-      filePath: assetType.path,
-      name: name,
-      value: 'AssetGenImage(\'${posixStyle(assetType.path)}\')',
-      isConstConstructor: true,
-      isDirectory: false,
-      needDartDoc: true,
-    );
-  } else if (FileSystemEntity.isDirectorySync(childAssetAbsolutePath)) {
+  if (FileSystemEntity.isDirectorySync(childAssetAbsolutePath)) {
     final childClassName = '\$${assetType.path.camelCase().capitalize()}Gen';
     return _Statement(
       type: childClassName,
@@ -531,95 +519,6 @@ class $className {
   
   $statementsBlock
   $valuesBlock
-}
-''';
-}
-
-String _assetGenImageClassDefinition(String packageName) {
-  final bool isPackage = packageName.isNotEmpty;
-  final packageParameter = isPackage ? ' = package' : '';
-
-  final keyName = packageName.isEmpty
-      ? '_assetName'
-      : "'packages/$packageName/\$_assetName'";
-
-  return '''
-
-class AssetGenImage {
-  const AssetGenImage(this._assetName);
-
-  final String _assetName;
-${isPackage ? "\n  static const String package = '$packageName';" : ''}
-
-  Image image({
-    Key? key,
-    AssetBundle? bundle,
-    ImageFrameBuilder? frameBuilder,
-    ImageErrorWidgetBuilder? errorBuilder,
-    String? semanticLabel,
-    bool excludeFromSemantics = false,
-    double? scale,
-    double? width,
-    double? height,
-    Color? color,
-    Animation<double>? opacity,
-    BlendMode? colorBlendMode,
-    BoxFit? fit,
-    AlignmentGeometry alignment = Alignment.center,
-    ImageRepeat repeat = ImageRepeat.noRepeat,
-    Rect? centerSlice,
-    bool matchTextDirection = false,
-    bool gaplessPlayback = false,
-    bool isAntiAlias = false,
-    ${isPackage ? deprecationMessagePackage : ''}
-    String? package$packageParameter,
-    FilterQuality filterQuality = FilterQuality.low,
-    int? cacheWidth,
-    int? cacheHeight,
-  }) {
-    return Image.asset(
-      _assetName,
-      key: key,
-      bundle: bundle,
-      frameBuilder: frameBuilder,
-      errorBuilder: errorBuilder,
-      semanticLabel: semanticLabel,
-      excludeFromSemantics: excludeFromSemantics,
-      scale: scale,
-      width: width,
-      height: height,
-      color: color,
-      opacity: opacity,
-      colorBlendMode: colorBlendMode,
-      fit: fit,
-      alignment: alignment,
-      repeat: repeat,
-      centerSlice: centerSlice,
-      matchTextDirection: matchTextDirection,
-      gaplessPlayback: gaplessPlayback,
-      isAntiAlias: isAntiAlias,
-      package: package,
-      filterQuality: filterQuality,
-      cacheWidth: cacheWidth,
-      cacheHeight: cacheHeight,
-    );
-  }
-
-  ImageProvider provider({
-    AssetBundle? bundle,
-    ${isPackage ? deprecationMessagePackage : ''}
-    String? package$packageParameter,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
-  }
-
-  String get path => _assetName;
-
-  String get keyName => $keyName;
 }
 ''';
 }
