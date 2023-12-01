@@ -32,8 +32,7 @@ abstract class Integration {
 const String deprecationMessagePackage =
     "@Deprecated('Do not specify package for a generated library asset')";
 
-/// Useful metadata about the a parsed Asset file. Which is used when
-/// [parseMetadata] is true.
+/// Useful metadata about the parsed asset file when [parseMetadata] is true.
 /// Currently only contains the width and height, but could contain more in
 /// future.
 class ImageMetadata {
