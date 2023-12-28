@@ -64,7 +64,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: sha256
           path: packages/command/bin/${{ matrix.target }}/fluttergen-${{ matrix.artifact_prefix }}.sha256
