@@ -55,8 +55,6 @@ class $AssetsUnknownGen {
 class ResAssets {
   ResAssets._();
 
-  static const String package = 'example_resources';
-
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
 }
@@ -65,8 +63,6 @@ class AssetGenImage {
   const AssetGenImage(this._assetName);
 
   final String _assetName;
-
-  static const String package = 'example_resources';
 
   Image image({
     Key? key,
@@ -88,8 +84,7 @@ class AssetGenImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
-    @Deprecated('Do not specify package for a generated library asset')
-    String? package = package,
+    String? package = 'example_resources',
     FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,
@@ -124,7 +119,7 @@ class AssetGenImage {
 
   ImageProvider provider({
     AssetBundle? bundle,
-    String? package = package,
+    String? package = 'example_resources',
   }) {
     return AssetImage(
       _assetName,
@@ -143,14 +138,11 @@ class SvgGenImage {
 
   final String _assetName;
 
-  static const String package = 'example_resources';
-
   SvgPicture svg({
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    @Deprecated('Do not specify package for a generated library asset')
-    String? package = package,
+    String? package = 'example_resources',
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,
@@ -199,8 +191,6 @@ class FlareGenImage {
 
   final String _assetName;
 
-  static const String package = 'example_resources';
-
   FlareActor flare({
     String? boundsNode,
     String? animation,
@@ -244,8 +234,6 @@ class RiveGenImage {
 
   final String _assetName;
 
-  static const String package = 'example_resources';
-
   RiveAnimation rive({
     String? artboard,
     List<String> animations = const [],
@@ -281,8 +269,6 @@ class LottieGenImage {
 
   final String _assetName;
 
-  static const String package = 'example_resources';
-
   LottieBuilder lottie({
     Animation<double>? controller,
     bool? animate,
@@ -301,8 +287,7 @@ class LottieGenImage {
     double? height,
     BoxFit? fit,
     AlignmentGeometry? alignment,
-    @Deprecated('Do not specify package for a generated library asset')
-    String? package = package,
+    String? package = 'example_resources',
     bool? addRepaintBoundary,
     FilterQuality? filterQuality,
     void Function(String)? onWarning,

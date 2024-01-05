@@ -1,14 +1,25 @@
+## 5.4.0
+
+**Feature**
+- [#435](https://github.com/FlutterGen/flutter_gen/pull/435) Allowed the generated values statement to optionally be static. [@bramp](https://github.com/bramp)
+
+**Bug fix**  
+- [#432](https://github.com/FlutterGen/flutter_gen/pull/432) Refactored the AssetGenImage code to be another Integration. [@bramp](https://github.com/bramp)
+
+**Development**
+- [#438](https://github.com/FlutterGen/flutter_gen/pull/438) Fix module configurations.
+- Update to Dart 3.2.0.
+- Update to Flutter 3.16.0.
+
 ## 5.3.2
 
 **Bug fix**  
 - [#409](https://github.com/FlutterGen/flutter_gen/pull/409) Update dependencies.
   - Update Dart SDK to `>=2.17.0 <4.0.0`.
 
-
 **Development**
 - Update to Dart 3.1.2.
 - Update to Flutter 3.13.5.
-
 
 **Team**
 - Welcome [@AlexV525](https://github.com/AlexV525) 🎉
