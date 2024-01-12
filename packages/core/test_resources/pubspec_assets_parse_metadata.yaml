@@ -3,7 +3,7 @@ name: test
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
   line_length: 80 # Optional (default: 80)
-  parse_metadata: true # Optional (default: true)
+  parse_metadata: true # Optional (default: false)
 
   integrations:
     flutter_svg: true
