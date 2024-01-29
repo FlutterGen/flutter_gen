@@ -39,5 +39,5 @@ class ImageMetadata {
   final double width;
   final double height;
 
-  ImageMetadata(this.width, this.height);
+  const ImageMetadata(this.width, this.height);
 }
