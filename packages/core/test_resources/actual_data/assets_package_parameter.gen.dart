@@ -65,11 +65,13 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName);
+  const AssetGenImage(this._assetName, {this.size = null});
 
   final String _assetName;
 
   static const String package = 'test';
+
+  final Size? size;
 
   Image image({
     Key? key,
@@ -143,11 +145,13 @@ class AssetGenImage {
 }
 
 class SvgGenImage {
-  const SvgGenImage(this._assetName);
+  const SvgGenImage(this._assetName, {this.size = null});
 
   final String _assetName;
 
   static const String package = 'test';
+
+  final Size? size;
 
   SvgPicture svg({
     Key? key,

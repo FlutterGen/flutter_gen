@@ -217,6 +217,32 @@ Widget build(BuildContext context) {
 }
 ```
 
+#### Including additional metadata
+
+At build time, additional metadata may be included in the generated class, by using the
+`parse_metadata` option.
+
+```yaml
+flutter_gen:
+  parse_metadata: true # <- Add this line (default: false)
+```
+
+For image based assets, a new nullable `size` field is added to the
+generated class. For example:
+
+```dart
+AssetGenImage get logo => 
+  const AssetGenImage('assets/images/logo.png', size: Size(209.0, 49.0));
+```
+
+Which can now be used at runtime without parsing the information from the actual asset.
+
+```dart
+Widget build(BuildContext context) {
+  return Assets.images.logo.size!.width;
+}
+```
+
 #### Usage Example
 
 [FlutterGen] generates [Image](https://api.flutter.dev/flutter/widgets/Image-class.html) class if the asset is Flutter supported image format.

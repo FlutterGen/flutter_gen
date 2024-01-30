@@ -33,7 +33,8 @@ void main() {
       final integration = SvgIntegration('');
       expect(integration.className, 'SvgGenImage');
       expect(
-        integration.classInstantiate('assets/path'),
+        integration.classInstantiate(
+            AssetType(rootPath: resPath, path: 'assets/path')),
         'SvgGenImage(\'assets/path\')',
       );
       expect(
@@ -73,7 +74,9 @@ void main() {
 
       final integration = FlareIntegration('');
       expect(integration.className, 'FlareGenImage');
-      expect(integration.classInstantiate('assets/path'),
+      expect(
+          integration.classInstantiate(
+              AssetType(rootPath: resPath, path: 'assets/path')),
           'FlareGenImage(\'assets/path\')');
       expect(
           integration.isSupport(
@@ -105,7 +108,9 @@ void main() {
 
       final integration = RiveIntegration('');
       expect(integration.className, 'RiveGenImage');
-      expect(integration.classInstantiate('assets/path'),
+      expect(
+          integration.classInstantiate(
+              AssetType(rootPath: resPath, path: 'assets/path')),
           'RiveGenImage(\'assets/path\')');
       expect(
           integration.isSupport(
@@ -137,7 +142,9 @@ void main() {
 
       final integration = LottieIntegration('');
       expect(integration.className, 'LottieGenImage');
-      expect(integration.classInstantiate('assets/lottie'),
+      expect(
+          integration.classInstantiate(
+              AssetType(rootPath: resPath, path: 'assets/lottie')),
           'LottieGenImage(\'assets/lottie\')');
       expect(
           integration.isSupport(AssetType(

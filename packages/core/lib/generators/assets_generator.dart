@@ -61,9 +61,11 @@ String generateAssets(
   final classesBuffer = StringBuffer();
 
   final integrations = <Integration>[
-    ImageIntegration(config.packageParameterLiteral),
+    ImageIntegration(config.packageParameterLiteral,
+        parseMetadata: config.flutterGen.parseMetadata),
     if (config.flutterGen.integrations.flutterSvg)
-      SvgIntegration(config.packageParameterLiteral),
+      SvgIntegration(config.packageParameterLiteral,
+          parseMetadata: config.flutterGen.parseMetadata),
     if (config.flutterGen.integrations.flareFlutter)
       FlareIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.rive)
@@ -256,7 +258,7 @@ _Statement? _createAssetTypeStatement(
     final childClassName = '\$${assetType.path.camelCase().capitalize()}Gen';
     return _Statement(
       type: childClassName,
-      filePath: assetType.path,
+      filePath: assetType.posixStylePath,
       name: name,
       value: '$childClassName()',
       isConstConstructor: true,
@@ -268,13 +270,13 @@ _Statement? _createAssetTypeStatement(
       (element) => element.isSupport(assetType),
     );
     if (integration == null) {
-      var assetKey = posixStyle(assetType.path);
+      var assetKey = assetType.posixStylePath;
       if (config.flutterGen.assets.outputs.packageParameterEnabled) {
         assetKey = 'packages/${config._packageName}/$assetKey';
       }
       return _Statement(
         type: 'String',
-        filePath: assetType.path,
+        filePath: assetType.posixStylePath,
         name: name,
         value: '\'$assetKey\'',
         isConstConstructor: false,
@@ -285,9 +287,9 @@ _Statement? _createAssetTypeStatement(
       integration.isEnabled = true;
       return _Statement(
         type: integration.className,
-        filePath: assetType.path,
+        filePath: assetType.posixStylePath,
         name: name,
-        value: integration.classInstantiate(posixStyle(assetType.path)),
+        value: integration.classInstantiate(assetType),
         isConstConstructor: integration.isConstConstructor,
         isDirectory: false,
         needDartDoc: true,
@@ -345,7 +347,7 @@ String _dotDelimiterStyleDefinition(
         if (dirname(assetType.path) == '.') {
           assetsStaticStatements.add(_Statement(
             type: className,
-            filePath: assetType.path,
+            filePath: assetType.posixStylePath,
             name: assetType.baseName.camelCase(),
             value: '$className()',
             isConstConstructor: true,
@@ -542,7 +544,7 @@ class _Statement {
   final bool isDirectory;
   final bool needDartDoc;
 
-  String toDartDocString() => '/// File path: ${posixStyle(filePath)}';
+  String toDartDocString() => '/// File path: $filePath';
 
   String toGetterString() =>
       '$type get $name => ${isConstConstructor ? 'const' : ''} $value;';

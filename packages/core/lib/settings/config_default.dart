@@ -6,6 +6,8 @@ flutter_gen:
   output: lib/gen/
   # Optional
   line_length: 80
+  # Optional
+  parse_metadata: false
 
   # Optional
   integrations:

@@ -108,6 +108,14 @@ void main() {
 
       await expectedAssetsGen(pubspec, generated, fact);
     });
+
+    test('Assets with parse metadata enabled', () async {
+      const pubspec = 'test_resources/pubspec_assets_parse_metadata.yaml';
+      const fact = 'test_resources/actual_data/assets_parse_metadata.gen.dart';
+      const generated = 'test_resources/lib/gen/assets_parse_metadata.gen.dart';
+
+      await expectedAssetsGen(pubspec, generated, fact);
+    });
   });
 
   group('Test generatePackageNameForConfig', () {
