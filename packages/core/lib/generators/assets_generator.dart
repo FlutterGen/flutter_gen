@@ -318,9 +318,12 @@ String _dotDelimiterStyleDefinition(
 
   while (assetTypeQueue.isNotEmpty) {
     final assetType = assetTypeQueue.removeFirst();
-    final assetAbsolutePath = join(config.rootPath, assetType.path);
+    final assetPath = join(config.rootPath, assetType.path);
 
-    if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
+    final isDirectory = FileSystemEntity.isDirectorySync(assetPath);
+    final isRootAsset = File(assetPath).parent.absolute.path == config.rootPath;
+    // Handles directories, and explicitly handles root path assets.
+    if (isDirectory || isRootAsset) {
       final statements = assetType.children
           .mapToIsUniqueWithoutExtension()
           .map(
@@ -339,6 +342,16 @@ String _dotDelimiterStyleDefinition(
 
       if (assetType.isDefaultAssetsDirectory) {
         assetsStaticStatements.addAll(statements);
+      } else if (isRootAsset) {
+        // Creates explicit statement.
+        assetsStaticStatements.add(
+          _createAssetTypeStatement(
+            config,
+            assetType,
+            integrations,
+            basenameWithoutExtension(assetType.path).camelCase(),
+          )!,
+        );
       } else {
         final className = '\$${assetType.path.camelCase().capitalize()}Gen';
         buffer.writeln(_directoryClassGenDefinition(className, statements));
