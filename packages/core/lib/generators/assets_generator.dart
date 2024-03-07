@@ -318,9 +318,14 @@ String _dotDelimiterStyleDefinition(
 
   while (assetTypeQueue.isNotEmpty) {
     final assetType = assetTypeQueue.removeFirst();
-    final assetPath = join(config.rootPath, assetType.path);
-
+    String assetPath = join(config.rootPath, assetType.path);
     final isDirectory = FileSystemEntity.isDirectorySync(assetPath);
+    if (isDirectory) {
+      assetPath = Directory(assetPath).uri.toFilePath();
+    } else {
+      assetPath = File(assetPath).uri.toFilePath();
+    }
+
     final isRootAsset = File(assetPath).parent.absolute.path == config.rootPath;
     // Handles directories, and explicitly handles root path assets.
     if (isDirectory || isRootAsset) {
@@ -342,7 +347,7 @@ String _dotDelimiterStyleDefinition(
 
       if (assetType.isDefaultAssetsDirectory) {
         assetsStaticStatements.addAll(statements);
-      } else if (isRootAsset) {
+      } else if (!isDirectory && isRootAsset) {
         // Creates explicit statement.
         assetsStaticStatements.add(
           _createAssetTypeStatement(
