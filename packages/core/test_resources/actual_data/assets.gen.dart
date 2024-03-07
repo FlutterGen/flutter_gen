@@ -147,6 +147,7 @@ class Assets {
   static const $AssetsMovieGen movie = $AssetsMovieGen();
   static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
   static const $PicturesGen pictures = $PicturesGen();
+  static const String readme = 'README.md';
 }
 
 class AssetGenImage {
