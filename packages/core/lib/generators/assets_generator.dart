@@ -341,7 +341,15 @@ String _dotDelimiterStyleDefinition(
         assetsStaticStatements.addAll(statements);
       } else {
         final className = '\$${assetType.path.camelCase().capitalize()}Gen';
-        buffer.writeln(_directoryClassGenDefinition(className, statements));
+        buffer.writeln(
+          _directoryClassGenDefinition(
+            className,
+            statements,
+            config.flutterGen.assets.outputs.directoryPathEnabled
+                ? assetType.posixStylePath
+                : null,
+          ),
+        );
         // Add this directory reference to Assets class
         // if we are not under the default asset folder
         if (dirname(assetType.path) == '.') {
@@ -505,14 +513,22 @@ ${packageName != null ? "\n  static const String package = '$packageName';" : ''
 String _directoryClassGenDefinition(
   String className,
   List<_Statement> statements,
+  String? directoryPath,
 ) {
-  final statementsBlock = statements
-      .map((statement) => statement.needDartDoc
-          ? '''${statement.toDartDocString()}
-          ${statement.toGetterString()}
-          '''
-          : statement.toGetterString())
-      .join('\n');
+  final statementsBlock = statements.map((statement) {
+    final buffer = StringBuffer();
+    if (statement.needDartDoc) {
+      buffer.writeln(statement.toDartDocString());
+    }
+    buffer.writeln(statement.toGetterString());
+    return buffer.toString();
+  }).join('\n');
+  final pathBlock = directoryPath != null
+      ? '''
+  /// Directory path: $directoryPath
+  String get path => '$directoryPath';
+'''
+      : '';
   final valuesBlock = _assetValuesDefinition(statements);
 
   return '''
@@ -520,6 +536,7 @@ class $className {
   const $className();
   
   $statementsBlock
+  $pathBlock
   $valuesBlock
 }
 ''';
