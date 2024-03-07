@@ -15,6 +15,7 @@ class $AssetsImagesGen {
   const $AssetsImagesGen();
 
   $AssetsImagesChip3Gen get chip3 => const $AssetsImagesChip3Gen();
+
   $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
 }
 
