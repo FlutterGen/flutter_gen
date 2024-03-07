@@ -304,21 +304,23 @@ String _dotDelimiterStyleDefinition(
   AssetsGenConfig config,
   List<Integration> integrations,
 ) {
+  final rootPath =
+      Directory(config.rootPath).uri.toFilePath().removeSuffix('/');
   final buffer = StringBuffer();
   final className = config.flutterGen.assets.outputs.className;
   final assetRelativePathList = _getAssetRelativePathList(
-    config.rootPath,
+    rootPath,
     config.assets,
     config.exclude,
   );
   final assetsStaticStatements = <_Statement>[];
 
   final assetTypeQueue = ListQueue<AssetType>.from(
-      _constructAssetTree(assetRelativePathList, config.rootPath).children);
+      _constructAssetTree(assetRelativePathList, rootPath).children);
 
   while (assetTypeQueue.isNotEmpty) {
     final assetType = assetTypeQueue.removeFirst();
-    String assetPath = join(config.rootPath, assetType.path);
+    String assetPath = join(rootPath, assetType.path);
     final isDirectory = FileSystemEntity.isDirectorySync(assetPath);
     if (isDirectory) {
       assetPath = Directory(assetPath).uri.toFilePath();
@@ -326,7 +328,7 @@ String _dotDelimiterStyleDefinition(
       assetPath = File(assetPath).uri.toFilePath();
     }
 
-    final isRootAsset = File(assetPath).parent.absolute.path == config.rootPath;
+    final isRootAsset = File(assetPath).parent.absolute.path == rootPath;
     // Handles directories, and explicitly handles root path assets.
     if (isDirectory || isRootAsset) {
       final statements = assetType.children
