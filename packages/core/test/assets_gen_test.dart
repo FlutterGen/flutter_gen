@@ -89,6 +89,13 @@ void main() {
       );
     });
 
+    test('Assets with directory path enabled', () async {
+      const pubspec = 'test_resources/pubspec_assets_directory_path.yaml';
+      const fact = 'test_resources/actual_data/assets_directory_path.gen.dart';
+      const generated = 'test_resources/lib/gen/assets_directory_path.gen.dart';
+      await expectedAssetsGen(pubspec, generated, fact);
+    });
+
     test('Assets with excluded files and directories', () async {
       const pubspec = 'test_resources/pubspec_assets_exclude_files.yaml';
       const fact =
