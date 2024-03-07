@@ -23,4 +23,4 @@ flutter:
     - assets/flare/
     - assets/movie/
     - assets/unknown/unknown_mime_type.bk
-    - README.md
+    - CHANGELOG.md
