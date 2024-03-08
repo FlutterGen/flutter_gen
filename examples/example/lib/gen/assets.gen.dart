@@ -182,6 +182,7 @@ class $AssetsLottieWrongGen {
 class MyAssets {
   MyAssets._();
 
+  static const String readme = 'README.md';
   static const $AssetsFlareGen flare = $AssetsFlareGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
@@ -190,6 +191,9 @@ class MyAssets {
   static const $AssetsMovieGen movie = $AssetsMovieGen();
   static const $AssetsRiveGen rive = $AssetsRiveGen();
   static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
+
+  /// List of all assets
+  static List<String> get values => [readme];
 }
 
 class AssetGenImage {
@@ -269,9 +273,11 @@ class AssetGenImage {
 }
 
 class SvgGenImage {
-  const SvgGenImage(this._assetName);
+  const SvgGenImage(this._assetName, {this.size = null});
 
   final String _assetName;
+
+  final Size? size;
 
   SvgPicture svg({
     Key? key,
