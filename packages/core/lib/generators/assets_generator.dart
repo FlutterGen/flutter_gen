@@ -304,23 +304,33 @@ String _dotDelimiterStyleDefinition(
   AssetsGenConfig config,
   List<Integration> integrations,
 ) {
+  final rootPath = Directory(config.rootPath).absolute.uri.toFilePath();
   final buffer = StringBuffer();
   final className = config.flutterGen.assets.outputs.className;
   final assetRelativePathList = _getAssetRelativePathList(
-    config.rootPath,
+    rootPath,
     config.assets,
     config.exclude,
   );
   final assetsStaticStatements = <_Statement>[];
 
   final assetTypeQueue = ListQueue<AssetType>.from(
-      _constructAssetTree(assetRelativePathList, config.rootPath).children);
+      _constructAssetTree(assetRelativePathList, rootPath).children);
 
   while (assetTypeQueue.isNotEmpty) {
     final assetType = assetTypeQueue.removeFirst();
-    final assetAbsolutePath = join(config.rootPath, assetType.path);
+    String assetPath = join(rootPath, assetType.path);
+    final isDirectory = FileSystemEntity.isDirectorySync(assetPath);
+    if (isDirectory) {
+      assetPath = Directory(assetPath).absolute.uri.toFilePath();
+    } else {
+      assetPath = File(assetPath).absolute.uri.toFilePath();
+    }
 
-    if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
+    final isRootAsset = !isDirectory &&
+        File(assetPath).parent.absolute.uri.toFilePath() == rootPath;
+    // Handles directories, and explicitly handles root path assets.
+    if (isDirectory || isRootAsset) {
       final statements = assetType.children
           .mapToIsUniqueWithoutExtension()
           .map(
@@ -339,6 +349,16 @@ String _dotDelimiterStyleDefinition(
 
       if (assetType.isDefaultAssetsDirectory) {
         assetsStaticStatements.addAll(statements);
+      } else if (!isDirectory && isRootAsset) {
+        // Creates explicit statement.
+        assetsStaticStatements.add(
+          _createAssetTypeStatement(
+            config,
+            assetType,
+            integrations,
+            basenameWithoutExtension(assetType.path).camelCase(),
+          )!,
+        );
       } else {
         final className = '\$${assetType.path.camelCase().capitalize()}Gen';
         buffer.writeln(_directoryClassGenDefinition(className, statements));

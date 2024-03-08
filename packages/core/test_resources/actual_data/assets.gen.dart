@@ -141,12 +141,16 @@ class $AssetsImagesIconsGen {
 class Assets {
   Assets._();
 
+  static const String changelog = 'CHANGELOG.md';
   static const $AssetsFlareGen flare = $AssetsFlareGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
   static const $AssetsMovieGen movie = $AssetsMovieGen();
   static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
   static const $PicturesGen pictures = $PicturesGen();
+
+  /// List of all assets
+  static List<String> get values => [changelog];
 }
 
 class AssetGenImage {
