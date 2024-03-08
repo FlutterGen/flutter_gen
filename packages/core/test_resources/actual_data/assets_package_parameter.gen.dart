@@ -14,8 +14,10 @@ import 'package:flutter/services.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// Directory path: assets/images/chip3
   $AssetsImagesChip3Gen get chip3 => const $AssetsImagesChip3Gen();
 
+  /// Directory path: assets/images/icons
   $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
 }
 

@@ -34,7 +34,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/chip2.jpg
   AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
 
+  /// Directory path: assets/images/chip4
   $AssetsImagesChip4Gen get chip4 => const $AssetsImagesChip4Gen();
+
+  /// Directory path: assets/images/icons
   $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
 
   /// File path: assets/images/logo.png
@@ -81,6 +84,7 @@ class $AssetsLottieGen {
   LottieGenImage get hamburgerArrow =>
       const LottieGenImage('assets/lottie/hamburger_arrow.json');
 
+  /// Directory path: assets/lottie/wrong
   $AssetsLottieWrongGen get wrong => const $AssetsLottieWrongGen();
 
   /// List of all assets

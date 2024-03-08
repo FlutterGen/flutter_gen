@@ -583,8 +583,19 @@ class _Statement {
 
   String toDartDocString() => '/// File path: $filePath';
 
-  String toGetterString() =>
-      '$type get $name => ${isConstConstructor ? 'const' : ''} $value;';
+  String toGetterString() {
+    final buffer = StringBuffer('');
+    if (isDirectory) {
+      buffer.writeln(
+        '/// Directory path: '
+        '${Directory(filePath).path.replaceAll(r'\', r'/')}',
+      );
+    }
+    buffer.writeln(
+      '$type get $name => ${isConstConstructor ? 'const' : ''} $value;',
+    );
+    return buffer.toString();
+  }
 
   String toStaticFieldString() => 'static const $type $name = $value;';
 }
