@@ -106,7 +106,7 @@ jobs:
         run: |
           echo ::set-output name=sha256_linux::$(cat fluttergen-linux.sha256 | awk '{ print $1 }')
           echo ::set-output name=sha256_macos::$(cat fluttergen-macos.sha256 | awk '{ print $1 }')
-      - uses: peter-evans/repository-dispatch@v2
+      - uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.PAT_FLUTTERGEN }}
           repository: FlutterGen/homebrew-tap
