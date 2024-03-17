@@ -34,7 +34,9 @@ void main() {
       expect(loader.theme, isNull);
     });
 
-    testWidgets('DefaultSvgTheme currentColor', (widgetTester) async {
+    testWidgets(
+        'Taken theme of SvgAssetLoader equals with one passed to parent DefaultSvgTheme',
+        (widgetTester) async {
       await widgetTester.pumpWidget(SvgIntegrationsTest(theme: testTheme));
 
       var finder = find.byType(SvgPicture);
