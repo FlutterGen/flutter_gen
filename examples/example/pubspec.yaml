@@ -22,6 +22,9 @@ dev_dependencies:
   lints: ^2.0.0
   build_runner: ^2.0.0
   flutter_gen_runner: ^5.4.0
+  test: ^1.16.0
+  flutter_test:
+    sdk: flutter
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
@@ -79,6 +82,7 @@ flutter:
     - assets/images/icons/kmm.svg
     - assets/images/icons/paint.svg
     - assets/images/icons/dart@test.svg
+    - assets/images/icons/water@test.svg
     - assets/json/
     - pictures/chip5.jpg
     - assets/flare/

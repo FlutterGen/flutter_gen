@@ -81,6 +81,15 @@ scripts:
       dependsOn: test
     description: dart test
 
+  test:flutter:
+    run: flutter test
+    exec:
+      failFast: true
+    packageFilters:
+      flutter: true
+      dependsOn: test
+    description: flutter test
+
   coverage:
     run: |
       bash ./scripts/coverage.sh packages/core
