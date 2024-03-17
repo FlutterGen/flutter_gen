@@ -165,12 +165,8 @@ class $AssetsImagesIconsGen {
   /// File path: assets/images/icons/paint.svg
   SvgGenImage get paint => const SvgGenImage('assets/images/icons/paint.svg');
 
-  /// File path: assets/images/icons/water@test.svg
-  SvgGenImage get waterTest =>
-      const SvgGenImage('assets/images/icons/water@test.svg');
-
   /// List of all assets
-  List<SvgGenImage> get values => [dartTest, fuchsia, kmm, paint, waterTest];
+  List<SvgGenImage> get values => [dartTest, fuchsia, kmm, paint];
 }
 
 class $AssetsLottieWrongGen {

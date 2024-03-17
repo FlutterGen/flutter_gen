@@ -13,7 +13,7 @@ class SvgIntegrationsTest extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultSvgTheme(
       theme: theme,
-      child: MyAssets.images.icons.waterTest.svg(),
+      child: MyAssets.images.icons.dartTest.svg(),
     );
   }
 }
