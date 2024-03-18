@@ -65,7 +65,7 @@ class UniqueAssetType extends AssetType {
   UniqueAssetType({
     required AssetType assetType,
     this.style = camelCase,
-    this.justBasename = false,
+    this.basenameOnly = false,
     this.needExtension = false,
     this.suffix = '',
   }) : super(rootPath: assetType.rootPath, path: assetType.path);
@@ -76,7 +76,7 @@ class UniqueAssetType extends AssetType {
 
   /// Include just the basename of the asset in the [name],
   /// e.g. 'images/image.png' -> 'image'.
-  final bool justBasename;
+  final bool basenameOnly;
 
   /// Include the extension in the [name], e.g. 'image.png' -> 'imagePng'.
   bool needExtension;
@@ -90,8 +90,8 @@ class UniqueAssetType extends AssetType {
   String get name {
     // Omit root directory from the name if it is either asset or assets.
     // TODO(bramp): Maybe move this into the _flatStyleDefinition
-    var p = path.replaceFirst(RegExp(r'^asset(s)?[/\\]'), '');
-    if (justBasename) {
+    String p = path.replaceFirst(RegExp(r'^asset(s)?[/\\]'), '');
+    if (basenameOnly) {
       p = basename(p);
     }
     if (!needExtension) {
@@ -142,7 +142,7 @@ extension AssetTypeIterable on Iterable<AssetType> {
           style: style,
           needExtension: false,
           suffix: '',
-          justBasename: justBasename,
+          basenameOnly: justBasename,
         )).toList();
 
     while (true) {
@@ -181,7 +181,7 @@ extension AssetTypeIterable on Iterable<AssetType> {
             }
 
             // Ok, we must resolve the conflicts by adding suffixes.
-            var suffix = '';
+            String suffix = '';
             list.forEachIndexed((asset, index) {
               // Shouldn't need to mutate the first item (unless it's an invalid
               // identifer).
