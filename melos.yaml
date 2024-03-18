@@ -87,7 +87,7 @@ scripts:
       failFast: true
     packageFilters:
       flutter: true
-      dependsOn: test
+      dependsOn: flutter_test
     description: flutter test
 
   coverage:
