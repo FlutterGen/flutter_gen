@@ -69,8 +69,8 @@ scripts:
     description: flutter pub run build_runner build --delete-conflicting-outputs
 
   test:
-    run: melos test:dart --no-select
-    description: dart test
+    run: melos test:dart --no-select && melos test:flutter --no-select
+    description: dart & flutter test
 
   test:dart:
     run: dart test
@@ -80,6 +80,15 @@ scripts:
       flutter: false
       dependsOn: test
     description: dart test
+
+  test:flutter:
+    run: flutter test
+    exec:
+      failFast: true
+    packageFilters:
+      flutter: true
+      dependsOn: flutter_test
+    description: flutter test
 
   coverage:
     run: |
