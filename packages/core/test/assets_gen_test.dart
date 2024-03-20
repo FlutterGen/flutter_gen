@@ -2,9 +2,12 @@
 import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
+import 'package:dartx/dartx.dart';
 import 'package:flutter_gen_core/generators/assets_generator.dart';
+import 'package:flutter_gen_core/settings/asset_type.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:flutter_gen_core/utils/error.dart';
+import 'package:flutter_gen_core/utils/string.dart';
 import 'package:test/test.dart';
 
 import 'gen_test_helper.dart';
@@ -115,6 +118,65 @@ void main() {
       const generated = 'test_resources/lib/gen/assets_parse_metadata.gen.dart';
 
       await expectedAssetsGen(pubspec, generated, fact);
+    });
+
+    test('Assets with terrible names (camelCase)', () async {
+      // See [AssetTypeIterable.mapToUniqueAssetType] for the rules for picking
+      // identifer names.
+      final tests = <String, String>{
+        'assets/single.jpg': 'single',
+
+        // Two assets with overlapping names
+        'assets/logo.jpg': 'logoJpg',
+        'assets/logo.png': 'logoPng',
+
+        // Two assets with overlapping names, which when re-written overlaps with a 3rd.
+        'assets/profile.jpg': 'profileJpg',
+        'assets/profile.png': 'profilePng',
+        'assets/profilePng.jpg': 'profilePngJpg',
+
+        // Asset overlapping with a directory name.
+        'assets/image': 'image', // Directory
+        'assets/image.jpg': 'imageJpg',
+
+        // Asset with no base name (but ends up overlapping the previous asset)
+        'assets/image/.jpg': 'imageJpg_',
+
+        // Asset with non-ascii names
+        // TODO(bramp): Ideally would be 'francais' but that requires a heavy
+        // package that can transliterate non-ascii chars.
+        'assets/français.jpg': 'franAis',
+
+        // Dart Reserved Words
+        'assets/async.png': 'async', // allowed
+        'assets/abstract.png': 'abstract', // allowed
+        'assets/await.png': 'awaitPng', // must be suffixed (but can use Png)
+        'assets/assert.png': 'assertPng', // must be suffixed (but can use Png)
+        'assets/await': 'await_', //  must be suffixed
+        'assets/assert': 'assert_', // must be suffixed
+
+        // Asset with a number as the first character
+        'assets/7up.png': 'a7up',
+        'assets/123.png': 'a123',
+
+        // Case gets dropped with CamelCase (can causes conflict)
+        'assets/z.png': 'zPng',
+        'assets/Z.png': 'zPng_',
+
+        // Case gets corrected.
+        'assets/CHANGELOG.md': 'changelog',
+      };
+
+      final List<AssetType> assets = tests.keys
+          .sorted()
+          .map((e) => AssetType(rootPath: '', path: e))
+          .toList();
+
+      final got = assets.mapToUniqueAssetType(camelCase);
+
+      // Expect no dups.
+      final names = got.map((e) => e.name);
+      expect(names.sorted(), tests.values.sorted());
     });
   });
 
