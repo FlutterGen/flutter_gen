@@ -383,6 +383,7 @@ class RiveGenImage {
     Alignment? alignment,
     Widget? placeHolder,
     bool antialiasing = true,
+    bool useArtboardSize = false,
     List<RiveAnimationController> controllers = const [],
     OnInitCallback? onInit,
   }) {
@@ -395,6 +396,7 @@ class RiveGenImage {
       alignment: alignment,
       placeHolder: placeHolder,
       antialiasing: antialiasing,
+      useArtboardSize: useArtboardSize,
       controllers: controllers,
       onInit: onInit,
     );
