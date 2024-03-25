@@ -213,22 +213,21 @@ FlutterGenElementAssetsOutputs _$FlutterGenElementAssetsOutputsFromJson(
       ($checkedConvert) {
         $checkKeys(
           json,
-          requiredKeys: const [
-            'class_name',
-            'package_parameter_enabled',
-            'style'
-          ],
+          requiredKeys: const ['class_name', 'style'],
         );
         final val = FlutterGenElementAssetsOutputs(
           className: $checkedConvert('class_name', (v) => v as String),
-          packageParameterEnabled:
-              $checkedConvert('package_parameter_enabled', (v) => v as bool),
+          packageParameterEnabled: $checkedConvert(
+              'package_parameter_enabled', (v) => v as bool? ?? false),
+          directoryPathEnabled: $checkedConvert(
+              'directory_path_enabled', (v) => v as bool? ?? false),
           style: $checkedConvert('style', (v) => v as String),
         );
         return val;
       },
       fieldKeyMap: const {
         'className': 'class_name',
-        'packageParameterEnabled': 'package_parameter_enabled'
+        'packageParameterEnabled': 'package_parameter_enabled',
+        'directoryPathEnabled': 'directory_path_enabled'
       },
     );
