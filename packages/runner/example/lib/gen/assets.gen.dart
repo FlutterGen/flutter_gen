@@ -10,6 +10,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controller.dart';
 import 'package:rive/rive.dart';
@@ -260,7 +261,8 @@ class AssetGenImage {
 }
 
 class SvgGenImage {
-  const SvgGenImage(this._assetName);
+  const SvgGenImage(this._assetName, {this.isVecFormat = false});
+  const SvgGenImage.vec(this._assetName, {this.isVecFormat = true});
 
   final String _assetName;
 
@@ -284,12 +286,15 @@ class SvgGenImage {
     @deprecated Clip? clipBehavior,
     @deprecated bool cacheColorFilter = false,
   }) {
-    return SvgPicture.asset(
-      _assetName,
+    return SvgPicture(
+      switch (isVecFormat) {
+        true => AssetBytesLoader(_assetName,
+            assetBundle: bundle, packageName: package),
+        false =>
+          SvgAssetLoader(_assetName, assetBundle: bundle, packageName: package),
+      },
       key: key,
       matchTextDirection: matchTextDirection,
-      bundle: bundle,
-      package: package,
       width: width,
       height: height,
       fit: fit,
@@ -299,9 +304,8 @@ class SvgGenImage {
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
       theme: theme,
-      colorFilter: colorFilter,
-      color: color,
-      colorBlendMode: colorBlendMode,
+      colorFilter: colorFilter = colorFilter ??
+          (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
     );

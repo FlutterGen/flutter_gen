@@ -10,6 +10,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
@@ -39,11 +40,15 @@ class Assets {
 }
 
 class SvgGenImage {
-  const SvgGenImage(this._assetName, {this.size = null});
+  const SvgGenImage(this._assetName,
+      {this.size = null, this.isVecFormat = false});
+  const SvgGenImage.vec(this._assetName,
+      {this.size = null, this.isVecFormat = true});
 
   final String _assetName;
 
   final Size? size;
+  final bool isVecFormat;
 
   SvgPicture svg({
     Key? key,
@@ -65,12 +70,15 @@ class SvgGenImage {
     @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
     @deprecated bool cacheColorFilter = false,
   }) {
-    return SvgPicture.asset(
-      _assetName,
+    return SvgPicture(
+      switch (isVecFormat) {
+        true => AssetBytesLoader(_assetName,
+            assetBundle: bundle, packageName: package),
+        false =>
+          SvgAssetLoader(_assetName, assetBundle: bundle, packageName: package),
+      },
       key: key,
       matchTextDirection: matchTextDirection,
-      bundle: bundle,
-      package: package,
       width: width,
       height: height,
       fit: fit,
@@ -80,9 +88,8 @@ class SvgGenImage {
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
       theme: theme,
-      colorFilter: colorFilter,
-      color: color,
-      colorBlendMode: colorBlendMode,
+      colorFilter: colorFilter = colorFilter ??
+          (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
     );
