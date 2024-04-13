@@ -296,7 +296,7 @@ class SvgGenImage {
     WidgetBuilder? placeholderBuilder,
     String? semanticsLabel,
     bool excludeFromSemantics = false,
-    SvgTheme theme = const SvgTheme(),
+    SvgTheme? theme,
     ColorFilter? colorFilter,
     Clip clipBehavior = Clip.hardEdge,
     @deprecated Color? color,
@@ -387,6 +387,7 @@ class RiveGenImage {
     Alignment? alignment,
     Widget? placeHolder,
     bool antialiasing = true,
+    bool useArtboardSize = false,
     List<RiveAnimationController> controllers = const [],
     OnInitCallback? onInit,
   }) {
@@ -399,6 +400,7 @@ class RiveGenImage {
       alignment: alignment,
       placeHolder: placeHolder,
       antialiasing: antialiasing,
+      useArtboardSize: useArtboardSize,
       controllers: controllers,
       onInit: onInit,
     );

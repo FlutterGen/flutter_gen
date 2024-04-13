@@ -14,6 +14,9 @@ extension StringExt on String {
   }
 }
 
+String camelCase(String s) => s.camelCase();
+String snakeCase(String s) => s.snakeCase();
+
 List<String> _intoWords(String path) {
   const symbols = [
     ' ',

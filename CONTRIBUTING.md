@@ -32,7 +32,7 @@ $ dart packages/command/bin/flutter_gen_command.dart --config example/pubspec.ya
 
 Or melos
 ```sh
-$ melos gen:example:command
+$ melos gen:examples:command
 ```
 
 #### Use as part of build_runner
