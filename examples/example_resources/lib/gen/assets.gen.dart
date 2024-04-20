@@ -10,6 +10,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controller.dart';
 import 'package:rive/rive.dart';
@@ -55,6 +56,8 @@ class $AssetsUnknownGen {
 class ResAssets {
   ResAssets._();
 
+  static const String package = 'example_resources';
+
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
 }
@@ -63,6 +66,8 @@ class AssetGenImage {
   const AssetGenImage(this._assetName, {this.size = null});
 
   final String _assetName;
+
+  static const String package = 'example_resources';
 
   final Size? size;
 
@@ -86,7 +91,8 @@ class AssetGenImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
-    String? package = 'example_resources',
+    @Deprecated('Do not specify package for a generated library asset')
+    String? package = package,
     FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,
@@ -121,7 +127,8 @@ class AssetGenImage {
 
   ImageProvider provider({
     AssetBundle? bundle,
-    String? package = 'example_resources',
+    @Deprecated('Do not specify package for a generated library asset')
+    String? package = package,
   }) {
     return AssetImage(
       _assetName,
@@ -136,15 +143,24 @@ class AssetGenImage {
 }
 
 class SvgGenImage {
-  const SvgGenImage(this._assetName);
+  const SvgGenImage(this._assetName,
+      {this.size = null, this.isVecFormat = false});
+  const SvgGenImage.vec(this._assetName,
+      {this.size = null, this.isVecFormat = true});
 
   final String _assetName;
+
+  static const String package = 'example_resources';
+
+  final Size? size;
+  final bool isVecFormat;
 
   SvgPicture svg({
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    String? package = 'example_resources',
+    @Deprecated('Do not specify package for a generated library asset')
+    String? package = package,
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,
@@ -160,12 +176,15 @@ class SvgGenImage {
     @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
     @deprecated bool cacheColorFilter = false,
   }) {
-    return SvgPicture.asset(
-      _assetName,
+    return SvgPicture(
+      switch (isVecFormat) {
+        true => AssetBytesLoader(_assetName,
+            assetBundle: bundle, packageName: package),
+        false =>
+          SvgAssetLoader(_assetName, assetBundle: bundle, packageName: package),
+      },
       key: key,
       matchTextDirection: matchTextDirection,
-      bundle: bundle,
-      package: package,
       width: width,
       height: height,
       fit: fit,
@@ -175,9 +194,8 @@ class SvgGenImage {
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
       theme: theme,
-      colorFilter: colorFilter,
-      color: color,
-      colorBlendMode: colorBlendMode,
+      colorFilter: colorFilter ??
+          (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
     );
@@ -192,6 +210,8 @@ class FlareGenImage {
   const FlareGenImage(this._assetName);
 
   final String _assetName;
+
+  static const String package = 'example_resources';
 
   FlareActor flare({
     String? boundsNode,
@@ -236,6 +256,8 @@ class RiveGenImage {
 
   final String _assetName;
 
+  static const String package = 'example_resources';
+
   RiveAnimation rive({
     String? artboard,
     List<String> animations = const [],
@@ -244,6 +266,7 @@ class RiveGenImage {
     Alignment? alignment,
     Widget? placeHolder,
     bool antialiasing = true,
+    bool useArtboardSize = false,
     List<RiveAnimationController> controllers = const [],
     OnInitCallback? onInit,
   }) {
@@ -256,6 +279,7 @@ class RiveGenImage {
       alignment: alignment,
       placeHolder: placeHolder,
       antialiasing: antialiasing,
+      useArtboardSize: useArtboardSize,
       controllers: controllers,
       onInit: onInit,
     );
@@ -270,6 +294,8 @@ class LottieGenImage {
   const LottieGenImage(this._assetName);
 
   final String _assetName;
+
+  static const String package = 'example_resources';
 
   LottieBuilder lottie({
     Animation<double>? controller,
@@ -289,7 +315,8 @@ class LottieGenImage {
     double? height,
     BoxFit? fit,
     AlignmentGeometry? alignment,
-    String? package = 'example_resources',
+    @Deprecated('Do not specify package for a generated library asset')
+    String? package = package,
     bool? addRepaintBoundary,
     FilterQuality? filterQuality,
     void Function(String)? onWarning,
