@@ -1,0 +1,15 @@
+name: test
+
+flutter_gen:
+  integrations:
+    flutter_svg: true
+  assets:
+    outputs:
+      directory_path_enabled: true
+
+flutter:
+  assets:
+    - assets/images/chip3/chip3.jpg
+    - assets/images/icons/dart@test.svg
+    - assets/images/icons/fuchsia.svg
+    - assets/unknown/unknown_mime_type.bk

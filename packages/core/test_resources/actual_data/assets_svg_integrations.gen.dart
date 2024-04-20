@@ -15,6 +15,7 @@ import 'package:vector_graphics/vector_graphics.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// Directory path: assets/images/icons
   $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
 }
 

@@ -217,6 +217,31 @@ Widget build(BuildContext context) {
 }
 ```
 
+#### Generate directories path
+
+If you want to generate the path of directories,
+use `directory_path_enabled` under `flutter_gen > assets > outputs`.
+
+```yaml
+flutter_gen:
+  assets:
+    outputs:
+      directory_path_enabled: true # <- Add this line.
+```
+
+This would add the `path` getter to the generated directory class. For example:
+
+```dart
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  ///******///
+
+  /// Directory path: assets/images
+  String get path => 'assets/images';
+}
+```
+
 #### Including additional metadata
 
 At build time, additional metadata may be included in the generated class, by using the

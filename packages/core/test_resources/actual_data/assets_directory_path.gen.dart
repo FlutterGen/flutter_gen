@@ -10,7 +10,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
-import 'package:vector_graphics/vector_graphics.dart';
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
@@ -20,14 +19,19 @@ class $AssetsImagesGen {
 
   /// Directory path: assets/images/icons
   $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
+
+  /// Directory path: assets/images
+  String get path => 'assets/images';
 }
 
 class $AssetsUnknownGen {
   const $AssetsUnknownGen();
 
   /// File path: assets/unknown/unknown_mime_type.bk
-  String get unknownMimeType =>
-      'packages/test/assets/unknown/unknown_mime_type.bk';
+  String get unknownMimeType => 'assets/unknown/unknown_mime_type.bk';
+
+  /// Directory path: assets/unknown
+  String get path => 'assets/unknown';
 
   /// List of all assets
   List<String> get values => [unknownMimeType];
@@ -39,6 +43,9 @@ class $AssetsImagesChip3Gen {
   /// File path: assets/images/chip3/chip3.jpg
   AssetGenImage get chip3 =>
       const AssetGenImage('assets/images/chip3/chip3.jpg');
+
+  /// Directory path: assets/images/chip3
+  String get path => 'assets/images/chip3';
 
   /// List of all assets
   List<AssetGenImage> get values => [chip3];
@@ -55,14 +62,15 @@ class $AssetsImagesIconsGen {
   SvgGenImage get fuchsia =>
       const SvgGenImage('assets/images/icons/fuchsia.svg');
 
+  /// Directory path: assets/images/icons
+  String get path => 'assets/images/icons';
+
   /// List of all assets
   List<SvgGenImage> get values => [dartTest, fuchsia];
 }
 
 class Assets {
   Assets._();
-
-  static const String package = 'test';
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
@@ -72,8 +80,6 @@ class AssetGenImage {
   const AssetGenImage(this._assetName, {this.size = null});
 
   final String _assetName;
-
-  static const String package = 'test';
 
   final Size? size;
 
@@ -97,8 +103,7 @@ class AssetGenImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
-    @Deprecated('Do not specify package for a generated library asset')
-    String? package = package,
+    String? package,
     FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,
@@ -133,8 +138,7 @@ class AssetGenImage {
 
   ImageProvider provider({
     AssetBundle? bundle,
-    @Deprecated('Do not specify package for a generated library asset')
-    String? package = package,
+    String? package,
   }) {
     return AssetImage(
       _assetName,
@@ -145,28 +149,21 @@ class AssetGenImage {
 
   String get path => _assetName;
 
-  String get keyName => 'packages/test/$_assetName';
+  String get keyName => _assetName;
 }
 
 class SvgGenImage {
-  const SvgGenImage(this._assetName,
-      {this.size = null, this.isVecFormat = false});
-  const SvgGenImage.vec(this._assetName,
-      {this.size = null, this.isVecFormat = true});
+  const SvgGenImage(this._assetName, {this.size = null});
 
   final String _assetName;
 
-  static const String package = 'test';
-
   final Size? size;
-  final bool isVecFormat;
 
   SvgPicture svg({
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    @Deprecated('Do not specify package for a generated library asset')
-    String? package = package,
+    String? package,
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,
@@ -182,15 +179,12 @@ class SvgGenImage {
     @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
     @deprecated bool cacheColorFilter = false,
   }) {
-    return SvgPicture(
-      switch (isVecFormat) {
-        true => AssetBytesLoader(_assetName,
-            assetBundle: bundle, packageName: package),
-        false =>
-          SvgAssetLoader(_assetName, assetBundle: bundle, packageName: package),
-      },
+    return SvgPicture.asset(
+      _assetName,
       key: key,
       matchTextDirection: matchTextDirection,
+      bundle: bundle,
+      package: package,
       width: width,
       height: height,
       fit: fit,
@@ -200,8 +194,9 @@ class SvgGenImage {
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
       theme: theme,
-      colorFilter: colorFilter = colorFilter ??
-          (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
+      colorFilter: colorFilter,
+      color: color,
+      colorBlendMode: colorBlendMode,
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
     );
@@ -209,5 +204,5 @@ class SvgGenImage {
 
   String get path => _assetName;
 
-  String get keyName => 'packages/test/$_assetName';
+  String get keyName => _assetName;
 }
