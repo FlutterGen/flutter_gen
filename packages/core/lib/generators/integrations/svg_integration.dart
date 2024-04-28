@@ -13,8 +13,8 @@ class SvgIntegration extends Integration {
   @override
   List<String> get requiredImports => [
         'package:flutter/widgets.dart',
-        'package:flutter_svg/flutter_svg.dart',
         'package:flutter/services.dart',
+        'package:flutter_svg/flutter_svg.dart',
         'package:vector_graphics/vector_graphics.dart',
       ];
 
@@ -22,14 +22,21 @@ class SvgIntegration extends Integration {
   String get classOutput => _classDefinition;
 
   String get _classDefinition => '''class SvgGenImage {
-  const SvgGenImage(this._assetName, {this.size = null, this.isVecFormat = false});
-  const SvgGenImage.vec(this._assetName, {this.size = null, this.isVecFormat = true});
+  const SvgGenImage(
+    this._assetName, {
+    this.size = null,
+  }) : _isVecFormat = false;
+  
+  const SvgGenImage.vec(
+    this._assetName, {
+    this.size = null,
+  }) : _isVecFormat = true;
 
   final String _assetName;
 ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   final Size? size;
-  final bool isVecFormat;
+  final bool _isVecFormat;
 
   SvgPicture svg({
     Key? key,
@@ -53,10 +60,9 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
     @deprecated bool cacheColorFilter = false,
   }) {
     return SvgPicture(
-      switch (isVecFormat) {
-        true => AssetBytesLoader(_assetName, assetBundle: bundle, packageName: package),
-        false => SvgAssetLoader(_assetName, assetBundle: bundle, packageName: package),
-      },
+      _isVecFormat ? 
+        AssetBytesLoader(_assetName, assetBundle: bundle, packageName: package) :
+        SvgAssetLoader(_assetName, assetBundle: bundle, packageName: package),
       key: key,
       matchTextDirection: matchTextDirection,
       width: width,
@@ -87,11 +93,11 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
     // Query extra information about the SVG
     ImageMetadata? info = parseMetadata ? _getMetadata(asset) : null;
 
-    String funcName =
+    final String constructorName =
         asset.extension == '.vec' ? 'SvgGenImage.vec' : 'SvgGenImage';
 
-    return '$funcName(\'${asset.posixStylePath}\''
-        '${(info != null) ? ', size: Size(${info.width}, ${info.height})' : ''}'
+    return "$constructorName('${asset.posixStylePath}'"
+        "${(info != null) ? ', size: Size(${info.width}, ${info.height})' : ''}"
         ')';
   }
 
@@ -113,7 +119,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   @override
   bool isSupport(AssetType asset) =>
-      (asset.mime == 'image/svg+xml' || asset.extension == '.vec');
+      asset.mime == 'image/svg+xml' || asset.extension == '.vec';
 
   @override
   bool get isConstConstructor => true;

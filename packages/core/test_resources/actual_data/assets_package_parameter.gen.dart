@@ -8,8 +8,8 @@
 // ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
 class $AssetsImagesGen {
@@ -149,17 +149,22 @@ class AssetGenImage {
 }
 
 class SvgGenImage {
-  const SvgGenImage(this._assetName,
-      {this.size = null, this.isVecFormat = false});
-  const SvgGenImage.vec(this._assetName,
-      {this.size = null, this.isVecFormat = true});
+  const SvgGenImage(
+    this._assetName, {
+    this.size = null,
+  }) : _isVecFormat = false;
+
+  const SvgGenImage.vec(
+    this._assetName, {
+    this.size = null,
+  }) : _isVecFormat = true;
 
   final String _assetName;
 
   static const String package = 'test';
 
   final Size? size;
-  final bool isVecFormat;
+  final bool _isVecFormat;
 
   SvgPicture svg({
     Key? key,
@@ -183,12 +188,11 @@ class SvgGenImage {
     @deprecated bool cacheColorFilter = false,
   }) {
     return SvgPicture(
-      switch (isVecFormat) {
-        true => AssetBytesLoader(_assetName,
-            assetBundle: bundle, packageName: package),
-        false =>
-          SvgAssetLoader(_assetName, assetBundle: bundle, packageName: package),
-      },
+      _isVecFormat
+          ? AssetBytesLoader(_assetName,
+              assetBundle: bundle, packageName: package)
+          : SvgAssetLoader(_assetName,
+              assetBundle: bundle, packageName: package),
       key: key,
       matchTextDirection: matchTextDirection,
       width: width,
