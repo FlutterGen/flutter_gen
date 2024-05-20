@@ -1,3 +1,18 @@
+## 5.5.0+1
+
+**Feature**
+- [#471](https://github.com/FlutterGen/flutter_gen/pull/471) Handles root directory assets. by [@AlexV525](https://github.com/AlexV525)
+- [#472](https://github.com/FlutterGen/flutter_gen/pull/472) Add directory_path_enabled to output the path of assets directory classes. by [@AlexV525](https://github.com/AlexV525)
+- [#487](https://github.com/FlutterGen/flutter_gen/pull/487) Add support for 'useArtboardSize' argument in rive integration. by [@devilbuddy](https://github.com/devilbuddy)
+- [#493](https://github.com/FlutterGen/flutter_gen/pull/493) Add support for vector graphics (vec files) in SvgGenImage. by [@raldhafiri](https://github.com/raldhafiri)
+
+**Bug fix**
+- [#485](https://github.com/FlutterGen/flutter_gen/pull/485) Remove default SvgTheme argument preventing DefaultSvgTheme works correctly. by [@mym0404](https://github.com/mym0404)
+
+**Development**
+- Update to Dart 3.3.4.
+- Update to Flutter 3.19.6.
+
 ## 5.4.0
 
 **Feature**
