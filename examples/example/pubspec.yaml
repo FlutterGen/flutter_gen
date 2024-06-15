@@ -52,8 +52,8 @@ flutter_gen:
 
     exclude:
       - assets/images/chip3/chip3.jpg
+      - assets-extern/*
       - pictures/chip5.jpg
-      - assets/flare/
 
   fonts:
     enabled: true
@@ -82,7 +82,6 @@ flutter:
     - assets/images/icons/paint.svg
     - assets/images/icons/dart@test.svg
     - assets/json/
-    - pictures/chip5.jpg
     - assets/flare/
     - assets/rive/
     - assets/lottie/
@@ -90,6 +89,8 @@ flutter:
     - assets/movie/
     - assets/unknown/
     - assets/mix/
+    - assets-extern/
+    - pictures/chip5.jpg
   fonts:
     - family: Raleway
       fonts:
