@@ -16,6 +16,7 @@ dependencies:
   crypto: ^3.0.0
   glob: ^2.0.0
   path: ^1.8.0
+  yaml: ^3.0.0
 
 dev_dependencies:
   lints: any # Ignoring the version to allow editing across SDK versions.

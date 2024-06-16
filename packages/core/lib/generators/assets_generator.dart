@@ -18,6 +18,7 @@ import 'package:flutter_gen_core/utils/error.dart';
 import 'package:flutter_gen_core/utils/string.dart';
 import 'package:glob/glob.dart';
 import 'package:path/path.dart';
+import 'package:yaml/yaml.dart';
 
 class AssetsGenConfig {
   AssetsGenConfig._(
@@ -41,7 +42,7 @@ class AssetsGenConfig {
   final String rootPath;
   final String _packageName;
   final FlutterGen flutterGen;
-  final List<String> assets;
+  final List<Object> assets;
   final List<Glob> exclude;
 
   String get packageParameterLiteral =>
@@ -200,13 +201,19 @@ List<String> _getAssetRelativePathList(
   String rootPath,
 
   /// List of assets as provided the `flutter`.`assets` section in the pubspec.yaml.
-  List<String> assets,
+  List<Object> assets,
 
   /// List of globs as provided the `flutter_gen`.`assets`.`exclude` section in the pubspec.yaml.
   List<Glob> excludes,
 ) {
   final assetRelativePathList = <String>[];
-  for (final assetName in assets) {
+  for (final asset in assets) {
+    final String assetName;
+    if (asset is YamlMap) {
+      assetName = asset['path'] as String;
+    } else {
+      assetName = asset as String;
+    }
     final assetAbsolutePath = join(rootPath, assetName);
     if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
       assetRelativePathList.addAll(Directory(assetAbsolutePath)

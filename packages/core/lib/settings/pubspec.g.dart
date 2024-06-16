@@ -36,7 +36,7 @@ Flutter _$FlutterFromJson(Map json) => $checkedCreate(
         );
         final val = Flutter(
           assets: $checkedConvert('assets',
-              (v) => (v as List<dynamic>).map((e) => e as String).toList()),
+              (v) => (v as List<dynamic>).map((e) => e as Object).toList()),
           fonts: $checkedConvert(
               'fonts',
               (v) => (v as List<dynamic>)

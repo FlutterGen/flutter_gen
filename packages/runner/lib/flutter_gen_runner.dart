@@ -8,6 +8,7 @@ import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:glob/glob.dart';
 import 'package:path/path.dart';
+import 'package:yaml/yaml.dart';
 
 Builder build(BuilderOptions options) => FlutterGenBuilder();
 
@@ -62,9 +63,19 @@ class FlutterGenBuilder extends Builder {
 
     final HashSet<String> assets = HashSet();
     if (pubspec.flutterGen.assets.enabled) {
-      for (var assetInput in pubspec.flutter.assets) {
-        if (assetInput.isEmpty) continue;
-        if (assetInput.endsWith('/')) assetInput += '*';
+      for (final asset in pubspec.flutter.assets) {
+        String assetInput;
+        if (asset is YamlMap) {
+          assetInput = asset['path'] as String;
+        } else {
+          assetInput = asset as String;
+        }
+        if (assetInput.isEmpty) {
+          continue;
+        }
+        if (assetInput.endsWith('/')) {
+          assetInput += '*';
+        }
         await for (final assetId in buildStep.findAssets(Glob(assetInput))) {
           assets.add(assetId.path);
         }
