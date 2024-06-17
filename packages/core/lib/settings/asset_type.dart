@@ -7,10 +7,15 @@ import 'package:path/path.dart';
 
 /// https://github.com/dart-lang/mime/blob/master/lib/src/default_extension_map.dart
 class AssetType {
-  AssetType({required this.rootPath, required this.path});
+  AssetType({
+    required this.rootPath,
+    required this.path,
+    required this.flavors,
+  });
 
   final String rootPath;
   final String path;
+  final Set<String> flavors;
 
   final List<AssetType> _children = List.empty(growable: true);
 
@@ -68,7 +73,11 @@ class UniqueAssetType extends AssetType {
     this.basenameOnly = false,
     this.needExtension = false,
     this.suffix = '',
-  }) : super(rootPath: assetType.rootPath, path: assetType.path);
+  }) : super(
+          rootPath: assetType.rootPath,
+          path: assetType.path,
+          flavors: assetType.flavors,
+        );
 
   /// Convert the asset name to a correctly styled name, e.g camelCase or
   /// snakeCase.

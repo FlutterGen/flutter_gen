@@ -19,12 +19,25 @@ abstract class Integration {
 
   String get className;
 
-  String classInstantiate(AssetType asset);
-
   /// Is this asset type supported by this integration?
   bool isSupport(AssetType asset);
 
   bool get isConstConstructor;
+
+  String classInstantiate(AssetType asset) {
+    final buffer = StringBuffer(className);
+    buffer.write('(');
+    buffer.write('\'${asset.posixStylePath}\'');
+    if (asset.flavors.isNotEmpty) {
+      buffer.write(', flavors: {');
+      final flavors = asset.flavors.map((e) => '\'$e\'').join(', ');
+      buffer.write(flavors);
+      buffer.write('}');
+      buffer.write(','); // Better formatting.
+    }
+    buffer.write(')');
+    return buffer.toString();
+  }
 }
 
 /// The deprecation message for the package argument

@@ -10,8 +10,10 @@ import 'package:image_size_getter/image_size_getter.dart';
 ///
 /// This integration is by enabled by default.
 class ImageIntegration extends Integration {
-  ImageIntegration(String packageName, {super.parseMetadata})
-      : super(packageName);
+  ImageIntegration(
+    String packageName, {
+    super.parseMetadata,
+  }) : super(packageName);
 
   String get packageParameter => isPackage ? ' = package' : '';
 
@@ -25,12 +27,18 @@ class ImageIntegration extends Integration {
   String get classOutput => _classDefinition;
 
   String get _classDefinition => '''class AssetGenImage {
-  const AssetGenImage(this._assetName, {this.size = null});
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  });
 
   final String _assetName;
+
 ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   final Size? size;
+  final Set<String> flavors;
 
   Image image({
     Key? key,
@@ -109,11 +117,22 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   @override
   String classInstantiate(AssetType asset) {
-    ImageMetadata? info = parseMetadata ? _getMetadata(asset) : null;
-
-    return 'AssetGenImage(\'${asset.posixStylePath}\''
-        '${(info != null) ? ', size: Size(${info.width}, ${info.height})' : ''}'
-        ')';
+    final info = parseMetadata ? _getMetadata(asset) : null;
+    final buffer = StringBuffer(className);
+    buffer.write('(');
+    buffer.write('\'${asset.posixStylePath}\'');
+    if (info != null) {
+      buffer.write(', size: Size(${info.width}, ${info.height})');
+    }
+    if (asset.flavors.isNotEmpty) {
+      buffer.write(', flavors: {');
+      final flavors = asset.flavors.map((e) => '\'$e\'').join(', ');
+      buffer.write(flavors);
+      buffer.write('}');
+      buffer.write(','); // Better formatting.
+    }
+    buffer.write(')');
+    return buffer.toString();
   }
 
   @override

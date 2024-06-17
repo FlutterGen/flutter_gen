@@ -32,9 +32,14 @@ class LottieIntegration extends Integration {
   String get classOutput => _classDefinition;
 
   String get _classDefinition => '''class LottieGenImage {
-  const LottieGenImage(this._assetName);
+  const LottieGenImage(
+    this._assetName, {
+    this.flavors = const {},
+  });
 
   final String _assetName;
+  final Set<String> flavors;
+
 ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   LottieBuilder lottie({
@@ -94,10 +99,6 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   @override
   String get className => 'LottieGenImage';
-
-  @override
-  String classInstantiate(AssetType asset) =>
-      'LottieGenImage(\'${asset.posixStylePath}\')';
 
   @override
   bool isSupport(AssetType asset) => isLottieFile(asset);
