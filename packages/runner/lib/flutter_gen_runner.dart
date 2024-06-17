@@ -6,6 +6,7 @@ import 'package:collection/collection.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
+import 'package:flutter_gen_core/settings/flavored_asset.dart';
 import 'package:glob/glob.dart';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
@@ -61,14 +62,21 @@ class FlutterGenBuilder extends Builder {
   ) async {
     final pubspec = config.pubspec;
 
-    final HashSet<String> assets = HashSet();
+    final HashSet<FlavoredAsset> assets = HashSet();
     if (pubspec.flutterGen.assets.enabled) {
       for (final asset in pubspec.flutter.assets) {
+        final FlavoredAsset flavored;
         String assetInput;
         if (asset is YamlMap) {
-          assetInput = asset['path'] as String;
+          flavored = FlavoredAsset(
+            path: asset['path'],
+            flavors:
+                (asset['flavors'] as YamlList?)?.toSet().cast() ?? <String>{},
+          );
+          assetInput = asset['path'];
         } else {
-          assetInput = asset as String;
+          flavored = FlavoredAsset(path: asset as String);
+          assetInput = asset;
         }
         if (assetInput.isEmpty) {
           continue;
@@ -77,7 +85,7 @@ class FlutterGenBuilder extends Builder {
           assetInput += '*';
         }
         await for (final assetId in buildStep.findAssets(Glob(assetInput))) {
-          assets.add(assetId.path);
+          assets.add(flavored.copyWith(path: assetId.path));
         }
       }
     }
@@ -107,15 +115,15 @@ class FlutterGenBuilder extends Builder {
 }
 
 class _FlutterGenBuilderState {
-  final Digest pubspecDigest;
-  final HashSet<String> assets;
-  final HashMap<String, Digest> colors;
-
-  _FlutterGenBuilderState({
+  const _FlutterGenBuilderState({
     required this.pubspecDigest,
     required this.assets,
     required this.colors,
   });
+
+  final Digest pubspecDigest;
+  final HashSet<FlavoredAsset> assets;
+  final HashMap<String, Digest> colors;
 
   bool shouldSkipGenerate(_FlutterGenBuilderState? previous) {
     if (previous == null) return false;
