@@ -51,7 +51,6 @@ flutter_gen:
       style: dot-delimiter
 
     exclude:
-      - assets/images/chip3/chip3.jpg
       - assets-extern/*
       - pictures/chip5.jpg
 
