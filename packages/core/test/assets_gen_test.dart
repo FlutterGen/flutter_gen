@@ -156,18 +156,18 @@ void main() {
         'assets/français.jpg': 'franAis',
 
         // Dart Reserved Words
+        // allowed
         'assets/async.png': 'async',
         // allowed
         'assets/abstract.png': 'abstract',
-        // allowed
+        // must be suffixed (but can use Png)
         'assets/await.png': 'awaitPng',
         // must be suffixed (but can use Png)
         'assets/assert.png': 'assertPng',
-        // must be suffixed (but can use Png)
-        'assets/await': 'await_',
         //  must be suffixed
-        'assets/assert': 'assert_',
+        'assets/await': 'await_',
         // must be suffixed
+        'assets/assert': 'assert_',
 
         // Asset with a number as the first character
         'assets/7up.png': 'a7up',
