@@ -209,16 +209,36 @@ List<FlavoredAsset> _getAssetRelativePathList(
   /// section in the pubspec.yaml.
   List<Glob> excludes,
 ) {
+  // Normalize.
+  final normalizedAssets = <Object>{...assets.whereType<String>()};
+  final normalizingMap = <String, Set<String>>{};
+  // Resolve flavored assets.
+  for (final map in assets.whereType<YamlMap>()) {
+    final path = (map['path'] as String).trim();
+    final flavors =
+        (map['flavors'] as YamlList?)?.toSet().cast<String>() ?? <String>{};
+    if (normalizingMap.containsKey(path)) {
+      // https://github.com/flutter/flutter/blob/5187cab7bdd434ca74abb45895d17e9fa553678a/packages/flutter_tools/lib/src/asset.dart#L1137-L1139
+      throw StateError(
+        'Multiple assets entries include the file "$path", '
+        'but they specify different lists of flavors.',
+      );
+    }
+    normalizingMap[path] = flavors;
+  }
+  for (final entry in normalizingMap.entries) {
+    normalizedAssets.add(
+      YamlMap.wrap({'path': entry.key, 'flavors': entry.value}),
+    );
+  }
+
   final assetRelativePathList = <FlavoredAsset>[];
-  for (final asset in assets) {
+  for (final asset in normalizedAssets) {
     final FlavoredAsset tempAsset;
     if (asset is YamlMap) {
-      tempAsset = FlavoredAsset(
-        path: asset['path'],
-        flavors: (asset['flavors'] as YamlList?)?.toSet().cast() ?? <String>{},
-      );
+      tempAsset = FlavoredAsset(path: asset['path'], flavors: asset['flavors']);
     } else {
-      tempAsset = FlavoredAsset(path: asset as String, flavors: {});
+      tempAsset = FlavoredAsset(path: (asset as String).trim());
     }
     final assetAbsolutePath = join(rootPath, tempAsset.path);
     if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
@@ -239,7 +259,6 @@ List<FlavoredAsset> _getAssetRelativePathList(
   if (excludes.isEmpty) {
     return assetRelativePathList;
   }
-
   return assetRelativePathList
       .where((asset) => !excludes.any((exclude) => exclude.matches(asset.path)))
       .toList();
@@ -450,12 +469,12 @@ String _flatStyleDefinition(
   List<Integration> integrations,
   String Function(String) style,
 ) {
-  final paths = _getAssetRelativePathList(
+  final List<FlavoredAsset> paths = _getAssetRelativePathList(
     config.rootPath,
     config.assets,
     config.exclude,
-  ).toSet().toList();
-  paths.sort();
+  );
+  paths.sort(((a, b) => a.path.compareTo(b.path)));
   final statements = paths
       .map(
         (assetPath) => AssetType(

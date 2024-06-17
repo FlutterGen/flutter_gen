@@ -1,7 +1,7 @@
 class FlavoredAsset {
   const FlavoredAsset({
     required this.path,
-    required this.flavors,
+    this.flavors = const {},
   });
 
   final String path;
@@ -13,4 +13,7 @@ class FlavoredAsset {
       flavors: flavors ?? this.flavors,
     );
   }
+
+  @override
+  String toString() => 'FlavoredAsset(path: $path, flavors: $flavors)';
 }
