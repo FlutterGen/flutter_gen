@@ -27,9 +27,13 @@ class Assets {
 }
 
 class RiveGenImage {
-  const RiveGenImage(this._assetName);
+  const RiveGenImage(
+    this._assetName, {
+    this.flavors = const {},
+  });
 
   final String _assetName;
+  final Set<String> flavors;
 
   RiveAnimation rive({
     String? artboard,

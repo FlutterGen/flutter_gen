@@ -28,9 +28,13 @@ class Assets {
 }
 
 class LottieGenImage {
-  const LottieGenImage(this._assetName);
+  const LottieGenImage(
+    this._assetName, {
+    this.flavors = const {},
+  });
 
   final String _assetName;
+  final Set<String> flavors;
 
   LottieBuilder lottie({
     Animation<double>? controller,

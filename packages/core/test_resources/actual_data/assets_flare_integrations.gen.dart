@@ -28,9 +28,13 @@ class Assets {
 }
 
 class FlareGenImage {
-  const FlareGenImage(this._assetName);
+  const FlareGenImage(
+    this._assetName, {
+    this.flavors = const {},
+  });
 
   final String _assetName;
+  final Set<String> flavors;
 
   FlareActor flare({
     String? boundsNode,
