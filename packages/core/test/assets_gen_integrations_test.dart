@@ -34,17 +34,34 @@ void main() {
       expect(integration.className, 'SvgGenImage');
       expect(
         integration.classInstantiate(
-            AssetType(rootPath: resPath, path: 'assets/path')),
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/path',
+            flavors: {},
+          ),
+        ),
         'SvgGenImage(\'assets/path\')',
       );
       expect(
-          integration.isSupport(
-              AssetType(rootPath: resPath, path: 'assets/path/dog.svg')),
-          isTrue);
+        integration.isSupport(
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/path/dog.svg',
+            flavors: {},
+          ),
+        ),
+        isTrue,
+      );
       expect(
-          integration.isSupport(
-              AssetType(rootPath: resPath, path: 'assets/path/dog.png')),
-          isFalse);
+        integration.isSupport(
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/path/dog.png',
+            flavors: {},
+          ),
+        ),
+        isFalse,
+      );
       expect(integration.isConstConstructor, isTrue);
       expect(integration.classOutput.contains('String? package,'), isTrue);
 
@@ -75,17 +92,35 @@ void main() {
       final integration = FlareIntegration('');
       expect(integration.className, 'FlareGenImage');
       expect(
-          integration.classInstantiate(
-              AssetType(rootPath: resPath, path: 'assets/path')),
-          'FlareGenImage(\'assets/path\')');
+        integration.classInstantiate(
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/path',
+            flavors: {},
+          ),
+        ),
+        'FlareGenImage(\'assets/path\')',
+      );
       expect(
-          integration.isSupport(
-              AssetType(rootPath: resPath, path: 'assets/path/dog.flr')),
-          isTrue);
+        integration.isSupport(
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/path/dog.flr',
+            flavors: {},
+          ),
+        ),
+        isTrue,
+      );
       expect(
-          integration.isSupport(
-              AssetType(rootPath: resPath, path: 'assets/path/dog.json')),
-          isFalse);
+        integration.isSupport(
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/path/dog.json',
+            flavors: {},
+          ),
+        ),
+        isFalse,
+      );
       expect(integration.isConstConstructor, isTrue);
       expect(integration.classOutput.contains('_assetName,'), isTrue);
 
@@ -109,17 +144,35 @@ void main() {
       final integration = RiveIntegration('');
       expect(integration.className, 'RiveGenImage');
       expect(
-          integration.classInstantiate(
-              AssetType(rootPath: resPath, path: 'assets/path')),
-          'RiveGenImage(\'assets/path\')');
+        integration.classInstantiate(
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/path',
+            flavors: {},
+          ),
+        ),
+        'RiveGenImage(\'assets/path\')',
+      );
       expect(
-          integration.isSupport(
-              AssetType(rootPath: resPath, path: 'assets/path/dog.riv')),
-          isTrue);
+        integration.isSupport(
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/path/dog.riv',
+            flavors: {},
+          ),
+        ),
+        isTrue,
+      );
       expect(
-          integration.isSupport(
-              AssetType(rootPath: resPath, path: 'assets/path/dog.json')),
-          isFalse);
+        integration.isSupport(
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/path/dog.json',
+            flavors: {},
+          ),
+        ),
+        isFalse,
+      );
       expect(integration.isConstConstructor, isTrue);
       expect(integration.classOutput.contains('_assetName,'), isTrue);
 
@@ -143,18 +196,35 @@ void main() {
       final integration = LottieIntegration('');
       expect(integration.className, 'LottieGenImage');
       expect(
-          integration.classInstantiate(
-              AssetType(rootPath: resPath, path: 'assets/lottie')),
-          'LottieGenImage(\'assets/lottie\')');
+        integration.classInstantiate(
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/lottie',
+            flavors: {},
+          ),
+        ),
+        'LottieGenImage(\'assets/lottie\')',
+      );
       expect(
-          integration.isSupport(AssetType(
-              rootPath: resPath, path: 'assets/lottie/hamburger_arrow.json')),
-          isTrue);
+        integration.isSupport(
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/lottie/hamburger_arrow.json',
+            flavors: {},
+          ),
+        ),
+        isTrue,
+      );
       expect(
-          integration.isSupport(AssetType(
-              rootPath: resPath,
-              path: 'assets/lottie/hamburger_arrow_without_version.json')),
-          isFalse);
+        integration.isSupport(
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/lottie/hamburger_arrow_without_version.json',
+            flavors: {},
+          ),
+        ),
+        isFalse,
+      );
       expect(integration.isConstConstructor, isTrue);
       expect(integration.classOutput.contains('String? package,'), isTrue);
 
