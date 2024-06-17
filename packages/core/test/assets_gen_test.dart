@@ -127,6 +127,14 @@ void main() {
       await expectedAssetsGen(pubspec, generated, fact);
     });
 
+    test('Assets with flavored assets', () async {
+      const pubspec = 'test_resources/pubspec_assets_flavored.yaml';
+      const fact = 'test_resources/actual_data/assets_flavored.gen.dart';
+      const generated = 'test_resources/lib/gen/assets_flavored.gen.dart';
+
+      await expectedAssetsGen(pubspec, generated, fact);
+    });
+
     test('Assets with terrible names (camelCase)', () async {
       // See [AssetTypeIterable.mapToUniqueAssetType] for the rules for picking
       // identifer names.
