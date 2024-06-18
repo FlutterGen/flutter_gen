@@ -1,5 +1,6 @@
 @TestOn('vm')
 import 'package:flutter_gen_core/generators/integrations/flare_integration.dart';
+import 'package:flutter_gen_core/generators/integrations/integration.dart';
 import 'package:flutter_gen_core/generators/integrations/lottie_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/rive_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/svg_integration.dart';
@@ -8,6 +9,27 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
 import 'gen_test_helper.dart';
+
+class TestIntegration extends Integration {
+  TestIntegration() : super('');
+
+  @override
+  String get className => 'TestIntegration';
+
+  @override
+  String get classOutput => throw UnimplementedError();
+
+  @override
+  bool get isConstConstructor => true;
+
+  @override
+  bool isSupport(AssetType asset) {
+    return true;
+  }
+
+  @override
+  List<String> get requiredImports => [];
+}
 
 void main() {
   group('Test Assets Integration generator', () {
@@ -19,6 +41,15 @@ void main() {
           'test_resources/lib/gen/assets_no_integrations.gen.dart';
 
       await expectedAssetsGen(pubspec, generated, fact);
+    });
+
+    test('Integration.classInstantiate', () {
+      expect(
+        TestIntegration().classInstantiate(
+          AssetType(rootPath: resPath, path: 'assets/path', flavors: {'test'}),
+        ),
+        'TestIntegration(\'assets/path\', flavors: {\'test\'},)',
+      );
     });
 
     test('Assets with Svg integrations on pubspec.yaml', () async {
@@ -43,10 +74,40 @@ void main() {
         'SvgGenImage(\'assets/path\')',
       );
       expect(
+        integration.classInstantiate(
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/path',
+            flavors: {'test'},
+          ),
+        ),
+        'SvgGenImage(\'assets/path\', flavors: {\'test\'},)',
+      );
+      expect(
+        integration.classInstantiate(
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/path/dog.vec',
+            flavors: {},
+          ),
+        ),
+        'SvgGenImage.vec(\'assets/path/dog.vec\')',
+      );
+      expect(
         integration.isSupport(
           AssetType(
             rootPath: resPath,
             path: 'assets/path/dog.svg',
+            flavors: {},
+          ),
+        ),
+        isTrue,
+      );
+      expect(
+        integration.isSupport(
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/path/dog.vec',
             flavors: {},
           ),
         ),
