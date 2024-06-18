@@ -135,6 +135,20 @@ void main() {
       await expectedAssetsGen(pubspec, generated, fact);
     });
 
+    test('Assets with duplicate flavoring entries', () async {
+      const pubspec =
+          'test_resources/pubspec_assets_flavored_duplicate_entry.yaml';
+      const fact =
+          'test_resources/actual_data/assets_flavored_duplicate_entry.gen.dart';
+      const generated =
+          'test_resources/lib/gen/assets_flavored_duplicate_entry.gen.dart';
+
+      await expectLater(
+        () => runAssetsGen(pubspec, generated, fact),
+        throwsA(isA<StateError>()),
+      );
+    });
+
     test('Assets with terrible names (camelCase)', () async {
       // See [AssetTypeIterable.mapToUniqueAssetType] for the rules for picking
       // identifer names.

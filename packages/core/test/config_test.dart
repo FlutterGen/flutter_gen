@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter_gen_core/settings/flavored_asset.dart';
 import 'package:test/test.dart';
 
@@ -23,6 +24,12 @@ void main() {
       expect(
         FlavoredAsset(path: '1').copyWith(path: '2'),
         predicate<FlavoredAsset>((e) => e.path == '2'),
+      );
+      expect(
+        FlavoredAsset(path: '1').copyWith(flavors: {'test'}),
+        predicate<FlavoredAsset>(
+          (e) => SetEquality().equals(e.flavors, {'test'}),
+        ),
       );
     });
   });
