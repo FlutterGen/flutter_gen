@@ -80,7 +80,7 @@ FlutterGen _$FlutterGenFromJson(Map json) => $checkedCreate(
         );
         final val = FlutterGen(
           output: $checkedConvert('output', (v) => v as String),
-          lineLength: $checkedConvert('line_length', (v) => v as int),
+          lineLength: $checkedConvert('line_length', (v) => (v as num).toInt()),
           parseMetadata: $checkedConvert('parse_metadata', (v) => v as bool),
           assets: $checkedConvert(
               'assets', (v) => FlutterGenAssets.fromJson(v as Map)),
