@@ -3,8 +3,6 @@
 ///  FlutterGen
 /// *****************************************************
 
-import 'package:flare_flutter/flare_actor.dart';
-import 'package:flare_flutter/flare_controller.dart';
 // coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
@@ -12,9 +10,11 @@ import 'package:flare_flutter/flare_controller.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lottie/lottie.dart';
-import 'package:rive/rive.dart';
 import 'package:vector_graphics/vector_graphics.dart';
+import 'package:flare_flutter/flare_actor.dart';
+import 'package:flare_flutter/flare_controller.dart';
+import 'package:rive/rive.dart';
+import 'package:lottie/lottie.dart';
 
 class $AssetsFlareGen {
   const $AssetsFlareGen();
