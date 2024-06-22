@@ -293,7 +293,7 @@ class SvgGenImage {
           ? AssetBytesLoader(_assetName,
               assetBundle: bundle, packageName: package)
           : SvgAssetLoader(_assetName,
-              assetBundle: bundle, packageName: package),
+              assetBundle: bundle, packageName: package, theme: theme),
       key: key,
       matchTextDirection: matchTextDirection,
       width: width,
@@ -304,7 +304,6 @@ class SvgGenImage {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      theme: theme,
       colorFilter: colorFilter ??
           (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
