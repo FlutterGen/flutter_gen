@@ -90,6 +90,7 @@ class SvgGenImage {
         _assetName,
         assetBundle: bundle,
         packageName: package,
+        theme: theme,
       );
     }
     return SvgPicture(
@@ -104,7 +105,6 @@ class SvgGenImage {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      theme: theme,
       colorFilter: colorFilter ??
           (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
