@@ -13,11 +13,13 @@ import 'package:flutter_gen_core/generators/integrations/rive_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/svg_integration.dart';
 import 'package:flutter_gen_core/settings/asset_type.dart';
 import 'package:flutter_gen_core/settings/config.dart';
+import 'package:flutter_gen_core/settings/flavored_asset.dart';
 import 'package:flutter_gen_core/settings/pubspec.dart';
 import 'package:flutter_gen_core/utils/error.dart';
 import 'package:flutter_gen_core/utils/string.dart';
 import 'package:glob/glob.dart';
 import 'package:path/path.dart';
+import 'package:yaml/yaml.dart';
 
 class AssetsGenConfig {
   AssetsGenConfig._(
@@ -41,7 +43,7 @@ class AssetsGenConfig {
   final String rootPath;
   final String _packageName;
   final FlutterGen flutterGen;
-  final List<String> assets;
+  final List<Object> assets;
   final List<Glob> exclude;
 
   String get packageParameterLiteral =>
@@ -194,51 +196,89 @@ String? generatePackageNameForConfig(AssetsGenConfig config) {
   }
 }
 
-/// Returns a list of all releative path assets that are to be considered.
-List<String> _getAssetRelativePathList(
+/// Returns a list of all relative path assets that are to be considered.
+List<FlavoredAsset> _getAssetRelativePathList(
   /// The absolute root path of the assets directory.
   String rootPath,
 
-  /// List of assets as provided the `flutter`.`assets` section in the pubspec.yaml.
-  List<String> assets,
+  /// List of assets as provided the `flutter -> assets`
+  /// section in the pubspec.yaml.
+  List<Object> assets,
 
-  /// List of globs as provided the `flutter_gen`.`assets`.`exclude` section in the pubspec.yaml.
+  /// List of globs as provided the `flutter_gen -> assets -> exclude`
+  /// section in the pubspec.yaml.
   List<Glob> excludes,
 ) {
-  final assetRelativePathList = <String>[];
-  for (final assetName in assets) {
-    final assetAbsolutePath = join(rootPath, assetName);
+  // Normalize.
+  final normalizedAssets = <Object>{...assets.whereType<String>()};
+  final normalizingMap = <String, Set<String>>{};
+  // Resolve flavored assets.
+  for (final map in assets.whereType<YamlMap>()) {
+    final path = (map['path'] as String).trim();
+    final flavors =
+        (map['flavors'] as YamlList?)?.toSet().cast<String>() ?? <String>{};
+    if (normalizingMap.containsKey(path)) {
+      // https://github.com/flutter/flutter/blob/5187cab7bdd434ca74abb45895d17e9fa553678a/packages/flutter_tools/lib/src/asset.dart#L1137-L1139
+      throw StateError(
+        'Multiple assets entries include the file "$path", '
+        'but they specify different lists of flavors.',
+      );
+    }
+    normalizingMap[path] = flavors;
+  }
+  for (final entry in normalizingMap.entries) {
+    normalizedAssets.add(
+      YamlMap.wrap({'path': entry.key, 'flavors': entry.value}),
+    );
+  }
+
+  final assetRelativePathList = <FlavoredAsset>[];
+  for (final asset in normalizedAssets) {
+    final FlavoredAsset tempAsset;
+    if (asset is YamlMap) {
+      tempAsset = FlavoredAsset(path: asset['path'], flavors: asset['flavors']);
+    } else {
+      tempAsset = FlavoredAsset(path: (asset as String).trim());
+    }
+    final assetAbsolutePath = join(rootPath, tempAsset.path);
     if (FileSystemEntity.isDirectorySync(assetAbsolutePath)) {
       assetRelativePathList.addAll(Directory(assetAbsolutePath)
           .listSync()
           .whereType<File>()
-          .map((e) => relative(e.path, from: rootPath))
+          .map(
+            (e) => tempAsset.copyWith(path: relative(e.path, from: rootPath)),
+          )
           .toList());
     } else if (FileSystemEntity.isFileSync(assetAbsolutePath)) {
-      assetRelativePathList.add(relative(assetAbsolutePath, from: rootPath));
+      assetRelativePathList.add(
+        tempAsset.copyWith(path: relative(assetAbsolutePath, from: rootPath)),
+      );
     }
   }
 
   if (excludes.isEmpty) {
     return assetRelativePathList;
   }
-
   return assetRelativePathList
-      .where((file) => !excludes.any((exclude) => exclude.matches(file)))
+      .where((asset) => !excludes.any((exclude) => exclude.matches(asset.path)))
       .toList();
 }
 
 AssetType _constructAssetTree(
-    List<String> assetRelativePathList, String rootPath) {
+  List<FlavoredAsset> assetRelativePathList,
+  String rootPath,
+) {
   // Relative path is the key
   final assetTypeMap = <String, AssetType>{
-    '.': AssetType(rootPath: rootPath, path: '.'),
+    '.': AssetType(rootPath: rootPath, path: '.', flavors: {}),
   };
-  for (final assetPath in assetRelativePathList) {
-    var path = assetPath;
+  for (final asset in assetRelativePathList) {
+    String path = asset.path;
     while (path != '.') {
       assetTypeMap.putIfAbsent(
-          path, () => AssetType(rootPath: rootPath, path: path));
+        path,
+        () => AssetType(rootPath: rootPath, path: path, flavors: asset.flavors),
+      );
       path = dirname(path);
     }
   }
@@ -320,7 +360,8 @@ String _dotDelimiterStyleDefinition(
   final assetsStaticStatements = <_Statement>[];
 
   final assetTypeQueue = ListQueue<AssetType>.from(
-      _constructAssetTree(assetRelativePathList, rootPath).children);
+    _constructAssetTree(assetRelativePathList, rootPath).children,
+  );
 
   while (assetTypeQueue.isNotEmpty) {
     final assetType = assetTypeQueue.removeFirst();
@@ -428,14 +469,20 @@ String _flatStyleDefinition(
   List<Integration> integrations,
   String Function(String) style,
 ) {
-  final statements = _getAssetRelativePathList(
+  final List<FlavoredAsset> paths = _getAssetRelativePathList(
     config.rootPath,
     config.assets,
     config.exclude,
-  )
-      .distinct()
-      .sorted()
-      .map((assetPath) => AssetType(rootPath: config.rootPath, path: assetPath))
+  );
+  paths.sort(((a, b) => a.path.compareTo(b.path)));
+  final statements = paths
+      .map(
+        (assetPath) => AssetType(
+          rootPath: config.rootPath,
+          path: assetPath.path,
+          flavors: assetPath.flavors,
+        ),
+      )
       .mapToUniqueAssetType(style)
       .map(
         (e) => _createAssetTypeStatement(

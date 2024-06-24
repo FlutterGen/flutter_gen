@@ -17,9 +17,14 @@ class FlareIntegration extends Integration {
   String get classOutput => _classDefinition;
 
   String get _classDefinition => '''class FlareGenImage {
-  const FlareGenImage(this._assetName);
+  const FlareGenImage(
+    this._assetName, {
+    this.flavors = const {},
+  });
 
   final String _assetName;
+  final Set<String> flavors;
+
 ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   FlareActor flare({
@@ -62,10 +67,6 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   @override
   String get className => 'FlareGenImage';
-
-  @override
-  String classInstantiate(AssetType asset) =>
-      'FlareGenImage(\'${asset.posixStylePath}\')';
 
   @override
   bool isSupport(AssetType asset) => asset.extension == '.flr';

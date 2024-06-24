@@ -16,9 +16,14 @@ class RiveIntegration extends Integration {
   String get classOutput => _classDefinition;
 
   String get _classDefinition => '''class RiveGenImage {
-  const RiveGenImage(this._assetName);
+  const RiveGenImage(
+    this._assetName, {
+    this.flavors = const {},
+  });
 
   final String _assetName;
+  final Set<String> flavors;
+
 ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   RiveAnimation rive({
@@ -55,10 +60,6 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   @override
   String get className => 'RiveGenImage';
-
-  @override
-  String classInstantiate(AssetType asset) =>
-      'RiveGenImage(\'${asset.posixStylePath}\')';
 
   @override
   bool isSupport(AssetType asset) => asset.extension == '.riv';

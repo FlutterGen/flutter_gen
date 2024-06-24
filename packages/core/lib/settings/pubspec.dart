@@ -32,7 +32,7 @@ class Flutter {
   });
 
   @JsonKey(name: 'assets', required: true)
-  final List<String> assets;
+  final List<Object> assets;
 
   @JsonKey(name: 'fonts', required: true)
   final List<FlutterFonts> fonts;

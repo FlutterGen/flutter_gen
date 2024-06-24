@@ -127,6 +127,28 @@ void main() {
       await expectedAssetsGen(pubspec, generated, fact);
     });
 
+    test('Assets with flavored assets', () async {
+      const pubspec = 'test_resources/pubspec_assets_flavored.yaml';
+      const fact = 'test_resources/actual_data/assets_flavored.gen.dart';
+      const generated = 'test_resources/lib/gen/assets_flavored.gen.dart';
+
+      await expectedAssetsGen(pubspec, generated, fact);
+    });
+
+    test('Assets with duplicate flavoring entries', () async {
+      const pubspec =
+          'test_resources/pubspec_assets_flavored_duplicate_entry.yaml';
+      const fact =
+          'test_resources/actual_data/assets_flavored_duplicate_entry.gen.dart';
+      const generated =
+          'test_resources/lib/gen/assets_flavored_duplicate_entry.gen.dart';
+
+      await expectLater(
+        () => runAssetsGen(pubspec, generated, fact),
+        throwsA(isA<StateError>()),
+      );
+    });
+
     test('Assets with terrible names (camelCase)', () async {
       // See [AssetTypeIterable.mapToUniqueAssetType] for the rules for picking
       // identifer names.
@@ -143,7 +165,8 @@ void main() {
         'assets/profilePng.jpg': 'profilePngJpg',
 
         // Asset overlapping with a directory name.
-        'assets/image': 'image', // Directory
+        'assets/image': 'image',
+        // Directory
         'assets/image.jpg': 'imageJpg',
 
         // Asset with no base name (but ends up overlapping the previous asset)
@@ -155,12 +178,18 @@ void main() {
         'assets/français.jpg': 'franAis',
 
         // Dart Reserved Words
-        'assets/async.png': 'async', // allowed
-        'assets/abstract.png': 'abstract', // allowed
-        'assets/await.png': 'awaitPng', // must be suffixed (but can use Png)
-        'assets/assert.png': 'assertPng', // must be suffixed (but can use Png)
-        'assets/await': 'await_', //  must be suffixed
-        'assets/assert': 'assert_', // must be suffixed
+        // allowed
+        'assets/async.png': 'async',
+        // allowed
+        'assets/abstract.png': 'abstract',
+        // must be suffixed (but can use Png)
+        'assets/await.png': 'awaitPng',
+        // must be suffixed (but can use Png)
+        'assets/assert.png': 'assertPng',
+        //  must be suffixed
+        'assets/await': 'await_',
+        // must be suffixed
+        'assets/assert': 'assert_',
 
         // Asset with a number as the first character
         'assets/7up.png': 'a7up',
@@ -176,12 +205,12 @@ void main() {
 
       final List<AssetType> assets = tests.keys
           .sorted()
-          .map((e) => AssetType(rootPath: '', path: e))
+          .map((e) => AssetType(rootPath: '', path: e, flavors: {}))
           .toList();
 
       final got = assets.mapToUniqueAssetType(camelCase);
 
-      // Expect no dups.
+      // Expect no duplicates.
       final names = got.map((e) => e.name);
       expect(names.sorted(), tests.values.sorted());
     });

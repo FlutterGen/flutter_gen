@@ -167,6 +167,18 @@ flutter:
 
 These configurations will generate **`assets.gen.dart`** under the **`lib/gen/`** directory by default.
 
+#### Flavored assets
+
+Flutter supports
+[Conditionally bundling assets based on flavor](https://docs.flutter.dev/deployment/flavors#conditionally-bundling-assets-based-on-flavor).
+Assets are only available with flavors if specified.
+`flutter_gen` will generate the specified `flavors` for assets regardless the current flavor.
+The `flavors` field accessible though `.flavors`, for example:
+
+```dart
+print(MyAssets.images.chip4.flavors); // -> {'extern'}
+```
+
 #### Excluding generating for assets
 
 You can specify `flutter_gen > assets > exclude` using `Glob` patterns to exclude particular assets.

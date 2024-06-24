@@ -35,6 +35,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/chip2.jpg
   AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
 
+  /// Directory path: assets/images/chip3
+  $AssetsImagesChip3Gen get chip3 => const $AssetsImagesChip3Gen();
+
   /// Directory path: assets/images/chip4
   $AssetsImagesChip4Gen get chip4 => const $AssetsImagesChip4Gen();
 
@@ -142,12 +145,25 @@ class $AssetsUnknownGen {
   List<String> get values => [changelog, readme, unknownMimeType];
 }
 
+class $AssetsImagesChip3Gen {
+  const $AssetsImagesChip3Gen();
+
+  /// File path: assets/images/chip3/chip3.jpg
+  AssetGenImage get chip3 =>
+      const AssetGenImage('assets/images/chip3/chip3.jpg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [chip3];
+}
+
 class $AssetsImagesChip4Gen {
   const $AssetsImagesChip4Gen();
 
   /// File path: assets/images/chip4/chip4.jpg
-  AssetGenImage get chip4 =>
-      const AssetGenImage('assets/images/chip4/chip4.jpg');
+  AssetGenImage get chip4 => const AssetGenImage(
+        'assets/images/chip4/chip4.jpg',
+        flavors: {'extern'},
+      );
 
   /// List of all assets
   List<AssetGenImage> get values => [chip4];
@@ -202,11 +218,16 @@ class MyAssets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName, {this.size = null});
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  });
 
   final String _assetName;
 
   final Size? size;
+  final Set<String> flavors;
 
   Image image({
     Key? key,
@@ -280,17 +301,19 @@ class AssetGenImage {
 class SvgGenImage {
   const SvgGenImage(
     this._assetName, {
-    this.size = null,
+    this.size,
+    this.flavors = const {},
   }) : _isVecFormat = false;
 
   const SvgGenImage.vec(
     this._assetName, {
-    this.size = null,
+    this.size,
+    this.flavors = const {},
   }) : _isVecFormat = true;
 
   final String _assetName;
-
   final Size? size;
+  final Set<String> flavors;
   final bool _isVecFormat;
 
   SvgPicture svg({
@@ -313,12 +336,23 @@ class SvgGenImage {
     @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
     @deprecated bool cacheColorFilter = false,
   }) {
+    final BytesLoader loader;
+    if (_isVecFormat) {
+      loader = AssetBytesLoader(
+        _assetName,
+        assetBundle: bundle,
+        packageName: package,
+      );
+    } else {
+      loader = SvgAssetLoader(
+        _assetName,
+        assetBundle: bundle,
+        packageName: package,
+        theme: theme,
+      );
+    }
     return SvgPicture(
-      _isVecFormat
-          ? AssetBytesLoader(_assetName,
-              assetBundle: bundle, packageName: package)
-          : SvgAssetLoader(_assetName,
-              assetBundle: bundle, packageName: package, theme: theme),
+      loader,
       key: key,
       matchTextDirection: matchTextDirection,
       width: width,
@@ -342,9 +376,13 @@ class SvgGenImage {
 }
 
 class FlareGenImage {
-  const FlareGenImage(this._assetName);
+  const FlareGenImage(
+    this._assetName, {
+    this.flavors = const {},
+  });
 
   final String _assetName;
+  final Set<String> flavors;
 
   FlareActor flare({
     String? boundsNode,
@@ -385,9 +423,13 @@ class FlareGenImage {
 }
 
 class RiveGenImage {
-  const RiveGenImage(this._assetName);
+  const RiveGenImage(
+    this._assetName, {
+    this.flavors = const {},
+  });
 
   final String _assetName;
+  final Set<String> flavors;
 
   RiveAnimation rive({
     String? artboard,
@@ -422,9 +464,13 @@ class RiveGenImage {
 }
 
 class LottieGenImage {
-  const LottieGenImage(this._assetName);
+  const LottieGenImage(
+    this._assetName, {
+    this.flavors = const {},
+  });
 
   final String _assetName;
+  final Set<String> flavors;
 
   LottieBuilder lottie({
     Animation<double>? controller,
