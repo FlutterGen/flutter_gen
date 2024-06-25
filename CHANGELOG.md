@@ -1,3 +1,10 @@
+## 5.6.0
+
+**Bug fix**
+- [#530](https://github.com/FlutterGen/flutter_gen/pull/530) Fix the Flavored assets. by [@AlexV525](https://github.com/AlexV525)
+  - Please submit issues later if you have any feedback, this is blocking users from generating files if they are using flavors or transformations and there is no workaround for them.
+- [#532](https://github.com/FlutterGen/flutter_gen/pull/532) Provid the theme to SvgAssetLoader instead of SvgPicture. by [@Kirpal](https://github.com/Kirpal)
+
 ## 5.5.0+1
 
 **Feature**

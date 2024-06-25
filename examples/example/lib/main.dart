@@ -10,6 +10,10 @@ void main() async {
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
 
+  // flavors sample
+  // output: {'extern'}
+  print(MyAssets.images.chip4.chip4.flavors);
+
   runApp(MaterialApp(
     title: 'Flutter Demo',
     theme: ThemeData(
