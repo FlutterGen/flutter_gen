@@ -186,10 +186,9 @@ You can specify `flutter_gen > assets > exclude` using `Glob` patterns to exclud
 ```yaml
 flutter_gen:
   assets:
-    outputs:
-      excludes:
-        - folder-your-want-to-exclude/*
-        - specified-asset.jpg
+    exclude:
+      - folder-your-want-to-exclude/**
+      - specified-asset.jpg
 ```
 
 See more patterns with the `package:glob`.
