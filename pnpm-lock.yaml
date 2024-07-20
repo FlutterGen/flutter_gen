@@ -13,10 +13,10 @@ devDependencies:
     version: 15.2.7
   prettier:
     specifier: ^3.0.3
-    version: 3.3.2
+    version: 3.3.3
   prettier-plugin-packagejson:
     specifier: ^2.4.5
-    version: 2.5.1(prettier@3.3.2)
+    version: 2.5.1(prettier@3.3.3)
 
 packages:
 
@@ -403,7 +403,7 @@ packages:
     hasBin: true
     dev: true
 
-  /prettier-plugin-packagejson@2.5.1(prettier@3.3.2):
+  /prettier-plugin-packagejson@2.5.1(prettier@3.3.3):
     resolution: {integrity: sha512-6i4PW1KxEA+VrokYNGeI/q8qQX3u5DNBc7eLr9GX4OrvWr9DMls1lhbuNopkKG7Li9rTNxerWnYQyjxoUO4ROA==}
     peerDependencies:
       prettier: '>= 1.16.0'
@@ -411,13 +411,13 @@ packages:
       prettier:
         optional: true
     dependencies:
-      prettier: 3.3.2
+      prettier: 3.3.3
       sort-package-json: 2.10.0
       synckit: 0.9.1
     dev: true
 
-  /prettier@3.3.2:
-    resolution: {integrity: sha512-rAVeHYMcv8ATV5d508CFdn+8/pHPpXeIid1DdrPwXnaAdH7cqjVbpJaT5eq4yRAFU/lsbwYwSF/n5iNrdJHPQA==}
+  /prettier@3.3.3:
+    resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
