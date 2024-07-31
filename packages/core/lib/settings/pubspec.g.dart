@@ -42,9 +42,15 @@ Flutter _$FlutterFromJson(Map json) => $checkedCreate(
               (v) => (v as List<dynamic>)
                   .map((e) => FlutterFonts.fromJson(e as Map))
                   .toList()),
+          deferredComponents: $checkedConvert(
+              'deferred-components',
+              (v) => (v as List<dynamic>?)
+                  ?.map((e) => FlutterDeferredComponents.fromJson(e as Map))
+                  .toList()),
         );
         return val;
       },
+      fieldKeyMap: const {'deferredComponents': 'deferred-components'},
     );
 
 FlutterFonts _$FlutterFontsFromJson(Map json) => $checkedCreate(

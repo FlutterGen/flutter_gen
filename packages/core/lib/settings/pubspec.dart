@@ -29,6 +29,7 @@ class Flutter {
   Flutter({
     required this.assets,
     required this.fonts,
+    required this.deferredComponents,
   });
 
   @JsonKey(name: 'assets', required: true)
@@ -36,6 +37,9 @@ class Flutter {
 
   @JsonKey(name: 'fonts', required: true)
   final List<FlutterFonts> fonts;
+
+  @JsonKey(name: 'deferred-components', required: false)
+  final List<FlutterDeferredComponents>? deferredComponents;
 
   factory Flutter.fromJson(Map json) => _$FlutterFromJson(json);
 }
@@ -242,4 +246,20 @@ class FlutterGenElementFontsOutputs extends FlutterGenElementOutputs {
 
   factory FlutterGenElementFontsOutputs.fromJson(Map json) =>
       _$FlutterGenElementFontsOutputsFromJson(json);
+}
+
+class FlutterDeferredComponents {
+  FlutterDeferredComponents({
+    required this.name,
+    required this.assets,
+  });
+
+  @JsonKey(name: 'name', required: true)
+  final String name;
+
+  @JsonKey(name: 'assets', required: false)
+  final List<Object>? assets;
+
+  factory FlutterDeferredComponents.fromJson(Map json) =>
+      _$FlutterDeferredComponentsFromJson(json);
 }
