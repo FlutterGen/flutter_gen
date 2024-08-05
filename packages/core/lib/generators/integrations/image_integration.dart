@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter_gen_core/generators/integrations/integration.dart';
-import 'package:flutter_gen_core/settings/asset_type.dart';
 import 'package:image_size_getter/file_input.dart';
 import 'package:image_size_getter/image_size_getter.dart';
 
@@ -21,7 +20,7 @@ class ImageIntegration extends Integration {
       isPackage ? "'packages/$packageName/\$_assetName'" : '_assetName';
 
   @override
-  List<String> get requiredImports => ['package:flutter/widgets.dart'];
+  List<Import> get requiredImports => [Import('package:flutter/widgets.dart')];
 
   @override
   String get classOutput => _classDefinition;
