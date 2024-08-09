@@ -10,11 +10,11 @@ class FlareIntegration extends Integration {
         Import('package:flutter/widgets.dart'),
         Import(
           'package:flare_flutter/flare_actor.dart',
-          alias: '_actor',
+          alias: '_flare_actor',
         ),
         Import(
           'package:flare_flutter/flare_controller.dart',
-          alias: '_controller',
+          alias: '_flare_controller',
         ),
       ];
 
@@ -32,22 +32,22 @@ class FlareIntegration extends Integration {
 
 ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
-  _actor.FlareActor flare({
+  _flare_actor.FlareActor flare({
     String? boundsNode,
     String? animation,
     BoxFit fit = BoxFit.contain,
     Alignment alignment = Alignment.center,
     bool isPaused = false,
     bool snapToEnd = false,
-    _controller.FlareController? controller,
-    _actor.FlareCompletedCallback? callback,
+    _flare_controller.FlareController? controller,
+    _flare_actor.FlareCompletedCallback? callback,
     Color? color,
     bool shouldClip = true,
     bool sizeFromArtboard = false,
     String? artboard,
     bool antialias = true,
   }) {
-    return _actor.FlareActor(
+    return _flare_actor.FlareActor(
       ${isPackage ? '\'$packageExpression\$_assetName\'' : '_assetName'},
       boundsNode: boundsNode,
       animation: animation,
