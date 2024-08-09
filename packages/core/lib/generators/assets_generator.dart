@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:dart_style/dart_style.dart';
-import 'package:dartx/dartx.dart';
+import 'package:dartx/dartx.dart' hide IterableSorted;
 import 'package:flutter_gen_core/generators/generator_helper.dart';
 import 'package:flutter_gen_core/generators/integrations/flare_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/image_integration.dart';
@@ -11,7 +11,6 @@ import 'package:flutter_gen_core/generators/integrations/integration.dart';
 import 'package:flutter_gen_core/generators/integrations/lottie_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/rive_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/svg_integration.dart';
-import 'package:flutter_gen_core/settings/asset_type.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:flutter_gen_core/settings/flavored_asset.dart';
 import 'package:flutter_gen_core/settings/pubspec.dart';
@@ -56,11 +55,9 @@ String generateAssets(
 ) {
   if (config.assets.isEmpty) {
     throw const InvalidSettingsException(
-        'The value of "flutter/assets:" is incorrect.');
+      'The value of "flutter/assets:" is incorrect.',
+    );
   }
-
-  final importsBuffer = StringBuffer();
-  final classesBuffer = StringBuffer();
 
   final integrations = <Integration>[
     ImageIntegration(config.packageParameterLiteral,
@@ -158,6 +155,7 @@ String generateAssets(
     └────────────────────────────────────────────────────────────────────────────────────────┘''');
   }
 
+  final classesBuffer = StringBuffer();
   if (config.flutterGen.assets.outputs.isDotDelimiterStyle) {
     classesBuffer.writeln(_dotDelimiterStyleDefinition(config, integrations));
   } else if (config.flutterGen.assets.outputs.isSnakeCaseStyle) {
@@ -168,19 +166,18 @@ String generateAssets(
     throw 'The value of "flutter_gen/assets/style." is incorrect.';
   }
 
-  final imports = <String>{};
-  integrations
-      .where((integration) => integration.isEnabled)
-      .forEach((integration) {
+  final imports = <Import>{};
+  for (final integration in integrations.where((e) => e.isEnabled)) {
     imports.addAll(integration.requiredImports);
     classesBuffer.writeln(integration.classOutput);
-  });
-  for (final package in imports) {
-    importsBuffer.writeln(import(package));
+  }
+
+  final importsBuffer = StringBuffer();
+  for (final e in imports.sorted((a, b) => a.import.compareTo(b.import))) {
+    importsBuffer.writeln(import(e));
   }
 
   final buffer = StringBuffer();
-
   buffer.writeln(header);
   buffer.writeln(ignore);
   buffer.writeln(importsBuffer.toString());

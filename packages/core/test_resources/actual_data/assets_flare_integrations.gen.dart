@@ -7,9 +7,9 @@
 // ignore_for_file: type=lint
 // ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
+import 'package:flare_flutter/flare_actor.dart' as _flare_actor;
+import 'package:flare_flutter/flare_controller.dart' as _flare_controller;
 import 'package:flutter/widgets.dart';
-import 'package:flare_flutter/flare_actor.dart';
-import 'package:flare_flutter/flare_controller.dart';
 
 class $AssetsFlareGen {
   const $AssetsFlareGen();
@@ -36,22 +36,22 @@ class FlareGenImage {
   final String _assetName;
   final Set<String> flavors;
 
-  FlareActor flare({
+  _flare_actor.FlareActor flare({
     String? boundsNode,
     String? animation,
     BoxFit fit = BoxFit.contain,
     Alignment alignment = Alignment.center,
     bool isPaused = false,
     bool snapToEnd = false,
-    FlareController? controller,
-    FlareCompletedCallback? callback,
+    _flare_controller.FlareController? controller,
+    _flare_actor.FlareCompletedCallback? callback,
     Color? color,
     bool shouldClip = true,
     bool sizeFromArtboard = false,
     String? artboard,
     bool antialias = true,
   }) {
-    return FlareActor(
+    return _flare_actor.FlareActor(
       _assetName,
       boundsNode: boundsNode,
       animation: animation,

@@ -1,4 +1,8 @@
 import 'package:flutter_gen_core/settings/asset_type.dart';
+import 'package:flutter_gen_core/settings/import.dart';
+
+export 'package:flutter_gen_core/settings/asset_type.dart';
+export 'package:flutter_gen_core/settings/import.dart';
 
 /// A base class for all integrations. An integration is a class that
 /// generates code for a specific asset type.
@@ -13,7 +17,7 @@ abstract class Integration {
 
   final bool parseMetadata;
 
-  List<String> get requiredImports;
+  List<Import> get requiredImports;
 
   String get classOutput;
 
