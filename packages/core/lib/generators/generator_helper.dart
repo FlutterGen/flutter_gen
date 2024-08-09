@@ -1,3 +1,5 @@
+import 'package:flutter_gen_core/settings/import.dart';
+
 String get header {
   return '''/// GENERATED CODE - DO NOT MODIFY BY HAND
 /// *****************************************************
@@ -15,4 +17,7 @@ String get ignore {
 ''';
 }
 
-String import(String package) => 'import \'$package\';';
+String import(Import package) {
+  return 'import \'${package.import}\''
+      '${package.alias != null ? ' as ${package.alias}' : ''};';
+}

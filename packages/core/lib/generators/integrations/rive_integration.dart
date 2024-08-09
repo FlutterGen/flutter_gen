@@ -1,5 +1,4 @@
 import 'package:flutter_gen_core/generators/integrations/integration.dart';
-import 'package:flutter_gen_core/settings/asset_type.dart';
 
 class RiveIntegration extends Integration {
   RiveIntegration(String packageName) : super(packageName);
@@ -7,9 +6,9 @@ class RiveIntegration extends Integration {
   String? get packageExpression => isPackage ? 'packages/$packageName/' : null;
 
   @override
-  List<String> get requiredImports => [
-        'package:flutter/widgets.dart',
-        'package:rive/rive.dart',
+  List<Import> get requiredImports => [
+        Import('package:flutter/widgets.dart'),
+        Import('package:rive/rive.dart', alias: '_rive'),
       ];
 
   @override
@@ -26,7 +25,7 @@ class RiveIntegration extends Integration {
 
 ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
-  RiveAnimation rive({
+  _rive.RiveAnimation rive({
     String? artboard,
     List<String> animations = const [],
     List<String> stateMachines = const [],
@@ -35,10 +34,10 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
     Widget? placeHolder,
     bool antialiasing = true,
     bool useArtboardSize = false,
-    List<RiveAnimationController> controllers = const [],
-    OnInitCallback? onInit,
+    List<_rive.RiveAnimationController> controllers = const [],
+    _rive.OnInitCallback? onInit,
   }) {
-    return RiveAnimation.asset(
+    return _rive.RiveAnimation.asset(
       ${isPackage ? '\'$packageExpression\$_assetName\'' : '_assetName'},
       artboard: artboard,
       animations: animations,

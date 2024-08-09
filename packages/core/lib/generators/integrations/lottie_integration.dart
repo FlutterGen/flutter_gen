@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_gen_core/generators/integrations/integration.dart';
-import 'package:flutter_gen_core/settings/asset_type.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
@@ -23,9 +22,9 @@ class LottieIntegration extends Integration {
   String get packageExpression => isPackage ? ' = package' : '';
 
   @override
-  List<String> get requiredImports => [
-        'package:flutter/widgets.dart',
-        'package:lottie/lottie.dart',
+  List<Import> get requiredImports => [
+        Import('package:flutter/widgets.dart'),
+        Import('package:lottie/lottie.dart', alias: '_lottie'),
       ];
 
   @override
@@ -42,19 +41,23 @@ class LottieIntegration extends Integration {
 
 ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
-  LottieBuilder lottie({
+  _lottie.LottieBuilder lottie({
     Animation<double>? controller,
     bool? animate,
-    FrameRate? frameRate,
+    _lottie.FrameRate? frameRate,
     bool? repeat,
     bool? reverse,
-    LottieDelegates? delegates,
-    LottieOptions? options,
-    void Function(LottieComposition)? onLoaded,
-    LottieImageProviderFactory? imageProviderFactory,
+    _lottie.LottieDelegates? delegates,
+    _lottie.LottieOptions? options,
+    void Function(_lottie.LottieComposition)? onLoaded,
+    _lottie.LottieImageProviderFactory? imageProviderFactory,
     Key? key,
     AssetBundle? bundle,
-    Widget Function(BuildContext, Widget, LottieComposition?)? frameBuilder,
+    Widget Function(
+      BuildContext,
+      Widget,
+      _lottie.LottieComposition?,
+    )? frameBuilder,
     ImageErrorWidgetBuilder? errorBuilder,
     double? width,
     double? height,
@@ -66,7 +69,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
     FilterQuality? filterQuality,
     void Function(String)? onWarning,
   }) {
-    return Lottie.asset(
+    return _lottie.Lottie.asset(
       _assetName,
       controller: controller,
       animate: animate,

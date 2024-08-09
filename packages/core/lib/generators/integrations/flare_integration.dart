@@ -1,5 +1,4 @@
 import 'package:flutter_gen_core/generators/integrations/integration.dart';
-import 'package:flutter_gen_core/settings/asset_type.dart';
 
 class FlareIntegration extends Integration {
   FlareIntegration(String packageName) : super(packageName);
@@ -7,10 +6,16 @@ class FlareIntegration extends Integration {
   String? get packageExpression => isPackage ? 'packages/$packageName/' : null;
 
   @override
-  List<String> get requiredImports => [
-        'package:flutter/widgets.dart',
-        'package:flare_flutter/flare_actor.dart',
-        'package:flare_flutter/flare_controller.dart',
+  List<Import> get requiredImports => [
+        Import('package:flutter/widgets.dart'),
+        Import(
+          'package:flare_flutter/flare_actor.dart',
+          alias: '_flare_actor',
+        ),
+        Import(
+          'package:flare_flutter/flare_controller.dart',
+          alias: '_flare_controller',
+        ),
       ];
 
   @override
@@ -27,22 +32,22 @@ class FlareIntegration extends Integration {
 
 ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
-  FlareActor flare({
+  _flare_actor.FlareActor flare({
     String? boundsNode,
     String? animation,
     BoxFit fit = BoxFit.contain,
     Alignment alignment = Alignment.center,
     bool isPaused = false,
     bool snapToEnd = false,
-    FlareController? controller,
-    FlareCompletedCallback? callback,
+    _flare_controller.FlareController? controller,
+    _flare_actor.FlareCompletedCallback? callback,
     Color? color,
     bool shouldClip = true,
     bool sizeFromArtboard = false,
     String? artboard,
     bool antialias = true,
   }) {
-    return FlareActor(
+    return _flare_actor.FlareActor(
       ${isPackage ? '\'$packageExpression\$_assetName\'' : '_assetName'},
       boundsNode: boundsNode,
       animation: animation,
