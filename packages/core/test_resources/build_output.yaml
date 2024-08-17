@@ -1,0 +1,8 @@
+name: test
+
+targets:
+  $default:
+    builders:
+      flutter_gen:
+        options:
+          output: lib/build_gen/

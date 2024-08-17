@@ -14,6 +14,13 @@ void main(List<String> args) {
     defaultsTo: 'pubspec.yaml',
   );
 
+  parser.addOption(
+    'build',
+    abbr: 'b',
+    help: 'Set the path of build.yaml.',
+    defaultsTo: 'build.yaml',
+  );
+
   parser.addFlag(
     'help',
     abbr: 'h',
@@ -45,5 +52,10 @@ void main(List<String> args) {
   }
 
   final pubspecPath = safeCast<String>(results['config']);
-  FlutterGenerator(File(pubspecPath!).absolute).build();
+  final pubspecFile = File(pubspecPath!).absolute;
+
+  final buildPath = safeCast<String>(results['build']);
+  final buildFile = File(buildPath!).absolute;
+
+  FlutterGenerator(pubspecFile, buildFile: buildFile).build();
 }

@@ -267,6 +267,23 @@ class $AssetsImagesGen {
 }
 ```
 
+#### Support generate at **build.yaml**
+Support generates dart files based on the key **`targets.$default.builders`** and **`flutter_gen.options`** 
+of [`build.yaml`](https://github.com/dart-lang/build/blob/master/build_config/README.md).
+
+```yaml
+# build.yaml
+# ...
+
+targets:
+  $default:
+    builders:
+      flutter_gen:
+        options: 
+          output: lib/build_gen/ # Optional (default: lib/gen/)
+          line_length: 120 # Optional (default: 80)
+```
+
 #### Including additional metadata
 
 At build time, additional metadata may be included in the generated class, by using the

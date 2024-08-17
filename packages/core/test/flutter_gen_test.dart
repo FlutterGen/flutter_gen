@@ -180,5 +180,27 @@ void main() {
       expect(File('test_resources/lib/gen/$fonts').existsSync(), false);
       expect(File('test_resources/lib/gen/$colors').existsSync(), false);
     });
+
+    test('with build_output.yaml', () async {
+      const pubspec = 'test_resources/pubspec_normal.yaml';
+      const build = 'test_resources/build_output.yaml';
+      const assets = 'pubspec_assets.gen.dart';
+      const colors = 'pubspec_colors.gen.dart';
+      const fonts = 'pubspec_fonts.gen.dart';
+
+      await FlutterGenerator(
+        File(pubspec),
+        buildFile: File(build),
+        assetsName: assets,
+        colorsName: colors,
+        fontsName: fonts,
+      ).build();
+      expect(File('test_resources/lib/build_gen/$assets').readAsStringSync(),
+          isNotEmpty);
+      expect(File('test_resources/lib/build_gen/$fonts').readAsStringSync(),
+          isNotEmpty);
+      expect(File('test_resources/lib/build_gen/$colors').readAsStringSync(),
+          isNotEmpty);
+    });
   });
 }
