@@ -61,6 +61,23 @@ Works with macOS and Linux.
 brew install FlutterGen/tap/fluttergen
 ```
 
+### asdf
+
+Works with macOS and Linux.
+asdf-fluttergen is compatible with [mise](https://mise.jdx.dev/).
+
+```sh
+# add plugin
+asdf plugin add fluttergen
+# or
+asdf plugin add fluttergen https://github.com/FlutterGen/asdf-fluttergen.git
+
+# install fluttergen
+asdf install fluttergen latest
+```
+
+See also: [FlutterGen/asdf-fluttergen](https://github.com/FlutterGen/asdf-fluttergen)
+
 ### Pub Global
 
 Works with macOS, Linux and Windows.
@@ -92,6 +109,18 @@ flutter pub get
 ```sh
 dart run build_runner build
 ```
+
+### GitHub Actions
+
+Works with macOS and Linux.
+
+```yaml
+- uses: FlutterGen/setup-fluttergen@v1
+  with:
+    version: ${{ fluttergen_version }}
+```
+
+See also: [FlutterGen/setup-fluttergen](https://github.com/FlutterGen/setup-fluttergen)
 
 ## Usage
 
