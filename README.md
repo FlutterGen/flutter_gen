@@ -283,6 +283,11 @@ targets:
           output: lib/build_gen/ # Optional (default: lib/gen/)
           line_length: 120 # Optional (default: 80)
 ```
+##### Prority of configure (High -> Low)
+```
+build.yaml -> pubspec.yaml -> default_config
+```
+
 
 #### Including additional metadata
 
