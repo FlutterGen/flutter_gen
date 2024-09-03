@@ -452,6 +452,31 @@ flutter:
 
 These configurations will generate **`fonts.gen.dart`** under the **`lib/gen/`** directory by default.
 
+#### Generate for packages
+
+If you want to generate fonts for a package,
+use `package_parameter_enabled` under `flutter_gen > fonts > outputs`.
+
+```yaml
+flutter_gen:
+  fonts:
+    outputs:
+      package_parameter_enabled: true # <- Add this line.
+```
+
+This would add the package constant to the generated class. For example:
+
+```dart
+class Fonts {
+  Fonts._();
+
+  static const String package = 'test';
+
+  static const String raleway = 'packages/$package/Raleway';
+  static const String robotoMono = 'packages/$package/RobotoMono';
+}
+```
+
 #### Usage Example
 
 ```dart
