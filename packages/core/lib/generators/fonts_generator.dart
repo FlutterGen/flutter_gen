@@ -57,8 +57,7 @@ String generateFonts(
   }
 
   fonts.map((element) => element.family).distinct().sorted().forEach((family) {
-    final keyName =
-        isPackage ? "'packages/\${$className.package}/$family'" : "'$family'";
+    final keyName = isPackage ? 'packages/\$package/$family' : family;
     buffer.writeln("""/// Font family: $family
     static const String ${family.camelCase()} = '$keyName';""");
   });
