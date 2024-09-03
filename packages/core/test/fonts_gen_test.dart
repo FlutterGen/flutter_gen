@@ -26,8 +26,7 @@ void main() {
           pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 
       expect(() {
-        return generateFonts(formatter, config.pubspec.flutter.fonts,
-            config.pubspec.flutterGen.fonts);
+        return generateFonts(FontsGenConfig.fromConfig(config), formatter);
       }, throwsA(isA<InvalidSettingsException>()));
     });
 

@@ -114,9 +114,8 @@ Future<List<String>> runFontsGen(
   );
 
   final actual = generateFonts(
+    FontsGenConfig.fromConfig(config),
     formatter,
-    config.pubspec.flutter.fonts,
-    config.pubspec.flutterGen.fonts,
   );
   final expected = formatter.format(
     File(fact).readAsStringSync().replaceAll('\r\n', '\n'),
