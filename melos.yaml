@@ -8,6 +8,7 @@ packages:
 ide:
   intellij:
     enabled: true
+    moduleNamePrefix: ''
 
 command:
   clean:
@@ -74,7 +75,7 @@ scripts:
 
   test:
     run: |
-      melos test:dart --no-select && \
+      melos test:dart --no-select
       melos test:flutter --no-select
     description: dart & flutter test
 
