@@ -50,7 +50,7 @@ String generateFonts(
   buffer.writeln('$className._();');
   buffer.writeln();
 
-  final isPackage = config._packageName.isNotEmpty;
+  final isPackage = config.packageParameterLiteral.isNotEmpty;
   if (isPackage) {
     buffer.writeln("static const String package = '${config._packageName}';");
     buffer.writeln();
