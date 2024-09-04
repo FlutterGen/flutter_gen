@@ -1,4 +1,3 @@
-@TestOn('vm')
 import 'dart:io';
 
 import 'package:flutter_gen_core/flutter_generator.dart';

@@ -1,3 +1,11 @@
+## 5.7.0
+
+**Feature**
+- [#548](https://github.com/FlutterGen/flutter_gen/pull/548) Add Import abstraction for package imports alias. by [@AlexV525](https://github.com/AlexV525)
+
+**Development**
+- New releases [asdf-fluttergen](https://github.com/FlutterGen/asdf-fluttergen) and [setup-fluttergen](https://github.com/FlutterGen/setup-fluttergen). by [@ronnnnn](https://github.com/ronnnnn)
+
 ## 5.6.0
 
 **Bug fix**
