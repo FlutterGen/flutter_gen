@@ -20,13 +20,11 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
     join(basename(pubspecFile.parent.path), basename(pubspecFile.path)),
   );
   final buildLocaleHint = buildFile != null && buildFile.existsSync()
-      ? ', ${normalize(
-          join(basename(buildFile.parent.path), basename(buildFile.path)),
-        )} '
+      ? join(basename(buildFile.parent.path), basename(buildFile.path))
       : '';
 
   stdout.writeln(
-    '$flutterGenVersion Loading ... $pubspecLocaleHint$buildLocaleHint',
+    '$flutterGenVersion Loading ...',
   );
 
   final defaultMap = loadYaml(configDefaultYamlContent) as Map?;
@@ -35,16 +33,21 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
   final pubspecMap = loadYaml(pubspecContent) as Map?;
 
   var mergedMap = mergeMap([defaultMap, pubspecMap]);
+  stdout.writeln(
+    'Reading FlutterGen options from $pubspecLocaleHint',
+  );
 
   if (buildFile != null && buildFile.existsSync()) {
     final buildContent = buildFile.readAsStringSync();
     final rawMap = loadYaml(buildContent) as Map?;
-    final optionBuildMap = rawMap?['targets']?[r'$default']?['builders']
-        ?['flutter_gen']?['options'];
+    final optionBuildMap = rawMap?['targets']?[r'$default']?['builders']?['flutter_gen']?['options'];
 
     if (optionBuildMap != null) {
       final buildMap = {'flutter_gen': optionBuildMap};
       mergedMap = mergeMap([mergedMap, buildMap]);
+      stdout.writeln(
+        'Reading FlutterGen options from $buildLocaleHint',
+      );
     }
   }
 
