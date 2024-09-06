@@ -213,6 +213,15 @@ void main() {
       final names = got.map((e) => e.name);
       expect(names.sorted(), tests.values.sorted());
     });
+
+    test('Assets on pubspec_assets.yaml and override with build_assets.yaml ', () async {
+      const pubspec = 'test_resources/pubspec_assets.yaml';
+      const build = 'test_resources/build_assets.yaml';
+      const fact = 'test_resources/actual_data/build_assets.gen.dart';
+      const generated = 'test_resources/lib/build_gen/assets.gen.dart';
+
+      await expectedAssetsGen(pubspec, generated, fact, build: build);
+    });
   });
 
   group('Test generatePackageNameForConfig', () {
