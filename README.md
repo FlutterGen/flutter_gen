@@ -169,6 +169,24 @@ flutter:
           style: italic
 ```
 
+### build.yaml
+
+You can also configure generate options in the `build.yaml`, it will be read before the `pubspec.yaml` if it exists.
+
+
+```yaml
+# build.yaml
+# ...
+
+targets:
+  $default:
+    builders:
+      flutter_gen:
+        options: 
+          output: lib/build_gen/ # Optional (default: lib/gen/)
+          line_length: 120 # Optional (default: 80)
+```
+
 ## Available Parsers
 
 ### Assets

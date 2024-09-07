@@ -11,18 +11,20 @@ import 'package:path/path.dart';
 class FlutterGenerator {
   const FlutterGenerator(
     this.pubspecFile, {
+    this.buildFile,
     this.assetsName = 'assets.gen.dart',
     this.colorsName = 'colors.gen.dart',
     this.fontsName = 'fonts.gen.dart',
   });
 
   final File pubspecFile;
+  final File? buildFile;
   final String assetsName;
   final String colorsName;
   final String fontsName;
 
   Future<void> build({Config? config, FileWriter? writer}) async {
-    config ??= loadPubspecConfigOrNull(pubspecFile);
+    config ??= loadPubspecConfigOrNull(pubspecFile, buildFile: buildFile);
     if (config == null) return;
 
     final flutter = config.pubspec.flutter;

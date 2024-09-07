@@ -14,15 +14,21 @@ Future<void> clearTestResults() async {}
 Future<List<String>> runAssetsGen(
   String pubspec,
   String generated,
-  String fact,
-) async {
+  String fact, {
+  String? build,
+}) async {
+  final pubspecFile = File(pubspec);
+
+  File? buildFile;
+  if (build != null) buildFile = File(build);
+
   await FlutterGenerator(
-    File(pubspec),
+    pubspecFile,
+    buildFile: buildFile,
     assetsName: p.basename(generated),
   ).build();
 
-  final pubspecFile = File(pubspec);
-  final config = loadPubspecConfig(pubspecFile);
+  final config = loadPubspecConfig(pubspecFile, buildFile: buildFile);
   final formatter = DartFormatter(
     pageWidth: config.pubspec.flutterGen.lineLength,
     lineEnding: '\n',
@@ -42,9 +48,10 @@ Future<List<String>> runAssetsGen(
 Future<void> expectedAssetsGen(
   String pubspec,
   String generated,
-  String fact,
-) async {
-  final results = await runAssetsGen(pubspec, generated, fact);
+  String fact, {
+  String? build,
+}) async {
+  final results = await runAssetsGen(pubspec, generated, fact, build: build);
   final actual = results.first, expected = results.last;
   expect(
     File(generated).readAsStringSync(),
