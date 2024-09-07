@@ -21,8 +21,15 @@ class FlutterGenBuilder extends Builder {
     );
   }
 
-  final generator = FlutterGenerator(File('pubspec.yaml'));
-  late final _config = loadPubspecConfigOrNull(generator.pubspecFile);
+  final generator = FlutterGenerator(
+    File('pubspec.yaml'),
+    buildFile: File('build.yaml'),
+  );
+
+  late final _config = loadPubspecConfigOrNull(
+    generator.pubspecFile,
+    buildFile: generator.buildFile,
+  );
   _FlutterGenBuilderState? _currentState;
 
   @override
