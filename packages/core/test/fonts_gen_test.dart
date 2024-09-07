@@ -39,5 +39,15 @@ void main() {
 
       await expectedFontsGen(pubspec, generated, fact);
     });
+
+    test('Package parameter enabled', () async {
+      const pubspec = 'test_resources/pubspec_fonts_package_parameter.yaml';
+      const fact =
+          'test_resources/actual_data/fonts_package_parameter.gen.dart';
+      const generated =
+          'test_resources/lib/gen/fonts_package_parameter.gen.dart';
+
+      await expectedFontsGen(pubspec, generated, fact);
+    });
   });
 }
