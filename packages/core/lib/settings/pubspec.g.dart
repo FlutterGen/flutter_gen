@@ -153,8 +153,8 @@ FlutterGenFonts _$FlutterGenFontsFromJson(Map json) => $checkedCreate(
         );
         final val = FlutterGenFonts(
           enabled: $checkedConvert('enabled', (v) => v as bool),
-          outputs: $checkedConvert(
-              'outputs', (v) => FlutterGenElementOutputs.fromJson(v as Map)),
+          outputs: $checkedConvert('outputs',
+              (v) => FlutterGenElementFontsOutputs.fromJson(v as Map)),
         );
         return val;
       },
@@ -229,5 +229,28 @@ FlutterGenElementAssetsOutputs _$FlutterGenElementAssetsOutputsFromJson(
         'className': 'class_name',
         'packageParameterEnabled': 'package_parameter_enabled',
         'directoryPathEnabled': 'directory_path_enabled'
+      },
+    );
+
+FlutterGenElementFontsOutputs _$FlutterGenElementFontsOutputsFromJson(
+        Map json) =>
+    $checkedCreate(
+      'FlutterGenElementFontsOutputs',
+      json,
+      ($checkedConvert) {
+        $checkKeys(
+          json,
+          requiredKeys: const ['class_name'],
+        );
+        final val = FlutterGenElementFontsOutputs(
+          className: $checkedConvert('class_name', (v) => v as String),
+          packageParameterEnabled: $checkedConvert(
+              'package_parameter_enabled', (v) => v as bool? ?? false),
+        );
+        return val;
+      },
+      fieldKeyMap: const {
+        'className': 'class_name',
+        'packageParameterEnabled': 'package_parameter_enabled'
       },
     );
