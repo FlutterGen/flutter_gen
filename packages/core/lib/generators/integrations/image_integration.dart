@@ -57,7 +57,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
     ImageRepeat repeat = ImageRepeat.noRepeat,
     Rect? centerSlice,
     bool matchTextDirection = false,
-    bool gaplessPlayback = false,
+    bool gaplessPlayback = true,
     bool isAntiAlias = false,
     ${isPackage ? deprecationMessagePackage : ''}
     String? package$packageParameter,
