@@ -1,3 +1,8 @@
+## 5.8.0
+
+**Feature**
+- Include support for [Flutter Deferred Components](https://docs.flutter.dev/perf/deferred-components)
+
 ## 5.7.0
 
 **Feature**
