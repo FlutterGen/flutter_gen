@@ -49,16 +49,11 @@ class AssetsGenConfig {
       flutterGen.assets.outputs.packageParameterEnabled ? _packageName : '';
 }
 
-List<Object> _buildAssetsList(Config config) {
-  final List<Object> deferredAssets = [];
-  config.pubspec.flutter.deferredComponents?.forEach((deferredComponent) {
-    // Include all manipulated assets to the list of deferred assets.
-    deferredAssets.addAll(deferredComponent.assets ?? []);
-  });
-
-  // Merge the deferred assets with the main assets.
-  return [...config.pubspec.flutter.assets, ...deferredAssets];
-}
+/// Merge the deferred assets with the main assets.
+List<Object> _buildAssetsList(Config config) => [
+      ...config.pubspec.flutter.assets,
+      ...config.pubspec.flutter.deferredComponents ?? []
+    ];
 
 Future<String> generateAssets(
   AssetsGenConfig config,
