@@ -52,7 +52,7 @@ class AssetsGenConfig {
 /// Merge the deferred assets with the main assets.
 List<Object> _buildAssetsList(Config config) => [
       ...config.pubspec.flutter.assets,
-      ...config.pubspec.flutter.deferredComponents ?? []
+      ...?config.pubspec.flutter.deferredComponents
     ];
 
 Future<String> generateAssets(

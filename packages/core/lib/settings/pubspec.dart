@@ -248,8 +248,9 @@ class FlutterGenElementFontsOutputs extends FlutterGenElementOutputs {
       _$FlutterGenElementFontsOutputsFromJson(json);
 }
 
+@JsonSerializable()
 class FlutterDeferredComponents {
-  FlutterDeferredComponents({
+  const FlutterDeferredComponents({
     required this.name,
     required this.assets,
   });

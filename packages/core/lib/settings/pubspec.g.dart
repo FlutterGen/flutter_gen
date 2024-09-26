@@ -260,3 +260,21 @@ FlutterGenElementFontsOutputs _$FlutterGenElementFontsOutputsFromJson(
         'packageParameterEnabled': 'package_parameter_enabled'
       },
     );
+
+FlutterDeferredComponents _$FlutterDeferredComponentsFromJson(Map json) =>
+    $checkedCreate(
+      'FlutterDeferredComponents',
+      json,
+      ($checkedConvert) {
+        $checkKeys(
+          json,
+          requiredKeys: const ['name'],
+        );
+        final val = FlutterDeferredComponents(
+          name: $checkedConvert('name', (v) => v as String),
+          assets: $checkedConvert('assets',
+              (v) => (v as List<dynamic>?)?.map((e) => e as Object).toList()),
+        );
+        return val;
+      },
+    );
