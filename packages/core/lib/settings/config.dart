@@ -9,7 +9,7 @@ import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
 
 class Config {
-  Config._({required this.pubspec, required this.pubspecFile});
+  const Config._({required this.pubspec, required this.pubspecFile});
 
   final Pubspec pubspec;
   final File pubspecFile;
@@ -19,9 +19,6 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
   final pubspecLocaleHint = normalize(
     join(basename(pubspecFile.parent.path), basename(pubspecFile.path)),
   );
-  final buildLocaleHint = buildFile != null && buildFile.existsSync()
-      ? join(basename(buildFile.parent.path), basename(buildFile.path))
-      : '';
 
   stdout.writeln(
     '$flutterGenVersion Loading ...',
@@ -40,11 +37,15 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
   if (buildFile != null && buildFile.existsSync()) {
     final buildContent = buildFile.readAsStringSync();
     final rawMap = loadYaml(buildContent) as Map?;
-    final optionBuildMap = rawMap?['targets']?[r'$default']?['builders']?['flutter_gen']?['options'];
+    final optionBuildMap = rawMap?['targets']?[r'$default']?['builders']
+        ?['flutter_gen']?['options'];
 
     if (optionBuildMap != null) {
       final buildMap = {'flutter_gen': optionBuildMap};
       mergedMap = mergeMap([mergedMap, buildMap]);
+      final buildLocaleHint = normalize(
+        join(basename(buildFile.parent.path), basename(buildFile.path)),
+      );
       stdout.writeln(
         'Reading FlutterGen options from $buildLocaleHint',
       );
