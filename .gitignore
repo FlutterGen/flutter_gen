@@ -12,18 +12,8 @@
 .svn/
 
 # IntelliJ related
-*.iml
 *.ipr
 *.iws
-
-.idea/.gitignore
-.idea/dictionaries/
-.idea/libraries/
-.idea/misc.xml
-.idea/vcs.xml
-.idea/workspace.xml
-.idea/saveactions_settings.xml
-android/.idea/
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
@@ -122,6 +112,3 @@ coverage.lcov
 
 ## Test resources
 **/test_resources/lib
-
-## Melos
-.idea/runConfigurations/melos_*

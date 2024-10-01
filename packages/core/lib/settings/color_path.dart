@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:mime/mime.dart';
+import 'package:mime/mime.dart' show lookupMimeType;
 
 /// https://github.com/dart-lang/mime/blob/master/lib/src/default_extension_map.dart
 class ColorPath {
