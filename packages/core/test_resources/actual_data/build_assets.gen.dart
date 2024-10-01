@@ -7,115 +7,85 @@
 // ignore_for_file: type=lint
 // ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
-import 'package:flare_flutter/flare_actor.dart'
-    as _flare_actor;
-import 'package:flare_flutter/flare_controller.dart'
-    as _flare_controller;
+import 'package:flare_flutter/flare_actor.dart' as _flare_actor;
+import 'package:flare_flutter/flare_controller.dart' as _flare_controller;
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart'
-    as _svg;
-import 'package:vector_graphics/vector_graphics.dart'
-    as _vg;
+import 'package:flutter_svg/flutter_svg.dart' as _svg;
+import 'package:vector_graphics/vector_graphics.dart' as _vg;
 
 class $PicturesGen {
   const $PicturesGen();
 
   /// File path: pictures/chip5.jpg
-  AssetGenImage get chip5 =>
-      const AssetGenImage(
-          'pictures/chip5.jpg');
+  AssetGenImage get chip5 => const AssetGenImage('pictures/chip5.jpg');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [chip5];
+  List<AssetGenImage> get values => [chip5];
 }
 
 class $AssetsFlareGen {
   const $AssetsFlareGen();
 
   /// File path: assets/flare/Penguin.flr
-  FlareGenImage get penguin =>
-      const FlareGenImage(
-          'assets/flare/Penguin.flr');
+  FlareGenImage get penguin => const FlareGenImage('assets/flare/Penguin.flr');
 
   /// List of all assets
-  List<FlareGenImage> get values =>
-      [penguin];
+  List<FlareGenImage> get values => [penguin];
 }
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
   /// File path: assets/images/chip1.jpg
-  AssetGenImage get chip1 =>
-      const AssetGenImage(
-          'assets/images/chip1.jpg');
+  AssetGenImage get chip1 => const AssetGenImage('assets/images/chip1.jpg');
 
   /// File path: assets/images/chip2.jpg
-  AssetGenImage get chip2 =>
-      const AssetGenImage(
-          'assets/images/chip2.jpg');
+  AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
 
   /// Directory path: assets/images/chip3
-  $AssetsImagesChip3Gen get chip3 =>
-      const $AssetsImagesChip3Gen();
+  $AssetsImagesChip3Gen get chip3 => const $AssetsImagesChip3Gen();
 
   /// Directory path: assets/images/chip4
-  $AssetsImagesChip4Gen get chip4 =>
-      const $AssetsImagesChip4Gen();
+  $AssetsImagesChip4Gen get chip4 => const $AssetsImagesChip4Gen();
 
   /// Directory path: assets/images/icons
-  $AssetsImagesIconsGen get icons =>
-      const $AssetsImagesIconsGen();
+  $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
 
   /// File path: assets/images/logo.png
-  AssetGenImage get logo =>
-      const AssetGenImage(
-          'assets/images/logo.png');
+  AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
   /// File path: assets/images/profile.jpg
   AssetGenImage get profileJpg =>
-      const AssetGenImage(
-          'assets/images/profile.jpg');
+      const AssetGenImage('assets/images/profile.jpg');
 
   /// File path: assets/images/profile.png
   AssetGenImage get profilePng =>
-      const AssetGenImage(
-          'assets/images/profile.png');
+      const AssetGenImage('assets/images/profile.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [
-        chip1,
-        chip2,
-        logo,
-        profileJpg,
-        profilePng
-      ];
+  List<AssetGenImage> get values =>
+      [chip1, chip2, logo, profileJpg, profilePng];
 }
 
 class $AssetsJsonGen {
   const $AssetsJsonGen();
 
   /// File path: assets/json/list.json
-  String get list =>
-      'assets/json/list.json';
+  String get list => 'assets/json/list.json';
 
   /// File path: assets/json/map.json
-  String get map =>
-      'assets/json/map.json';
+  String get map => 'assets/json/map.json';
 
   /// List of all assets
-  List<String> get values =>
-      [list, map];
+  List<String> get values => [list, map];
 }
 
 class $AssetsMovieGen {
   const $AssetsMovieGen();
 
   /// File path: assets/movie/the_earth.mp4
-  String get theEarth =>
-      'assets/movie/the_earth.mp4';
+  String get theEarth => 'assets/movie/the_earth.mp4';
 
   /// List of all assets
   List<String> get values => [theEarth];
@@ -125,12 +95,10 @@ class $AssetsUnknownGen {
   const $AssetsUnknownGen();
 
   /// File path: assets/unknown/unknown_mime_type.bk
-  String get unknownMimeType =>
-      'assets/unknown/unknown_mime_type.bk';
+  String get unknownMimeType => 'assets/unknown/unknown_mime_type.bk';
 
   /// List of all assets
-  List<String> get values =>
-      [unknownMimeType];
+  List<String> get values => [unknownMimeType];
 }
 
 class $AssetsImagesChip3Gen {
@@ -138,12 +106,10 @@ class $AssetsImagesChip3Gen {
 
   /// File path: assets/images/chip3/chip3.jpg
   AssetGenImage get chip3 =>
-      const AssetGenImage(
-          'assets/images/chip3/chip3.jpg');
+      const AssetGenImage('assets/images/chip3/chip3.jpg');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [chip3];
+  List<AssetGenImage> get values => [chip3];
 }
 
 class $AssetsImagesChip4Gen {
@@ -151,12 +117,10 @@ class $AssetsImagesChip4Gen {
 
   /// File path: assets/images/chip4/chip4.jpg
   AssetGenImage get chip4 =>
-      const AssetGenImage(
-          'assets/images/chip4/chip4.jpg');
+      const AssetGenImage('assets/images/chip4/chip4.jpg');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [chip4];
+  List<AssetGenImage> get values => [chip4];
 }
 
 class $AssetsImagesIconsGen {
@@ -164,50 +128,35 @@ class $AssetsImagesIconsGen {
 
   /// File path: assets/images/icons/dart@test.svg
   SvgGenImage get dartTest =>
-      const SvgGenImage(
-          'assets/images/icons/dart@test.svg');
+      const SvgGenImage('assets/images/icons/dart@test.svg');
 
   /// File path: assets/images/icons/fuchsia.svg
   SvgGenImage get fuchsia =>
-      const SvgGenImage(
-          'assets/images/icons/fuchsia.svg');
+      const SvgGenImage('assets/images/icons/fuchsia.svg');
 
   /// File path: assets/images/icons/kmm.svg
-  SvgGenImage get kmm =>
-      const SvgGenImage(
-          'assets/images/icons/kmm.svg');
+  SvgGenImage get kmm => const SvgGenImage('assets/images/icons/kmm.svg');
 
   /// File path: assets/images/icons/paint.svg
-  SvgGenImage get paint =>
-      const SvgGenImage(
-          'assets/images/icons/paint.svg');
+  SvgGenImage get paint => const SvgGenImage('assets/images/icons/paint.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values =>
-      [dartTest, fuchsia, kmm, paint];
+  List<SvgGenImage> get values => [dartTest, fuchsia, kmm, paint];
 }
 
 class Assets {
   Assets._();
 
-  static const String changelog =
-      'CHANGELOG.md';
-  static const $AssetsFlareGen flare =
-      $AssetsFlareGen();
-  static const $AssetsImagesGen images =
-      $AssetsImagesGen();
-  static const $AssetsJsonGen json =
-      $AssetsJsonGen();
-  static const $AssetsMovieGen movie =
-      $AssetsMovieGen();
-  static const $AssetsUnknownGen
-      unknown = $AssetsUnknownGen();
-  static const $PicturesGen pictures =
-      $PicturesGen();
+  static const String changelog = 'CHANGELOG.md';
+  static const $AssetsFlareGen flare = $AssetsFlareGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsJsonGen json = $AssetsJsonGen();
+  static const $AssetsMovieGen movie = $AssetsMovieGen();
+  static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
+  static const $PicturesGen pictures = $PicturesGen();
 
   /// List of all assets
-  static List<String> get values =>
-      [changelog];
+  static List<String> get values => [changelog];
 }
 
 class AssetGenImage {
@@ -226,8 +175,7 @@ class AssetGenImage {
     Key? key,
     AssetBundle? bundle,
     ImageFrameBuilder? frameBuilder,
-    ImageErrorWidgetBuilder?
-        errorBuilder,
+    ImageErrorWidgetBuilder? errorBuilder,
     String? semanticLabel,
     bool excludeFromSemantics = false,
     double? scale,
@@ -237,17 +185,14 @@ class AssetGenImage {
     Animation<double>? opacity,
     BlendMode? colorBlendMode,
     BoxFit? fit,
-    AlignmentGeometry alignment =
-        Alignment.center,
-    ImageRepeat repeat =
-        ImageRepeat.noRepeat,
+    AlignmentGeometry alignment = Alignment.center,
+    ImageRepeat repeat = ImageRepeat.noRepeat,
     Rect? centerSlice,
     bool matchTextDirection = false,
-    bool gaplessPlayback = false,
+    bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
-    FilterQuality filterQuality =
-        FilterQuality.low,
+    FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,
   }) {
@@ -258,8 +203,7 @@ class AssetGenImage {
       frameBuilder: frameBuilder,
       errorBuilder: errorBuilder,
       semanticLabel: semanticLabel,
-      excludeFromSemantics:
-          excludeFromSemantics,
+      excludeFromSemantics: excludeFromSemantics,
       scale: scale,
       width: width,
       height: height,
@@ -270,8 +214,7 @@ class AssetGenImage {
       alignment: alignment,
       repeat: repeat,
       centerSlice: centerSlice,
-      matchTextDirection:
-          matchTextDirection,
+      matchTextDirection: matchTextDirection,
       gaplessPlayback: gaplessPlayback,
       isAntiAlias: isAntiAlias,
       package: package,
@@ -323,10 +266,8 @@ class SvgGenImage {
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,
-    AlignmentGeometry alignment =
-        Alignment.center,
-    bool allowDrawingOutsideViewBox =
-        false,
+    AlignmentGeometry alignment = Alignment.center,
+    bool allowDrawingOutsideViewBox = false,
     WidgetBuilder? placeholderBuilder,
     String? semanticsLabel,
     bool excludeFromSemantics = false,
@@ -334,11 +275,8 @@ class SvgGenImage {
     ColorFilter? colorFilter,
     Clip clipBehavior = Clip.hardEdge,
     @deprecated Color? color,
-    @deprecated
-    BlendMode colorBlendMode =
-        BlendMode.srcIn,
-    @deprecated
-    bool cacheColorFilter = false,
+    @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
+    @deprecated bool cacheColorFilter = false,
   }) {
     final _svg.BytesLoader loader;
     if (_isVecFormat) {
@@ -358,27 +296,19 @@ class SvgGenImage {
     return _svg.SvgPicture(
       loader,
       key: key,
-      matchTextDirection:
-          matchTextDirection,
+      matchTextDirection: matchTextDirection,
       width: width,
       height: height,
       fit: fit,
       alignment: alignment,
-      allowDrawingOutsideViewBox:
-          allowDrawingOutsideViewBox,
-      placeholderBuilder:
-          placeholderBuilder,
+      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
+      placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
-      excludeFromSemantics:
-          excludeFromSemantics,
+      excludeFromSemantics: excludeFromSemantics,
       colorFilter: colorFilter ??
-          (color == null
-              ? null
-              : ColorFilter.mode(color,
-                  colorBlendMode)),
+          (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
-      cacheColorFilter:
-          cacheColorFilter,
+      cacheColorFilter: cacheColorFilter,
     );
   }
 
@@ -400,14 +330,11 @@ class FlareGenImage {
     String? boundsNode,
     String? animation,
     BoxFit fit = BoxFit.contain,
-    Alignment alignment =
-        Alignment.center,
+    Alignment alignment = Alignment.center,
     bool isPaused = false,
     bool snapToEnd = false,
-    _flare_controller.FlareController?
-        controller,
-    _flare_actor.FlareCompletedCallback?
-        callback,
+    _flare_controller.FlareController? controller,
+    _flare_actor.FlareCompletedCallback? callback,
     Color? color,
     bool shouldClip = true,
     bool sizeFromArtboard = false,
@@ -426,8 +353,7 @@ class FlareGenImage {
       callback: callback,
       color: color,
       shouldClip: shouldClip,
-      sizeFromArtboard:
-          sizeFromArtboard,
+      sizeFromArtboard: sizeFromArtboard,
       artboard: artboard,
       antialias: antialias,
     );

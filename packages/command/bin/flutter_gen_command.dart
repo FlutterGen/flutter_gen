@@ -52,10 +52,16 @@ void main(List<String> args) {
   }
 
   final pubspecPath = safeCast<String>(results['config']);
-  final pubspecFile = File(pubspecPath!).absolute;
+  if (pubspecPath == null || pubspecPath.trim().isEmpty) {
+    throw ArgumentError('Invalid value $pubspecPath', 'config');
+  }
+  final pubspecFile = File(pubspecPath).absolute;
 
   final buildPath = safeCast<String>(results['build']);
-  final buildFile = File(buildPath!).absolute;
+  if (buildPath == null || buildPath.trim().isEmpty) {
+    throw ArgumentError('Invalid value $buildPath', 'build');
+  }
+  final buildFile = File(buildPath).absolute;
 
   FlutterGenerator(pubspecFile, buildFile: buildFile).build();
 }
