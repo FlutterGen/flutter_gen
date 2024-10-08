@@ -1,3 +1,14 @@
+## 5.8.0
+
+**Feature**
+- [#555](https://github.com/FlutterGen/flutter_gen/pull/555) Support build.yaml to configure. by [@b2nkuu](https://github.com/b2nkuu)
+- [#567](https://github.com/FlutterGen/flutter_gen/pull/567) Generate the `package` constant for generated font classes. by [@TesteurManiak](https://github.com/TesteurManiak)
+- [#569](https://github.com/FlutterGen/flutter_gen/pull/569) Enables `gaplessPlayback` by default for image assets. by [@AlexV525](https://github.com/AlexV525)
+- [#580](https://github.com/FlutterGen/flutter_gen/pull/580) Allows `mime: '>=1.0.0 <3.0.0'`. by [@AlexV525](https://github.com/AlexV525)
+
+**Development**
+- [#563](https://github.com/FlutterGen/flutter_gen/pull/563) Fix concurrency execution with melos. by [@wasabeef](https://github.com/wasabeef)
+
 ## 5.7.0
 
 **Feature**
@@ -10,8 +21,7 @@
 
 **Bug fix**
 - [#530](https://github.com/FlutterGen/flutter_gen/pull/530) Fix the Flavored assets. by [@AlexV525](https://github.com/AlexV525)
-  - Please submit issues later if you have any feedback, this is blocking users from generating files if they are using flavors or transformations and there is no workaround for them.
-- [#532](https://github.com/FlutterGen/flutter_gen/pull/532) Provid the theme to SvgAssetLoader instead of SvgPicture. by [@Kirpal](https://github.com/Kirpal)
+- [#532](https://github.com/FlutterGen/flutter_gen/pull/532) Provide the theme to SvgAssetLoader instead of SvgPicture. by [@Kirpal](https://github.com/Kirpal)
 
 ## 5.5.0+1
 
