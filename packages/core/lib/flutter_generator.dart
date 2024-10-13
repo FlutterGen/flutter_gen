@@ -59,7 +59,7 @@ class FlutterGenerator {
     }
 
     if (flutterGen.assets.enabled && flutter.assets.isNotEmpty) {
-      final generated = generateAssets(
+      final generated = await generateAssets(
         AssetsGenConfig.fromConfig(pubspecFile, config),
         formatter,
       );
