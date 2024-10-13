@@ -34,7 +34,7 @@ Future<List<String>> runAssetsGen(
     lineEnding: '\n',
   );
 
-  final actual = generateAssets(
+  final actual = await generateAssets(
     AssetsGenConfig.fromConfig(pubspecFile, config),
     formatter,
   );

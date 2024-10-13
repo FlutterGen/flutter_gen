@@ -49,10 +49,10 @@ class AssetsGenConfig {
       flutterGen.assets.outputs.packageParameterEnabled ? _packageName : '';
 }
 
-String generateAssets(
+Future<String> generateAssets(
   AssetsGenConfig config,
   DartFormatter formatter,
-) {
+) async {
   if (config.assets.isEmpty) {
     throw const InvalidSettingsException(
       'The value of "flutter/assets:" is incorrect.',
@@ -157,11 +157,14 @@ String generateAssets(
 
   final classesBuffer = StringBuffer();
   if (config.flutterGen.assets.outputs.isDotDelimiterStyle) {
-    classesBuffer.writeln(_dotDelimiterStyleDefinition(config, integrations));
+    final definition = await _dotDelimiterStyleDefinition(config, integrations);
+    classesBuffer.writeln(definition);
   } else if (config.flutterGen.assets.outputs.isSnakeCaseStyle) {
-    classesBuffer.writeln(_snakeCaseStyleDefinition(config, integrations));
+    final definition = await _snakeCaseStyleDefinition(config, integrations);
+    classesBuffer.writeln(definition);
   } else if (config.flutterGen.assets.outputs.isCamelCaseStyle) {
-    classesBuffer.writeln(_camelCaseStyleDefinition(config, integrations));
+    final definition = await _camelCaseStyleDefinition(config, integrations);
+    classesBuffer.writeln(definition);
   } else {
     throw 'The value of "flutter_gen/assets/style." is incorrect.';
   }
@@ -290,11 +293,11 @@ AssetType _constructAssetTree(
   return assetTypeMap['.']!;
 }
 
-_Statement? _createAssetTypeStatement(
+Future<_Statement?> _createAssetTypeStatement(
   AssetsGenConfig config,
   UniqueAssetType assetType,
   List<Integration> integrations,
-) {
+) async {
   final childAssetAbsolutePath = join(config.rootPath, assetType.path);
   if (FileSystemEntity.isDirectorySync(childAssetAbsolutePath)) {
     final childClassName = '\$${assetType.path.camelCase().capitalize()}Gen';
@@ -308,9 +311,20 @@ _Statement? _createAssetTypeStatement(
       needDartDoc: false,
     );
   } else if (!assetType.isIgnoreFile) {
-    final integration = integrations.firstWhereOrNull(
-      (element) => element.isSupport(assetType),
-    );
+    Integration? integration;
+    for (final element in integrations) {
+      final call = element.isSupport(assetType);
+      final bool isSupport;
+      if (call is Future<bool>) {
+        isSupport = await call;
+      } else {
+        isSupport = call;
+      }
+      if (isSupport) {
+        integration = element;
+        break;
+      }
+    }
     if (integration == null) {
       var assetKey = assetType.posixStylePath;
       if (config.flutterGen.assets.outputs.packageParameterEnabled) {
@@ -342,10 +356,10 @@ _Statement? _createAssetTypeStatement(
 }
 
 /// Generate style like Assets.foo.bar
-String _dotDelimiterStyleDefinition(
+Future<String> _dotDelimiterStyleDefinition(
   AssetsGenConfig config,
   List<Integration> integrations,
-) {
+) async {
   final rootPath = Directory(config.rootPath).absolute.uri.toFilePath();
   final buffer = StringBuffer();
   final className = config.flutterGen.assets.outputs.className;
@@ -374,29 +388,29 @@ String _dotDelimiterStyleDefinition(
         File(assetPath).parent.absolute.uri.toFilePath() == rootPath;
     // Handles directories, and explicitly handles root path assets.
     if (isDirectory || isRootAsset) {
-      final statements = assetType.children
-          .mapToUniqueAssetType(camelCase, justBasename: true)
-          .map(
-            (e) => _createAssetTypeStatement(
-              config,
-              e,
-              integrations,
+      final List<_Statement?> results = await Future.wait(
+        assetType.children
+            .mapToUniqueAssetType(camelCase, justBasename: true)
+            .map(
+              (e) => _createAssetTypeStatement(
+                config,
+                e,
+                integrations,
+              ),
             ),
-          )
-          .whereType<_Statement>()
-          .toList();
+      );
+      final statements = results.whereType<_Statement>().toList();
 
       if (assetType.isDefaultAssetsDirectory) {
         assetsStaticStatements.addAll(statements);
       } else if (!isDirectory && isRootAsset) {
         // Creates explicit statement.
-        assetsStaticStatements.add(
-          _createAssetTypeStatement(
-            config,
-            UniqueAssetType(assetType: assetType, style: camelCase),
-            integrations,
-          )!,
+        final statement = await _createAssetTypeStatement(
+          config,
+          UniqueAssetType(assetType: assetType, style: camelCase),
+          integrations,
         );
+        assetsStaticStatements.add(statement!);
       } else {
         final className = '\$${assetType.path.camelCase().capitalize()}Gen';
         buffer.writeln(
@@ -437,20 +451,8 @@ String _dotDelimiterStyleDefinition(
   return buffer.toString();
 }
 
-/// Generate style like Assets.fooBar
-String _camelCaseStyleDefinition(
-  AssetsGenConfig config,
-  List<Integration> integrations,
-) {
-  return _flatStyleDefinition(
-    config,
-    integrations,
-    camelCase,
-  );
-}
-
 /// Generate style like Assets.foo_bar
-String _snakeCaseStyleDefinition(
+Future<String> _snakeCaseStyleDefinition(
   AssetsGenConfig config,
   List<Integration> integrations,
 ) {
@@ -461,35 +463,48 @@ String _snakeCaseStyleDefinition(
   );
 }
 
-String _flatStyleDefinition(
+/// Generate style like Assets.fooBar
+Future<String> _camelCaseStyleDefinition(
+  AssetsGenConfig config,
+  List<Integration> integrations,
+) {
+  return _flatStyleDefinition(
+    config,
+    integrations,
+    camelCase,
+  );
+}
+
+Future<String> _flatStyleDefinition(
   AssetsGenConfig config,
   List<Integration> integrations,
   String Function(String) style,
-) {
+) async {
   final List<FlavoredAsset> paths = _getAssetRelativePathList(
     config.rootPath,
     config.assets,
     config.exclude,
   );
   paths.sort(((a, b) => a.path.compareTo(b.path)));
-  final statements = paths
-      .map(
-        (assetPath) => AssetType(
-          rootPath: config.rootPath,
-          path: assetPath.path,
-          flavors: assetPath.flavors,
+  final List<_Statement?> results = await Future.wait(
+    paths
+        .map(
+          (assetPath) => AssetType(
+            rootPath: config.rootPath,
+            path: assetPath.path,
+            flavors: assetPath.flavors,
+          ),
+        )
+        .mapToUniqueAssetType(style)
+        .map(
+          (e) => _createAssetTypeStatement(
+            config,
+            e,
+            integrations,
+          ),
         ),
-      )
-      .mapToUniqueAssetType(style)
-      .map(
-        (e) => _createAssetTypeStatement(
-          config,
-          e,
-          integrations,
-        ),
-      )
-      .whereType<_Statement>()
-      .toList();
+  );
+  final statements = results.whereType<_Statement>().toList();
   final className = config.flutterGen.assets.outputs.className;
   final String? packageName = generatePackageNameForConfig(config);
   return _flatStyleAssetsClassDefinition(className, statements, packageName);

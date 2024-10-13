@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_gen_core/settings/asset_type.dart';
 import 'package:flutter_gen_core/settings/import.dart';
 
@@ -24,7 +26,7 @@ abstract class Integration {
   String get className;
 
   /// Is this asset type supported by this integration?
-  bool isSupport(AssetType asset);
+  FutureOr<bool> isSupport(AssetType asset);
 
   bool get isConstConstructor;
 
