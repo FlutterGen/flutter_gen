@@ -17,8 +17,12 @@ class $AssetsLottieGen {
   LottieGenImage get hamburgerArrow =>
       const LottieGenImage('assets/lottie/hamburger_arrow.json');
 
+  /// File path: assets/lottie/spinning_carrousel.zip
+  LottieGenImage get spinningCarrousel =>
+      const LottieGenImage('assets/lottie/spinning_carrousel.zip');
+
   /// List of all assets
-  List<LottieGenImage> get values => [hamburgerArrow];
+  List<LottieGenImage> get values => [hamburgerArrow, spinningCarrousel];
 }
 
 class Assets {
