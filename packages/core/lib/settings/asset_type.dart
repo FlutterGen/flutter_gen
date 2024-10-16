@@ -39,9 +39,12 @@ class AssetType {
 
   bool get isUnKnownMime => mime == null;
 
-  String get extension => p.extension(path);
+  /// Returns a name for this asset.
+  String get name => p.withoutExtension(path);
 
   String get baseName => p.basenameWithoutExtension(path);
+
+  String get extension => p.extension(path);
 
   /// Returns the full absolute path for reading the asset file.
   String get fullPath => p.join(rootPath, path);
@@ -55,10 +58,12 @@ class AssetType {
     _children.add(type);
   }
 
-  /// Returns a name for this asset.
-  String get name {
-    return p.withoutExtension(path);
-  }
+  @override
+  String toString() => 'AssetType('
+      'rootPath: $rootPath, '
+      'path: $path, '
+      'flavors: $flavors'
+      ')';
 }
 
 /// Represents a AssetType with modifiers on it to mutate the [name] to ensure
