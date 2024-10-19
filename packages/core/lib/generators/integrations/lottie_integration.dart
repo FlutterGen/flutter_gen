@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:archive/archive_io.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter_gen_core/generators/integrations/integration.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
@@ -17,6 +19,11 @@ class LottieIntegration extends Integration {
     'fr', // frame rate
     'v', // // Must include version
     'layers', // Must include layers
+  ];
+
+  static const _supportedMimeTypes = [
+    'application/json',
+    'application/zip',
   ];
 
   String get packageExpression => isPackage ? ' = package' : '';
@@ -110,12 +117,33 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
   bool get isConstConstructor => true;
 
   bool isLottieFile(AssetType type) {
-    if (type.mime != 'application/json') {
+    if (!_supportedMimeTypes.contains(type.mime)) {
       return false;
     }
+    if (type.mime == 'application/zip') {
+      final inputStream = InputFileStream(type.fullPath);
+      final archive = ZipDecoder().decodeBuffer(inputStream);
+      final jsonFile = archive.files.firstWhereOrNull(
+        (e) => e.name.endsWith('.json'),
+      );
+      if (jsonFile?.isFile != true) {
+        return false;
+      }
+      final content = utf8.decode(jsonFile!.content);
+      return _isValidJsonFile(type, overrideInput: content);
+    }
+    return _isValidJsonFile(type);
+  }
+
+  bool _isValidJsonFile(AssetType type, {String? overrideInput}) {
     try {
-      final absolutePath = p.join(type.rootPath, type.path);
-      String input = File(absolutePath).readAsStringSync();
+      final String input;
+      if (overrideInput != null) {
+        input = overrideInput;
+      } else {
+        final absolutePath = p.join(type.rootPath, type.path);
+        input = File(absolutePath).readAsStringSync();
+      }
       final fileKeys = jsonDecode(input) as Map<String, dynamic>;
       if (lottieKeys.every(fileKeys.containsKey) && fileKeys['v'] != null) {
         var version = Version.parse(fileKeys['v']);

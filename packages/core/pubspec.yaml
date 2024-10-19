@@ -25,6 +25,7 @@ dependencies:
   glob: ^2.0.0
 
   dart_style: ^2.2.4
+  archive: ^3.4.0
   args: ^2.0.0
   pub_semver: ^2.0.0
   vector_graphics_compiler: ^1.1.9

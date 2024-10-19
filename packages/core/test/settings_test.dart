@@ -1,8 +1,34 @@
 import 'package:collection/collection.dart';
+import 'package:flutter_gen_core/settings/asset_type.dart';
 import 'package:flutter_gen_core/settings/flavored_asset.dart';
 import 'package:test/test.dart';
 
 void main() {
+  group(AssetType, () {
+    test('constructor', () {
+      final assetType = AssetType(
+        rootPath: 'root',
+        path: 'assets/single.jpg',
+        flavors: {'flavor'},
+      );
+      expect(assetType, isA<AssetType>());
+      expect(assetType.name, 'assets/single');
+      expect(assetType.baseName, 'single');
+      expect(assetType.extension, '.jpg');
+      expect(assetType.isUnKnownMime, false);
+      expect(
+        assetType,
+        predicate<AssetType>(
+          (e) => SetEquality().equals(e.flavors, {'flavor'}),
+        ),
+      );
+      expect(
+        assetType.toString(),
+        'AssetType(rootPath: root, path: assets/single.jpg, flavors: {flavor})',
+      );
+    });
+  });
+
   group(FlavoredAsset, () {
     test('constructor', () {
       expect(

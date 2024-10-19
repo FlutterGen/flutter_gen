@@ -88,12 +88,20 @@ class $AssetsLottieGen {
   LottieGenImage get hamburgerArrow =>
       const LottieGenImage('assets/lottie/hamburger_arrow.json');
 
+  /// File path: assets/lottie/spinning_carrousel.zip
+  LottieGenImage get spinningCarrousel =>
+      const LottieGenImage('assets/lottie/spinning_carrousel.zip');
+
   /// Directory path: assets/lottie/wrong
   $AssetsLottieWrongGen get wrong => const $AssetsLottieWrongGen();
 
   /// List of all assets
-  List<LottieGenImage> get values =>
-      [alarmClockLottieV440, geometricalAnimation, hamburgerArrow];
+  List<LottieGenImage> get values => [
+        alarmClockLottieV440,
+        geometricalAnimation,
+        hamburgerArrow,
+        spinningCarrousel
+      ];
 }
 
 class $AssetsMixGen {
@@ -193,11 +201,14 @@ class $AssetsImagesIconsGen {
 class $AssetsLottieWrongGen {
   const $AssetsLottieWrongGen();
 
+  /// File path: assets/lottie/wrong/dummy.zip
+  String get dummy => 'assets/lottie/wrong/dummy.zip';
+
   /// File path: assets/lottie/wrong/rocket-lottie-v439.json
   String get rocketLottieV439 => 'assets/lottie/wrong/rocket-lottie-v439.json';
 
   /// List of all assets
-  List<String> get values => [rocketLottieV439];
+  List<String> get values => [dummy, rocketLottieV439];
 }
 
 class MyAssets {

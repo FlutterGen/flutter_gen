@@ -3,7 +3,6 @@ import 'package:flutter_gen_core/utils/identifer.dart';
 import 'package:flutter_gen_core/utils/string.dart';
 import 'package:mime/mime.dart' show lookupMimeType;
 import 'package:path/path.dart' as p;
-import 'package:path/path.dart';
 
 /// https://github.com/dart-lang/mime/blob/master/lib/src/default_extension_map.dart
 class AssetType {
@@ -40,12 +39,15 @@ class AssetType {
 
   bool get isUnKnownMime => mime == null;
 
-  String get extension => p.extension(path);
+  /// Returns a name for this asset.
+  String get name => p.withoutExtension(path);
 
   String get baseName => p.basenameWithoutExtension(path);
 
+  String get extension => p.extension(path);
+
   /// Returns the full absolute path for reading the asset file.
-  String get fullPath => join(rootPath, path);
+  String get fullPath => p.join(rootPath, path);
 
   // Replace to Posix style for Windows separator.
   String get posixStylePath => path.replaceAll(r'\', r'/');
@@ -56,10 +58,12 @@ class AssetType {
     _children.add(type);
   }
 
-  /// Returns a name for this asset.
-  String get name {
-    return withoutExtension(path);
-  }
+  @override
+  String toString() => 'AssetType('
+      'rootPath: $rootPath, '
+      'path: $path, '
+      'flavors: $flavors'
+      ')';
 }
 
 /// Represents a AssetType with modifiers on it to mutate the [name] to ensure
@@ -99,15 +103,14 @@ class UniqueAssetType extends AssetType {
   String get name {
     // Omit root directory from the name if it is either asset or assets.
     // TODO(bramp): Maybe move this into the _flatStyleDefinition
-    String p = path.replaceFirst(RegExp(r'^asset(s)?[/\\]'), '');
+    String result = path.replaceFirst(RegExp(r'^asset(s)?[/\\]'), '');
     if (basenameOnly) {
-      p = basename(p);
+      result = p.basename(result);
     }
     if (!needExtension) {
-      p = withoutExtension(p);
+      result = p.withoutExtension(result);
     }
-
-    return style(convertToIdentifier(p)) + suffix;
+    return style(convertToIdentifier(result)) + suffix;
   }
 
   @override
