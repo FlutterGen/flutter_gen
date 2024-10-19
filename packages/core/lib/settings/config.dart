@@ -38,7 +38,7 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
     final buildContent = buildFile.readAsStringSync();
     final rawMap = loadYaml(buildContent) as Map?;
     final optionBuildMap = rawMap?['targets']?[r'$default']?['builders']
-        ?['flutter_gen']?['options'];
+        ?['flutter_gen_runner']?['options'];
 
     if (optionBuildMap != null) {
       final buildMap = {'flutter_gen': optionBuildMap};
