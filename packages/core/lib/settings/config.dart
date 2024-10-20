@@ -32,20 +32,32 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
     '[FlutterGen] Reading options from $pubspecLocaleHint',
   );
 
-  if (buildFile != null && buildFile.existsSync()) {
-    final buildContent = buildFile.readAsStringSync();
-    final rawMap = loadYaml(buildContent) as Map?;
-    final builders = rawMap?['targets']?[r'$default']?['builders'];
-    final optionBuildMap = (builders?['flutter_gen_runner'] ??
-        builders?['flutter_gen'])?['options'];
-    if (optionBuildMap is YamlMap) {
-      final buildMap = {'flutter_gen': optionBuildMap};
-      mergedMap = mergeMap([mergedMap, buildMap]);
-      final buildLocaleHint = normalize(
-        join(basename(buildFile.parent.path), basename(buildFile.path)),
-      );
-      stdout.writeln(
-        'Reading FlutterGen options from $buildLocaleHint',
+  if (buildFile != null) {
+    if (buildFile.existsSync()) {
+      final buildContent = buildFile.readAsStringSync();
+      final rawMap = loadYaml(buildContent) as Map?;
+      final builders = rawMap?['targets']?[r'$default']?['builders'];
+      final optionBuildMap = (builders?['flutter_gen_runner'] ??
+          builders?['flutter_gen'])?['options'];
+      if (optionBuildMap is YamlMap) {
+        final buildMap = {'flutter_gen': optionBuildMap};
+        mergedMap = mergeMap([mergedMap, buildMap]);
+        final buildLocaleHint = normalize(
+          join(basename(buildFile.parent.path), basename(buildFile.path)),
+        );
+        stdout.writeln(
+          '[FlutterGen] Reading options from $buildLocaleHint',
+        );
+      } else {
+        stderr.writeln(
+          '[FlutterGen] Specified ${buildFile.path} as input but the file '
+          'does not contain valid options, ignoring...',
+        );
+      }
+    } else {
+      stderr.writeln(
+        '[FlutterGen] Specified ${buildFile.path} as input but the file '
+        'does not exists.',
       );
     }
   }
