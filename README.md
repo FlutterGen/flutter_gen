@@ -181,7 +181,7 @@ You can also configure generate options in the `build.yaml`, it will be read bef
 targets:
   $default:
     builders:
-      flutter_gen:
+      flutter_gen_runner: # or flutter_gen
         options: 
           output: lib/build_gen/ # Optional (default: lib/gen/)
           line_length: 120 # Optional (default: 80)

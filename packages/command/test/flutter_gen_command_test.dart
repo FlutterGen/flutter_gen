@@ -14,7 +14,7 @@ void main() {
     );
     expect(
       await process.stdout.next,
-      equals('$flutterGenVersion Loading ... command${separator}pubspec.yaml'),
+      equals('$flutterGenVersion Loading ...'),
     );
     await process.shouldExit(0);
   });
@@ -26,7 +26,7 @@ void main() {
     );
     expect(
       await process.stdout.next,
-      equals('$flutterGenVersion Loading ... command${separator}pubspec.yaml'),
+      equals('$flutterGenVersion Loading ...'),
     );
     await process.shouldExit(0);
   });

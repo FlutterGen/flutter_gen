@@ -37,10 +37,10 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
   if (buildFile != null && buildFile.existsSync()) {
     final buildContent = buildFile.readAsStringSync();
     final rawMap = loadYaml(buildContent) as Map?;
-    final optionBuildMap = rawMap?['targets']?[r'$default']?['builders']
-        ?['flutter_gen']?['options'];
-
-    if (optionBuildMap != null) {
+    final builders = rawMap?['targets']?[r'$default']?['builders'];
+    final optionBuildMap = (builders?['flutter_gen_runner'] ??
+        builders?['flutter_gen'])?['options'];
+    if (optionBuildMap is YamlMap) {
       final buildMap = {'flutter_gen': optionBuildMap};
       mergedMap = mergeMap([mergedMap, buildMap]);
       final buildLocaleHint = normalize(
