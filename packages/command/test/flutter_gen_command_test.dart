@@ -1,8 +1,9 @@
 import 'dart:io' show Platform;
 
-import 'package:flutter_gen_core/utils/version.dart';
+import 'package:flutter_gen_core/version.gen.dart';
 import 'package:test/test.dart';
 import 'package:test_process/test_process.dart';
+
 
 final separator = Platform.pathSeparator;
 
@@ -14,7 +15,7 @@ void main() {
     );
     expect(
       await process.stdout.next,
-      equals('$flutterGenVersion Loading ...'),
+      equals('[FlutterGen] v$packageVersion Loading ...'),
     );
     await process.shouldExit(0);
   });
@@ -26,7 +27,7 @@ void main() {
     );
     expect(
       await process.stdout.next,
-      equals('$flutterGenVersion Loading ...'),
+      equals('[FlutterGen] v$packageVersion Loading ...'),
     );
     await process.shouldExit(0);
   });
@@ -48,7 +49,7 @@ void main() {
       'dart',
       ['bin/flutter_gen_command.dart', '--version'],
     );
-    expect(await process.stdout.next, equals(flutterGenVersion));
+    expect(await process.stdout.next, equals('[FlutterGen] v$packageVersion'));
     await process.shouldExit(0);
   });
 

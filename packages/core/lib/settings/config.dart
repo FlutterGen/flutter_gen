@@ -4,7 +4,7 @@ import 'package:flutter_gen_core/settings/config_default.dart';
 import 'package:flutter_gen_core/settings/pubspec.dart';
 import 'package:flutter_gen_core/utils/error.dart';
 import 'package:flutter_gen_core/utils/map.dart';
-import 'package:flutter_gen_core/utils/version.dart';
+import 'package:flutter_gen_core/version.gen.dart';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
 
@@ -20,9 +20,7 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
     join(basename(pubspecFile.parent.path), basename(pubspecFile.path)),
   );
 
-  stdout.writeln(
-    '$flutterGenVersion Loading ...',
-  );
+  stdout.writeln('[FlutterGen] v$packageVersion Loading ...');
 
   final defaultMap = loadYaml(configDefaultYamlContent) as Map?;
 
@@ -31,7 +29,7 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
 
   var mergedMap = mergeMap([defaultMap, pubspecMap]);
   stdout.writeln(
-    'Reading FlutterGen options from $pubspecLocaleHint',
+    '[FlutterGen] Reading options from $pubspecLocaleHint',
   );
 
   if (buildFile != null && buildFile.existsSync()) {
