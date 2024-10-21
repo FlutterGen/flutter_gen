@@ -231,7 +231,7 @@ void main() {
       () async {
         const pubspec = 'test_resources/pubspec_assets.yaml';
         const build = 'test_resources/build_runner_assets.yaml';
-        const fact = 'test_resources/actual_data/build_assets.gen.dart';
+        const fact = 'test_resources/actual_data/build_runner_assets.gen.dart';
         const generated = 'test_resources/lib/build_gen/assets.gen.dart';
 
         await expectedAssetsGen(pubspec, generated, fact, build: build);
@@ -243,7 +243,7 @@ void main() {
       () async {
         const pubspec = 'test_resources/pubspec_assets.yaml';
         const build = 'test_resources/build_empty.yaml';
-        const fact = 'test_resources/actual_data/build_assets.gen.dart';
+        const fact = 'test_resources/actual_data/build_empty.gen.dart';
         const generated = 'test_resources/lib/build_gen/assets.gen.dart';
 
         await expectedAssetsGen(pubspec, generated, fact, build: build);
