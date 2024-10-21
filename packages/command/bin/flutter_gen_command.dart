@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/utils/cast.dart';
-import 'package:flutter_gen_core/utils/version.dart';
+import 'package:flutter_gen_core/version.gen.dart';
+
 
 void main(List<String> args) {
   final parser = ArgParser();
@@ -42,7 +43,7 @@ void main(List<String> args) {
       stdout.writeln(parser.usage);
       return;
     } else if (results.wasParsed('version')) {
-      stdout.writeln(flutterGenVersion);
+      stdout.writeln('FlutterGen v$packageVersion');
       return;
     }
   } on FormatException catch (e) {
