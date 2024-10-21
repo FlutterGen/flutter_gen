@@ -39,7 +39,7 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
       final builders = rawMap?['targets']?[r'$default']?['builders'];
       final optionBuildMap = (builders?['flutter_gen_runner'] ??
           builders?['flutter_gen'])?['options'];
-      if (optionBuildMap is YamlMap) {
+      if (optionBuildMap is YamlMap && optionBuildMap.isNotEmpty) {
         final buildMap = {'flutter_gen': optionBuildMap};
         mergedMap = mergeMap([mergedMap, buildMap]);
         final buildLocaleHint = normalize(

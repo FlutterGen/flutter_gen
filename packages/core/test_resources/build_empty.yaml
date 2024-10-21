@@ -1,0 +1,12 @@
+name: test
+
+targets:
+  $default:
+    builders:
+      flutter_gen_runner:
+        options:
+          output: lib/build_gen/
+          line_length: 120
+          assets:
+            outputs:
+              class_name: BuildAssets
