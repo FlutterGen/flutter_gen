@@ -34,6 +34,24 @@ flutter_gen:
       class_name: Assets
     exclude: []
 
+  shaders:
+    # Optional
+    enabled: true
+    # Optional
+    outputs:
+      # Optional
+      # Set to true if you want this package to be a package dependency
+      # See: https://flutter.dev/docs/development/ui/assets-and-images#from-packages
+      package_parameter_enabled: false
+      # Optional
+      # Available values:
+      # - camel-case
+      # - snake-case
+      # - dot-delimiter
+      style: dot-delimiter
+      class_name: Shaders
+    exclude: []
+
   fonts:
     # Optional
     enabled: true
@@ -55,4 +73,6 @@ flutter:
   assets: []
   # See: https://flutter.dev/docs/cookbook/design/fonts#2-declare-the-font-in-the-pubspec
   fonts: []
+  # See: https://docs.flutter.dev/ui/design/graphics/fragment-shaders
+  shaders: []
 ''';

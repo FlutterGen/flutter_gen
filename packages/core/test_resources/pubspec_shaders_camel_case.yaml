@@ -1,0 +1,25 @@
+name: test
+
+flutter_gen:
+  output: lib/gen/ # Optional (default: lib/gen/)
+  line_length: 80 # Optional (default: 80)
+
+  shaders:
+    outputs:
+      style: camel-case
+
+flutter:
+  shaders:
+    - assets/shaders/shader1.frag
+
+    - assets/shaders/summer_shaders/shader1.frag
+    - assets/shaders/summer_shaders/summer.frag
+
+    - assets/shaders/winter_shaders/shader1.frag
+    - assets/shaders/winter_shaders/winter.frag
+
+    - assets/shaders/winter_shaders/holiday_shaders/shader1.frag
+    - assets/shaders/winter_shaders/holiday_shaders/holiday.frag
+
+    # duplicated
+    - assets/shaders/winter_shaders/holiday_shaders/holiday.frag

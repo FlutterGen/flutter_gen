@@ -32,7 +32,7 @@ Flutter _$FlutterFromJson(Map json) => $checkedCreate(
       ($checkedConvert) {
         $checkKeys(
           json,
-          requiredKeys: const ['assets', 'fonts'],
+          requiredKeys: const ['assets', 'shaders', 'fonts'],
         );
         final val = Flutter(
           assets: $checkedConvert('assets',
@@ -42,6 +42,8 @@ Flutter _$FlutterFromJson(Map json) => $checkedCreate(
               (v) => (v as List<dynamic>)
                   .map((e) => FlutterFonts.fromJson(e as Map))
                   .toList()),
+          shaders: $checkedConvert('shaders',
+              (v) => (v as List<dynamic>).map((e) => e as Object).toList()),
         );
         return val;
       },
@@ -73,6 +75,7 @@ FlutterGen _$FlutterGenFromJson(Map json) => $checkedCreate(
             'line_length',
             'parse_metadata',
             'assets',
+            'shaders',
             'fonts',
             'integrations',
             'colors'
@@ -84,6 +87,8 @@ FlutterGen _$FlutterGenFromJson(Map json) => $checkedCreate(
           parseMetadata: $checkedConvert('parse_metadata', (v) => v as bool),
           assets: $checkedConvert(
               'assets', (v) => FlutterGenAssets.fromJson(v as Map)),
+          shaders: $checkedConvert(
+              'shaders', (v) => FlutterGenAssets.fromJson(v as Map)),
           fonts: $checkedConvert(
               'fonts', (v) => FlutterGenFonts.fromJson(v as Map)),
           integrations: $checkedConvert(

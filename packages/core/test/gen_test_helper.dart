@@ -5,6 +5,7 @@ import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/generators/assets_generator.dart';
 import 'package:flutter_gen_core/generators/colors_generator.dart';
 import 'package:flutter_gen_core/generators/fonts_generator.dart';
+import 'package:flutter_gen_core/generators/shaders_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
@@ -131,6 +132,40 @@ Future<List<String>> runFontsGen(
   return [actual, expected];
 }
 
+Future<List<String>> runShadersGen(
+  String pubspec,
+  String generated,
+  String fact, {
+  String? build,
+}) async {
+  final pubspecFile = File(pubspec);
+
+  File? buildFile;
+  if (build != null) buildFile = File(build);
+
+  await FlutterGenerator(
+    pubspecFile,
+    buildFile: buildFile,
+    shadersName: p.basename(generated),
+  ).build();
+
+  final config = loadPubspecConfig(pubspecFile, buildFile: buildFile);
+  final formatter = DartFormatter(
+    pageWidth: config.pubspec.flutterGen.lineLength,
+    lineEnding: '\n',
+  );
+
+  final actual = await generateShaders(
+    ShadersGenConfig.fromConfig(pubspecFile, config),
+    formatter,
+  );
+  File(fact).writeAsStringSync(actual);
+  final expected = formatter.format(
+    File(fact).readAsStringSync().replaceAll('\r\n', '\n'),
+  );
+  return [actual, expected];
+}
+
 /// Fonts
 Future<void> expectedFontsGen(
   String pubspec,
@@ -138,6 +173,22 @@ Future<void> expectedFontsGen(
   String fact,
 ) async {
   final results = await runFontsGen(pubspec, generated, fact);
+  final actual = results.first, expected = results.last;
+  expect(
+    File(generated).readAsStringSync(),
+    isNotEmpty,
+  );
+  expect(actual, expected);
+}
+
+/// Shaders
+Future<void> expectedShadersGen(
+  String pubspec,
+  String generated,
+  String fact, {
+  String? build,
+}) async {
+  final results = await runShadersGen(pubspec, generated, fact, build: build);
   final actual = results.first, expected = results.last;
   expect(
     File(generated).readAsStringSync(),
@@ -157,5 +208,19 @@ void expectedPackageNameGen(
     loadPubspecConfig(pubspecFile),
   );
   final actual = generatePackageNameForConfig(config);
+  expect(actual, equals(fact));
+}
+
+/// Verify shaders generated package name.
+void expectedShadersPackageNameGen(
+  String pubspec,
+  String? fact,
+) {
+  final pubspecFile = File(pubspec);
+  final config = ShadersGenConfig.fromConfig(
+    pubspecFile,
+    loadPubspecConfig(pubspecFile),
+  );
+  final actual = generateShadersPackageNameForConfig(config);
   expect(actual, equals(fact));
 }

@@ -1,0 +1,30 @@
+name: test
+
+flutter_gen:
+  output: lib/gen/
+  line_length: 80
+
+  integrations:
+    flutter_svg: true
+
+  assets:
+    exclude:
+      - assets/shaders/summer_shaders/*.frag
+      - assets/shaders/winter_shaders/*.frag
+      - assets/**/icons/*
+
+flutter:
+  shaders:
+    - assets/shaders/shader1.frag
+
+    - assets/shaders/summer_shaders/shader1.frag
+    - assets/shaders/summer_shaders/summer.frag
+
+    - assets/shaders/winter_shaders/shader1.frag
+    - assets/shaders/winter_shaders/winter.frag
+
+    - assets/shaders/winter_shaders/holiday_shaders/shader1.frag
+    - assets/shaders/winter_shaders/holiday_shaders/holiday.frag
+
+    # duplicated
+    - assets/shaders/winter_shaders/holiday_shaders/holiday.frag

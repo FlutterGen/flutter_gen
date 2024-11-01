@@ -4,7 +4,6 @@ import 'package:flutter_gen_core/version.gen.dart';
 import 'package:test/test.dart';
 import 'package:test_process/test_process.dart';
 
-
 final separator = Platform.pathSeparator;
 
 void main() {
