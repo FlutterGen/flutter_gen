@@ -34,6 +34,13 @@ flutter_gen:
       class_name: Assets
     exclude: []
 
+  fonts:
+    # Optional
+    enabled: true
+    # Optional
+    outputs:
+      class_name: FontFamily
+
   shaders:
     # Optional
     enabled: true
@@ -51,13 +58,6 @@ flutter_gen:
       style: dot-delimiter
       class_name: Shaders
     exclude: []
-
-  fonts:
-    # Optional
-    enabled: true
-    # Optional
-    outputs:
-      class_name: FontFamily
 
   colors:
     # Optional
