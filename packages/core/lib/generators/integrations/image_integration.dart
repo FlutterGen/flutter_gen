@@ -61,7 +61,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
     bool isAntiAlias = false,
     ${isPackage ? deprecationMessagePackage : ''}
     String? package$packageParameter,
-    FilterQuality filterQuality = FilterQuality.low,
+    FilterQuality filterQuality = FilterQuality.medium,
     int? cacheWidth,
     int? cacheHeight,
   }) {
