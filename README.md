@@ -511,7 +511,7 @@ Text(
 
 ### Colors
 
-[FlutterGen] supports generating colors from [XML](example/assets/color/colors.xml) format files.  
+[FlutterGen] supports generating colors from [XML](examples/example/assets/color/colors.xml) format files.  
 _Ignore duplicated._
 
 ```yaml
