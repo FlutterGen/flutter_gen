@@ -210,6 +210,14 @@ flutter:
     - assets/flare/Penguin.flr
     - assets/rive/vehicles.riv
     - pictures/ocean_view.jpg
+
+  # Also include assets from deferred components
+  # https://docs.flutter.dev/perf/deferred-components
+  deferred-components:
+    - name: myDeferredComponent
+      assets:
+        - assets/images/another_image.jps
+        - assets/videos/a_large_video.mp4
 ```
 
 These configurations will generate **`assets.gen.dart`** under the **`lib/gen/`** directory by default.
