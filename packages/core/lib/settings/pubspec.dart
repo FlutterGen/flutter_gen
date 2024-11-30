@@ -29,6 +29,7 @@ class Flutter {
   Flutter({
     required this.assets,
     required this.fonts,
+    required this.shaders,
   });
 
   @JsonKey(name: 'assets', required: true)
@@ -36,6 +37,9 @@ class Flutter {
 
   @JsonKey(name: 'fonts', required: true)
   final List<FlutterFonts> fonts;
+
+  @JsonKey(name: 'shaders', required: true)
+  final List<Object> shaders;
 
   factory Flutter.fromJson(Map json) => _$FlutterFromJson(json);
 }
@@ -58,6 +62,7 @@ class FlutterGen {
     required this.parseMetadata,
     required this.assets,
     required this.fonts,
+    required this.shaders,
     required this.integrations,
     required this.colors,
   });
@@ -76,6 +81,9 @@ class FlutterGen {
 
   @JsonKey(name: 'fonts', required: true)
   final FlutterGenFonts fonts;
+
+  @JsonKey(name: 'shaders', required: true)
+  final FlutterGenAssets shaders;
 
   @JsonKey(name: 'integrations', required: true)
   final FlutterGenIntegrations integrations;

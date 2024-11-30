@@ -186,6 +186,7 @@ void main() {
       const assets = 'build_assets.gen.dart';
       const colors = 'build_colors.gen.dart';
       const fonts = 'build_fonts.gen.dart';
+      const shaders = 'build_shaders.gen.dart';
 
       await FlutterGenerator(
         File(pubspec),
@@ -193,12 +194,15 @@ void main() {
         assetsName: assets,
         colorsName: colors,
         fontsName: fonts,
+        shadersName: shaders,
       ).build();
       expect(File('test_resources/lib/build_gen/$assets').readAsStringSync(),
           isNotEmpty);
       expect(File('test_resources/lib/build_gen/$fonts').readAsStringSync(),
           isNotEmpty);
       expect(File('test_resources/lib/build_gen/$colors').readAsStringSync(),
+          isNotEmpty);
+      expect(File('test_resources/lib/build_gen/$shaders').readAsStringSync(),
           isNotEmpty);
     });
   });

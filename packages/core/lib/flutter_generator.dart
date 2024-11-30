@@ -4,6 +4,7 @@ import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen_core/generators/assets_generator.dart';
 import 'package:flutter_gen_core/generators/colors_generator.dart';
 import 'package:flutter_gen_core/generators/fonts_generator.dart';
+import 'package:flutter_gen_core/generators/shaders_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:flutter_gen_core/utils/file.dart';
 import 'package:path/path.dart';
@@ -15,6 +16,7 @@ class FlutterGenerator {
     this.assetsName = 'assets.gen.dart',
     this.colorsName = 'colors.gen.dart',
     this.fontsName = 'fonts.gen.dart',
+    this.shadersName = 'shaders.gen.dart',
   });
 
   final File pubspecFile;
@@ -22,6 +24,7 @@ class FlutterGenerator {
   final String assetsName;
   final String colorsName;
   final String fontsName;
+  final String shadersName;
 
   Future<void> build({Config? config, FileWriter? writer}) async {
     config ??= loadPubspecConfigOrNull(pubspecFile, buildFile: buildFile);
@@ -78,6 +81,17 @@ class FlutterGenerator {
           normalize(join(pubspecFile.parent.path, output, fontsName));
       writer(generated, fontsPath);
       stdout.writeln('[FlutterGen] Generated: $fontsPath');
+    }
+
+    if (flutterGen.shaders.enabled && flutter.shaders.isNotEmpty) {
+      final generated = await generateShaders(
+        ShadersGenConfig.fromConfig(pubspecFile, config),
+        formatter,
+      );
+      final shadersPath =
+          normalize(join(pubspecFile.parent.path, output, shadersName));
+      writer(generated, shadersPath);
+      stdout.writeln('[FlutterGen] Generated: $shadersPath');
     }
 
     stdout.writeln('[FlutterGen] Finished generating.');
