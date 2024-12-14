@@ -5,7 +5,6 @@ import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/utils/cast.dart';
 import 'package:flutter_gen_core/version.gen.dart';
 
-
 void main(List<String> args) {
   final parser = ArgParser();
   parser.addOption(

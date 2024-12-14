@@ -7,6 +7,7 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:flutter_gen_core/settings/flavored_asset.dart';
+import 'package:flutter_gen_core/settings/flavored_shader.dart';
 import 'package:glob/glob.dart';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
@@ -56,7 +57,8 @@ class FlutterGenBuilder extends Builder {
         for (final name in [
           generator.assetsName,
           generator.colorsName,
-          generator.fontsName
+          generator.fontsName,
+          generator.shadersName,
         ])
           join(ouput, name),
       ],
@@ -97,6 +99,34 @@ class FlutterGenBuilder extends Builder {
       }
     }
 
+    final HashSet<FlavoredShader> shaders = HashSet();
+    if (pubspec.flutterGen.shaders.enabled) {
+      for (final shader in pubspec.flutter.shaders) {
+        final FlavoredShader flavored;
+        String assetInput;
+        if (shader is YamlMap) {
+          flavored = FlavoredShader(
+            path: shader['path'],
+            flavors:
+                (shader['flavors'] as YamlList?)?.toSet().cast() ?? <String>{},
+          );
+          assetInput = shader['path'];
+        } else {
+          flavored = FlavoredShader(path: shader as String);
+          assetInput = shader;
+        }
+        if (assetInput.isEmpty) {
+          continue;
+        }
+        if (assetInput.endsWith('/')) {
+          assetInput += '*';
+        }
+        await for (final assetId in buildStep.findAssets(Glob(assetInput))) {
+          shaders.add(flavored.copyWith(path: assetId.path));
+        }
+      }
+    }
+
     final HashMap<String, Digest> colors = HashMap();
     if (pubspec.flutterGen.colors.enabled) {
       for (final colorInput in pubspec.flutterGen.colors.inputs) {
@@ -116,6 +146,7 @@ class FlutterGenBuilder extends Builder {
     return _FlutterGenBuilderState(
       pubspecDigest: pubspecDigest,
       assets: assets,
+      shaders: shaders,
       colors: colors,
     );
   }
@@ -125,17 +156,20 @@ class _FlutterGenBuilderState {
   const _FlutterGenBuilderState({
     required this.pubspecDigest,
     required this.assets,
+    required this.shaders,
     required this.colors,
   });
 
   final Digest pubspecDigest;
   final HashSet<FlavoredAsset> assets;
+  final HashSet<FlavoredShader> shaders;
   final HashMap<String, Digest> colors;
 
   bool shouldSkipGenerate(_FlutterGenBuilderState? previous) {
     if (previous == null) return false;
     return pubspecDigest == previous.pubspecDigest &&
         const SetEquality().equals(assets, previous.assets) &&
+        const SetEquality().equals(shaders, previous.shaders) &&
         const MapEquality().equals(colors, previous.colors);
   }
 }
