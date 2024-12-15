@@ -40,9 +40,13 @@ jobs:
           dart pub global activate melos
           melos bootstrap
 
-      - name: Run tests for our dart project.
+      - name: Run tests for Dart packages
         if: startsWith(matrix.os, 'ubuntu')
-        run: melos test
+        run: melos test:dart --no-select
+
+      - name: Run tests for Flutter packages
+        if: startsWith(matrix.os, 'ubuntu')
+        run: melos test:flutter --no-select
 
       - name: Run coverage
         if: startsWith(matrix.os, 'ubuntu')
