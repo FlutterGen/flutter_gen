@@ -82,6 +82,7 @@ scripts:
   test:dart:
     run: dart test
     exec:
+      concurrency: 1
       failFast: true
     packageFilters:
       flutter: false
@@ -91,6 +92,7 @@ scripts:
   test:flutter:
     run: flutter test
     exec:
+      concurrency: 1
       failFast: true
     packageFilters:
       flutter: true
