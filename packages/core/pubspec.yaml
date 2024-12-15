@@ -24,7 +24,7 @@ dependencies:
   json_annotation: ^4.4.0
   glob: ^2.0.0
 
-  dart_style: ^2.2.4
+  dart_style: '>=2.2.4 <4.0.0'
   archive: ^3.4.0
   args: ^2.0.0
   pub_semver: ^2.0.0

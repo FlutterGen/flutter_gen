@@ -30,6 +30,7 @@ Future<List<String>> runAssetsGen(
 
   final config = loadPubspecConfig(pubspecFile, buildFile: buildFile);
   final formatter = DartFormatter(
+    languageVersion: DartFormatter.latestLanguageVersion,
     pageWidth: config.pubspec.flutterGen.lineLength,
     lineEnding: '\n',
   );
@@ -73,6 +74,7 @@ Future<List<String>> runColorsGen(
   final pubspecFile = File(pubspec);
   final config = loadPubspecConfig(pubspecFile);
   final formatter = DartFormatter(
+    languageVersion: DartFormatter.latestLanguageVersion,
     pageWidth: config.pubspec.flutterGen.lineLength,
     lineEnding: '\n',
   );
@@ -116,6 +118,7 @@ Future<List<String>> runFontsGen(
   final pubspecFile = File(pubspec);
   final config = loadPubspecConfig(pubspecFile);
   final formatter = DartFormatter(
+    languageVersion: DartFormatter.latestLanguageVersion,
     pageWidth: config.pubspec.flutterGen.lineLength,
     lineEnding: '\n',
   );
