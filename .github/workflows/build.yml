@@ -35,29 +35,18 @@ jobs:
         if: startsWith(matrix.os, 'windows')
         run: echo "%LOCALAPPDATA%\Pub\Cache\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
-      - name: Get dependencies for macos and ubuntu
-        if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
+      - name: Get dependencies
         run: |
           dart pub global activate melos
-          melos bootstrap
-
-      - name: Get dependencies for Windows
-        if: startsWith(matrix.os, 'windows')
-        run: |
-          dart pub global activate melos
-          # FIXME: CI randomly fail
-          melos exec -c 1 -- flutter pub get
           melos bootstrap
 
       - name: Run tests for our dart project.
         if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          melos test
+        run: melos test
 
       - name: Run coverage
         if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          melos coverage
+        run: melos coverage
 
       - uses: codecov/codecov-action@v5
         with:
