@@ -23,7 +23,10 @@ void main() {
         File('test_resources/pubspec_fonts_no_family.yaml'),
       );
       final formatter = DartFormatter(
-          pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
+        languageVersion: DartFormatter.latestLanguageVersion,
+        pageWidth: config.pubspec.flutterGen.lineLength,
+        lineEnding: '\n',
+      );
 
       expect(() {
         return generateFonts(FontsGenConfig.fromConfig(config), formatter);
