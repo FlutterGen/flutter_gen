@@ -186,9 +186,9 @@ void main() {
       expect(File('test_resources/lib/gen/$colors').existsSync(), isFalse);
     });
 
-    test('With build_output.yaml', () async {
+    test('With build_assets.yaml', () async {
       const pubspec = 'test_resources/pubspec_normal.yaml';
-      const build = 'test_resources/build_output.yaml';
+      const build = 'test_resources/build_assets.yaml';
       const assets = 'build_assets.gen.dart';
       const colors = 'build_colors.gen.dart';
       const fonts = 'build_fonts.gen.dart';
