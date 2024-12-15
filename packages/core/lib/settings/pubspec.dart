@@ -158,17 +158,12 @@ class FlutterGenFonts {
 class FlutterGenIntegrations {
   FlutterGenIntegrations({
     required this.flutterSvg,
-    required this.flareFlutter,
     required this.rive,
     required this.lottie,
   });
 
   @JsonKey(name: 'flutter_svg', required: true)
   final bool flutterSvg;
-
-  @Deprecated('This will be removed in 6.0.0')
-  @JsonKey(name: 'flare_flutter', required: true)
-  final bool flareFlutter;
 
   @JsonKey(name: 'rive', required: true)
   final bool rive;

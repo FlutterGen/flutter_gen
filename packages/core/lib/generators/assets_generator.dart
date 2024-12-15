@@ -5,7 +5,6 @@ import 'package:collection/collection.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:dartx/dartx.dart' hide IterableSorted;
 import 'package:flutter_gen_core/generators/generator_helper.dart';
-import 'package:flutter_gen_core/generators/integrations/flare_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/image_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/integration.dart';
 import 'package:flutter_gen_core/generators/integrations/lottie_integration.dart';
@@ -65,8 +64,6 @@ Future<String> generateAssets(
     if (config.flutterGen.integrations.flutterSvg)
       SvgIntegration(config.packageParameterLiteral,
           parseMetadata: config.flutterGen.parseMetadata),
-    if (config.flutterGen.integrations.flareFlutter)
-      FlareIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.rive)
       RiveIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.lottie)
