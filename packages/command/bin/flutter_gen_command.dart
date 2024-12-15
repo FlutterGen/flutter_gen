@@ -41,7 +41,7 @@ void main(List<String> args) {
       stdout.writeln(parser.usage);
       return;
     } else if (results.wasParsed('version')) {
-      stdout.writeln('FlutterGen v$packageVersion');
+      stdout.writeln('[FlutterGen] v$packageVersion');
       return;
     }
   } on FormatException catch (e) {
