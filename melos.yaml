@@ -80,8 +80,9 @@ scripts:
     description: dart & flutter test
 
   test:dart:
-    run: dart test
+    run: dart test --concurrency=1
     exec:
+      concurrency: 1
       failFast: true
     packageFilters:
       flutter: false
@@ -89,8 +90,9 @@ scripts:
     description: dart test
 
   test:flutter:
-    run: flutter test
+    run: flutter test --concurrency=1
     exec:
+      concurrency: 1
       failFast: true
     packageFilters:
       flutter: true

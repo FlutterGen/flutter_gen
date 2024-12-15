@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dart_style/dart_style.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter_gen_core/generators/assets_generator.dart';
+import 'package:flutter_gen_core/generators/generator_helper.dart';
 import 'package:flutter_gen_core/settings/asset_type.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:flutter_gen_core/utils/error.dart';
@@ -252,6 +253,20 @@ void main() {
         await expectedAssetsGen(pubspec, generated, fact, build: build);
       },
     );
+
+    test('fallback to build.yaml if valid', () async {
+      const pubspec = 'test_resources/pubspec_assets.yaml';
+      const fact = 'test_resources/actual_data/build_assets.gen.dart';
+      const generated = 'test_resources/lib/build_gen/assets.gen.dart';
+
+      final buildFile = File('build.yaml');
+      final originalBuildContent = buildFile.readAsStringSync();
+      buildFile.writeAsStringSync(
+        File('test_resources/build_assets.yaml').readAsStringSync(),
+      );
+      await expectedAssetsGen(pubspec, generated, fact);
+      buildFile.writeAsStringSync(originalBuildContent);
+    });
   });
 
   group('Test generatePackageNameForConfig', () {
@@ -265,6 +280,39 @@ void main() {
       const pubspec = 'test_resources/pubspec_assets_package_parameter.yaml';
       const fact = 'test';
       expectedPackageNameGen(pubspec, fact);
+    });
+  });
+
+  group('gen helper', () {
+    test('build deprecations', () {
+      expect(
+        sBuildDeprecation(
+          'style',
+          'asset',
+          'asset.output',
+          'https://github.com/FlutterGen/flutter_gen/pull/294',
+          [
+            '  assets:',
+            '    outputs:',
+            '      style: snake-case',
+          ],
+        ),
+        equals('''
+┌─────────────────────────────────────────────────────────────────┐
+| ⚠️ Error                                                        |
+| The style option has been moved from `asset` to `asset.output`. |
+| It should be changed in the `pubspec.yaml`.                     |
+| https://github.com/FlutterGen/flutter_gen/pull/294              |
+|                                                                 |
+| ```yaml                                                         |
+| flutter_gen:                                                    |
+|   assets:                                                       |
+|     outputs:                                                    |
+|       style: snake-case                                         |
+| ```                                                             |
+└─────────────────────────────────────────────────────────────────┘
+'''),
+      );
     });
   });
 }

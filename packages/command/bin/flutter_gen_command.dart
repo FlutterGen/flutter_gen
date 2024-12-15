@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/utils/cast.dart';
+import 'package:flutter_gen_core/utils/error.dart';
 import 'package:flutter_gen_core/version.gen.dart';
 
-
-void main(List<String> args) {
+void main(List<String> args) async {
   final parser = ArgParser();
   parser.addOption(
     'config',
@@ -19,7 +19,6 @@ void main(List<String> args) {
     'build',
     abbr: 'b',
     help: 'Set the path of build.yaml.',
-    defaultsTo: 'build.yaml',
   );
 
   parser.addFlag(
@@ -43,7 +42,7 @@ void main(List<String> args) {
       stdout.writeln(parser.usage);
       return;
     } else if (results.wasParsed('version')) {
-      stdout.writeln('FlutterGen v$packageVersion');
+      stdout.writeln('[FlutterGen] v$packageVersion');
       return;
     }
   } on FormatException catch (e) {
@@ -58,11 +57,15 @@ void main(List<String> args) {
   }
   final pubspecFile = File(pubspecPath).absolute;
 
-  final buildPath = safeCast<String>(results['build']);
-  if (buildPath == null || buildPath.trim().isEmpty) {
+  final buildPath = safeCast<String>(results['build'])?.trim();
+  if (buildPath?.isEmpty ?? false) {
     throw ArgumentError('Invalid value $buildPath', 'build');
   }
-  final buildFile = File(buildPath).absolute;
+  final buildFile = buildPath == null ? null : File(buildPath).absolute;
 
-  FlutterGenerator(pubspecFile, buildFile: buildFile).build();
+  try {
+    await FlutterGenerator(pubspecFile, buildFile: buildFile).build();
+  } on InvalidSettingsException catch (e) {
+    stderr.write(e.message);
+  }
 }

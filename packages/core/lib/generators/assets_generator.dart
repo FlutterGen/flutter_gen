@@ -5,7 +5,6 @@ import 'package:collection/collection.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:dartx/dartx.dart' hide IterableSorted;
 import 'package:flutter_gen_core/generators/generator_helper.dart';
-import 'package:flutter_gen_core/generators/integrations/flare_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/image_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/integration.dart';
 import 'package:flutter_gen_core/generators/integrations/lottie_integration.dart';
@@ -65,94 +64,50 @@ Future<String> generateAssets(
     if (config.flutterGen.integrations.flutterSvg)
       SvgIntegration(config.packageParameterLiteral,
           parseMetadata: config.flutterGen.parseMetadata),
-    if (config.flutterGen.integrations.flareFlutter)
-      FlareIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.rive)
       RiveIntegration(config.packageParameterLiteral),
     if (config.flutterGen.integrations.lottie)
       LottieIntegration(config.packageParameterLiteral),
   ];
 
-  // ignore: deprecated_member_use_from_same_package
+  // Warn for deprecated configs.
   final deprecatedStyle = config.flutterGen.assets.style != null;
   final deprecatedPackageParam =
-      // ignore: deprecated_member_use_from_same_package
       config.flutterGen.assets.packageParameterEnabled != null;
   if (deprecatedStyle || deprecatedPackageParam) {
-    stderr.writeln('''
-                                                                                        
-                ░░░░                                                                    
-                                                                                        
-                                            ██                                          
-                                          ██░░██                                        
-  ░░          ░░                        ██░░░░░░██                            ░░░░      
-                                      ██░░░░░░░░░░██                                    
-                                      ██░░░░░░░░░░██                                    
-                                    ██░░░░░░░░░░░░░░██                                  
-                                  ██░░░░░░██████░░░░░░██                                
-                                  ██░░░░░░██████░░░░░░██                                
-                                ██░░░░░░░░██████░░░░░░░░██                              
-                                ██░░░░░░░░██████░░░░░░░░██                              
-                              ██░░░░░░░░░░██████░░░░░░░░░░██                            
-                            ██░░░░░░░░░░░░██████░░░░░░░░░░░░██                          
-                            ██░░░░░░░░░░░░██████░░░░░░░░░░░░██                          
-                          ██░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░██                        
-                          ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██                        
-                        ██░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░██                      
-                        ██░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░██                      
-                      ██░░░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░░░██                    
-        ░░            ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██                    
-                        ██████████████████████████████████████████                      
-                                                                                        
-                                                                                        
-                  ░░''');
-  }
-  if (deprecatedStyle && deprecatedPackageParam) {
-    stderr.writeln('''
-    ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
-    │ ⚠️  Warning                                                                                     │
-    │   The `style` and `package_parameter_enabled` property moved from asset to under asset.output. │
-    │   It should be changed in the following pubspec.yaml.                                          │
-    │   https://github.com/FlutterGen/flutter_gen/pull/294                                           │
-    │                                                                                                │
-    │ [pubspec.yaml]                                                                                 │
-    │                                                                                                │
-    │  flutter_gen:                                                                                  │
-    │    assets:                                                                                     │
-    │      outputs:                                                                                  │
-    │        style: snake-case                                                                       │
-    │        package_parameter_enabled: true                                                         │
-    └────────────────────────────────────────────────────────────────────────────────────────────────┘''');
-  } else if (deprecatedStyle) {
-    stderr.writeln('''
-    ┌───────────────────────────────────────────────────────────────────────┐
-    │ ⚠️  Warning                                                            │
-    │   The `style` property moved from asset to under asset.output.        │
-    │   It should be changed in the following ways                          │
-    │   https://github.com/FlutterGen/flutter_gen/pull/294                  │
-    │                                                                       │
-    │ [pubspec.yaml]                                                        │
-    │                                                                       │
-    │  flutter_gen:                                                         │
-    │    assets:                                                            │
-    │      outputs:                                                         │
-    │        style: snake-case                                              │
-    └───────────────────────────────────────────────────────────────────────┘''');
-  } else if (deprecatedPackageParam) {
-    stderr.writeln('''
-    ┌────────────────────────────────────────────────────────────────────────────────────────┐
-    │ ⚠️  Warning                                                                             │
-    │   The `package_parameter_enabled` property moved from asset to under asset.output.     │
-    │   It should be changed in the following pubspec.yaml.                                  │
-    │   https://github.com/FlutterGen/flutter_gen/pull/294                                   │
-    │                                                                                        │
-    │ [pubspec.yaml]                                                                         │
-    │                                                                                        │
-    │  flutter_gen:                                                                          │
-    │    assets:                                                                             │
-    │      outputs:                                                                          │
-    │        package_parameter_enabled: true                                                 │
-    └────────────────────────────────────────────────────────────────────────────────────────┘''');
+    final deprecationBuffer = StringBuffer();
+    deprecationBuffer.writeln(sDeprecationHeader);
+    if (deprecatedStyle) {
+      deprecationBuffer.writeln(
+        sBuildDeprecation(
+          'style',
+          'asset',
+          'asset.output',
+          'https://github.com/FlutterGen/flutter_gen/pull/294',
+          [
+            '  assets:',
+            '    outputs:',
+            '      style: snake-case',
+          ],
+        ),
+      );
+    }
+    if (deprecatedPackageParam) {
+      deprecationBuffer.writeln(
+        sBuildDeprecation(
+          'package_parameter_enabled',
+          'asset',
+          'asset.output',
+          'https://github.com/FlutterGen/flutter_gen/pull/294',
+          [
+            '  assets:',
+            '    outputs:',
+            '      package_parameter_enabled: true',
+          ],
+        ),
+      );
+    }
+    throw InvalidSettingsException(deprecationBuffer.toString());
   }
 
   final classesBuffer = StringBuffer();

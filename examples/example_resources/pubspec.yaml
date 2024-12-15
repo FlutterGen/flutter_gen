@@ -11,7 +11,6 @@ dependencies:
     sdk: flutter
 
   flutter_svg: ^2.0.0
-  flare_flutter: ^3.0.0
   rive: ^0.11.0
   lottie: ^2.0.0
 
@@ -25,7 +24,6 @@ flutter_gen:
 
   integrations:
     flutter_svg: true
-    flare_flutter: true
     rive: true
     lottie: true
 

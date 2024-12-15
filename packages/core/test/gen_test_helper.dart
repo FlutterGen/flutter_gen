@@ -17,6 +17,7 @@ Future<List<String>> runAssetsGen(
   String fact, {
   String? build,
 }) async {
+  stdout.writeln('[DEBUG] test: Generate from config...');
   final pubspecFile = File(pubspec);
 
   File? buildFile;
@@ -28,6 +29,7 @@ Future<List<String>> runAssetsGen(
     assetsName: p.basename(generated),
   ).build();
 
+  stdout.writeln('[DEBUG] test: Generate from API...');
   final config = loadPubspecConfig(pubspecFile, buildFile: buildFile);
   final formatter = DartFormatter(
     languageVersion: DartFormatter.latestLanguageVersion,

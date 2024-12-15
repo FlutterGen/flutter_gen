@@ -32,14 +32,31 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
     '[FlutterGen] Reading options from $pubspecLocaleHint',
   );
 
+  YamlMap? getBuildFileOptions(File file) {
+    if (!file.existsSync()) {
+      return null;
+    }
+    final buildContent = file.readAsStringSync();
+    final rawMap = loadYaml(buildContent) as Map?;
+    final builders = rawMap?['targets']?[r'$default']?['builders'];
+    final optionBuildMap = (builders?['flutter_gen_runner'] ??
+        builders?['flutter_gen'])?['options'];
+    if (optionBuildMap is YamlMap && optionBuildMap.isNotEmpty) {
+      return optionBuildMap;
+    }
+    return null;
+  }
+
+  // Fallback to the build.yaml when no build file has been specified and
+  // the default one has valid configurations.
+  if (buildFile == null && getBuildFileOptions(File('build.yaml')) != null) {
+    buildFile = File('build.yaml');
+  }
+
   if (buildFile != null) {
     if (buildFile.existsSync()) {
-      final buildContent = buildFile.readAsStringSync();
-      final rawMap = loadYaml(buildContent) as Map?;
-      final builders = rawMap?['targets']?[r'$default']?['builders'];
-      final optionBuildMap = (builders?['flutter_gen_runner'] ??
-          builders?['flutter_gen'])?['options'];
-      if (optionBuildMap is YamlMap && optionBuildMap.isNotEmpty) {
+      final optionBuildMap = getBuildFileOptions(buildFile);
+      if (optionBuildMap != null) {
         final buildMap = {'flutter_gen': optionBuildMap};
         mergedMap = mergeMap([mergedMap, buildMap]);
         final buildLocaleHint = normalize(

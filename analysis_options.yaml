@@ -7,6 +7,7 @@ analyzer:
     - '**.g.dart'
     - 'test_resources/**'
   errors:
+    deprecated_member_use_from_same_package: ignore
     unnecessary_import: error
     unawaited_futures: error
 

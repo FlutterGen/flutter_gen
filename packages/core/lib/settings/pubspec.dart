@@ -4,7 +4,7 @@ part 'pubspec.g.dart';
 
 // NOTE: Run `melos gen:build_runner` after editing this file
 
-@JsonSerializable()
+@JsonSerializable(disallowUnrecognizedKeys: false)
 class Pubspec {
   Pubspec({
     required this.packageName,
@@ -24,7 +24,7 @@ class Pubspec {
   final Flutter flutter;
 }
 
-@JsonSerializable()
+@JsonSerializable(disallowUnrecognizedKeys: false)
 class Flutter {
   Flutter({
     required this.assets,
@@ -40,7 +40,7 @@ class Flutter {
   factory Flutter.fromJson(Map json) => _$FlutterFromJson(json);
 }
 
-@JsonSerializable()
+@JsonSerializable(disallowUnrecognizedKeys: false)
 class FlutterFonts {
   FlutterFonts({required this.family});
 
@@ -158,16 +158,12 @@ class FlutterGenFonts {
 class FlutterGenIntegrations {
   FlutterGenIntegrations({
     required this.flutterSvg,
-    required this.flareFlutter,
     required this.rive,
     required this.lottie,
   });
 
   @JsonKey(name: 'flutter_svg', required: true)
   final bool flutterSvg;
-
-  @JsonKey(name: 'flare_flutter', required: true)
-  final bool flareFlutter;
 
   @JsonKey(name: 'rive', required: true)
   final bool rive;

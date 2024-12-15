@@ -12,7 +12,6 @@ flutter_gen:
   # Optional
   integrations:
     flutter_svg: false
-    flare_flutter: false
     rive: false
     lottie: false
 
