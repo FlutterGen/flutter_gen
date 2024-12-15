@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_gen_core/generators/integrations/integration.dart';
 
 class FlareIntegration extends Integration {
@@ -74,7 +76,15 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
   String get className => 'FlareGenImage';
 
   @override
-  bool isSupport(AssetType asset) => asset.extension == '.flr';
+  bool isSupport(AssetType asset) {
+    if (asset.extension == '.flr') {
+      stdout.writeln(
+        'Legacy Flare files are no longer supported for the generation.\n'
+        'https://help.rive.app/getting-started/faq-1/importing-rive-1-files.',
+      );
+    }
+    return false;
+  }
 
   @override
   bool get isConstConstructor => true;

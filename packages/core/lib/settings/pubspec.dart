@@ -166,6 +166,7 @@ class FlutterGenIntegrations {
   @JsonKey(name: 'flutter_svg', required: true)
   final bool flutterSvg;
 
+  @Deprecated('This will be removed in 6.0.0')
   @JsonKey(name: 'flare_flutter', required: true)
   final bool flareFlutter;
 

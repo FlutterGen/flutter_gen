@@ -7,8 +7,6 @@
 // ignore_for_file: type=lint
 // ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
-import 'package:flare_flutter/flare_actor.dart' as _flare_actor;
-import 'package:flare_flutter/flare_controller.dart' as _flare_controller;
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart' as _svg;
@@ -28,10 +26,10 @@ class $AssetsFlareGen {
   const $AssetsFlareGen();
 
   /// File path: assets/flare/Penguin.flr
-  FlareGenImage get penguin => const FlareGenImage('assets/flare/Penguin.flr');
+  String get penguin => 'assets/flare/Penguin.flr';
 
   /// List of all assets
-  List<FlareGenImage> get values => [penguin];
+  List<String> get values => [penguin];
 }
 
 class $AssetsImagesGen {
@@ -56,13 +54,16 @@ class $AssetsImagesGen {
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
   /// File path: assets/images/profile.jpg
-  AssetGenImage get profileJpg => const AssetGenImage('assets/images/profile.jpg');
+  AssetGenImage get profileJpg =>
+      const AssetGenImage('assets/images/profile.jpg');
 
   /// File path: assets/images/profile.png
-  AssetGenImage get profilePng => const AssetGenImage('assets/images/profile.png');
+  AssetGenImage get profilePng =>
+      const AssetGenImage('assets/images/profile.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [chip1, chip2, logo, profileJpg, profilePng];
+  List<AssetGenImage> get values =>
+      [chip1, chip2, logo, profileJpg, profilePng];
 }
 
 class $AssetsJsonGen {
@@ -102,7 +103,8 @@ class $AssetsImagesChip3Gen {
   const $AssetsImagesChip3Gen();
 
   /// File path: assets/images/chip3/chip3.jpg
-  AssetGenImage get chip3 => const AssetGenImage('assets/images/chip3/chip3.jpg');
+  AssetGenImage get chip3 =>
+      const AssetGenImage('assets/images/chip3/chip3.jpg');
 
   /// List of all assets
   List<AssetGenImage> get values => [chip3];
@@ -112,7 +114,8 @@ class $AssetsImagesChip4Gen {
   const $AssetsImagesChip4Gen();
 
   /// File path: assets/images/chip4/chip4.jpg
-  AssetGenImage get chip4 => const AssetGenImage('assets/images/chip4/chip4.jpg');
+  AssetGenImage get chip4 =>
+      const AssetGenImage('assets/images/chip4/chip4.jpg');
 
   /// List of all assets
   List<AssetGenImage> get values => [chip4];
@@ -122,10 +125,12 @@ class $AssetsImagesIconsGen {
   const $AssetsImagesIconsGen();
 
   /// File path: assets/images/icons/dart@test.svg
-  SvgGenImage get dartTest => const SvgGenImage('assets/images/icons/dart@test.svg');
+  SvgGenImage get dartTest =>
+      const SvgGenImage('assets/images/icons/dart@test.svg');
 
   /// File path: assets/images/icons/fuchsia.svg
-  SvgGenImage get fuchsia => const SvgGenImage('assets/images/icons/fuchsia.svg');
+  SvgGenImage get fuchsia =>
+      const SvgGenImage('assets/images/icons/fuchsia.svg');
 
   /// File path: assets/images/icons/kmm.svg
   SvgGenImage get kmm => const SvgGenImage('assets/images/icons/kmm.svg');
@@ -298,56 +303,10 @@ class SvgGenImage {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      colorFilter: colorFilter ?? (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
+      colorFilter: colorFilter ??
+          (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
-    );
-  }
-
-  String get path => _assetName;
-
-  String get keyName => _assetName;
-}
-
-class FlareGenImage {
-  const FlareGenImage(
-    this._assetName, {
-    this.flavors = const {},
-  });
-
-  final String _assetName;
-  final Set<String> flavors;
-
-  _flare_actor.FlareActor flare({
-    String? boundsNode,
-    String? animation,
-    BoxFit fit = BoxFit.contain,
-    Alignment alignment = Alignment.center,
-    bool isPaused = false,
-    bool snapToEnd = false,
-    _flare_controller.FlareController? controller,
-    _flare_actor.FlareCompletedCallback? callback,
-    Color? color,
-    bool shouldClip = true,
-    bool sizeFromArtboard = false,
-    String? artboard,
-    bool antialias = true,
-  }) {
-    return _flare_actor.FlareActor(
-      _assetName,
-      boundsNode: boundsNode,
-      animation: animation,
-      fit: fit,
-      alignment: alignment,
-      isPaused: isPaused,
-      snapToEnd: snapToEnd,
-      controller: controller,
-      callback: callback,
-      color: color,
-      shouldClip: shouldClip,
-      sizeFromArtboard: sizeFromArtboard,
-      artboard: artboard,
-      antialias: antialias,
     );
   }
 

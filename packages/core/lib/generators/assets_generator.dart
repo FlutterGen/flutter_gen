@@ -73,10 +73,8 @@ Future<String> generateAssets(
       LottieIntegration(config.packageParameterLiteral),
   ];
 
-  // ignore: deprecated_member_use_from_same_package
   final deprecatedStyle = config.flutterGen.assets.style != null;
   final deprecatedPackageParam =
-      // ignore: deprecated_member_use_from_same_package
       config.flutterGen.assets.packageParameterEnabled != null;
   if (deprecatedStyle || deprecatedPackageParam) {
     stderr.writeln('''

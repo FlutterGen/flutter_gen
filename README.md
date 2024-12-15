@@ -148,7 +148,6 @@ flutter_gen:
   # Optional
   integrations:
     flutter_svg: true
-    flare_flutter: true
     rive: true
     lottie: true
 
@@ -398,10 +397,8 @@ Widget build(BuildContext context) {
 | Packages                                                | File extension | Setting               | Usage                                     |
 |---------------------------------------------------------|----------------|-----------------------|-------------------------------------------|
 | [flutter_svg](https://pub.dev/packages/flutter_svg)     | .svg           | `flutter_svg: true`   | Assets.images.icons.paint.**svg()**       |
-| [flare_flutter](https://pub.dev/packages/flare_flutter) | .flr           | `flare_flutter: true` | Assets.flare.penguin.**flare()**          |
-| [rive](https://pub.dev/packages/rive)                   | .flr           | `rive: true`          | Assets.rive.vehicles.**rive()**           |
+| [rive](https://pub.dev/packages/rive)                   | .riv           | `rive: true`          | Assets.rive.vehicles.**rive()**           |
 | [lottie](https://pub.dev/packages/lottie)               | .json, .zip    | `lottie: true`        | Assets.lottie.hamburgerArrow.**lottie()** |
-
 
 In other cases, the asset is generated as String class.
 
