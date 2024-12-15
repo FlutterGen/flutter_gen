@@ -23,7 +23,7 @@ String import(Import package) {
       '${package.alias != null ? ' as ${package.alias}' : ''};';
 }
 
-const sWarning = '''
+const sDeprecationHeader = '''
                                                                                         
                 ░░░░                                                                    
                                                                                         
@@ -59,7 +59,7 @@ String sBuildDeprecation(
   List<String> migration,
 ) {
   final lines = <String>[
-    '⚠️  Warning',
+    '⚠️ Error',
     'The $deprecated option has been moved from `$oldLocation` to `$newLocation`.',
     'It should be changed in the `pubspec.yaml`.',
     url,

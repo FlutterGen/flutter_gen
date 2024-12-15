@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/utils/cast.dart';
+import 'package:flutter_gen_core/utils/error.dart';
 import 'package:flutter_gen_core/version.gen.dart';
 
-void main(List<String> args) {
+void main(List<String> args) async {
   final parser = ArgParser();
   parser.addOption(
     'config',
@@ -62,5 +63,9 @@ void main(List<String> args) {
   }
   final buildFile = buildPath == null ? null : File(buildPath).absolute;
 
-  FlutterGenerator(pubspecFile, buildFile: buildFile).build();
+  try {
+    await FlutterGenerator(pubspecFile, buildFile: buildFile).build();
+  } on InvalidSettingsException catch (e) {
+    stderr.write(e.message);
+  }
 }

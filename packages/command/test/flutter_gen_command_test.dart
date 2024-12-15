@@ -79,7 +79,7 @@ void main() {
       ],
     );
     final errors = (await process.stderr.rest.toList()).join('\n');
-    expect(errors, contains(helper.sWarning));
+    expect(errors, contains(helper.sDeprecationHeader));
     expect(errors, contains('style'));
     expect(errors, contains('package_parameter_enabled'));
     await process.shouldExit(0);

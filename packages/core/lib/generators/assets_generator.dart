@@ -75,9 +75,10 @@ Future<String> generateAssets(
   final deprecatedPackageParam =
       config.flutterGen.assets.packageParameterEnabled != null;
   if (deprecatedStyle || deprecatedPackageParam) {
-    stderr.writeln(sWarning);
+    final deprecationBuffer = StringBuffer();
+    deprecationBuffer.writeln(sDeprecationHeader);
     if (deprecatedStyle) {
-      stderr.writeln(
+      deprecationBuffer.writeln(
         sBuildDeprecation(
           'style',
           'asset',
@@ -92,7 +93,7 @@ Future<String> generateAssets(
       );
     }
     if (deprecatedPackageParam) {
-      stderr.writeln(
+      deprecationBuffer.writeln(
         sBuildDeprecation(
           'package_parameter_enabled',
           'asset',
@@ -106,6 +107,7 @@ Future<String> generateAssets(
         ),
       );
     }
+    throw InvalidSettingsException(deprecationBuffer.toString());
   }
 
   final classesBuffer = StringBuffer();

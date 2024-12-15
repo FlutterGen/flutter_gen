@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_gen_core/flutter_generator.dart';
+import 'package:flutter_gen_core/utils/error.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -57,6 +58,15 @@ void main() {
       expect(File(assets).existsSync(), isFalse);
       expect(File(fonts).existsSync(), isFalse);
       expect(File(colors).existsSync(), isFalse);
+    });
+
+    test('Deprecated configs throws a InvalidSettingsException', () {
+      const pubspec = 'test_resources/deprecated_configs.yaml';
+
+      expect(
+        () => FlutterGenerator(File(pubspec)).build(),
+        throwsA(isA<InvalidSettingsException>()),
+      );
     });
   });
 
