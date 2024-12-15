@@ -285,7 +285,7 @@ void main() {
         ),
         equals('''
 ┌─────────────────────────────────────────────────────────────────┐
-| ⚠️  Warning                                                     |
+| ⚠️ Error                                                        |
 | The style option has been moved from `asset` to `asset.output`. |
 | It should be changed in the `pubspec.yaml`.                     |
 | https://github.com/FlutterGen/flutter_gen/pull/294              |
