@@ -60,7 +60,7 @@ void main() {
     );
     expect(
       await process.stderr.next,
-      equals('Could not find an option named "wrong".'),
+      equals('Could not find an option named "--wrong".'),
     );
     expect(
       await process.stderr.next,
