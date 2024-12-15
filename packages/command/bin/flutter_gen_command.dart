@@ -18,7 +18,6 @@ void main(List<String> args) {
     'build',
     abbr: 'b',
     help: 'Set the path of build.yaml.',
-    defaultsTo: 'build.yaml',
   );
 
   parser.addFlag(
@@ -57,11 +56,11 @@ void main(List<String> args) {
   }
   final pubspecFile = File(pubspecPath).absolute;
 
-  final buildPath = safeCast<String>(results['build']);
-  if (buildPath == null || buildPath.trim().isEmpty) {
+  final buildPath = safeCast<String>(results['build'])?.trim();
+  if (buildPath?.isEmpty ?? false) {
     throw ArgumentError('Invalid value $buildPath', 'build');
   }
-  final buildFile = File(buildPath).absolute;
+  final buildFile = buildPath == null ? null : File(buildPath).absolute;
 
   FlutterGenerator(pubspecFile, buildFile: buildFile).build();
 }

@@ -1,5 +1,6 @@
 import 'dart:io' show Platform;
 
+import 'package:flutter_gen_core/generators/generator_helper.dart' as helper;
 import 'package:flutter_gen_core/version.gen.dart';
 import 'package:test/test.dart';
 import 'package:test_process/test_process.dart';
@@ -52,7 +53,7 @@ void main() {
     await process.shouldExit(0);
   });
 
-  test('Execute wrong argments with fluttergen --wrong', () async {
+  test('Execute wrong arguments with fluttergen --wrong', () async {
     var process = await TestProcess.start(
       'dart',
       ['bin/flutter_gen_command.dart', '--wrong'],
@@ -65,6 +66,22 @@ void main() {
       await process.stderr.next,
       equals('usage: flutter_gen [options...]'),
     );
+    await process.shouldExit(0);
+  });
+
+  test('Execute deprecated config with fluttergen', () async {
+    final process = await TestProcess.start(
+      'dart',
+      [
+        'bin/flutter_gen_command.dart',
+        '--config',
+        'test/deprecated_configs.yaml',
+      ],
+    );
+    final errors = (await process.stderr.rest.toList()).join('\n');
+    expect(errors, contains(helper.sWarning));
+    expect(errors, contains('style'));
+    expect(errors, contains('package_parameter_enabled'));
     await process.shouldExit(0);
   });
 }

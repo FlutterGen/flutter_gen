@@ -32,6 +32,12 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
     '[FlutterGen] Reading options from $pubspecLocaleHint',
   );
 
+  // Fallback to the build.yaml when no build file has been specified and
+  // the default one exists.
+  if (buildFile == null && File('build.yaml').existsSync()) {
+    buildFile = File('build.yaml');
+  }
+
   if (buildFile != null) {
     if (buildFile.existsSync()) {
       final buildContent = buildFile.readAsStringSync();

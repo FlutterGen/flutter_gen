@@ -12,7 +12,6 @@ Pubspec _$PubspecFromJson(Map json) => $checkedCreate(
       ($checkedConvert) {
         $checkKeys(
           json,
-          allowedKeys: const ['name', 'flutter_gen', 'flutter'],
           requiredKeys: const ['name', 'flutter_gen', 'flutter'],
         );
         final val = Pubspec(
@@ -33,7 +32,6 @@ Flutter _$FlutterFromJson(Map json) => $checkedCreate(
       ($checkedConvert) {
         $checkKeys(
           json,
-          allowedKeys: const ['assets', 'fonts'],
           requiredKeys: const ['assets', 'fonts'],
         );
         final val = Flutter(
@@ -55,7 +53,6 @@ FlutterFonts _$FlutterFontsFromJson(Map json) => $checkedCreate(
       ($checkedConvert) {
         $checkKeys(
           json,
-          allowedKeys: const ['family'],
           requiredKeys: const ['family'],
         );
         final val = FlutterFonts(
