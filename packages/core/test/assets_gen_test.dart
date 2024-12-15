@@ -253,6 +253,20 @@ void main() {
         await expectedAssetsGen(pubspec, generated, fact, build: build);
       },
     );
+
+    test('fallback to build.yaml if valid', () async {
+      const pubspec = 'test_resources/pubspec_assets.yaml';
+      const fact = 'test_resources/actual_data/build_assets.gen.dart';
+      const generated = 'test_resources/lib/build_gen/assets.gen.dart';
+
+      final buildFile = File('build.yaml');
+      final originalBuildContent = buildFile.readAsStringSync();
+      buildFile.writeAsStringSync(
+        File('test_resources/build_assets.yaml').readAsStringSync(),
+      );
+      await expectedAssetsGen(pubspec, generated, fact);
+      buildFile.writeAsStringSync(originalBuildContent);
+    });
   });
 
   group('Test generatePackageNameForConfig', () {
