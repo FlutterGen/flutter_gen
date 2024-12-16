@@ -1,7 +1,7 @@
-# https://docs.codecov.io/docs/commit-status
 codecov:
   notify:
-    require_ci_to_pass: yes
+    wait_for_ci: true
+  require_ci_to_pass: yes
 
 coverage:
   status:
@@ -10,7 +10,7 @@ coverage:
         # basic
         target: 0%
         threshold: 0%
-        base: 0%
+        base: auto
         # advanced
         branches: null
         if_no_uploads: error
