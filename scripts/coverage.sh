@@ -4,7 +4,7 @@ set -e
 set -o pipefail
 
 # Validate the configurations.
-curl --data-binary @codecov.yaml https://codecov.io/validate
+curl --data-binary @codecov.yml https://codecov.io/validate
 
 DIR="${1}"
 cd "${DIR}" || exit
