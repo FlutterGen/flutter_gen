@@ -102,6 +102,13 @@ void main() {
       await expectedAssetsGen(pubspec, generated, fact);
     });
 
+    test('Assets with directory path and package parameter enabled', () async {
+      const pubspec = 'test_resources/pubspec_assets_directory_path_with_package_parameter.yaml';
+      const fact = 'test_resources/actual_data/assets_directory_path_with_package_parameter.gen.dart';
+      const generated = 'test_resources/lib/gen/assets_directory_path_with_package_parameter.gen.dart';
+      await expectedAssetsGen(pubspec, generated, fact);
+    });
+
     test('Assets with excluded files and directories', () async {
       const pubspec = 'test_resources/pubspec_assets_exclude_files.yaml';
       const fact =
