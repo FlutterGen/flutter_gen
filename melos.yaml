@@ -20,17 +20,13 @@ command:
         description: flutter clean
 
 scripts:
-  get:
-    run: flutter pub get
-    exec:
-      concurrency: 1
-    description: flutter pub get
-
   upgrade:
-    run: flutter pub upgrade
+    run: dart pub upgrade
     exec:
       concurrency: 1
-    description: flutter pub upgrade
+    packageFilters:
+      flutter: false
+    description: dart pub upgrade
 
   analyze:
     exec: flutter analyze
