@@ -17,42 +17,35 @@ class AssetType {
   final Set<String> flavors;
 
   final List<AssetType> _children = List.empty(growable: true);
+  late final children = _children.sortedBy((e) => e.path);
 
-  bool get isDefaultAssetsDirectory => path == 'assets' || path == 'asset';
+  late final isDefaultAssetsDirectory = path == 'assets' || path == 'asset';
+  late final mime = lookupMimeType(path);
+  late final isUnKnownMime = mime == null;
 
-  String? get mime => lookupMimeType(path);
+  /// Returns a name for this asset.
+  late final name = p.withoutExtension(path);
+  late final baseName = p.basenameWithoutExtension(path);
+  late final extension = p.extension(path);
 
-  bool get isIgnoreFile {
+  /// Returns the full absolute path for reading the asset file.
+  late final fullPath = p.join(rootPath, path);
+
+  // Replace to Posix style for Windows separator.
+  late final posixStylePath = path.replaceAll(r'\', r'/');
+
+  late final bool isIgnoreFile = () {
     switch (baseName) {
       case '.DS_Store':
         return true;
     }
-
     switch (extension) {
       case '.DS_Store':
       case '.swp':
         return true;
     }
-
     return false;
-  }
-
-  bool get isUnKnownMime => mime == null;
-
-  /// Returns a name for this asset.
-  String get name => p.withoutExtension(path);
-
-  String get baseName => p.basenameWithoutExtension(path);
-
-  String get extension => p.extension(path);
-
-  /// Returns the full absolute path for reading the asset file.
-  String get fullPath => p.join(rootPath, path);
-
-  // Replace to Posix style for Windows separator.
-  String get posixStylePath => path.replaceAll(r'\', r'/');
-
-  List<AssetType> get children => _children.sortedBy((e) => e.path);
+  }();
 
   void addChild(AssetType type) {
     _children.add(type);
@@ -125,7 +118,7 @@ class UniqueAssetType extends AssetType {
 }
 
 extension AssetTypeIterable on Iterable<AssetType> {
-  /// Takes a Iterable<AssetType> and mutates the AssetType's to ensure each
+  /// Takes a `Iterable<AssetType>` and mutates the AssetType's to ensure each
   /// AssetType has a unique name.
   ///
   /// The strategy is as follows:

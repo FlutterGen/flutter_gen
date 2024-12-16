@@ -74,6 +74,10 @@ class $AssetsJsonGen {
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
+  /// File path: assets/lottie/XuiIZ9X1Rf.lottie
+  LottieGenImage get xuiIZ9X1Rf =>
+      const LottieGenImage('assets/lottie/XuiIZ9X1Rf.lottie');
+
   /// File path: assets/lottie/alarm-clock-lottie-v440.json
   LottieGenImage get alarmClockLottieV440 =>
       const LottieGenImage('assets/lottie/alarm-clock-lottie-v440.json');
@@ -95,11 +99,12 @@ class $AssetsLottieGen {
 
   /// List of all assets
   List<LottieGenImage> get values => [
-        alarmClockLottieV440,
-        geometricalAnimation,
-        hamburgerArrow,
-        spinningCarrousel
-      ];
+    xuiIZ9X1Rf,
+    alarmClockLottieV440,
+    geometricalAnimation,
+    hamburgerArrow,
+    spinningCarrousel,
+  ];
 }
 
 class $AssetsMixGen {

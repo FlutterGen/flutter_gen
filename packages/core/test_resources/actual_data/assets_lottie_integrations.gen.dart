@@ -13,6 +13,10 @@ import 'package:lottie/lottie.dart' as _lottie;
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
+  /// File path: assets/lottie/XuiIZ9X1Rf.lottie
+  LottieGenImage get xuiIZ9X1Rf =>
+      const LottieGenImage('assets/lottie/XuiIZ9X1Rf.lottie');
+
   /// File path: assets/lottie/hamburger_arrow.json
   LottieGenImage get hamburgerArrow =>
       const LottieGenImage('assets/lottie/hamburger_arrow.json');
@@ -22,7 +26,8 @@ class $AssetsLottieGen {
       const LottieGenImage('assets/lottie/spinning_carrousel.zip');
 
   /// List of all assets
-  List<LottieGenImage> get values => [hamburgerArrow, spinningCarrousel];
+  List<LottieGenImage> get values =>
+      [xuiIZ9X1Rf, hamburgerArrow, spinningCarrousel];
 }
 
 class Assets {
