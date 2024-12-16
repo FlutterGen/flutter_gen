@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
+set -e
 set -o pipefail
-
-DIR="${1}"
-cd "${DIR}" || exit
 
 # Validate the configurations.
 curl --data-binary @codecov.yaml https://codecov.io/validate
+
+DIR="${1}"
+cd "${DIR}" || exit
 
 dart pub global activate coverage
 dart run coverage:test_with_coverage --port=9292
