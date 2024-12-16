@@ -394,11 +394,11 @@ Widget build(BuildContext context) {
 
 **Available Integrations**
 
-| Packages                                                | File extension | Setting               | Usage                                     |
-|---------------------------------------------------------|----------------|-----------------------|-------------------------------------------|
-| [flutter_svg](https://pub.dev/packages/flutter_svg)     | .svg           | `flutter_svg: true`   | Assets.images.icons.paint.**svg()**       |
-| [rive](https://pub.dev/packages/rive)                   | .riv           | `rive: true`          | Assets.rive.vehicles.**rive()**           |
-| [lottie](https://pub.dev/packages/lottie)               | .json, .zip    | `lottie: true`        | Assets.lottie.hamburgerArrow.**lottie()** |
+| Packages                                                | File extension       | Setting               | Usage                                     |
+|---------------------------------------------------------|----------------------|-----------------------|-------------------------------------------|
+| [flutter_svg](https://pub.dev/packages/flutter_svg)     | .svg                 | `flutter_svg: true`   | Assets.images.icons.paint.**svg()**       |
+| [rive](https://pub.dev/packages/rive)                   | .riv                 | `rive: true`          | Assets.rive.vehicles.**rive()**           |
+| [lottie](https://pub.dev/packages/lottie)               | .json, .zip, .lottie | `lottie: true`        | Assets.lottie.hamburgerArrow.**lottie()** |
 
 In other cases, the asset is generated as String class.
 
