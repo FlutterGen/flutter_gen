@@ -1,12 +1,13 @@
-import 'dart:io';
+import 'dart:io' show stdout, Directory, File, Platform;
 
-import 'package:dart_style/dart_style.dart';
+import 'package:dart_style/dart_style.dart' show DartFormatter;
 import 'package:flutter_gen_core/generators/assets_generator.dart';
 import 'package:flutter_gen_core/generators/colors_generator.dart';
 import 'package:flutter_gen_core/generators/fonts_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:flutter_gen_core/utils/file.dart';
-import 'package:path/path.dart';
+import 'package:path/path.dart' show join, normalize;
+import 'package:pub_semver/pub_semver.dart' show Version;
 
 class FlutterGenerator {
   const FlutterGenerator(
@@ -32,7 +33,7 @@ class FlutterGenerator {
     final output = config.pubspec.flutterGen.output;
     final lineLength = config.pubspec.flutterGen.lineLength;
     final formatter = DartFormatter(
-      languageVersion: DartFormatter.latestLanguageVersion,
+      languageVersion: Version.parse(Platform.version.split(' ').first),
       pageWidth: lineLength,
       lineEnding: '\n',
     );

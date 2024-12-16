@@ -13,7 +13,7 @@ analyzer:
 
 linter:
   rules:
-    always_use_package_imports: true
+    # always_use_package_imports: true
     avoid_equals_and_hash_code_on_mutable_classes: true
     avoid_classes_with_only_static_members: true
     directives_ordering: true
