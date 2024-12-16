@@ -316,19 +316,19 @@ Future<String> _dotDelimiterStyleDefinition(
   List<Integration> integrations,
 ) async {
   final rootPath = Directory(config.rootPath).absolute.uri.toFilePath();
-  final buffer = StringBuffer();
-  final className = config.flutterGen.assets.outputs.className;
+  final packageName = generatePackageNameForConfig(config);
+  final outputs = config.flutterGen.assets.outputs;
   final assetRelativePathList = _getAssetRelativePathList(
     rootPath,
     config.assets,
     config.exclude,
   );
-  final assetsStaticStatements = <_Statement>[];
-
   final assetTypeQueue = ListQueue<AssetType>.from(
     _constructAssetTree(assetRelativePathList, rootPath).children,
   );
 
+  final assetsStaticStatements = <_Statement>[];
+  final buffer = StringBuffer();
   while (assetTypeQueue.isNotEmpty) {
     final assetType = assetTypeQueue.removeFirst();
     String assetPath = join(rootPath, assetType.path);
@@ -346,13 +346,7 @@ Future<String> _dotDelimiterStyleDefinition(
       final List<_Statement?> results = await Future.wait(
         assetType.children
             .mapToUniqueAssetType(camelCase, justBasename: true)
-            .map(
-              (e) => _createAssetTypeStatement(
-                config,
-                e,
-                integrations,
-              ),
-            ),
+            .map((e) => _createAssetTypeStatement(config, e, integrations)),
       );
       final statements = results.whereType<_Statement>().toList();
 
@@ -368,14 +362,15 @@ Future<String> _dotDelimiterStyleDefinition(
         assetsStaticStatements.add(statement!);
       } else {
         final className = '\$${assetType.path.camelCase().capitalize()}Gen';
+        String? directoryPath;
+        if (outputs.directoryPathEnabled) {
+          directoryPath = assetType.posixStylePath;
+          if (packageName != null) {
+            directoryPath = 'packages/$packageName/$directoryPath';
+          }
+        }
         buffer.writeln(
-          _directoryClassGenDefinition(
-            className,
-            statements,
-            config.flutterGen.assets.outputs.directoryPathEnabled
-                ? assetType.posixStylePath
-                : null,
-          ),
+          _directoryClassGenDefinition(className, statements, directoryPath),
         );
         // Add this directory reference to Assets class
         // if we are not under the default asset folder
@@ -395,10 +390,9 @@ Future<String> _dotDelimiterStyleDefinition(
       assetTypeQueue.addAll(assetType.children);
     }
   }
-  final String? packageName = generatePackageNameForConfig(config);
   buffer.writeln(
     _dotDelimiterStyleAssetsClassDefinition(
-      className,
+      outputs.className,
       assetsStaticStatements,
       packageName,
     ),
