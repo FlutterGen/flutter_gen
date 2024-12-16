@@ -7,6 +7,7 @@ import 'package:flutter_gen_core/generators/fonts_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:flutter_gen_core/utils/file.dart';
 import 'package:path/path.dart';
+import 'package:pub_semver/pub_semver.dart';
 
 class FlutterGenerator {
   const FlutterGenerator(
@@ -32,7 +33,7 @@ class FlutterGenerator {
     final output = config.pubspec.flutterGen.output;
     final lineLength = config.pubspec.flutterGen.lineLength;
     final formatter = DartFormatter(
-      languageVersion: DartFormatter.latestLanguageVersion,
+      languageVersion: Version.parse(Platform.version.split(' ').first),
       pageWidth: lineLength,
       lineEnding: '\n',
     );
