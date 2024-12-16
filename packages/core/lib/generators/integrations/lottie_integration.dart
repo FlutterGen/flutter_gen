@@ -116,12 +116,15 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
   @override
   bool get isConstConstructor => true;
 
-  bool isLottieFile(AssetType type) {
-    if (!_supportedMimeTypes.contains(type.mime)) {
+  bool isLottieFile(AssetType asset) {
+    if (asset.extension == '.lottie') {
+      return true;
+    }
+    if (!_supportedMimeTypes.contains(asset.mime)) {
       return false;
     }
-    if (type.mime == 'application/zip') {
-      final inputStream = InputFileStream(type.fullPath);
+    if (asset.mime == 'application/zip') {
+      final inputStream = InputFileStream(asset.fullPath);
       final archive = ZipDecoder().decodeBuffer(inputStream);
       final jsonFile = archive.files.firstWhereOrNull(
         (e) => e.name.endsWith('.json'),
@@ -130,9 +133,9 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
         return false;
       }
       final content = utf8.decode(jsonFile!.content);
-      return _isValidJsonFile(type, overrideInput: content);
+      return _isValidJsonFile(asset, overrideInput: content);
     }
-    return _isValidJsonFile(type);
+    return _isValidJsonFile(asset);
   }
 
   bool _isValidJsonFile(AssetType type, {String? overrideInput}) {
