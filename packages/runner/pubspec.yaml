@@ -10,10 +10,7 @@ environment:
   sdk: ">=2.17.0 <4.0.0"
 
 dependencies:
-  flutter_gen_core:
-    git:
-      url: https://github.com/CaoGiaHieu-dev/flutter_gen.git
-      path: packages/core
+  flutter_gen_core: 5.9.0
   build: ^2.0.0
   collection: ^1.17.0
   crypto: ^3.0.0
