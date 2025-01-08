@@ -16,7 +16,7 @@ dependencies:
   meta: ^1.7.0
   path: ^1.8.0
   yaml: ^3.0.0
-  mime: '>=1.0.0 <3.0.0'
+  mime: ">=1.0.0 <3.0.0"
   xml: ^6.0.0
   dartx: ^1.0.0
   color: ^3.0.0
@@ -24,8 +24,8 @@ dependencies:
   json_annotation: ^4.4.0
   glob: ^2.0.0
 
-  dart_style: '>=2.2.4 <4.0.0'
-  archive: ^3.4.0
+  dart_style: ">=2.2.4 <4.0.0"
+  archive: ^4.0.2
   args: ^2.0.0
   pub_semver: ^2.0.0
   vector_graphics_compiler: ^1.1.9
