@@ -125,7 +125,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
     }
     if (asset.mime == 'application/zip') {
       final inputStream = InputFileStream(asset.fullPath);
-      final archive = ZipDecoder().decodeStream(inputStream);
+      final archive = ZipDecoder().decodeBuffer(inputStream);
       final jsonFile = archive.files.firstWhereOrNull(
         (e) => e.name.endsWith('.json'),
       );

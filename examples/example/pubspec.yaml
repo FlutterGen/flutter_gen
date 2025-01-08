@@ -1,10 +1,9 @@
 name: example
 description: A sample project using FlutterGen.
-publish_to: 'none'
+publish_to: "none"
 
 environment:
-  sdk: '>=3.2.0 <4.0.0'
-  flutter: '>=3.16.0'
+  sdk: ">=3.2.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -12,15 +11,18 @@ dependencies:
 
   flutter_svg: ^2.0.0
   rive: ^0.11.0
-  lottie: ^2.0.0
+  lottie: ^3.3.0
 
   example_resources:
     path: ../example_resources
 
+dependency_overrides:
+  lottie: ^3.3.0
+
 dev_dependencies:
   lints: ^2.0.0
   build_runner: ^2.0.0
-  flutter_gen_runner: ^5.8.0
+  flutter_gen_runner: ^5.9.0
   flutter_test:
     sdk: flutter
 
