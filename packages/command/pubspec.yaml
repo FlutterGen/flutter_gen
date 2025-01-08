@@ -13,7 +13,7 @@ executables:
   fluttergen: flutter_gen_command
 
 dependencies:
-  flutter_gen_core: 5.9.0
+  flutter_gen_core: 5.8.0
   args: ^2.0.0
 
 dev_dependencies:
