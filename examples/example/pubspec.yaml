@@ -1,9 +1,9 @@
 name: example
 description: A sample project using FlutterGen.
-publish_to: "none"
+publish_to: 'none'
 
 environment:
-  sdk: ">=3.2.0 <4.0.0"
+  sdk: '>=3.2.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -15,9 +15,6 @@ dependencies:
 
   example_resources:
     path: ../example_resources
-
-dependency_overrides:
-  lottie: ^3.3.0
 
 dev_dependencies:
   lints: ^2.0.0

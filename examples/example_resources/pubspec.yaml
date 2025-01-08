@@ -1,9 +1,9 @@
 name: example_resources
 description: A sample project using FlutterGen.
-publish_to: "none"
+publish_to: 'none'
 
 environment:
-  sdk: ">=3.2.0 <4.0.0"
+  sdk: '>=3.2.0 <4.0.0'
 
 dependencies:
   flutter:
