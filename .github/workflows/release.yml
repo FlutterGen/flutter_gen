@@ -34,9 +34,6 @@ jobs:
           flutter-version: ${{ steps.asdf.outputs.flutter }}
           channel: stable
           cache: true
-      - uses: dart-lang/setup-dart@v1
-        with:
-          sdk: ${{ steps.asdf.outputs.dart }}
 
       - name: Set environment
         run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
