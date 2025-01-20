@@ -33,7 +33,7 @@ class FlutterGenerator {
     final output = config.pubspec.flutterGen.output;
     final lineLength = config.pubspec.flutterGen.lineLength;
     final formatter = DartFormatter(
-      languageVersion: Version.parse(Platform.version.split(' ').first),
+      languageVersion: DartFormatter.latestLanguageVersion,
       pageWidth: lineLength,
       lineEnding: '\n',
     );
