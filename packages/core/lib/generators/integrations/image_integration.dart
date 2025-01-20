@@ -155,7 +155,10 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
   /// Extract metadata from the asset.
   ImageMetadata? _getMetadata(AssetType asset) {
     try {
-      final size = ImageSizeGetter.getSize(FileInput(File(asset.fullPath)));
+      final result = ImageSizeGetter.getSizeResult(
+        FileInput(File(asset.fullPath)),
+      );
+      final size = result.size;
       return ImageMetadata(size.width.toDouble(), size.height.toDouble());
     } catch (e) {
       stderr

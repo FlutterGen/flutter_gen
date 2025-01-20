@@ -29,7 +29,7 @@ dependencies:
   args: ^2.0.0
   pub_semver: ^2.0.0
   vector_graphics_compiler: ^1.1.9
-  image_size_getter: ^2.1.2
+  image_size_getter: ^2.4.0
 
 dev_dependencies:
   lints: any # Ignoring the version to allow editing across SDK versions.

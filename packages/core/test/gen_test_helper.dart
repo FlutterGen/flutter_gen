@@ -7,7 +7,6 @@ import 'package:flutter_gen_core/generators/colors_generator.dart';
 import 'package:flutter_gen_core/generators/fonts_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:path/path.dart' as p;
-import 'package:pub_semver/pub_semver.dart' show Version;
 import 'package:test/test.dart';
 
 final dartFormatterLanguageVersion = DartFormatter.latestLanguageVersion;
