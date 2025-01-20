@@ -59,8 +59,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
     bool matchTextDirection = false,
     bool gaplessPlayback = true,
     bool isAntiAlias = false,
-    ${isPackage ? deprecationMessagePackage : ''}
-    String? package$packageParameter,
+    ${isPackage ? '$deprecationMessagePackage\n' : ''}String? package$packageParameter,
     FilterQuality filterQuality = FilterQuality.medium,
     int? cacheWidth,
     int? cacheHeight,
@@ -95,8 +94,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   ImageProvider provider({
     AssetBundle? bundle,
-    ${isPackage ? deprecationMessagePackage : ''}
-    String? package$packageParameter,
+    ${isPackage ? '$deprecationMessagePackage\n' : ''}String? package$packageParameter,
   }) {
     return AssetImage(
       _assetName,
@@ -157,7 +155,10 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
   /// Extract metadata from the asset.
   ImageMetadata? _getMetadata(AssetType asset) {
     try {
-      final size = ImageSizeGetter.getSize(FileInput(File(asset.fullPath)));
+      final result = ImageSizeGetter.getSizeResult(
+        FileInput(File(asset.fullPath)),
+      );
+      final size = result.size;
       return ImageMetadata(size.width.toDouble(), size.height.toDouble());
     } catch (e) {
       stderr

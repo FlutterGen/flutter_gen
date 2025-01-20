@@ -60,7 +60,7 @@ void main() {
       final pubspec = File('test_resources/pubspec_assets_no_list.yaml');
       final config = loadPubspecConfig(pubspec);
       final formatter = DartFormatter(
-        languageVersion: currentDartVersion,
+        languageVersion: dartFormatterLanguageVersion,
         pageWidth: config.pubspec.flutterGen.lineLength,
         lineEnding: '\n',
       );
@@ -103,9 +103,12 @@ void main() {
     });
 
     test('Assets with directory path and package parameter enabled', () async {
-      const pubspec = 'test_resources/pubspec_assets_directory_path_with_package_parameter.yaml';
-      const fact = 'test_resources/actual_data/assets_directory_path_with_package_parameter.gen.dart';
-      const generated = 'test_resources/lib/gen/assets_directory_path_with_package_parameter.gen.dart';
+      const pubspec =
+          'test_resources/pubspec_assets_directory_path_with_package_parameter.yaml';
+      const fact =
+          'test_resources/actual_data/assets_directory_path_with_package_parameter.gen.dart';
+      const generated =
+          'test_resources/lib/gen/assets_directory_path_with_package_parameter.gen.dart';
       await expectedAssetsGen(pubspec, generated, fact);
     });
 
@@ -271,8 +274,9 @@ void main() {
       buildFile.writeAsStringSync(
         File('test_resources/build_assets.yaml').readAsStringSync(),
       );
-      await expectedAssetsGen(pubspec, generated, fact);
-      buildFile.writeAsStringSync(originalBuildContent);
+      await expectedAssetsGen(pubspec, generated, fact).whenComplete(() {
+        buildFile.writeAsStringSync(originalBuildContent);
+      });
     });
   });
 

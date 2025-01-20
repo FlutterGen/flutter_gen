@@ -7,10 +7,9 @@ import 'package:flutter_gen_core/generators/colors_generator.dart';
 import 'package:flutter_gen_core/generators/fonts_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:path/path.dart' as p;
-import 'package:pub_semver/pub_semver.dart' show Version;
 import 'package:test/test.dart';
 
-final currentDartVersion = Version.parse(Platform.version.split(' ').first);
+final dartFormatterLanguageVersion = DartFormatter.latestLanguageVersion;
 
 Future<void> clearTestResults() async {}
 
@@ -35,7 +34,7 @@ Future<List<String>> runAssetsGen(
   stdout.writeln('[DEBUG] test: Generate from API...');
   final config = loadPubspecConfig(pubspecFile, buildFile: buildFile);
   final formatter = DartFormatter(
-    languageVersion: currentDartVersion,
+    languageVersion: dartFormatterLanguageVersion,
     pageWidth: config.pubspec.flutterGen.lineLength,
     lineEnding: '\n',
   );
@@ -79,7 +78,7 @@ Future<List<String>> runColorsGen(
   final pubspecFile = File(pubspec);
   final config = loadPubspecConfig(pubspecFile);
   final formatter = DartFormatter(
-    languageVersion: currentDartVersion,
+    languageVersion: dartFormatterLanguageVersion,
     pageWidth: config.pubspec.flutterGen.lineLength,
     lineEnding: '\n',
   );
@@ -123,7 +122,7 @@ Future<List<String>> runFontsGen(
   final pubspecFile = File(pubspec);
   final config = loadPubspecConfig(pubspecFile);
   final formatter = DartFormatter(
-    languageVersion: currentDartVersion,
+    languageVersion: dartFormatterLanguageVersion,
     pageWidth: config.pubspec.flutterGen.lineLength,
     lineEnding: '\n',
   );

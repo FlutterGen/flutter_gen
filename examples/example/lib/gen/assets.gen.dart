@@ -99,12 +99,12 @@ class $AssetsLottieGen {
 
   /// List of all assets
   List<LottieGenImage> get values => [
-    xuiIZ9X1Rf,
-    alarmClockLottieV440,
-    geometricalAnimation,
-    hamburgerArrow,
-    spinningCarrousel,
-  ];
+        xuiIZ9X1Rf,
+        alarmClockLottieV440,
+        geometricalAnimation,
+        hamburgerArrow,
+        spinningCarrousel,
+      ];
 }
 
 class $AssetsMixGen {

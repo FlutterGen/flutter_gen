@@ -70,8 +70,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
     double? height,
     BoxFit? fit,
     AlignmentGeometry? alignment,
-    ${isPackage ? deprecationMessagePackage : ''}
-    String? package$packageExpression,
+    ${isPackage ? '$deprecationMessagePackage\n' : ''}String? package$packageExpression,
     bool? addRepaintBoundary,
     FilterQuality? filterQuality,
     void Function(String)? onWarning,

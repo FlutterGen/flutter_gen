@@ -44,8 +44,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    ${isPackage ? deprecationMessagePackage : ''}
-    String? package$packageExpression,
+    ${isPackage ? '$deprecationMessagePackage\n' : ''}String? package$packageExpression,
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,

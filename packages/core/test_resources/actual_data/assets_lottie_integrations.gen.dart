@@ -26,8 +26,11 @@ class $AssetsLottieGen {
       const LottieGenImage('assets/lottie/spinning_carrousel.zip');
 
   /// List of all assets
-  List<LottieGenImage> get values =>
-      [xuiIZ9X1Rf, hamburgerArrow, spinningCarrousel];
+  List<LottieGenImage> get values => [
+        xuiIZ9X1Rf,
+        hamburgerArrow,
+        spinningCarrousel,
+      ];
 }
 
 class Assets {
@@ -37,10 +40,7 @@ class Assets {
 }
 
 class LottieGenImage {
-  const LottieGenImage(
-    this._assetName, {
-    this.flavors = const {},
-  });
+  const LottieGenImage(this._assetName, {this.flavors = const {}});
 
   final String _assetName;
   final Set<String> flavors;
@@ -57,11 +57,8 @@ class LottieGenImage {
     _lottie.LottieImageProviderFactory? imageProviderFactory,
     Key? key,
     AssetBundle? bundle,
-    Widget Function(
-      BuildContext,
-      Widget,
-      _lottie.LottieComposition?,
-    )? frameBuilder,
+    Widget Function(BuildContext, Widget, _lottie.LottieComposition?)?
+        frameBuilder,
     ImageErrorWidgetBuilder? errorBuilder,
     double? width,
     double? height,
