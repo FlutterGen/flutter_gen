@@ -173,9 +173,10 @@ void main() {
     test('Wrong lineLength', () async {
       const pubspec = 'test_resources/pubspec_wrong_line_length.yaml';
 
-      expect(() {
-        return FlutterGenerator(File(pubspec)).build();
-      }, throwsA(isA<Exception>()));
+      expect(
+        () => FlutterGenerator(File(pubspec)).build(),
+        throwsA(isA<Exception>()),
+      );
     });
 
     test('Disabled generation', () async {

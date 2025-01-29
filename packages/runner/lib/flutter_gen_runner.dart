@@ -34,9 +34,13 @@ class FlutterGenBuilder extends Builder {
 
   @override
   Future<void> build(BuildStep buildStep) async {
-    if (_config == null) return;
+    if (_config == null) {
+      return;
+    }
     final state = await _createState(_config!, buildStep);
-    if (state.shouldSkipGenerate(_currentState)) return;
+    if (state.shouldSkipGenerate(_currentState)) {
+      return;
+    }
     _currentState = state;
 
     await generator.build(
@@ -49,16 +53,18 @@ class FlutterGenBuilder extends Builder {
 
   @override
   Map<String, List<String>> get buildExtensions {
-    if (_config == null) return {};
-    final ouput = _config!.pubspec.flutterGen.output;
+    if (_config == null) {
+      return {};
+    }
+    final output = _config!.pubspec.flutterGen.output;
     return {
       r'$package$': [
         for (final name in [
           generator.assetsName,
           generator.colorsName,
-          generator.fontsName
+          generator.fontsName,
         ])
-          join(ouput, name),
+          join(output, name),
       ],
     };
   }
@@ -100,7 +106,9 @@ class FlutterGenBuilder extends Builder {
     final HashMap<String, Digest> colors = HashMap();
     if (pubspec.flutterGen.colors.enabled) {
       for (final colorInput in pubspec.flutterGen.colors.inputs) {
-        if (colorInput.isEmpty) continue;
+        if (colorInput.isEmpty) {
+          continue;
+        }
         await for (final assetId in buildStep.findAssets(Glob(colorInput))) {
           final digest = await buildStep.digest(assetId);
           colors[assetId.path] = digest;
@@ -133,7 +141,9 @@ class _FlutterGenBuilderState {
   final HashMap<String, Digest> colors;
 
   bool shouldSkipGenerate(_FlutterGenBuilderState? previous) {
-    if (previous == null) return false;
+    if (previous == null) {
+      return false;
+    }
     return pubspecDigest == previous.pubspecDigest &&
         const SetEquality().equals(assets, previous.assets) &&
         const MapEquality().equals(colors, previous.colors);

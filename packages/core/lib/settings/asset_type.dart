@@ -142,26 +142,32 @@ extension AssetTypeIterable on Iterable<AssetType> {
     String Function(String) style, {
     bool justBasename = false,
   }) {
-    List<UniqueAssetType> assets = map((e) => UniqueAssetType(
-          assetType: e,
-          style: style,
-          needExtension: false,
-          suffix: '',
-          basenameOnly: justBasename,
-        )).toList();
+    List<UniqueAssetType> assets = map(
+      (e) => UniqueAssetType(
+        assetType: e,
+        style: style,
+        needExtension: false,
+        suffix: '',
+        basenameOnly: justBasename,
+      ),
+    ).toList();
 
     while (true) {
       // Check if we have any name collisions.
-      final dups = assets.groupBy((e) => e.name).values;
+      final duplicates = assets.groupBy((e) => e.name).values;
 
       // No more duplicates, so we can bail.
-      if (dups.every((list) => list.length == 1)) break;
+      if (duplicates.every((list) => list.length == 1)) {
+        break;
+      }
 
       // Otherwise start to process the list and mutate the assets as needed.
-      assets = dups
+      assets = duplicates
           .map((list) {
-            assert(list.isNotEmpty,
-                'The groupBy list of assets should not be empty.');
+            assert(
+              list.isNotEmpty,
+              'The groupBy list of assets should not be empty.',
+            );
 
             // Check the first element in the list. Since we grouped by each
             // list element should have the same name.
@@ -190,7 +196,9 @@ extension AssetTypeIterable on Iterable<AssetType> {
             list.forEachIndexed((asset, index) {
               // Shouldn't need to mutate the first item (unless it's an invalid
               // identifer).
-              if (index == 0 && isValidIdentifer) return;
+              if (index == 0 && isValidIdentifer) {
+                return;
+              }
 
               // Append a extra suffixes to each item so they hopefully become unique
               suffix = '${suffix}_';
@@ -203,8 +211,10 @@ extension AssetTypeIterable on Iterable<AssetType> {
           .toList();
     }
 
-    assert(assets.map((e) => e.name).distinct().length == assets.length,
-        'There are duplicate names in the asset list.');
+    assert(
+      assets.map((e) => e.name).distinct().length == assets.length,
+      'There are duplicate names in the asset list.',
+    );
 
     return assets;
   }

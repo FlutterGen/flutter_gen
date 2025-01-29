@@ -28,10 +28,14 @@ void main() {
         lineEnding: '\n',
       );
 
-      expect(() {
-        return generateColors(
-            pubspec, formatter, config.pubspec.flutterGen.colors);
-      }, throwsA(isA<InvalidSettingsException>()));
+      expect(
+        () => generateColors(
+          pubspec,
+          formatter,
+          config.pubspec.flutterGen.colors,
+        ),
+        throwsA(isA<InvalidSettingsException>()),
+      );
     });
 
     test('Wrong colors settings on pubspec.yaml', () async {
@@ -43,10 +47,16 @@ void main() {
         lineEnding: '\n',
       );
 
-      expect(() {
-        return generateColors(
-            pubspec, formatter, config.pubspec.flutterGen.colors);
-      }, throwsA(isA<InvalidSettingsException>()));
+      expect(
+        () {
+          return generateColors(
+            pubspec,
+            formatter,
+            config.pubspec.flutterGen.colors,
+          );
+        },
+        throwsA(isA<InvalidSettingsException>()),
+      );
     });
 
     test('ColorPath Tests', () async {

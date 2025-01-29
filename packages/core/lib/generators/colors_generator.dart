@@ -18,7 +18,8 @@ String generateColors(
 ) {
   if (colorsConfig.inputs.isEmpty) {
     throw const InvalidSettingsException(
-        'The value of "flutter_gen/colors:" is incorrect.');
+      'The value of "flutter_gen/colors:" is incorrect.',
+    );
   }
 
   final buffer = StringBuffer();
@@ -39,9 +40,10 @@ String generateColors(
     final data = colorFile.file.readAsStringSync();
     if (colorFile.isXml) {
       colorList.addAll(
-          XmlDocument.parse(data).findAllElements('color').map((element) {
-        return _Color.fromXmlElement(element);
-      }));
+        XmlDocument.parse(data).findAllElements('color').map((element) {
+          return _Color.fromXmlElement(element);
+        }),
+      );
     } else {
       throw 'Not supported file type ${colorFile.mime}.';
     }

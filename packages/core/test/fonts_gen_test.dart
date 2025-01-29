@@ -28,9 +28,10 @@ void main() {
         lineEnding: '\n',
       );
 
-      expect(() {
-        return generateFonts(FontsGenConfig.fromConfig(config), formatter);
-      }, throwsA(isA<InvalidSettingsException>()));
+      expect(
+        () => generateFonts(FontsGenConfig.fromConfig(config), formatter),
+        throwsA(isA<InvalidSettingsException>()),
+      );
     });
 
     test('Change the class name', () async {

@@ -65,10 +65,13 @@ void main() {
         lineEnding: '\n',
       );
 
-      expect(() {
-        return generateAssets(
-            AssetsGenConfig.fromConfig(pubspec, config), formatter);
-      }, throwsA(isA<InvalidSettingsException>()));
+      expect(
+        () => generateAssets(
+          AssetsGenConfig.fromConfig(pubspec, config),
+          formatter,
+        ),
+        throwsA(isA<InvalidSettingsException>()),
+      );
     });
 
     test('Assets with package parameter enabled', () async {

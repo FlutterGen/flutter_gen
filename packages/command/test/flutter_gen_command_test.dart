@@ -37,8 +37,10 @@ void main() {
       'dart',
       ['bin/flutter_gen_command.dart', '--help'],
     );
-    expect(await process.stdout.next,
-        equals('-c, --config          Set the path of pubspec.yaml.'));
+    expect(
+      await process.stdout.next,
+      equals('-c, --config          Set the path of pubspec.yaml.'),
+    );
     final line = await process.stdout.next;
     expect(line.trim(), equals('(defaults to "pubspec.yaml")'));
     await process.shouldExit(0);
