@@ -29,7 +29,7 @@ class LottieIntegration extends Integration {
   String get packageExpression => isPackage ? ' = package' : '';
 
   @override
-  List<Import> get requiredImports => [
+  List<Import> get requiredImports => const [
         Import('package:flutter/widgets.dart'),
         Import('package:lottie/lottie.dart', alias: '_lottie'),
       ];

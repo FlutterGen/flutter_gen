@@ -21,7 +21,7 @@ class $AssetsRiveGen {
 }
 
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const $AssetsRiveGen rive = $AssetsRiveGen();
 }

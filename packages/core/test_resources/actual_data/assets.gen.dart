@@ -143,7 +143,7 @@ class $AssetsImagesIconsGen {
 }
 
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const String changelog = 'CHANGELOG.md';
   static const $AssetsFlareGen flare = $AssetsFlareGen();

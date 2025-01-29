@@ -255,7 +255,7 @@ This would add the package constant to the generated class. For example:
 
 ```dart
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const String package = 'test';
 

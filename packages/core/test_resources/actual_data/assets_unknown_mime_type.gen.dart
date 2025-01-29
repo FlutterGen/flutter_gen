@@ -18,7 +18,7 @@ class $AssetsUnknownGen {
 }
 
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
 }
