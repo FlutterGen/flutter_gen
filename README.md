@@ -147,6 +147,7 @@ flutter_gen:
 
   # Optional
   integrations:
+    image: true
     flutter_svg: true
     rive: true
     lottie: true
@@ -368,6 +369,15 @@ Widget build(BuildContext context) {
   return Image.asset(Assets.images.chip.path);
 }
 
+```
+
+If you do not want to generate `AssetGenImage`, set `flutter_gen > integrations > image` to `false`.
+
+```yaml
+# pubspec.yaml
+flutter_gen:
+  integrations:
+    image: false
 ```
 
 If you are using SVG images with [flutter_svg](https://pub.dev/packages/flutter_svg) you can use the integration feature.
