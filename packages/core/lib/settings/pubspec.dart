@@ -31,23 +31,23 @@ class Flutter {
     required this.fonts,
   });
 
+  factory Flutter.fromJson(Map json) => _$FlutterFromJson(json);
+
   @JsonKey(name: 'assets', required: true)
   final List<Object> assets;
 
   @JsonKey(name: 'fonts', required: true)
   final List<FlutterFonts> fonts;
-
-  factory Flutter.fromJson(Map json) => _$FlutterFromJson(json);
 }
 
 @JsonSerializable(disallowUnrecognizedKeys: false)
 class FlutterFonts {
   const FlutterFonts({required this.family});
 
+  factory FlutterFonts.fromJson(Map json) => _$FlutterFontsFromJson(json);
+
   @JsonKey(name: 'family', required: true)
   final String family;
-
-  factory FlutterFonts.fromJson(Map json) => _$FlutterFontsFromJson(json);
 }
 
 @JsonSerializable()
@@ -61,6 +61,8 @@ class FlutterGen {
     required this.integrations,
     required this.colors,
   });
+
+  factory FlutterGen.fromJson(Map json) => _$FlutterGenFromJson(json);
 
   @JsonKey(name: 'output', required: true)
   final String output;
@@ -82,8 +84,6 @@ class FlutterGen {
 
   @JsonKey(name: 'colors', required: true)
   final FlutterGenColors colors;
-
-  factory FlutterGen.fromJson(Map json) => _$FlutterGenFromJson(json);
 }
 
 @JsonSerializable()
@@ -94,6 +94,9 @@ class FlutterGenColors {
     required this.outputs,
   });
 
+  factory FlutterGenColors.fromJson(Map json) =>
+      _$FlutterGenColorsFromJson(json);
+
   @JsonKey(name: 'enabled', required: true)
   final bool enabled;
 
@@ -102,9 +105,6 @@ class FlutterGenColors {
 
   @JsonKey(name: 'outputs', required: true)
   final FlutterGenElementOutputs outputs;
-
-  factory FlutterGenColors.fromJson(Map json) =>
-      _$FlutterGenColorsFromJson(json);
 }
 
 @JsonSerializable()
@@ -116,6 +116,9 @@ class FlutterGenAssets {
     required this.outputs,
     required this.exclude,
   });
+
+  factory FlutterGenAssets.fromJson(Map json) =>
+      _$FlutterGenAssetsFromJson(json);
 
   @JsonKey(name: 'enabled', required: true)
   final bool enabled;
@@ -133,9 +136,6 @@ class FlutterGenAssets {
 
   @JsonKey(name: 'exclude', required: true)
   final List<String> exclude;
-
-  factory FlutterGenAssets.fromJson(Map json) =>
-      _$FlutterGenAssetsFromJson(json);
 }
 
 @JsonSerializable()
@@ -145,13 +145,13 @@ class FlutterGenFonts {
     required this.outputs,
   });
 
+  factory FlutterGenFonts.fromJson(Map json) => _$FlutterGenFontsFromJson(json);
+
   @JsonKey(name: 'enabled', required: true)
   final bool enabled;
 
   @JsonKey(name: 'outputs', required: true)
   final FlutterGenElementFontsOutputs outputs;
-
-  factory FlutterGenFonts.fromJson(Map json) => _$FlutterGenFontsFromJson(json);
 }
 
 @JsonSerializable()
@@ -162,6 +162,9 @@ class FlutterGenIntegrations {
     required this.lottie,
   });
 
+  factory FlutterGenIntegrations.fromJson(Map json) =>
+      _$FlutterGenIntegrationsFromJson(json);
+
   @JsonKey(name: 'flutter_svg', required: true)
   final bool flutterSvg;
 
@@ -170,9 +173,6 @@ class FlutterGenIntegrations {
 
   @JsonKey(name: 'lottie', required: true)
   final bool lottie;
-
-  factory FlutterGenIntegrations.fromJson(Map json) =>
-      _$FlutterGenIntegrationsFromJson(json);
 }
 
 @JsonSerializable()
@@ -181,11 +181,11 @@ class FlutterGenElementOutputs {
     required this.className,
   });
 
-  @JsonKey(name: 'class_name', required: true)
-  final String className;
-
   factory FlutterGenElementOutputs.fromJson(Map json) =>
       _$FlutterGenElementOutputsFromJson(json);
+
+  @JsonKey(name: 'class_name', required: true)
+  final String className;
 }
 
 enum FlutterGenElementAssetsOutputsStyle {
@@ -217,6 +217,9 @@ class FlutterGenElementAssetsOutputs extends FlutterGenElementOutputs {
     required this.style,
   }) : super(className: className);
 
+  factory FlutterGenElementAssetsOutputs.fromJson(Map json) =>
+      _$FlutterGenElementAssetsOutputsFromJson(json);
+
   @JsonKey(name: 'package_parameter_enabled', defaultValue: false)
   final bool packageParameterEnabled;
 
@@ -225,9 +228,6 @@ class FlutterGenElementAssetsOutputs extends FlutterGenElementOutputs {
 
   @JsonKey(name: 'style', required: true)
   final FlutterGenElementAssetsOutputsStyle style;
-
-  factory FlutterGenElementAssetsOutputs.fromJson(Map json) =>
-      _$FlutterGenElementAssetsOutputsFromJson(json);
 }
 
 @JsonSerializable()
@@ -237,9 +237,9 @@ class FlutterGenElementFontsOutputs extends FlutterGenElementOutputs {
     required this.packageParameterEnabled,
   });
 
-  @JsonKey(name: 'package_parameter_enabled', defaultValue: false)
-  final bool packageParameterEnabled;
-
   factory FlutterGenElementFontsOutputs.fromJson(Map json) =>
       _$FlutterGenElementFontsOutputsFromJson(json);
+
+  @JsonKey(name: 'package_parameter_enabled', defaultValue: false)
+  final bool packageParameterEnabled;
 }

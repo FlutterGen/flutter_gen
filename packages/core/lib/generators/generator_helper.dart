@@ -67,15 +67,17 @@ String sBuildDeprecation(
     '```yaml',
     'flutter_gen:',
     ...migration,
-    '```'
+    '```',
   ];
 
   final longestLineLength = lines
-      .map((line) => line
-          .split('\n')
-          .sorted((a, b) => b.length.compareTo(b.length))
-          .first
-          .length)
+      .map(
+        (line) => line
+            .split('\n')
+            .sorted((a, b) => b.length.compareTo(b.length))
+            .first
+            .length,
+      )
       .sorted((a, b) => b.compareTo(a))
       .first;
 

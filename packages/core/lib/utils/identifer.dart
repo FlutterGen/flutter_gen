@@ -42,7 +42,7 @@ const builtinKeywords = <String>{
   'sealed',
   'set',
   'static',
-  'typedef'
+  'typedef',
 };
 
 // 3. Limited reserved words. Can’t use as an identifier in any function body
@@ -83,7 +83,7 @@ const reservedKeywords = <String>{
   'void',
   'when',
   'while',
-  'with'
+  'with',
 };
 
 /// List of keywords that can't be used as identifiers.

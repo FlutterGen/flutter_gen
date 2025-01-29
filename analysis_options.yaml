@@ -14,8 +14,9 @@ analyzer:
 linter:
   rules:
     # always_use_package_imports: true
-    avoid_equals_and_hash_code_on_mutable_classes: true
     avoid_classes_with_only_static_members: true
+    avoid_equals_and_hash_code_on_mutable_classes: true
+    curly_braces_in_flow_control_structures: true
     directives_ordering: true
     flutter_style_todos: true
     prefer_const_constructors: true
@@ -23,11 +24,12 @@ linter:
     prefer_final_in_for_each: true
     prefer_int_literals: true
     prefer_single_quotes: true
-    # require_trailing_commas: true
-    # sort_constructors_first: true
+    require_trailing_commas: true
+    sort_constructors_first: true
+    sort_unnamed_constructors_first: true
     unawaited_futures: true
     unnecessary_await_in_return: true
-    use_to_and_as_if_applicable: true
     unnecessary_lambdas: true
+    use_to_and_as_if_applicable: true
     use_raw_strings: true
     use_super_parameters: false

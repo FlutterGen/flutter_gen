@@ -23,7 +23,9 @@ Future<List<String>> runAssetsGen(
   final pubspecFile = File(pubspec);
 
   File? buildFile;
-  if (build != null) buildFile = File(build);
+  if (build != null) {
+    buildFile = File(build);
+  }
 
   await FlutterGenerator(
     pubspecFile,

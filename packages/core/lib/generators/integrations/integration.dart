@@ -55,8 +55,8 @@ const String deprecationMessagePackage =
 /// Currently only contains the width and height, but could contain more in
 /// future.
 class ImageMetadata {
+  const ImageMetadata(this.width, this.height);
+
   final double width;
   final double height;
-
-  const ImageMetadata(this.width, this.height);
 }
