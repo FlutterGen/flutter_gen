@@ -11,6 +11,7 @@ flutter_gen:
 
   # Optional
   integrations:
+    image: true
     flutter_svg: false
     rive: false
     lottie: false

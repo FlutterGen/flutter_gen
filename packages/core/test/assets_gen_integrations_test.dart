@@ -31,11 +31,22 @@ class TestIntegration extends Integration {
 void main() {
   group('Test Assets Integration generator', () {
     final resPath = p.absolute('test_resources');
+
     test('Assets with No integrations on pubspec.yaml', () async {
       const pubspec = 'test_resources/pubspec_assets_no_integrations.yaml';
       const fact = 'test_resources/actual_data/assets_no_integrations.gen.dart';
       const generated =
           'test_resources/lib/gen/assets_no_integrations.gen.dart';
+
+      await expectedAssetsGen(pubspec, generated, fact);
+    });
+
+    test('Assets with no image integration', () async {
+      const pubspec = 'test_resources/pubspec_assets_no_image_integration.yaml';
+      const fact =
+          'test_resources/actual_data/assets_no_image_integration.gen.dart';
+      const generated =
+          'test_resources/lib/gen/assets_no_image_integration.gen.dart';
 
       await expectedAssetsGen(pubspec, generated, fact);
     });

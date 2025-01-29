@@ -1,0 +1,21 @@
+name: test
+
+flutter_gen:
+  output: lib/gen/ # Optional (default: lib/gen/)
+  line_length: 80 # Optional (default: 80)
+
+  integrations:
+    image: false
+
+flutter:
+  assets:
+    - assets/images
+    - assets/images/chip3/chip3.jpg
+    - assets/images/chip3/chip3.jpg # duplicated
+    - assets/images/chip4/
+    - assets/images/icons/fuchsia.svg
+    - assets/images/icons/kmm.svg
+    - assets/images/icons/paint.svg
+    - assets/images/icons/dart@test.svg
+    - assets/json/
+    - pictures/chip5.jpg
