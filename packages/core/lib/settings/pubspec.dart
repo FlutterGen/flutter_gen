@@ -6,7 +6,7 @@ part 'pubspec.g.dart';
 
 @JsonSerializable(disallowUnrecognizedKeys: false)
 class Pubspec {
-  Pubspec({
+  const Pubspec({
     required this.packageName,
     required this.flutterGen,
     required this.flutter,
@@ -26,7 +26,7 @@ class Pubspec {
 
 @JsonSerializable(disallowUnrecognizedKeys: false)
 class Flutter {
-  Flutter({
+  const Flutter({
     required this.assets,
     required this.fonts,
   });
@@ -42,7 +42,7 @@ class Flutter {
 
 @JsonSerializable(disallowUnrecognizedKeys: false)
 class FlutterFonts {
-  FlutterFonts({required this.family});
+  const FlutterFonts({required this.family});
 
   @JsonKey(name: 'family', required: true)
   final String family;
@@ -52,7 +52,7 @@ class FlutterFonts {
 
 @JsonSerializable()
 class FlutterGen {
-  FlutterGen({
+  const FlutterGen({
     required this.output,
     required this.lineLength,
     required this.parseMetadata,
@@ -88,7 +88,7 @@ class FlutterGen {
 
 @JsonSerializable()
 class FlutterGenColors {
-  FlutterGenColors({
+  const FlutterGenColors({
     required this.enabled,
     required this.inputs,
     required this.outputs,
@@ -109,7 +109,7 @@ class FlutterGenColors {
 
 @JsonSerializable()
 class FlutterGenAssets {
-  FlutterGenAssets({
+  const FlutterGenAssets({
     required this.enabled,
     this.packageParameterEnabled,
     this.style,
@@ -140,7 +140,7 @@ class FlutterGenAssets {
 
 @JsonSerializable()
 class FlutterGenFonts {
-  FlutterGenFonts({
+  const FlutterGenFonts({
     required this.enabled,
     required this.outputs,
   });
@@ -156,7 +156,7 @@ class FlutterGenFonts {
 
 @JsonSerializable()
 class FlutterGenIntegrations {
-  FlutterGenIntegrations({
+  const FlutterGenIntegrations({
     required this.flutterSvg,
     required this.rive,
     required this.lottie,
@@ -177,7 +177,7 @@ class FlutterGenIntegrations {
 
 @JsonSerializable()
 class FlutterGenElementOutputs {
-  FlutterGenElementOutputs({
+  const FlutterGenElementOutputs({
     required this.className,
   });
 
@@ -188,24 +188,34 @@ class FlutterGenElementOutputs {
       _$FlutterGenElementOutputsFromJson(json);
 }
 
+enum FlutterGenElementAssetsOutputsStyle {
+  dotDelimiterStyle('dot-delimiter'),
+  snakeCaseStyle('snake-case'),
+  camelCaseStyle('camel-case'),
+  ;
+
+  const FlutterGenElementAssetsOutputsStyle(this.name);
+
+  factory FlutterGenElementAssetsOutputsStyle.fromJson(String json) {
+    return values.firstWhere(
+      (e) => e.name == json,
+      orElse: () => throw ArgumentError.value(json, 'style'),
+    );
+  }
+
+  final String name;
+
+  String toJson() => name;
+}
+
 @JsonSerializable()
 class FlutterGenElementAssetsOutputs extends FlutterGenElementOutputs {
-  static const String dotDelimiterStyle = 'dot-delimiter';
-  static const String snakeCaseStyle = 'snake-case';
-  static const String camelCaseStyle = 'camel-case';
-
-  FlutterGenElementAssetsOutputs({
+  const FlutterGenElementAssetsOutputs({
     required String className,
     required this.packageParameterEnabled,
     required this.directoryPathEnabled,
     required this.style,
-  }) : super(className: className) {
-    if (style != dotDelimiterStyle &&
-        style != snakeCaseStyle &&
-        style != camelCaseStyle) {
-      throw ArgumentError.value(style, 'style');
-    }
-  }
+  }) : super(className: className);
 
   @JsonKey(name: 'package_parameter_enabled', defaultValue: false)
   final bool packageParameterEnabled;
@@ -214,13 +224,7 @@ class FlutterGenElementAssetsOutputs extends FlutterGenElementOutputs {
   final bool directoryPathEnabled;
 
   @JsonKey(name: 'style', required: true)
-  final String style;
-
-  bool get isDotDelimiterStyle => style == dotDelimiterStyle;
-
-  bool get isSnakeCaseStyle => style == snakeCaseStyle;
-
-  bool get isCamelCaseStyle => style == camelCaseStyle;
+  final FlutterGenElementAssetsOutputsStyle style;
 
   factory FlutterGenElementAssetsOutputs.fromJson(Map json) =>
       _$FlutterGenElementAssetsOutputsFromJson(json);
@@ -228,7 +232,7 @@ class FlutterGenElementAssetsOutputs extends FlutterGenElementOutputs {
 
 @JsonSerializable()
 class FlutterGenElementFontsOutputs extends FlutterGenElementOutputs {
-  FlutterGenElementFontsOutputs({
+  const FlutterGenElementFontsOutputs({
     required super.className,
     required this.packageParameterEnabled,
   });

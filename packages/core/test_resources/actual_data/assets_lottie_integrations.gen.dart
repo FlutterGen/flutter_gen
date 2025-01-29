@@ -34,7 +34,7 @@ class $AssetsLottieGen {
 }
 
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const $AssetsLottieGen lottie = $AssetsLottieGen();
 }

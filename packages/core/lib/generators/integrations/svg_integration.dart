@@ -10,7 +10,7 @@ class SvgIntegration extends Integration {
   String get packageExpression => isPackage ? ' = package' : '';
 
   @override
-  List<Import> get requiredImports => [
+  List<Import> get requiredImports => const [
         Import('package:flutter/widgets.dart'),
         Import('package:flutter/services.dart'),
         Import('package:flutter_svg/flutter_svg.dart', alias: '_svg'),

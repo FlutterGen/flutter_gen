@@ -156,7 +156,7 @@ class $AssetsImagesIconsGen {
 }
 
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const $AssetsFlareGen flare = $AssetsFlareGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();

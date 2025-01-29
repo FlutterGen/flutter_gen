@@ -19,34 +19,42 @@ class SvgIntegrationsTest extends StatelessWidget {
 
 void main() {
   group('Test SvgTheme behavior', () {
-    var testTheme = SvgTheme(currentColor: Colors.red);
-
-    testWidgets('Passed theme should be null', (widgetTester) async {
-      await widgetTester.pumpWidget(SvgIntegrationsTest(theme: testTheme));
-
-      var finder = find.byType(SvgPicture);
-      expect(finder, findsOneWidget);
-
-      var svgWidget = widgetTester.widget<SvgPicture>(finder);
-      var loader = svgWidget.bytesLoader as SvgAssetLoader;
-
-      expect(loader.theme, isNull);
-    });
+    const testTheme = SvgTheme(currentColor: Colors.red);
 
     testWidgets(
-        'Taken theme of SvgAssetLoader equals with one passed to parent DefaultSvgTheme',
-        (widgetTester) async {
-      await widgetTester.pumpWidget(SvgIntegrationsTest(theme: testTheme));
+      'Passed theme should be null',
+      (widgetTester) async {
+        await widgetTester.pumpWidget(
+          const SvgIntegrationsTest(theme: testTheme),
+        );
 
-      var finder = find.byType(SvgPicture);
-      expect(finder, findsOneWidget);
+        var finder = find.byType(SvgPicture);
+        expect(finder, findsOneWidget);
 
-      var svgWidget = widgetTester.widget<SvgPicture>(finder);
-      var loader = svgWidget.bytesLoader as SvgAssetLoader;
+        var svgWidget = widgetTester.widget<SvgPicture>(finder);
+        var loader = svgWidget.bytesLoader as SvgAssetLoader;
 
-      var svgCacheKey = loader.cacheKey(widgetTester.element(finder));
+        expect(loader.theme, isNull);
+      },
+    );
 
-      expect(svgCacheKey.theme, testTheme);
-    });
+    testWidgets(
+      'Taken theme of SvgAssetLoader equals with one passed to parent DefaultSvgTheme',
+      (widgetTester) async {
+        await widgetTester.pumpWidget(
+          const SvgIntegrationsTest(theme: testTheme),
+        );
+
+        var finder = find.byType(SvgPicture);
+        expect(finder, findsOneWidget);
+
+        var svgWidget = widgetTester.widget<SvgPicture>(finder);
+        var loader = svgWidget.bytesLoader as SvgAssetLoader;
+
+        var svgCacheKey = loader.cacheKey(widgetTester.element(finder));
+
+        expect(svgCacheKey.theme, testTheme);
+      },
+    );
   });
 }

@@ -6,7 +6,7 @@ class RiveIntegration extends Integration {
   String? get packageExpression => isPackage ? 'packages/$packageName/' : null;
 
   @override
-  List<Import> get requiredImports => [
+  List<Import> get requiredImports => const [
         Import('package:flutter/widgets.dart'),
         Import('package:rive/rive.dart', alias: '_rive'),
       ];

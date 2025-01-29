@@ -60,7 +60,7 @@ class $AssetsImagesIconsGen {
 }
 
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const String package = 'test';
 

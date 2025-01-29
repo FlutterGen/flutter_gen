@@ -18,8 +18,10 @@ linter:
     avoid_classes_with_only_static_members: true
     directives_ordering: true
     flutter_style_todos: true
-    prefer_int_literals: true
+    prefer_const_constructors: true
+    prefer_const_constructors_in_immutables: true
     prefer_final_in_for_each: true
+    prefer_int_literals: true
     prefer_single_quotes: true
     # require_trailing_commas: true
     # sort_constructors_first: true
