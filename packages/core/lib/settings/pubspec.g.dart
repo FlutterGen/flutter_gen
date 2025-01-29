@@ -238,7 +238,8 @@ FlutterGenElementAssetsOutputs _$FlutterGenElementAssetsOutputsFromJson(
               'package_parameter_enabled', (v) => v as bool? ?? false),
           directoryPathEnabled: $checkedConvert(
               'directory_path_enabled', (v) => v as bool? ?? false),
-          style: $checkedConvert('style', (v) => v as String),
+          style: $checkedConvert('style',
+              (v) => FlutterGenElementAssetsOutputsStyle.fromJson(v as String)),
         );
         return val;
       },

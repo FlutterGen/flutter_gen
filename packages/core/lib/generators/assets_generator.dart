@@ -111,18 +111,19 @@ Future<String> generateAssets(
   }
 
   final classesBuffer = StringBuffer();
-  if (config.flutterGen.assets.outputs.isDotDelimiterStyle) {
-    final definition = await _dotDelimiterStyleDefinition(config, integrations);
-    classesBuffer.writeln(definition);
-  } else if (config.flutterGen.assets.outputs.isSnakeCaseStyle) {
-    final definition = await _snakeCaseStyleDefinition(config, integrations);
-    classesBuffer.writeln(definition);
-  } else if (config.flutterGen.assets.outputs.isCamelCaseStyle) {
-    final definition = await _camelCaseStyleDefinition(config, integrations);
-    classesBuffer.writeln(definition);
-  } else {
-    throw 'The value of "flutter_gen/assets/style." is incorrect.';
+  final _StyleDefinition definition;
+  switch (config.flutterGen.assets.outputs.style) {
+    case FlutterGenElementAssetsOutputsStyle.dotDelimiterStyle:
+      definition = _dotDelimiterStyleDefinition;
+      break;
+    case FlutterGenElementAssetsOutputsStyle.snakeCaseStyle:
+      definition = _snakeCaseStyleDefinition;
+      break;
+    case FlutterGenElementAssetsOutputsStyle.camelCaseStyle:
+      definition = _camelCaseStyleDefinition;
+      break;
   }
+  classesBuffer.writeln(await definition(config, integrations));
 
   final imports = <Import>{};
   for (final integration in integrations.where((e) => e.isEnabled)) {
@@ -399,6 +400,11 @@ Future<String> _dotDelimiterStyleDefinition(
   );
   return buffer.toString();
 }
+
+typedef _StyleDefinition = Future<String> Function(
+  AssetsGenConfig config,
+  List<Integration> integrations,
+);
 
 /// Generate style like Assets.foo_bar
 Future<String> _snakeCaseStyleDefinition(
