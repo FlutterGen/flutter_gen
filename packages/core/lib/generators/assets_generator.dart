@@ -59,10 +59,11 @@ Future<String> generateAssets(
   }
 
   final integrations = <Integration>[
-    ImageIntegration(
-      config.packageParameterLiteral,
-      parseMetadata: config.flutterGen.parseMetadata,
-    ),
+    if (config.flutterGen.integrations.image)
+      ImageIntegration(
+        config.packageParameterLiteral,
+        parseMetadata: config.flutterGen.parseMetadata,
+      ),
     if (config.flutterGen.integrations.flutterSvg)
       SvgIntegration(
         config.packageParameterLiteral,
