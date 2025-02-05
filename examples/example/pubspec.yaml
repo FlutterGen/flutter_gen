@@ -20,7 +20,7 @@ dependencies:
 dev_dependencies:
   lints: ^2.0.0
   build_runner: ^2.0.0
-  flutter_gen_runner: ^5.8.0
+  flutter_gen_runner: ^5.9.0
   flutter_test:
     sdk: flutter
 
