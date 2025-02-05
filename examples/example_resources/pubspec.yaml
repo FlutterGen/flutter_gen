@@ -11,12 +11,14 @@ dependencies:
     sdk: flutter
 
   flutter_svg: ^2.0.0
-  rive: ^0.11.0
   lottie: ^2.0.0
+  rive: ^0.11.0
 
 dev_dependencies:
+  flutter_gen_runner:
+    path: ../../packages/runner
+
   build_runner: ^2.0.0
-  flutter_gen_runner: ^5.9.0
 
 flutter_gen:
   output: lib/gen/
