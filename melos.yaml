@@ -99,3 +99,14 @@ scripts:
     run: |
       bash ./scripts/coverage.sh packages/core
     description: bash ./scripts/coverage.sh packages/core
+
+  publish:force:
+    run: dart pub publish -f
+    exec:
+      concurrency: 1
+      failFast: true
+    packageFilters:
+      scope:
+        - flutter_gen
+        - flutter_gen_core
+        - flutter_gen_runner
