@@ -7,23 +7,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  publish-core:
+  publish:
     permissions:
       id-token: write
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
-    with:
-      working-directory: packages/core
-
-  publish-command:
-    permissions:
-      id-token: write
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
-    with:
-      working-directory: packages/command
-
-  publish-runner:
-    permissions:
-      id-token: write
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
-    with:
-      working-directory: packages/runner
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+      - name: Install dependencies
+        run: dart pub get
+      - name: Prepare Melos workspace
+        uses: bluefireteam/melos-action@v3
+      - name: Publish
+        run: melos run publish:force --no-select
