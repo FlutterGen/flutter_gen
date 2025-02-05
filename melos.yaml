@@ -110,3 +110,14 @@ scripts:
         - flutter_gen
         - flutter_gen_core
         - flutter_gen_runner
+
+  publish:dry:
+    run: dart pub publish --dry-run
+    exec:
+      concurrency: 1
+      failFast: true
+    packageFilters:
+      scope:
+        - flutter_gen
+        - flutter_gen_core
+        - flutter_gen_runner
