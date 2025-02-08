@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
 
   flutter_svg: ^2.0.0
-  lottie: ^2.0.0
+  lottie: ^3.0.0
   rive: ^0.11.0
 
 dev_dependencies:
