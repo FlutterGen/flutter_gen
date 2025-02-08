@@ -60,7 +60,6 @@ void main() {
       final pubspec = File('test_resources/pubspec_assets_no_list.yaml');
       final config = loadPubspecConfig(pubspec);
       final formatter = DartFormatter(
-        languageVersion: dartFormatterLanguageVersion,
         pageWidth: config.pubspec.flutterGen.lineLength,
         lineEnding: '\n',
       );
