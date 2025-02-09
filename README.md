@@ -410,6 +410,8 @@ Widget build(BuildContext context) {
 | [rive](https://pub.dev/packages/rive)                   | .riv                 | `rive: true`          | Assets.rive.vehicles.**rive()**           |
 | [lottie](https://pub.dev/packages/lottie)               | .json, .zip, .lottie | `lottie: true`        | Assets.lottie.hamburgerArrow.**lottie()** |
 
+**Note:** For [lottie](https://pub.dev/packages/lottie) integration with `.lottie` files, you must add a custom decoder via `decoder` parameter to select the correct .json file from a dotlottie (.lottie) archive, see [lottie's document](https://pub.dev/packages/lottie#telegram-stickers-tgs-and-dotlottie-lottie) for more information.
+
 In other cases, the asset is generated as String class.
 
 ```dart
