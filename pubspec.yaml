@@ -1,7 +1,7 @@
 name: flutter_gen_repository
 
 environment:
-  sdk: ">=2.17.0 <4.0.0"
+  sdk: ^3.0.0
 
 dev_dependencies:
   lints: any # Ignoring the version to allow editing across SDK versions.
