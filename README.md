@@ -408,9 +408,9 @@ Widget build(BuildContext context) {
 |---------------------------------------------------------|----------------------|-----------------------|-------------------------------------------|
 | [flutter_svg](https://pub.dev/packages/flutter_svg)     | .svg                 | `flutter_svg: true`   | Assets.images.icons.paint.**svg()**       |
 | [rive](https://pub.dev/packages/rive)                   | .riv                 | `rive: true`          | Assets.rive.vehicles.**rive()**           |
-| [lottie](https://pub.dev/packages/lottie)               | .json, .zip, .lottie | `lottie: true`        | Assets.lottie.hamburgerArrow.**lottie()** |
+| [lottie](https://pub.dev/packages/lottie)               | .json, .zip, .lottie, .tgs | `lottie: true`        | Assets.lottie.hamburgerArrow.**lottie()** |
 
-**Note:** For [lottie](https://pub.dev/packages/lottie) integration with `.lottie` files, you must add a custom decoder via `decoder` parameter to select the correct .json file from a dotlottie (.lottie) archive, see [lottie's document](https://pub.dev/packages/lottie#telegram-stickers-tgs-and-dotlottie-lottie) for more information.
+**Note:** For [lottie](https://pub.dev/packages/lottie) integration with `.lottie` and `.tgs` files, you must add a custom decoder via `decoder` parameter, see [lottie's document](https://pub.dev/packages/lottie#telegram-stickers-tgs-and-dotlottie-lottie) for more information.
 
 In other cases, the asset is generated as String class.
 

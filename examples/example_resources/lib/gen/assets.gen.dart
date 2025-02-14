@@ -17,6 +17,9 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/cat.tgs
+  LottieGenImage get cat => const LottieGenImage('assets/images/cat.tgs');
+
   /// File path: assets/images/dart.svg
   SvgGenImage get dart => const SvgGenImage('assets/images/dart.svg');
 
@@ -36,7 +39,7 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<dynamic> get values =>
-      [dart, favorite, flutter3, runningCarOnRoad, skills];
+      [cat, dart, favorite, flutter3, runningCarOnRoad, skills];
 }
 
 class $AssetsUnknownGen {
