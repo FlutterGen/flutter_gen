@@ -122,7 +122,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
   bool get isConstConstructor => true;
 
   bool isLottieFile(AssetType asset) {
-    if (asset.extension == '.lottie') {
+    if (asset.extension == '.lottie' || asset.extension == '.tgs') {
       return true;
     }
     if (!_supportedMimeTypes.contains(asset.mime)) {

@@ -17,6 +17,10 @@ class $AssetsLottieGen {
   LottieGenImage get xuiIZ9X1Rf =>
       const LottieGenImage('assets/lottie/XuiIZ9X1Rf.lottie');
 
+  /// File path: assets/lottie/cat_cat.tgs
+  LottieGenImage get catCat =>
+      const LottieGenImage('assets/lottie/cat_cat.tgs');
+
   /// File path: assets/lottie/hamburger_arrow.json
   LottieGenImage get hamburgerArrow =>
       const LottieGenImage('assets/lottie/hamburger_arrow.json');
@@ -27,7 +31,7 @@ class $AssetsLottieGen {
 
   /// List of all assets
   List<LottieGenImage> get values =>
-      [xuiIZ9X1Rf, hamburgerArrow, spinningCarrousel];
+      [xuiIZ9X1Rf, catCat, hamburgerArrow, spinningCarrousel];
 }
 
 class Assets {

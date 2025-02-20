@@ -3,6 +3,7 @@ import 'package:example/gen/colors.gen.dart';
 import 'package:example/gen/fonts.gen.dart';
 import 'package:example_resources/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 void main() {
   print(MyAssets.images.chip4.chip4.flavors);
@@ -57,6 +58,13 @@ class MyApp extends StatelessWidget {
                   height: 200,
                   child: MyAssets.lottie.alarmClockLottieV440.lottie(
                     fit: BoxFit.contain,
+                  ),
+                ),
+                SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: MyAssets.lottie.cat.lottie(
+                    decoder: LottieComposition.decodeGZip,
                   ),
                 ),
                 MyAssets.images.chip1.image(),
