@@ -82,6 +82,9 @@ class $AssetsLottieGen {
   LottieGenImage get alarmClockLottieV440 =>
       const LottieGenImage('assets/lottie/alarm-clock-lottie-v440.json');
 
+  /// File path: assets/lottie/cat.tgs
+  LottieGenImage get cat => const LottieGenImage('assets/lottie/cat.tgs');
+
   /// File path: assets/lottie/geometrical-animation.json
   LottieGenImage get geometricalAnimation =>
       const LottieGenImage('assets/lottie/geometrical-animation.json');
@@ -101,6 +104,7 @@ class $AssetsLottieGen {
   List<LottieGenImage> get values => [
         xuiIZ9X1Rf,
         alarmClockLottieV440,
+        cat,
         geometricalAnimation,
         hamburgerArrow,
         spinningCarrousel,
