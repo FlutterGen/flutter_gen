@@ -11,7 +11,7 @@
   "branchConcurrentLimit": 5,
   "branchPrefix": "upgrade-renovate-",
   "dependencyDashboard": false,
-  "ignorePaths": [".github/"],
+  "ignorePaths": [".github/", "examples/**"],
   "major": {
     "stabilityDays": 7
   },
