@@ -24,11 +24,11 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Set environment
+      - name: Set environment for MacOS & Ubuntu
         if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
         run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
-      - name: Set environment
+      - name: Set environment for Windows
         if: startsWith(matrix.os, 'windows')
         run: echo "%LOCALAPPDATA%\Pub\Cache\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
