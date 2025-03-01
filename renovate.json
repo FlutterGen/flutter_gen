@@ -7,7 +7,7 @@
     ":semanticCommitScopeDisabled"
   ],
   "timezone": "Asia/Tokyo",
-  "schedule": ["every weekend"],
+  "schedule": ["* * * * 3"],
   "branchConcurrentLimit": 5,
   "branchPrefix": "upgrade-renovate-",
   "dependencyDashboard": false,
@@ -17,5 +17,8 @@
   },
   "minor": {
     "stabilityDays": 14
+  },
+  "patch": {
+    "enabled": false
   }
 }
