@@ -13,13 +13,9 @@
   "dependencyDashboard": false,
   "ignorePaths": [".github/", "examples/**"],
   "major": {
-    "stabilityDays": 7
+    "stabilityDays": 30
   },
   "minor": {
-    "stabilityDays": 3
-  },
-  "patch": {
-    "stabilityDays": 2
-  },
-  "ignorePaths": ["examples/**"]
+    "stabilityDays": 14
+  }
 }
