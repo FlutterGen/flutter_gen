@@ -1,3 +1,13 @@
+## 5.10.0
+
+**Feature**
+- [#659](https://github.com/FlutterGen/flutter_gen/pull/659) Add support Telegram Sticker `.tgs` in Lottie Integration. by [@dungngminh](https://github.com/dungngminh)
+
+**Bug fix**
+- [#653](https://github.com/FlutterGen/flutter_gen/pull/653) Constraints `dart_style` to `>=2.3.7`. by [@AlexV525](https://github.com/AlexV525)
+- [#656](https://github.com/FlutterGen/flutter_gen/pull/656) Add missing parameters in Lottie integration from lottie 3.0.0. by [@dungngminh](https://github.com/dungngminh)
+- [#658](https://github.com/FlutterGen/flutter_gen/pull/658) Update required dart version. by [@koji-1009](https://github.com/koji-1009)
+
 ## 5.9.0
 
 **Feature**
