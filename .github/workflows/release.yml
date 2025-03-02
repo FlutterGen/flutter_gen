@@ -67,28 +67,8 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: sha256
+          name: sha256-${{ strategy.job-index }}
           path: packages/command/bin/${{ matrix.target }}/fluttergen-${{ matrix.artifact_prefix }}.sha256
-
-      # - name: Setup credentials
-      #   if: startsWith(matrix.os, 'ubuntu')
-      #   run: |
-      #     mkdir -p ~/.pub-cache
-      #     cat <<eof > ~/.pub-cache/credentials.json
-      #     {
-      #       "accesstoken":"${{ secrets.CREDENTIALS_ACCESS_TOKEN }}",
-      #       "refreshtoken":"${{ secrets.CREDENTIALS_REFRESH_TOKEN }}",
-      #       "idtoken":"${{ secrets.CREDENTIALS_ID_TOKEN }}",
-      #       "tokenendpoint":"https://accounts.google.com/o/oauth2/token",
-      #       "scopes": [ "openid", "https://www.googleapis.com/auth/userinfo.email" ],
-      #       "expiration": 1664440281637
-      #     }
-      #     eof
-      #
-      # - name: Publish to pub.dev
-      #   if: startsWith(matrix.os, 'ubuntu')
-      #   run: |
-      #     melos publish --no-dry-run --yes
 
   update:
     name: Update Homebrew tap
@@ -97,7 +77,8 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4.1.8
         with:
-          name: sha256
+          pattern: sha256-*
+          merge-multiple: true
 
       # GitHub Apps
       - name: Generate github apps token
