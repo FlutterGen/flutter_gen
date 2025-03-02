@@ -7,6 +7,7 @@ on:
   pull_request:
     paths:
       - 'renovate.json'
+  workflow_dispatch:
 
 jobs:
   validate:
