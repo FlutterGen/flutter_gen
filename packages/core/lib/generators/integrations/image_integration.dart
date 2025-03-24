@@ -136,7 +136,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
       if (info.animation case final animation?) {
         buffer.write(', isAnimation: ${animation.frames > 1}');
         buffer.write(
-          ', duration: const Duration(milliseconds: ${animation.duration.inMilliseconds})',
+          ', duration: Duration(milliseconds: ${animation.duration.inMilliseconds})',
         );
         buffer.write(', frames: ${animation.frames}');
       }

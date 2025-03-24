@@ -122,7 +122,7 @@ class $AssetsImagesAnimatedGen {
     'assets/images/animated/emoji_hugging_face.webp',
     size: const Size(512.0, 512.0),
     isAnimation: true,
-    duration: const Duration(milliseconds: 2970),
+    duration: Duration(milliseconds: 2970),
     frames: 45,
   );
 

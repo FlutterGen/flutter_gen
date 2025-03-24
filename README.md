@@ -135,7 +135,7 @@ fluttergen -c example/pubspec.yaml
 ## Configuration file
 
 [FlutterGen] generates dart files based on the key **`flutter`** and **`flutter_gen`** of [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).  
-Default configuration can be found [here](https://github.com/FlutterGen/flutter_gen/tree/main/packages/core/lib/settings/config_default.dart). 
+Default configuration can be found [here](https://github.com/FlutterGen/flutter_gen/tree/main/packages/core/lib/settings/config_default.dart).
 
 ```yaml
 # pubspec.yaml
@@ -172,7 +172,6 @@ flutter:
 ### build.yaml
 
 You can also configure generate options in the `build.yaml`, it will be read before the `pubspec.yaml` if it exists.
-
 
 ```yaml
 # build.yaml
@@ -276,7 +275,9 @@ Widget build(BuildContext context) {
   );
 }
 ```
+
 or
+
 ```dart
 // Explicit usage for `Image`/`SvgPicture`/`Lottie`.
 Widget build(BuildContext context) {
@@ -338,6 +339,28 @@ Which can now be used at runtime without parsing the information from the actual
 Widget build(BuildContext context) {
   return Assets.images.logo.size!.width;
 }
+```
+
+When we need to obtain more animation details, we can use the `parse_animation` option. This will automatically parse all animation information for GIFs and WebP files, including frames, duration, etc. As this option significantly increases generation time, it's disabled by default and needs to be manually enabled.
+
+```yaml
+flutter_gen:
+  parse_animation: true # <- Add this line (default: false)
+                        # This option implies parse_metadata: true
+```
+
+For GIF and WebP animation, several new nullable field is added to the
+generated class. For example:
+
+```dart
+AssetGenImage get animated => 
+  const AssetGenImage(
+    'assets/images/animated.webp',
+    size: Size(209.0, 49.0),
+    isAnimation: true,
+    duration: Duration(milliseconds: 1000),
+    frames: 15,
+  );
 ```
 
 #### Usage Example
@@ -575,7 +598,9 @@ Plugin issues that are not specific to [FlutterGen] can be filed in the [Flutter
 ### Known Issues
 
 #### Bad State: No Element when using build_runner
+
 If you get an error message like this:
+
 ```
 [SEVERE] flutter_gen_runner:flutter_gen_runner on $package$:
 
@@ -614,7 +639,7 @@ output-localization-file: app_localizations.dart
 synthetic-package: false <--- ⚠️Add this line⚠️
 ```
 
-If you get 
+If you get
 
 ## Contributing
 
