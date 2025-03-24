@@ -4,6 +4,7 @@ flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
   line_length: 80 # Optional (default: 80)
   parse_metadata: true # Optional (default: false)
+  parse_animation: true # Optional (default: false)
 
   integrations:
     flutter_svg: true
@@ -24,3 +25,4 @@ flutter:
     - assets/flare/
     - assets/movie/
     - assets/unknown/unknown_mime_type.bk
+    - assets/images/animated

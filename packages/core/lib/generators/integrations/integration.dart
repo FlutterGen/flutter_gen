@@ -55,8 +55,24 @@ const String deprecationMessagePackage =
 /// Currently only contains the width and height, but could contain more in
 /// future.
 class ImageMetadata {
-  const ImageMetadata(this.width, this.height);
+  const ImageMetadata({
+    required this.width,
+    required this.height,
+    this.animation,
+  });
 
   final double width;
   final double height;
+  final ImageAnimation? animation;
+}
+
+/// Metadata about the parsed animation file when [parseAnimation] is true.
+class ImageAnimation {
+  const ImageAnimation({
+    required this.frames,
+    required this.duration,
+  });
+
+  final int frames;
+  final Duration duration;
 }

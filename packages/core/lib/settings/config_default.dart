@@ -8,6 +8,8 @@ flutter_gen:
   line_length: 80
   # Optional
   parse_metadata: false
+  # Optional
+  parse_animation: false
 
   # Optional
   integrations:

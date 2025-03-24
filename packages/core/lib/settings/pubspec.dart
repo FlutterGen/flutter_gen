@@ -103,6 +103,7 @@ class FlutterGen {
     required this.output,
     required this.lineLength,
     required this.parseMetadata,
+    required this.parseAnimation,
     required this.assets,
     required this.fonts,
     required this.integrations,
@@ -119,6 +120,9 @@ class FlutterGen {
 
   @JsonKey(name: 'parse_metadata', required: true)
   final bool parseMetadata;
+
+  @JsonKey(name: 'parse_animation', required: true)
+  final bool parseAnimation;
 
   @JsonKey(name: 'assets', required: true)
   final FlutterGenAssets assets;

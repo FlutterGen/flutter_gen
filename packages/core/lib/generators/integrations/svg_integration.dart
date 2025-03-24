@@ -132,7 +132,10 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
       // but it's also the same way it will be eventually rendered by Flutter.
       final svg = File(asset.fullPath).readAsStringSync();
       final vec = parseWithoutOptimizers(svg);
-      return ImageMetadata(vec.width, vec.height);
+      return ImageMetadata(
+        width: vec.width,
+        height: vec.height,
+      );
     } catch (e) {
       stderr.writeln(
         '[WARNING] Failed to parse SVG \'${asset.path}\' metadata: $e',

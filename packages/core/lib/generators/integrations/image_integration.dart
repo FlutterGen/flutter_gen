@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_gen_core/generators/integrations/integration.dart';
+import 'package:image/image.dart' as img;
 import 'package:image_size_getter/file_input.dart';
 import 'package:image_size_getter/image_size_getter.dart';
 
@@ -11,8 +12,11 @@ import 'package:image_size_getter/image_size_getter.dart';
 class ImageIntegration extends Integration {
   ImageIntegration(
     String packageName, {
+    required this.parseAnimation,
     super.parseMetadata,
   }) : super(packageName);
+
+  final bool parseAnimation;
 
   String get packageParameter => isPackage ? ' = package' : '';
 
@@ -32,6 +36,9 @@ class ImageIntegration extends Integration {
     this._assetName, {
     this.size,
     this.flavors = const {},
+    this.isAnimation = false,
+    this.duration = Duration.zero,
+    this.frames = 1,
   });
 
   final String _assetName;
@@ -40,6 +47,9 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   final Size? size;
   final Set<String> flavors;
+  final bool isAnimation;
+  final Duration duration;
+  final int frames;
 
   Image image({
     Key? key,
@@ -116,12 +126,20 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   @override
   String classInstantiate(AssetType asset) {
-    final info = parseMetadata ? _getMetadata(asset) : null;
+    final info = parseMetadata || parseAnimation ? _getMetadata(asset) : null;
     final buffer = StringBuffer(className);
     buffer.write('(');
     buffer.write('\'${asset.posixStylePath}\'');
     if (info != null) {
-      buffer.write(', size: Size(${info.width}, ${info.height})');
+      buffer.write(', size: const Size(${info.width}, ${info.height})');
+
+      if (info.animation case final animation?) {
+        buffer.write(', isAnimation: ${animation.frames > 1}');
+        buffer.write(
+          ', duration: const Duration(milliseconds: ${animation.duration.inMilliseconds})',
+        );
+        buffer.write(', frames: ${animation.frames}');
+      }
     }
     if (asset.flavors.isNotEmpty) {
       buffer.write(', flavors: {');
@@ -161,11 +179,47 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
         FileInput(File(asset.fullPath)),
       );
       final size = result.size;
-      return ImageMetadata(size.width.toDouble(), size.height.toDouble());
+      final animation = parseAnimation ? _parseAnimation(asset) : null;
+
+      return ImageMetadata(
+        width: size.width.toDouble(),
+        height: size.height.toDouble(),
+        animation: animation,
+      );
     } catch (e) {
       stderr
           .writeln('[WARNING] Failed to parse \'${asset.path}\' metadata: $e');
     }
     return null;
+  }
+
+  ImageAnimation? _parseAnimation(AssetType asset) {
+    final decoder = switch (asset.mime) {
+      'image/gif' => img.GifDecoder(),
+      'image/webp' => img.WebPDecoder(),
+      _ => null,
+    };
+
+    if (decoder == null) {
+      return null;
+    }
+
+    final file = File(asset.fullPath);
+    final bytes = file.readAsBytesSync();
+    final image = decoder.decode(bytes);
+
+    if (image == null) {
+      return null;
+    }
+
+    return ImageAnimation(
+      frames: image.frames.length,
+      duration: Duration(
+        milliseconds: image.frames.fold(
+          0,
+          (duration, frame) => duration + frame.frameDuration,
+        ),
+      ),
+    );
   }
 }

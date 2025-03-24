@@ -74,6 +74,7 @@ FlutterGen _$FlutterGenFromJson(Map json) => $checkedCreate(
             'output',
             'line_length',
             'parse_metadata',
+            'parse_animation',
             'assets',
             'fonts',
             'integrations',
@@ -93,6 +94,7 @@ FlutterGen _$FlutterGenFromJson(Map json) => $checkedCreate(
           output: $checkedConvert('output', (v) => v as String),
           lineLength: $checkedConvert('line_length', (v) => (v as num).toInt()),
           parseMetadata: $checkedConvert('parse_metadata', (v) => v as bool),
+          parseAnimation: $checkedConvert('parse_animation', (v) => v as bool),
           assets: $checkedConvert(
               'assets', (v) => FlutterGenAssets.fromJson(v as Map)),
           fonts: $checkedConvert(
@@ -106,7 +108,8 @@ FlutterGen _$FlutterGenFromJson(Map json) => $checkedCreate(
       },
       fieldKeyMap: const {
         'lineLength': 'line_length',
-        'parseMetadata': 'parse_metadata'
+        'parseMetadata': 'parse_metadata',
+        'parseAnimation': 'parse_animation'
       },
     );
 
