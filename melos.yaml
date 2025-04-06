@@ -28,10 +28,6 @@ scripts:
       flutter: false
     description: dart pub upgrade
 
-  analyze:
-    exec: flutter analyze
-    description: flutter analyze
-
   format:
     run: |
       dart format --set-exit-if-changed .
