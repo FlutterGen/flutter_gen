@@ -7,7 +7,7 @@ documentation: https://github.com/FlutterGen/flutter_gen
 issue_tracker: https://github.com/FlutterGen/flutter_gen/issues
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.4.0
 
 version_gen:
   path: lib/
@@ -24,7 +24,7 @@ dependencies:
   json_annotation: ^4.4.0
   glob: ^2.0.0
 
-  dart_style: '>=2.3.7 <4.0.0'
+  dart_style: ^3.0.0
   archive: '>=3.4.0 <5.0.0'
   args: ^2.0.0
   pub_semver: ^2.0.0
