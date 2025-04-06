@@ -107,7 +107,7 @@ class $AssetsLottieGen {
         cat,
         geometricalAnimation,
         hamburgerArrow,
-        spinningCarrousel,
+        spinningCarrousel
       ];
 }
 
