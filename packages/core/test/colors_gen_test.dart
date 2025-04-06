@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen_core/generators/colors_generator.dart';
 import 'package:flutter_gen_core/settings/color_path.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:flutter_gen_core/utils/error.dart';
+import 'package:flutter_gen_core/utils/formatter.dart';
 import 'package:test/test.dart';
 
 import 'gen_test_helper.dart';
@@ -22,11 +22,7 @@ void main() {
     test('Wrong colors settings on pubspec.yaml', () async {
       final pubspec = File('test_resources/pubspec_colors_no_inputs.yaml');
       final config = loadPubspecConfig(pubspec);
-      final formatter = DartFormatter(
-        languageVersion: dartFormatterLanguageVersion,
-        pageWidth: config.pubspec.flutterGen.lineLength,
-        lineEnding: '\n',
-      );
+      final formatter = buildDartFormatterFromConfig(config);
 
       expect(
         () => generateColors(
@@ -41,11 +37,7 @@ void main() {
     test('Wrong colors settings on pubspec.yaml', () async {
       final pubspec = File('test_resources/pubspec_colors_no_inputs_list.yaml');
       final config = loadPubspecConfig(pubspec);
-      final formatter = DartFormatter(
-        languageVersion: dartFormatterLanguageVersion,
-        pageWidth: config.pubspec.flutterGen.lineLength,
-        lineEnding: '\n',
-      );
+      final formatter = buildDartFormatterFromConfig(config);
 
       expect(
         () {

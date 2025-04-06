@@ -16,6 +16,8 @@ Pubspec _$PubspecFromJson(Map json) => $checkedCreate(
         );
         final val = Pubspec(
           packageName: $checkedConvert('name', (v) => v as String),
+          environment: $checkedConvert(
+              'environment', (v) => _environmentFromJson(v as Map?)),
           flutterGen: $checkedConvert(
               'flutter_gen', (v) => FlutterGen.fromJson(v as Map)),
           flutter:

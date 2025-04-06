@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:pub_semver/pub_semver.dart' show VersionConstraint;
 
 part 'pubspec.g.dart';
 
@@ -8,6 +9,7 @@ part 'pubspec.g.dart';
 class Pubspec {
   const Pubspec({
     required this.packageName,
+    required this.environment,
     required this.flutterGen,
     required this.flutter,
   });
@@ -17,11 +19,56 @@ class Pubspec {
   @JsonKey(name: 'name', required: true)
   final String packageName;
 
+  @JsonKey(name: 'environment', fromJson: _environmentFromJson)
+  final Map<String, VersionConstraint?> environment;
+
   @JsonKey(name: 'flutter_gen', required: true)
   final FlutterGen flutterGen;
 
   @JsonKey(name: 'flutter', required: true)
   final Flutter flutter;
+}
+
+// https://github.com/dart-lang/tools/blob/d3b54e89c4f71a114554499dec00ecd87a491b2b/pkgs/pubspec_parse/lib/src/pubspec.dart#L203
+Map<String, VersionConstraint?> _environmentFromJson(Map? source) {
+  if (source == null) {
+    return {};
+  }
+  return source.map((k, value) {
+    final key = k as String;
+    if (key == 'dart') {
+      // github.com/dart-lang/pub/blob/d84173eeb03c3/lib/src/pubspec.dart#L342
+      // 'dart' is not allowed as a key!
+      throw CheckedFromJsonException(
+        source,
+        'dart',
+        'VersionConstraint',
+        'Use "sdk" to for Dart SDK constraints.',
+        badKey: true,
+      );
+    }
+
+    VersionConstraint? constraint;
+    if (value == null) {
+      constraint = null;
+    } else if (value is String) {
+      try {
+        constraint = VersionConstraint.parse(value);
+      } on FormatException catch (e) {
+        throw CheckedFromJsonException(source, key, 'Pubspec', e.message);
+      }
+
+      return MapEntry(key, constraint);
+    } else {
+      throw CheckedFromJsonException(
+        source,
+        key,
+        'VersionConstraint',
+        '`$value` is not a String.',
+      );
+    }
+    return MapEntry(key, constraint);
+  });
 }
 
 @JsonSerializable(disallowUnrecognizedKeys: false)

@@ -1,11 +1,11 @@
 import 'dart:io' show stdout, Directory, File;
 
-import 'package:dart_style/dart_style.dart' show DartFormatter;
 import 'package:flutter_gen_core/generators/assets_generator.dart';
 import 'package:flutter_gen_core/generators/colors_generator.dart';
 import 'package:flutter_gen_core/generators/fonts_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:flutter_gen_core/utils/file.dart';
+import 'package:flutter_gen_core/utils/formatter.dart';
 import 'package:path/path.dart' show join, normalize;
 
 class FlutterGenerator {
@@ -29,15 +29,10 @@ class FlutterGenerator {
       return;
     }
 
+    final formatter = buildDartFormatterFromConfig(config);
     final flutter = config.pubspec.flutter;
     final flutterGen = config.pubspec.flutterGen;
     final output = config.pubspec.flutterGen.output;
-    final lineLength = config.pubspec.flutterGen.lineLength;
-    final formatter = DartFormatter(
-      languageVersion: DartFormatter.latestLanguageVersion,
-      pageWidth: lineLength,
-      lineEnding: '\n',
-    );
 
     void defaultWriter(String contents, String path) {
       final file = File(path);

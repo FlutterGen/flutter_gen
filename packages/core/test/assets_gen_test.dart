@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:dart_style/dart_style.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter_gen_core/generators/assets_generator.dart';
 import 'package:flutter_gen_core/generators/generator_helper.dart';
 import 'package:flutter_gen_core/settings/asset_type.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:flutter_gen_core/utils/error.dart';
+import 'package:flutter_gen_core/utils/formatter.dart';
 import 'package:flutter_gen_core/utils/string.dart';
 import 'package:test/test.dart';
 
@@ -59,11 +59,7 @@ void main() {
     test('Assets with No lists on pubspec.yaml', () async {
       final pubspec = File('test_resources/pubspec_assets_no_list.yaml');
       final config = loadPubspecConfig(pubspec);
-      final formatter = DartFormatter(
-        languageVersion: dartFormatterLanguageVersion,
-        pageWidth: config.pubspec.flutterGen.lineLength,
-        lineEnding: '\n',
-      );
+      final formatter = buildDartFormatterFromConfig(config);
 
       expect(
         () => generateAssets(
