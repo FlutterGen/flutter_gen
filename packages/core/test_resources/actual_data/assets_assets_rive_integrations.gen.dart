@@ -27,7 +27,10 @@ class Assets {
 }
 
 class RiveGenImage {
-  const RiveGenImage(this._assetName, {this.flavors = const {}});
+  const RiveGenImage(
+    this._assetName, {
+    this.flavors = const {},
+  });
 
   final String _assetName;
   final Set<String> flavors;

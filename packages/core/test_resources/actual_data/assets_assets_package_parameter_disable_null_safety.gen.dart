@@ -61,6 +61,9 @@ class AssetGenImage {
     this._assetName, {
     this.size,
     this.flavors = const {},
+    this.isAnimation = false,
+    this.duration = Duration.zero,
+    this.frames = 1,
   });
 
   final String _assetName;
@@ -69,6 +72,9 @@ class AssetGenImage {
 
   final Size? size;
   final Set<String> flavors;
+  final bool isAnimation;
+  final Duration duration;
+  final int frames;
 
   Image image({
     Key? key,
