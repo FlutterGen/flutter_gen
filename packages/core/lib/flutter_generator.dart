@@ -15,6 +15,7 @@ class FlutterGenerator {
     this.assetsName = 'assets.gen.dart',
     this.colorsName = 'colors.gen.dart',
     this.fontsName = 'fonts.gen.dart',
+    this.overrideOutputPath,
   });
 
   final File pubspecFile;
@@ -22,6 +23,7 @@ class FlutterGenerator {
   final String assetsName;
   final String colorsName;
   final String fontsName;
+  final String? overrideOutputPath;
 
   Future<void> build({Config? config, FileWriter? writer}) async {
     config ??= loadPubspecConfigOrNull(pubspecFile, buildFile: buildFile);
@@ -44,19 +46,11 @@ class FlutterGenerator {
 
     writer ??= defaultWriter;
 
-    final absoluteOutput =
-        Directory(normalize(join(pubspecFile.parent.path, output)));
+    final absoluteOutput = Directory(
+      normalize(overrideOutputPath ?? join(pubspecFile.parent.path, output)),
+    );
     if (!absoluteOutput.existsSync()) {
       absoluteOutput.createSync(recursive: true);
-    }
-
-    if (flutterGen.colors.enabled && flutterGen.colors.inputs.isNotEmpty) {
-      final generated =
-          generateColors(pubspecFile, formatter, flutterGen.colors);
-      final colorsPath =
-          normalize(join(pubspecFile.parent.path, output, colorsName));
-      writer(generated, colorsPath);
-      stdout.writeln('[FlutterGen] Generated: $colorsPath');
     }
 
     if (flutterGen.assets.enabled && flutter.assets.isNotEmpty) {
@@ -64,10 +58,20 @@ class FlutterGenerator {
         AssetsGenConfig.fromConfig(pubspecFile, config),
         formatter,
       );
-      final assetsPath =
-          normalize(join(pubspecFile.parent.path, output, assetsName));
+      final assetsPath = normalize(join(absoluteOutput.path, assetsName));
       writer(generated, assetsPath);
       stdout.writeln('[FlutterGen] Generated: $assetsPath');
+    }
+
+    if (flutterGen.colors.enabled && flutterGen.colors.inputs.isNotEmpty) {
+      final generated = generateColors(
+        pubspecFile,
+        formatter,
+        flutterGen.colors,
+      );
+      final colorsPath = normalize(join(absoluteOutput.path, colorsName));
+      writer(generated, colorsPath);
+      stdout.writeln('[FlutterGen] Generated: $colorsPath');
     }
 
     if (flutterGen.fonts.enabled && flutter.fonts.isNotEmpty) {
@@ -75,8 +79,7 @@ class FlutterGenerator {
         FontsGenConfig.fromConfig(config),
         formatter,
       );
-      final fontsPath =
-          normalize(join(pubspecFile.parent.path, output, fontsName));
+      final fontsPath = normalize(join(absoluteOutput.path, fontsName));
       writer(generated, fontsPath);
       stdout.writeln('[FlutterGen] Generated: $fontsPath');
     }
