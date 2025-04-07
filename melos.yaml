@@ -67,6 +67,10 @@ scripts:
         - example_resources
     description: flutter pub run build_runner build --delete-conflicting-outputs
 
+  gen:actual_data:
+    run: dart packages/core/scripts/generate_facts.dart
+    description: Generate actual data for tests.
+
   test:
     run: |
       melos test:dart --no-select

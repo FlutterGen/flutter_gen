@@ -37,6 +37,11 @@ jobs:
           dart pub global activate melos
           melos bootstrap
 
+      - name: Generate test data and see if changes
+        run: |
+          melos gen:actual_data
+          git --no-pager diff --exit-code packages/core/test_resources/actual_data
+
       - name: Run tests for Dart packages
         if: startsWith(matrix.os, 'ubuntu')
         run: melos test:dart --no-select
