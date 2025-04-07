@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dartx/dartx_io.dart';
 import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/generators/assets_generator.dart';
 import 'package:flutter_gen_core/generators/colors_generator.dart';
@@ -11,13 +12,33 @@ import 'package:test/test.dart';
 
 Future<void> clearTestResults() async {}
 
-Future<List<String>> runAssetsGen(
+(File, File) _getGeneratedAndFact(
+  String pubspec,
+  String type, {
+  String? build,
+}) {
+  final pubspecFile = File(pubspec);
+  final buildFile = build == null ? null : File(build);
+  final config = loadPubspecConfigOrNull(pubspecFile, buildFile: buildFile);
+  final namePrefix = build == null ? '' : 'build_';
+  final nameWithoutExtension = (buildFile ?? pubspecFile).nameWithoutExtension;
+  final name = '$namePrefix${type}_'
+      '${nameWithoutExtension.removePrefix('pubspec_')}'
+      '.gen.dart';
+  final generated = pubspecFile.parent
+      .directory(config?.pubspec.flutterGen.output ?? 'lib/gen')
+      .file(name);
+  final fact = pubspecFile.parent.directory('actual_data').file(name);
+  return (generated, fact);
+}
+
+Future<(String, String)> runAssetsGen(
   String pubspec,
   String generated,
   String fact, {
   String? build,
 }) async {
-  stdout.writeln('[DEBUG] test: Generate from config...');
+  stdout.writeln('[DEBUG] test: Generate assets from config...');
   final pubspecFile = File(pubspec);
 
   File? buildFile;
@@ -31,7 +52,7 @@ Future<List<String>> runAssetsGen(
     assetsName: p.basename(generated),
   ).build();
 
-  stdout.writeln('[DEBUG] test: Generate from API...');
+  stdout.writeln('[DEBUG] test: Generate assets from API...');
   final config = loadPubspecConfig(pubspecFile, buildFile: buildFile);
   final formatter = buildDartFormatterFromConfig(config);
 
@@ -39,40 +60,57 @@ Future<List<String>> runAssetsGen(
     AssetsGenConfig.fromConfig(pubspecFile, config),
     formatter,
   );
-  final expected = formatter.format(
-    File(fact).readAsStringSync().replaceAll('\r\n', '\n'),
-  );
-  return [actual, expected];
+  final expected = formatter.format(File(fact).readAsStringSync());
+  return (actual, expected);
 }
 
 /// Assets
-Future<void> expectedAssetsGen(
+Future<(String, String)> expectedAssetsGen(
+  String pubspec, {
+  String? build,
+}) async {
+  final (generated, fact) = _getGeneratedAndFact(
+    pubspec,
+    'assets',
+    build: build,
+  );
+  final results = await runAssetsGen(
+    pubspec,
+    generated.path,
+    fact.path,
+    build: build,
+  );
+  final (actual, expected) = results;
+  expect(
+    generated.readAsStringSync(),
+    isNotEmpty,
+  );
+  expect(actual, expected);
+  return (actual, expected);
+}
+
+Future<(String, String)> runColorsGen(
   String pubspec,
   String generated,
   String fact, {
   String? build,
 }) async {
-  final results = await runAssetsGen(pubspec, generated, fact, build: build);
-  final actual = results.first, expected = results.last;
-  expect(
-    File(generated).readAsStringSync(),
-    isNotEmpty,
-  );
-  expect(actual, expected);
-}
+  stdout.writeln('[DEBUG] test: Generate colors from config...');
+  final pubspecFile = File(pubspec);
 
-Future<List<String>> runColorsGen(
-  String pubspec,
-  String generated,
-  String fact,
-) async {
+  File? buildFile;
+  if (build != null) {
+    buildFile = File(build);
+  }
+
   await FlutterGenerator(
-    File(pubspec),
+    pubspecFile,
+    buildFile: buildFile,
     colorsName: p.basename(generated),
   ).build();
 
-  final pubspecFile = File(pubspec);
-  final config = loadPubspecConfig(pubspecFile);
+  stdout.writeln('[DEBUG] test: Generate colors from API...');
+  final config = loadPubspecConfig(pubspecFile, buildFile: buildFile);
   final formatter = buildDartFormatterFromConfig(config);
 
   final actual = generateColors(
@@ -80,69 +118,78 @@ Future<List<String>> runColorsGen(
     formatter,
     config.pubspec.flutterGen.colors,
   );
-  final expected = formatter.format(
-    File(fact).readAsStringSync().replaceAll('\r\n', '\n'),
-  );
-  return [actual, expected];
+  final expected = formatter.format(File(fact).readAsStringSync());
+  return (actual, expected);
 }
 
 /// Colors
-Future<void> expectedColorsGen(
-  String pubspec,
-  String generated,
-  String fact,
-) async {
-  final results = await runColorsGen(pubspec, generated, fact);
-  final actual = results.first, expected = results.last;
-  expect(
-    File(generated).readAsStringSync(),
-    isNotEmpty,
+Future<(String, String)> expectedColorsGen(
+  String pubspec, {
+  String? build,
+}) async {
+  final (generated, fact) = _getGeneratedAndFact(
+    pubspec,
+    'colors',
+    build: build,
   );
+  final results = await runColorsGen(pubspec, generated.path, fact.path);
+  final (actual, expected) = results;
+  expect(generated.readAsStringSync(), isNotEmpty);
   expect(actual, expected);
+  return results;
 }
 
-Future<List<String>> runFontsGen(
+Future<(String, String)> runFontsGen(
   String pubspec,
   String generated,
-  String fact,
-) async {
+  String fact, {
+  String? build,
+}) async {
+  stdout.writeln('[DEBUG] test: Generate fonts from config...');
+  final pubspecFile = File(pubspec);
+
+  File? buildFile;
+  if (build != null) {
+    buildFile = File(build);
+  }
+
   await FlutterGenerator(
-    File(pubspec),
+    pubspecFile,
+    buildFile: buildFile,
     fontsName: p.basename(generated),
   ).build();
 
-  final pubspecFile = File(pubspec);
-  final config = loadPubspecConfig(pubspecFile);
+  stdout.writeln('[DEBUG] test: Generate fonts from API...');
+  final config = loadPubspecConfig(pubspecFile, buildFile: buildFile);
   final formatter = buildDartFormatterFromConfig(config);
 
   final actual = generateFonts(
     FontsGenConfig.fromConfig(config),
     formatter,
   );
-  final expected = formatter.format(
-    File(fact).readAsStringSync().replaceAll('\r\n', '\n'),
-  );
-
-  return [actual, expected];
+  final expected = formatter.format(File(fact).readAsStringSync());
+  return (actual, expected);
 }
 
 /// Fonts
-Future<void> expectedFontsGen(
-  String pubspec,
-  String generated,
-  String fact,
-) async {
-  final results = await runFontsGen(pubspec, generated, fact);
-  final actual = results.first, expected = results.last;
-  expect(
-    File(generated).readAsStringSync(),
-    isNotEmpty,
+Future<(String, String)> expectedFontsGen(
+  String pubspec, {
+  String? build,
+}) async {
+  final (generated, fact) = _getGeneratedAndFact(
+    pubspec,
+    'fonts',
+    build: build,
   );
+  final results = await runFontsGen(pubspec, generated.path, fact.path);
+  final (actual, expected) = results;
+  expect(generated.readAsStringSync(), isNotEmpty);
   expect(actual, expected);
+  return (actual, expected);
 }
 
 /// Verify generated package name.
-void expectedPackageNameGen(
+String? expectedPackageNameGen(
   String pubspec,
   String? fact,
 ) {
@@ -153,4 +200,5 @@ void expectedPackageNameGen(
   );
   final actual = generatePackageNameForConfig(config);
   expect(actual, equals(fact));
+  return actual;
 }

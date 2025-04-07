@@ -37,6 +37,11 @@ jobs:
           dart pub global activate melos
           melos bootstrap
 
+      - name: Generate test data and see if changes
+        run: |
+          melos gen:actual_data
+          git --no-pager diff --exit-code packages/core/test_resources/actual_data
+
       - name: Run tests for Dart packages
         if: startsWith(matrix.os, 'ubuntu')
         run: melos test:dart --no-select
@@ -54,12 +59,12 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./packages/core/coverage.lcov
 
-      - name: Generate example
+      - name: Generate example then check formats and changes
         run: |
           melos run gen:examples:command --no-select
           melos run gen:examples:build_runner --no-select
+          dart format --set-exit-if-changed examples
+          git --no-pager diff --exit-code examples
 
-      - name: Check for any formatting and statically analyze the code.
-        run: |
-          melos run format
-          melos analyze
+      - name: Statically analyze the code
+        run: melos analyze

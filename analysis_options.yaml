@@ -3,7 +3,6 @@ include: package:lints/recommended.yaml
 
 analyzer:
   exclude:
-    - 'example'
     - '**.g.dart'
     - 'test_resources/**'
   errors:

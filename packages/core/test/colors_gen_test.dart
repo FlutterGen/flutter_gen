@@ -13,10 +13,7 @@ void main() {
   group('Test Color generator', () {
     test('Colors on pubspec.yaml', () async {
       const pubspec = 'test_resources/pubspec_colors.yaml';
-      const fact = 'test_resources/actual_data/colors.gen.dart';
-      const generated = 'test_resources/lib/gen/colors.gen.dart';
-
-      await expectedColorsGen(pubspec, generated, fact);
+      await expectedColorsGen(pubspec);
     });
 
     test('Wrong colors settings on pubspec.yaml', () async {
@@ -62,12 +59,7 @@ void main() {
 
     test('Change the class name', () async {
       const pubspec = 'test_resources/pubspec_colors_change_class_name.yaml';
-      const fact =
-          'test_resources/actual_data/colors_change_class_name.gen.dart';
-      const generated =
-          'test_resources/lib/gen/colors_change_class_name.gen.dart';
-
-      await expectedColorsGen(pubspec, generated, fact);
+      await expectedColorsGen(pubspec);
     });
   });
 }

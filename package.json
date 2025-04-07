@@ -7,7 +7,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.dart": [
+    "!(packages/core/test_resources/actual_data/**/*)*.dart": [
       "melos format"
     ]
   },
