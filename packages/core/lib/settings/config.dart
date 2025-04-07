@@ -86,10 +86,10 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
 Config? loadPubspecConfigOrNull(File pubspecFile, {File? buildFile}) {
   try {
     return loadPubspecConfig(pubspecFile, buildFile: buildFile);
-  } on FileSystemException catch (e) {
-    stderr.writeln(e.message);
-  } on InvalidSettingsException catch (e) {
-    stderr.writeln(e.message);
+  } on FileSystemException catch (e, s) {
+    stderr.writeln('$e\n$s');
+  } on InvalidSettingsException catch (e, s) {
+    stderr.writeln('$e\n$s');
   }
   return null;
 }

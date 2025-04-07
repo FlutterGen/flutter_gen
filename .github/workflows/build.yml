@@ -61,5 +61,5 @@ jobs:
 
       - name: Check for any formatting and statically analyze the code.
         run: |
-          melos format
+          melos run format
           melos analyze

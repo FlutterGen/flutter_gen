@@ -37,7 +37,7 @@ class FlutterGenBuilder extends Builder {
     if (_config == null) {
       return;
     }
-    final state = await _createState(_config!, buildStep);
+    final state = await _createState(_config, buildStep);
     if (state.shouldSkipGenerate(_currentState)) {
       return;
     }
@@ -56,7 +56,7 @@ class FlutterGenBuilder extends Builder {
     if (_config == null) {
       return {};
     }
-    final output = _config!.pubspec.flutterGen.output;
+    final output = _config.pubspec.flutterGen.output;
     return {
       r'$package$': [
         for (final name in [

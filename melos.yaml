@@ -28,13 +28,11 @@ scripts:
       flutter: false
     description: dart pub upgrade
 
-  analyze:
-    exec: flutter analyze
-    description: flutter analyze
-
   format:
-    run: dart format --set-exit-if-changed .
-    description: dart format --set-exit-if-changed .
+    run: |
+      dart format --set-exit-if-changed .
+      git --no-pager diff --exit-code
+    description: Format Dart files and exit if unstaged changes exist
 
   build:
     exec: flutter build apk

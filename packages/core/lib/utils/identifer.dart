@@ -7,7 +7,7 @@
 /// 2. Built-in identifiers.
 /// 3. Limited reserved words.
 /// 4. Reserved words, which can’t be identifiers.
-///
+// ignore: unnecessary_library_name
 library identifer;
 
 // 1. Contextual keywords, which have meaning only in specific places. They’re

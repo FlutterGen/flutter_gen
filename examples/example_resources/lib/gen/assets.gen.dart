@@ -24,7 +24,8 @@ class $AssetsImagesGen {
   SvgGenImage get dart => const SvgGenImage('assets/images/dart.svg');
 
   /// File path: assets/images/favorite.flr
-  String get favorite => 'assets/images/favorite.flr';
+  String get favorite =>
+      'packages/example_resources/assets/images/favorite.flr';
 
   /// File path: assets/images/flutter3.jpg
   AssetGenImage get flutter3 =>
@@ -54,7 +55,7 @@ class $AssetsUnknownGen {
 }
 
 class ResAssets {
-  ResAssets._();
+  const ResAssets._();
 
   static const String package = 'example_resources';
 
