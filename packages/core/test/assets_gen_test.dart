@@ -16,44 +16,27 @@ void main() {
   group('Test Assets generator', () {
     test('Assets on pubspec.yaml', () async {
       const pubspec = 'test_resources/pubspec_assets.yaml';
-      const fact = 'test_resources/actual_data/assets.gen.dart';
-      const generated = 'test_resources/lib/gen/assets.gen.dart';
-
-      await expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec);
     });
 
     test('Assets snake-case style on pubspec.yaml', () async {
       const pubspec = 'test_resources/pubspec_assets_snake_case.yaml';
-      const fact = 'test_resources/actual_data/assets_snake_case.gen.dart';
-      const generated = 'test_resources/lib/gen/assets_snake_case.gen.dart';
-
-      await expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec);
     });
 
     test('Assets camel-case style on pubspec.yaml', () async {
       const pubspec = 'test_resources/pubspec_assets_camel_case.yaml';
-      const fact = 'test_resources/actual_data/assets_camel_case.gen.dart';
-      const generated = 'test_resources/lib/gen/assets_camel_case.gen.dart';
-
-      await expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec);
     });
 
     test('Assets with Unknown mime type on pubspec.yaml', () async {
       const pubspec = 'test_resources/pubspec_unknown_mime_type.yaml';
-      const fact =
-          'test_resources/actual_data/assets_unknown_mime_type.gen.dart';
-      const generated =
-          'test_resources/lib/gen/assets_unknown_mime_type.gen.dart';
-
-      await expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec);
     });
 
     test('Assets with ignore files on pubspec.yaml', () async {
       const pubspec = 'test_resources/pubspec_ignore_files.yaml';
-      const fact = 'test_resources/actual_data/assets_ignore_files.gen.dart';
-      const generated = 'test_resources/lib/gen/assets_ignore_files.gen.dart';
-
-      await expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec);
     });
 
     test('Assets with No lists on pubspec.yaml', () async {
@@ -72,15 +55,9 @@ void main() {
 
     test('Assets with package parameter enabled', () async {
       const pubspec = 'test_resources/pubspec_assets_package_parameter.yaml';
-      const fact =
-          'test_resources/actual_data/assets_package_parameter.gen.dart';
-      const generated =
-          'test_resources/lib/gen/assets_package_parameter.gen.dart';
-
-      await expectedAssetsGen(pubspec, generated, fact);
+      final (content, _) = await expectedAssetsGen(pubspec);
 
       // The generated classes have `package` fields.
-      final content = await File(generated).readAsString();
       expect(content, contains("static const String package = 'test';"));
       expect(
         content,
@@ -96,67 +73,40 @@ void main() {
 
     test('Assets with directory path enabled', () async {
       const pubspec = 'test_resources/pubspec_assets_directory_path.yaml';
-      const fact = 'test_resources/actual_data/assets_directory_path.gen.dart';
-      const generated = 'test_resources/lib/gen/assets_directory_path.gen.dart';
-      await expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec);
     });
 
     test('Assets with directory path and package parameter enabled', () async {
       const pubspec =
           'test_resources/pubspec_assets_directory_path_with_package_parameter.yaml';
-      const fact =
-          'test_resources/actual_data/assets_directory_path_with_package_parameter.gen.dart';
-      const generated =
-          'test_resources/lib/gen/assets_directory_path_with_package_parameter.gen.dart';
-      await expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec);
     });
 
     test('Assets with excluded files and directories', () async {
       const pubspec = 'test_resources/pubspec_assets_exclude_files.yaml';
-      const fact =
-          'test_resources/actual_data/assets_package_exclude_files.gen.dart';
-      const generated =
-          'test_resources/lib/gen/assets_package_exclude_files.gen.dart';
-
-      await expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec);
     });
 
     test('Assets with change the class name', () async {
       const pubspec = 'test_resources/pubspec_assets_change_class_name.yaml';
-      const fact =
-          'test_resources/actual_data/assets_change_class_name.gen.dart';
-      const generated =
-          'test_resources/lib/gen/assets_change_class_name.gen.dart';
-
-      await expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec);
     });
 
     test('Assets with parse metadata enabled', () async {
       const pubspec = 'test_resources/pubspec_assets_parse_metadata.yaml';
-      const fact = 'test_resources/actual_data/assets_parse_metadata.gen.dart';
-      const generated = 'test_resources/lib/gen/assets_parse_metadata.gen.dart';
-
-      await expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec);
     });
 
     test('Assets with flavored assets', () async {
       const pubspec = 'test_resources/pubspec_assets_flavored.yaml';
-      const fact = 'test_resources/actual_data/assets_flavored.gen.dart';
-      const generated = 'test_resources/lib/gen/assets_flavored.gen.dart';
-
-      await expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec);
     });
 
     test('Assets with duplicate flavoring entries', () async {
       const pubspec =
           'test_resources/pubspec_assets_flavored_duplicate_entry.yaml';
-      const fact =
-          'test_resources/actual_data/assets_flavored_duplicate_entry.gen.dart';
-      const generated =
-          'test_resources/lib/gen/assets_flavored_duplicate_entry.gen.dart';
-
       await expectLater(
-        () => runAssetsGen(pubspec, generated, fact),
+        () => expectedAssetsGen(pubspec),
         throwsA(isA<StateError>()),
       );
     });
@@ -232,10 +182,7 @@ void main() {
       () async {
         const pubspec = 'test_resources/pubspec_assets.yaml';
         const build = 'test_resources/build_assets.yaml';
-        const fact = 'test_resources/actual_data/build_assets.gen.dart';
-        const generated = 'test_resources/lib/build_gen/assets.gen.dart';
-
-        await expectedAssetsGen(pubspec, generated, fact, build: build);
+        await expectedAssetsGen(pubspec, build: build);
       },
     );
 
@@ -244,10 +191,7 @@ void main() {
       () async {
         const pubspec = 'test_resources/pubspec_assets.yaml';
         const build = 'test_resources/build_runner_assets.yaml';
-        const fact = 'test_resources/actual_data/build_runner_assets.gen.dart';
-        const generated = 'test_resources/lib/build_gen/assets.gen.dart';
-
-        await expectedAssetsGen(pubspec, generated, fact, build: build);
+        await expectedAssetsGen(pubspec, build: build);
       },
     );
 
@@ -256,24 +200,18 @@ void main() {
       () async {
         const pubspec = 'test_resources/pubspec_assets.yaml';
         const build = 'test_resources/build_empty.yaml';
-        const fact = 'test_resources/actual_data/build_empty.gen.dart';
-        const generated = 'test_resources/lib/build_gen/assets.gen.dart';
-
-        await expectedAssetsGen(pubspec, generated, fact, build: build);
+        await expectedAssetsGen(pubspec, build: build);
       },
     );
 
     test('fallback to build.yaml if valid', () async {
       const pubspec = 'test_resources/pubspec_assets.yaml';
-      const fact = 'test_resources/actual_data/build_assets.gen.dart';
-      const generated = 'test_resources/lib/build_gen/assets.gen.dart';
-
       final buildFile = File('build.yaml');
       final originalBuildContent = buildFile.readAsStringSync();
       buildFile.writeAsStringSync(
         File('test_resources/build_assets.yaml').readAsStringSync(),
       );
-      await expectedAssetsGen(pubspec, generated, fact).whenComplete(() {
+      await expectedAssetsGen(pubspec).whenComplete(() {
         buildFile.writeAsStringSync(originalBuildContent);
       });
     });

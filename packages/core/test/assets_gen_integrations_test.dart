@@ -34,21 +34,12 @@ void main() {
 
     test('Assets with No integrations on pubspec.yaml', () async {
       const pubspec = 'test_resources/pubspec_assets_no_integrations.yaml';
-      const fact = 'test_resources/actual_data/assets_no_integrations.gen.dart';
-      const generated =
-          'test_resources/lib/gen/assets_no_integrations.gen.dart';
-
-      await expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec);
     });
 
     test('Assets with no image integration', () async {
       const pubspec = 'test_resources/pubspec_assets_no_image_integration.yaml';
-      const fact =
-          'test_resources/actual_data/assets_no_image_integration.gen.dart';
-      const generated =
-          'test_resources/lib/gen/assets_no_image_integration.gen.dart';
-
-      await expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec);
     });
 
     test('Integration.classInstantiate', () {
@@ -62,12 +53,7 @@ void main() {
 
     test('Assets with Svg integrations on pubspec.yaml', () async {
       const pubspec = 'test_resources/pubspec_assets_svg_integrations.yaml';
-      const fact =
-          'test_resources/actual_data/assets_svg_integrations.gen.dart';
-      const generated =
-          'test_resources/lib/gen/assets_svg_integrations.gen.dart';
-
-      await expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec);
 
       final integration = SvgIntegration('');
       expect(integration.className, 'SvgGenImage');
@@ -151,12 +137,7 @@ void main() {
 
     test('Assets with Rive integrations on pubspec.yaml', () async {
       const pubspec = 'test_resources/pubspec_assets_rive_integrations.yaml';
-      const fact =
-          'test_resources/actual_data/assets_rive_integrations.gen.dart';
-      const generated =
-          'test_resources/lib/gen/assets_rive_integrations.gen.dart';
-
-      await expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec);
 
       final integration = RiveIntegration('');
       expect(integration.className, 'RiveGenImage');
@@ -203,12 +184,7 @@ void main() {
 
     test('Assets with Lottie integrations on pubspec.yaml', () async {
       const pubspec = 'test_resources/pubspec_assets_lottie_integrations.yaml';
-      const fact =
-          'test_resources/actual_data/assets_lottie_integrations.gen.dart';
-      const generated =
-          'test_resources/lib/gen/assets_lottie_integrations.gen.dart';
-
-      await expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec);
 
       final integration = LottieIntegration('');
       expect(integration.className, 'LottieGenImage');
