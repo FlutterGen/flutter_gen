@@ -63,7 +63,7 @@ Future<String> generateAssets(
       ImageIntegration(
         config.packageParameterLiteral,
         parseMetadata: config.flutterGen.parseMetadata,
-        parseAnimation: config.flutterGen.parseAnimation,
+        parseAnimation: config.flutterGen.images.parseAnimation,
       ),
     if (config.flutterGen.integrations.flutterSvg)
       SvgIntegration(

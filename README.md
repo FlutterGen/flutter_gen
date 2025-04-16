@@ -348,8 +348,9 @@ The option is disabled by default; enabling it will significantly increase the g
 
 ```yaml
 flutter_gen:
-  parse_animation: true # <- Add this line (default: false)
-  # This option implies parse_metadata: true
+  images:
+    parse_animation: true # <- Add this line (default: false)
+    # This option implies parse_metadata: true when parsing images.
 ```
 
 For GIF and WebP animation, several new nullable field is added to the
@@ -641,7 +642,6 @@ template-arb-file: app_en.arb
 output-localization-file: app_localizations.dart
 synthetic-package: false <--- ⚠️Add this line⚠️
 ```
-
 
 ## Contributing
 

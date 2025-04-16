@@ -103,7 +103,7 @@ class FlutterGen {
     required this.output,
     required this.lineLength,
     required this.parseMetadata,
-    required this.parseAnimation,
+    required this.images,
     required this.assets,
     required this.fonts,
     required this.integrations,
@@ -121,8 +121,8 @@ class FlutterGen {
   @JsonKey(name: 'parse_metadata', required: true)
   final bool parseMetadata;
 
-  @JsonKey(name: 'parse_animation', required: true)
-  final bool parseAnimation;
+  @JsonKey(name: 'images', required: true)
+  final FlutterGenImages images;
 
   @JsonKey(name: 'assets', required: true)
   final FlutterGenAssets assets;
@@ -187,6 +187,19 @@ class FlutterGenAssets {
 
   @JsonKey(name: 'exclude', required: true)
   final List<String> exclude;
+}
+
+@JsonSerializable()
+class FlutterGenImages {
+  const FlutterGenImages({
+    required this.parseAnimation,
+  });
+
+  factory FlutterGenImages.fromJson(Map json) =>
+      _$FlutterGenImagesFromJson(json);
+
+  @JsonKey(name: 'parse_animation', required: true)
+  final bool parseAnimation;
 }
 
 @JsonSerializable()
