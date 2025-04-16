@@ -9,6 +9,16 @@
 
 import 'package:flutter/widgets.dart';
 
+class $PicturesGen {
+  const $PicturesGen();
+
+  /// File path: pictures/chip5.jpg
+  AssetGenImage get chip5 => const AssetGenImage('pictures/chip5.jpg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [chip5];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -18,26 +28,46 @@ class $AssetsImagesGen {
   /// File path: assets/images/chip2.jpg
   AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
 
-  /// File path: assets/images/logo.png
-  AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
+  /// Directory path: assets/images/chip4
+  $AssetsImagesChip4Gen get chip4 => const $AssetsImagesChip4Gen();
 
   /// File path: assets/images/profile.jpg
-  AssetGenImage get profileJpg =>
-      const AssetGenImage('assets/images/profile.jpg');
-
-  /// File path: assets/images/profile.png
-  AssetGenImage get profilePng =>
-      const AssetGenImage('assets/images/profile.png');
+  AssetGenImage get profile => const AssetGenImage('assets/images/profile.jpg');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [chip1, chip2, logo, profileJpg, profilePng];
+  List<AssetGenImage> get values => [chip1, chip2, profile];
+}
+
+class $AssetsJsonGen {
+  const $AssetsJsonGen();
+
+  /// File path: assets/json/list.json
+  String get list => 'assets/json/list.json';
+
+  /// File path: assets/json/map.json
+  String get map => 'assets/json/map.json';
+
+  /// List of all assets
+  List<String> get values => [list, map];
+}
+
+class $AssetsImagesChip4Gen {
+  const $AssetsImagesChip4Gen();
+
+  /// File path: assets/images/chip4/chip4.jpg
+  AssetGenImage get chip4 =>
+      const AssetGenImage('assets/images/chip4/chip4.jpg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [chip4];
 }
 
 class Assets {
   const Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsJsonGen json = $AssetsJsonGen();
+  static const $PicturesGen pictures = $PicturesGen();
 }
 
 class AssetGenImage {
@@ -45,14 +75,18 @@ class AssetGenImage {
     this._assetName, {
     this.size,
     this.flavors = const {},
-    this.animation,
+    this.isAnimation = false,
+    this.duration = Duration.zero,
+    this.frames = 1,
   });
 
   final String _assetName;
 
   final Size? size;
   final Set<String> flavors;
-  final AssetGenImageAnimation? animation;
+  final bool isAnimation;
+  final Duration duration;
+  final int frames;
 
   Image image({
     Key? key,
@@ -107,30 +141,11 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;
 
   String get keyName => _assetName;
-}
-
-class AssetGenImageAnimation {
-  const AssetGenImageAnimation({
-    required this.isAnimation,
-    required this.duration,
-    required this.frames,
-  });
-
-  final bool isAnimation;
-  final Duration duration;
-  final int frames;
 }
