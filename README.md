@@ -642,7 +642,6 @@ output-localization-file: app_localizations.dart
 synthetic-package: false <--- ⚠️Add this line⚠️
 ```
 
-If you get
 
 ## Contributing
 
