@@ -346,7 +346,7 @@ When we need to obtain more animation details, we can use the `parse_animation` 
 ```yaml
 flutter_gen:
   parse_animation: true # <- Add this line (default: false)
-                        # This option implies parse_metadata: true
+  # This option implies parse_metadata: true
 ```
 
 For GIF and WebP animation, several new nullable field is added to the
