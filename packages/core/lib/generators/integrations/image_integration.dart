@@ -204,32 +204,39 @@ class AssetGenImageAnimation {
   }
 
   ImageAnimation? _parseAnimation(AssetType asset) {
-    final decoder = switch (asset.mime) {
-      'image/gif' => img.GifDecoder(),
-      'image/webp' => img.WebPDecoder(),
-      _ => null,
-    };
+    try {
+      final decoder = switch (asset.mime) {
+        'image/gif' => img.GifDecoder(),
+        'image/webp' => img.WebPDecoder(),
+        _ => null,
+      };
 
-    if (decoder == null) {
-      return null;
-    }
+      if (decoder == null) {
+        return null;
+      }
 
-    final file = File(asset.fullPath);
-    final bytes = file.readAsBytesSync();
-    final image = decoder.decode(bytes);
+      final file = File(asset.fullPath);
+      final bytes = file.readAsBytesSync();
+      final image = decoder.decode(bytes);
 
-    if (image == null) {
-      return null;
-    }
+      if (image == null) {
+        return null;
+      }
 
-    return ImageAnimation(
-      frames: image.frames.length,
-      duration: Duration(
-        milliseconds: image.frames.fold(
-          0,
-          (duration, frame) => duration + frame.frameDuration,
+      return ImageAnimation(
+        frames: image.frames.length,
+        duration: Duration(
+          milliseconds: image.frames.fold(
+            0,
+            (duration, frame) => duration + frame.frameDuration,
+          ),
         ),
-      ),
-    );
+      );
+    } catch (e) {
+      stderr.writeln(
+        '[WARNING] Failed to parse \'${asset.path}\' animation information: $e',
+      );
+    }
+    return null;
   }
 }
