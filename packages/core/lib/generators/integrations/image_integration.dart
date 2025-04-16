@@ -36,9 +36,7 @@ class ImageIntegration extends Integration {
     this._assetName, {
     this.size,
     this.flavors = const {},
-    this.isAnimation = false,
-    this.duration = Duration.zero,
-    this.frames = 1,
+    this.animation,
   });
 
   final String _assetName;
@@ -47,9 +45,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   final Size? size;
   final Set<String> flavors;
-  final bool isAnimation;
-  final Duration duration;
-  final int frames;
+  final AssetGenImageAnimation? animation;
 
   Image image({
     Key? key,
@@ -119,6 +115,18 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   String get keyName => $keyName;
 }
+
+class AssetGenImageAnimation {
+  const AssetGenImageAnimation({
+    required this.isAnimation,
+    required this.duration,
+    required this.frames,
+  });
+
+  final bool isAnimation;
+  final Duration duration;
+  final int frames;
+}
 ''';
 
   @override
@@ -134,11 +142,13 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
       buffer.write(', size: const Size(${info.width}, ${info.height})');
 
       if (info.animation case final animation?) {
-        buffer.write(', isAnimation: ${animation.frames > 1}');
+        buffer.write(', animation: const AssetGenImageAnimation(');
+        buffer.write('isAnimation: ${animation.frames > 1}');
         buffer.write(
           ', duration: Duration(milliseconds: ${animation.duration.inMilliseconds})',
         );
         buffer.write(', frames: ${animation.frames}');
+        buffer.write(')');
       }
     }
     if (asset.flavors.isNotEmpty) {
