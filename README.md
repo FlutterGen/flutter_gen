@@ -341,7 +341,10 @@ Widget build(BuildContext context) {
 }
 ```
 
-When we need to obtain more animation details, we can use the `parse_animation` option. This will automatically parse all animation information for GIFs and WebP files, including frames, duration, etc. As this option significantly increases generation time, it's disabled by default and needs to be manually enabled.
+You can use `parse_animation` to generate more animation details.
+It will automatically parse all animation information for GIF and WebP files,
+including frames, duration, etc. As this option significantly increases generation time,
+The option is disabled by default; enabling it will significantly increase the generation elapse.
 
 ```yaml
 flutter_gen:
