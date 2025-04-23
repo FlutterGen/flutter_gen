@@ -55,12 +55,12 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-    chip1,
-    chip2,
-    logo,
-    profileJpg,
-    profilePng,
-  ];
+        chip1,
+        chip2,
+        logo,
+        profileJpg,
+        profilePng,
+      ];
 }
 
 class $AssetsJsonGen {
@@ -107,13 +107,13 @@ class $AssetsLottieGen {
 
   /// List of all assets
   List<LottieGenImage> get values => [
-    xuiIZ9X1Rf,
-    alarmClockLottieV440,
-    cat,
-    geometricalAnimation,
-    hamburgerArrow,
-    spinningCarrousel,
-  ];
+        xuiIZ9X1Rf,
+        alarmClockLottieV440,
+        cat,
+        geometricalAnimation,
+        hamburgerArrow,
+        spinningCarrousel,
+      ];
 }
 
 class $AssetsMixGen {
@@ -310,10 +310,10 @@ class AssetGenImage {
 
 class SvgGenImage {
   const SvgGenImage(this._assetName, {this.size, this.flavors = const {}})
-    : _isVecFormat = false;
+      : _isVecFormat = false;
 
   const SvgGenImage.vec(this._assetName, {this.size, this.flavors = const {}})
-    : _isVecFormat = true;
+      : _isVecFormat = true;
 
   final String _assetName;
   final Size? size;
@@ -367,8 +367,7 @@ class SvgGenImage {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      colorFilter:
-          colorFilter ??
+      colorFilter: colorFilter ??
           (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
@@ -437,7 +436,7 @@ class LottieGenImage {
     Key? key,
     AssetBundle? bundle,
     Widget Function(BuildContext, Widget, _lottie.LottieComposition?)?
-    frameBuilder,
+        frameBuilder,
     ImageErrorWidgetBuilder? errorBuilder,
     double? width,
     double? height,
