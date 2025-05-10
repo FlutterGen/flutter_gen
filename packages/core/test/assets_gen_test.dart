@@ -167,7 +167,14 @@ void main() {
 
       final List<AssetType> assets = tests.keys
           .sorted()
-          .map((e) => AssetType(rootPath: '', path: e, flavors: {}))
+          .map(
+            (e) => AssetType(
+              rootPath: '',
+              path: e,
+              flavors: {},
+              transformers: {},
+            ),
+          )
           .toList();
 
       final got = assets.mapToUniqueAssetType(camelCase);

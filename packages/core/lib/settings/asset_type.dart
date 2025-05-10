@@ -10,11 +10,13 @@ class AssetType {
     required this.rootPath,
     required this.path,
     required this.flavors,
+    required this.transformers,
   });
 
   final String rootPath;
   final String path;
   final Set<String> flavors;
+  final Set<String> transformers;
 
   final List<AssetType> _children = List.empty(growable: true);
   late final children = _children.sortedBy((e) => e.path);
@@ -55,7 +57,8 @@ class AssetType {
   String toString() => 'AssetType('
       'rootPath: $rootPath, '
       'path: $path, '
-      'flavors: $flavors'
+      'flavors: $flavors, '
+      'transformers: $transformers'
       ')';
 }
 
@@ -74,6 +77,7 @@ class UniqueAssetType extends AssetType {
           rootPath: assetType.rootPath,
           path: assetType.path,
           flavors: assetType.flavors,
+          transformers: assetType.transformers,
         );
 
   /// Convert the asset name to a correctly styled name, e.g camelCase or
@@ -113,7 +117,9 @@ class UniqueAssetType extends AssetType {
         'path: $path, '
         'style: $style, '
         'needExtension: $needExtension, '
-        'suffix: $suffix}';
+        'suffix: $suffix, '
+        'flavors: $flavors, '
+        'transformers: $transformers}';
   }
 }
 
