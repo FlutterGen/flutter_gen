@@ -26,7 +26,7 @@ class SvgIntegration extends Integration {
     this.size,
     this.flavors = const {},
   }) : _isVecFormat = false;
-  
+
   const SvgGenImage.vec(
     this._assetName, {
     this.size,
@@ -54,6 +54,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
     String? semanticsLabel,
     bool excludeFromSemantics = false,
     _svg.SvgTheme? theme,
+    _svg.ColorMapper? colorMapper,
     ColorFilter? colorFilter,
     Clip clipBehavior = Clip.hardEdge,
     @deprecated Color? color,
@@ -73,6 +74,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
         assetBundle: bundle,
         packageName: package,
         theme: theme,
+        colorMapper: colorMapper,
       );
     }
     return _svg.SvgPicture(
