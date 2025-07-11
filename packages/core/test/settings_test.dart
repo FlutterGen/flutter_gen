@@ -2,6 +2,8 @@ import 'package:collection/collection.dart';
 import 'package:flutter_gen_core/settings/asset_type.dart';
 import 'package:flutter_gen_core/settings/flavored_asset.dart';
 import 'package:flutter_gen_core/settings/pubspec.dart';
+import 'package:flutter_gen_core/utils/error.dart'
+    show InvalidSettingsException;
 import 'package:test/test.dart';
 
 void main() {
@@ -85,6 +87,15 @@ void main() {
       for (final style in FlutterGenElementAssetsOutputsStyle.values) {
         expect(style.toJson(), equals(style.name));
       }
+    });
+  });
+
+  group(InvalidSettingsException, () {
+    test('toString', () {
+      expect(
+        const InvalidSettingsException('message').toString(),
+        'InvalidSettingsException: message',
+      );
     });
   });
 }
