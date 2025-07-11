@@ -85,7 +85,6 @@ Future<String> generateAssets(
       config.flutterGen.assets.packageParameterEnabled != null;
   if (deprecatedStyle || deprecatedPackageParam) {
     final deprecationBuffer = StringBuffer();
-    deprecationBuffer.writeln(sDeprecationHeader);
     if (deprecatedStyle) {
       deprecationBuffer.writeln(
         sBuildDeprecation(
