@@ -1,4 +1,4 @@
-import 'dart:io' show stdout, Directory, File;
+import 'dart:io' show Directory, File;
 
 import 'package:flutter_gen_core/generators/assets_generator.dart';
 import 'package:flutter_gen_core/generators/colors_generator.dart';

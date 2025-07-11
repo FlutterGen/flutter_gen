@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/utils/cast.dart';
-import 'package:flutter_gen_core/utils/error.dart';
 import 'package:flutter_gen_core/version.gen.dart';
 
 void main(List<String> args) async {

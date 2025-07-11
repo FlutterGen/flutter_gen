@@ -1,6 +1,5 @@
 import 'dart:io' show Platform;
 
-import 'package:flutter_gen_core/generators/generator_helper.dart' as helper;
 import 'package:flutter_gen_core/version.gen.dart';
 import 'package:test/test.dart';
 import 'package:test_process/test_process.dart';
