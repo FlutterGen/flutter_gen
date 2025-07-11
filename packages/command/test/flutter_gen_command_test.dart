@@ -62,13 +62,13 @@ void main() {
     );
     expect(
       await process.stderr.next,
-      equals('Could not find an option named "--wrong".'),
+      equals('Unhandled exception:'),
     );
     expect(
       await process.stderr.next,
-      equals('usage: flutter_gen [options...]'),
+      equals('FormatException: Could not find an option named "--wrong".'),
     );
-    await process.shouldExit(0);
+    await process.shouldExit(255);
   });
 
   test('Execute deprecated config with fluttergen', () async {
@@ -80,10 +80,17 @@ void main() {
         'test/deprecated_configs.yaml',
       ],
     );
-    final errors = (await process.stderr.rest.toList()).join('\n');
-    expect(errors, contains(helper.sDeprecationHeader));
-    expect(errors, contains('style'));
-    expect(errors, contains('package_parameter_enabled'));
-    await process.shouldExit(0);
+    expect(
+      await process.stderr.next,
+      equals('Unhandled exception:'),
+    );
+    expect(
+      await process.stderr.next,
+      startsWith('InvalidSettingsException: '),
+    );
+    final rest = (await process.stderr.rest.toList()).join('\n');
+    expect(rest, contains('style'));
+    expect(rest, contains('package_parameter_enabled'));
+    await process.shouldExit(255);
   });
 }
