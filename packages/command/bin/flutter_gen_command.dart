@@ -39,18 +39,14 @@ void main(List<String> args) async {
   try {
     results = parser.parse(args);
     if (results.wasParsed('help')) {
-      stdout.writeln(parser.usage);
+      print(parser.usage);
       return;
     } else if (results.wasParsed('version')) {
-      stdout.writeln('[FlutterGen] v$packageVersion');
+      print('[FlutterGen] v$packageVersion');
       return;
     }
   } on FormatException catch (e) {
-    stderr.writeAll(
-      <String>[e.message, 'usage: flutter_gen [options...]', ''],
-      '\n',
-    );
-    return;
+    throw '$e\n\n${parser.usage}';
   }
 
   final pubspecPath = safeCast<String>(results['config']);
@@ -65,9 +61,5 @@ void main(List<String> args) async {
   }
   final buildFile = buildPath == null ? null : File(buildPath).absolute;
 
-  try {
-    await FlutterGenerator(pubspecFile, buildFile: buildFile).build();
-  } on InvalidSettingsException catch (e) {
-    stderr.write(e.message);
-  }
+  await FlutterGenerator(pubspecFile, buildFile: buildFile).build();
 }

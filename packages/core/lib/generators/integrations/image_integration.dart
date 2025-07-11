@@ -163,8 +163,9 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
       final size = result.size;
       return ImageMetadata(size.width.toDouble(), size.height.toDouble());
     } catch (e) {
-      stderr
-          .writeln('[WARNING] Failed to parse \'${asset.path}\' metadata: $e');
+      stderr.writeln(
+        '[WARNING] Failed to parse \'${asset.path}\' metadata: $e',
+      );
     }
     return null;
   }

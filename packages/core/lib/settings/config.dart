@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter_gen_core/settings/config_default.dart';
@@ -20,17 +21,14 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
     join(basename(pubspecFile.parent.path), basename(pubspecFile.path)),
   );
 
-  stdout.writeln('[FlutterGen] v$packageVersion Loading ...');
+  print('[FlutterGen] v$packageVersion Loading ...');
+  print('[FlutterGen] Reading options from $pubspecLocaleHint');
 
   final defaultMap = loadYaml(configDefaultYamlContent) as Map?;
 
   final pubspecContent = pubspecFile.readAsStringSync();
   final pubspecMap = loadYaml(pubspecContent) as Map?;
-
-  var mergedMap = mergeMap([defaultMap, pubspecMap]);
-  stdout.writeln(
-    '[FlutterGen] Reading options from $pubspecLocaleHint',
-  );
+  Map mergedMap = mergeMap([defaultMap, pubspecMap]);
 
   YamlMap? getBuildFileOptions(File file) {
     if (!file.existsSync()) {
@@ -62,9 +60,7 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
         final buildLocaleHint = normalize(
           join(basename(buildFile.parent.path), basename(buildFile.path)),
         );
-        stdout.writeln(
-          '[FlutterGen] Reading options from $buildLocaleHint',
-        );
+        print('[FlutterGen] Reading options from $buildLocaleHint');
       } else {
         stderr.writeln(
           '[FlutterGen] Specified ${buildFile.path} as input but the file '

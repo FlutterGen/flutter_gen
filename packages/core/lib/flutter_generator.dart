@@ -60,7 +60,7 @@ class FlutterGenerator {
       );
       final assetsPath = normalize(join(absoluteOutput.path, assetsName));
       writer(generated, assetsPath);
-      stdout.writeln('[FlutterGen] Generated: $assetsPath');
+      print('[FlutterGen] Generated: $assetsPath');
     }
 
     if (flutterGen.colors.enabled && flutterGen.colors.inputs.isNotEmpty) {
@@ -71,7 +71,7 @@ class FlutterGenerator {
       );
       final colorsPath = normalize(join(absoluteOutput.path, colorsName));
       writer(generated, colorsPath);
-      stdout.writeln('[FlutterGen] Generated: $colorsPath');
+      print('[FlutterGen] Generated: $colorsPath');
     }
 
     if (flutterGen.fonts.enabled && flutter.fonts.isNotEmpty) {
@@ -81,9 +81,9 @@ class FlutterGenerator {
       );
       final fontsPath = normalize(join(absoluteOutput.path, fontsName));
       writer(generated, fontsPath);
-      stdout.writeln('[FlutterGen] Generated: $fontsPath');
+      print('[FlutterGen] Generated: $fontsPath');
     }
 
-    stdout.writeln('[FlutterGen] Finished generating.');
+    print('[FlutterGen] Finished generating.');
   }
 }
