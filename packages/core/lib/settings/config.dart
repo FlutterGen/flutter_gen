@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_gen_core/settings/config_default.dart';
 import 'package:flutter_gen_core/settings/pubspec.dart';
 import 'package:flutter_gen_core/utils/error.dart';
+import 'package:flutter_gen_core/utils/log.dart';
 import 'package:flutter_gen_core/utils/map.dart';
 import 'package:flutter_gen_core/version.gen.dart';
 import 'package:path/path.dart';
@@ -20,8 +21,8 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
     join(basename(pubspecFile.parent.path), basename(pubspecFile.path)),
   );
 
-  print('[FlutterGen] v$packageVersion Loading ...');
-  print('[FlutterGen] Reading options from $pubspecLocaleHint');
+  log.info('[FlutterGen] v$packageVersion Loading ...');
+  log.info('[FlutterGen] Reading options from $pubspecLocaleHint');
 
   final defaultMap = loadYaml(configDefaultYamlContent) as Map?;
 
@@ -59,15 +60,15 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
         final buildLocaleHint = normalize(
           join(basename(buildFile.parent.path), basename(buildFile.path)),
         );
-        print('[FlutterGen] Reading options from $buildLocaleHint');
+        log.info('[FlutterGen] Reading options from $buildLocaleHint');
       } else {
-        stderr.writeln(
+        log.severe(
           '[FlutterGen] Specified ${buildFile.path} as input but the file '
           'does not contain valid options, ignoring...',
         );
       }
     } else {
-      stderr.writeln(
+      log.warning(
         '[FlutterGen] Specified ${buildFile.path} as input but the file '
         'does not exists.',
       );
@@ -82,9 +83,9 @@ Config? loadPubspecConfigOrNull(File pubspecFile, {File? buildFile}) {
   try {
     return loadPubspecConfig(pubspecFile, buildFile: buildFile);
   } on FileSystemException catch (e, s) {
-    stderr.writeln('$e\n$s');
+    log.severe('[FlutterGen] File system error when reading files.', e, s);
   } on InvalidSettingsException catch (e, s) {
-    stderr.writeln('$e\n$s');
+    log.severe('[FlutterGen] Invalid settings in files.', e, s);
   }
   return null;
 }

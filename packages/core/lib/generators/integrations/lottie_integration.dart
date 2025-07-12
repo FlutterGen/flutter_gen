@@ -168,11 +168,11 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
       }
     } on FormatException catch (_) {
       // Catches bad/corrupted json and reports it to user.
-      // stderr.writeln(e.message);
+      // log.severe('Lottie JSON file is not valid.', e, s);
       // no-op
     } on TypeError catch (_) {
       // Catches bad/corrupted json and reports it to user.
-      // stderr.writeln(e);
+      // log.severe('Lottie JSON file has invalid type.', e, s);
       // no-op
     }
     return false;

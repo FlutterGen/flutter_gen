@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:flutter_gen_core/flutter_generator.dart';
-import 'package:flutter_gen_core/utils/cast.dart';
-import 'package:flutter_gen_core/version.gen.dart';
+import 'package:flutter_gen_core/utils/cast.dart' show safeCast;
+import 'package:flutter_gen_core/utils/log.dart' show log;
+import 'package:flutter_gen_core/version.gen.dart' show packageVersion;
 
 void main(List<String> args) async {
   final parser = ArgParser();
@@ -38,10 +39,10 @@ void main(List<String> args) async {
   try {
     results = parser.parse(args);
     if (results.wasParsed('help')) {
-      print(parser.usage);
+      log.info(parser.usage);
       return;
     } else if (results.wasParsed('version')) {
-      print('[FlutterGen] v$packageVersion');
+      log.info('[FlutterGen] v$packageVersion');
       return;
     }
   } on FormatException catch (e) {

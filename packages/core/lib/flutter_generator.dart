@@ -6,6 +6,7 @@ import 'package:flutter_gen_core/generators/fonts_generator.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:flutter_gen_core/utils/file.dart';
 import 'package:flutter_gen_core/utils/formatter.dart';
+import 'package:flutter_gen_core/utils/log.dart';
 import 'package:path/path.dart' show join, normalize;
 
 class FlutterGenerator {
@@ -60,7 +61,7 @@ class FlutterGenerator {
       );
       final assetsPath = normalize(join(absoluteOutput.path, assetsName));
       writer(generated, assetsPath);
-      print('[FlutterGen] Generated: $assetsPath');
+      log.info('[FlutterGen] Generated: $assetsPath');
     }
 
     if (flutterGen.colors.enabled && flutterGen.colors.inputs.isNotEmpty) {
@@ -71,7 +72,7 @@ class FlutterGenerator {
       );
       final colorsPath = normalize(join(absoluteOutput.path, colorsName));
       writer(generated, colorsPath);
-      print('[FlutterGen] Generated: $colorsPath');
+      log.info('[FlutterGen] Generated: $colorsPath');
     }
 
     if (flutterGen.fonts.enabled && flutter.fonts.isNotEmpty) {
@@ -81,9 +82,9 @@ class FlutterGenerator {
       );
       final fontsPath = normalize(join(absoluteOutput.path, fontsName));
       writer(generated, fontsPath);
-      print('[FlutterGen] Generated: $fontsPath');
+      log.info('[FlutterGen] Generated: $fontsPath');
     }
 
-    print('[FlutterGen] Finished generating.');
+    log.info('[FlutterGen] Finished generating.');
   }
 }
