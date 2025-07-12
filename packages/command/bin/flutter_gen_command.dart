@@ -5,8 +5,17 @@ import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/utils/cast.dart' show safeCast;
 import 'package:flutter_gen_core/utils/log.dart' show log;
 import 'package:flutter_gen_core/version.gen.dart' show packageVersion;
+import 'package:logging/logging.dart' show Level;
 
 void main(List<String> args) async {
+  log.onRecord.listen((record) {
+    if (record.level >= Level.SEVERE) {
+      stderr.writeln(record.message);
+    } else {
+      stdout.writeln(record.message);
+    }
+  });
+
   final parser = ArgParser();
   parser.addOption(
     'config',
