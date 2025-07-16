@@ -137,11 +137,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
       final vec = parseWithoutOptimizers(svg);
       return ImageMetadata(vec.width, vec.height);
     } catch (e, s) {
-      log.severe(
-        '[WARNING] Failed to parse SVG \'${asset.path}\' metadata.',
-        e,
-        s,
-      );
+      log.warning('Failed to parse SVG \'${asset.path}\' metadata.', e, s);
       return null;
     }
   }

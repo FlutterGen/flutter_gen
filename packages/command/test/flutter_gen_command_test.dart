@@ -38,6 +38,10 @@ void main() {
     );
     expect(
       await process.stdout.next,
+      equals('[FlutterGen] Usage of the `fluttergen` command:'),
+    );
+    expect(
+      await process.stdout.next,
       equals('-c, --config          Set the path of pubspec.yaml.'),
     );
     final line = await process.stdout.next;

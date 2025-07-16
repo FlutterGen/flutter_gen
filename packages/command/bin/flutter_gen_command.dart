@@ -9,10 +9,10 @@ import 'package:logging/logging.dart' show Level;
 
 void main(List<String> args) async {
   log.onRecord.listen((record) {
-    if (record.level >= Level.SEVERE) {
-      stderr.writeln(record.message);
+    if (record.level >= Level.WARNING) {
+      stderr.writeln('[FlutterGen] [${record.level.name}] ${record.message}');
     } else {
-      stdout.writeln(record.message);
+      stdout.writeln('[FlutterGen] ${record.message}');
     }
   });
 
@@ -48,10 +48,10 @@ void main(List<String> args) async {
   try {
     results = parser.parse(args);
     if (results.wasParsed('help')) {
-      log.info(parser.usage);
+      log.info('Usage of the `fluttergen` command:\n${parser.usage}');
       return;
     } else if (results.wasParsed('version')) {
-      log.info('[FlutterGen] v$packageVersion');
+      log.info('v$packageVersion');
       return;
     }
   } on FormatException catch (e) {

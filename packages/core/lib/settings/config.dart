@@ -21,8 +21,8 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
     join(basename(pubspecFile.parent.path), basename(pubspecFile.path)),
   );
 
-  log.info('[FlutterGen] v$packageVersion Loading ...');
-  log.info('[FlutterGen] Reading options from $pubspecLocaleHint');
+  log.info('v$packageVersion Loading ...');
+  log.info('Reading options from $pubspecLocaleHint');
 
   final defaultMap = loadYaml(configDefaultYamlContent) as Map?;
 
@@ -60,16 +60,16 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
         final buildLocaleHint = normalize(
           join(basename(buildFile.parent.path), basename(buildFile.path)),
         );
-        log.info('[FlutterGen] Reading options from $buildLocaleHint');
+        log.info('Reading options from $buildLocaleHint');
       } else {
         log.severe(
-          '[FlutterGen] Specified ${buildFile.path} as input but the file '
+          'Specified ${buildFile.path} as input but the file '
           'does not contain valid options, ignoring...',
         );
       }
     } else {
       log.warning(
-        '[FlutterGen] Specified ${buildFile.path} as input but the file '
+        'Specified ${buildFile.path} as input but the file '
         'does not exists.',
       );
     }
@@ -83,9 +83,9 @@ Config? loadPubspecConfigOrNull(File pubspecFile, {File? buildFile}) {
   try {
     return loadPubspecConfig(pubspecFile, buildFile: buildFile);
   } on FileSystemException catch (e, s) {
-    log.severe('[FlutterGen] File system error when reading files.', e, s);
+    log.severe('File system error when reading files.', e, s);
   } on InvalidSettingsException catch (e, s) {
-    log.severe('[FlutterGen] Invalid settings in files.', e, s);
+    log.severe('Invalid settings in files.', e, s);
   }
   return null;
 }
