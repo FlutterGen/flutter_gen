@@ -2,11 +2,20 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:flutter_gen_core/flutter_generator.dart';
-import 'package:flutter_gen_core/utils/cast.dart';
-import 'package:flutter_gen_core/utils/error.dart';
-import 'package:flutter_gen_core/version.gen.dart';
+import 'package:flutter_gen_core/utils/cast.dart' show safeCast;
+import 'package:flutter_gen_core/utils/log.dart' show log;
+import 'package:flutter_gen_core/version.gen.dart' show packageVersion;
+import 'package:logging/logging.dart' show Level;
 
 void main(List<String> args) async {
+  log.onRecord.listen((record) {
+    if (record.level >= Level.WARNING) {
+      stderr.writeln('[FlutterGen] [${record.level.name}] ${record.message}');
+    } else {
+      stdout.writeln('[FlutterGen] ${record.message}');
+    }
+  });
+
   final parser = ArgParser();
   parser.addOption(
     'config',
@@ -39,18 +48,14 @@ void main(List<String> args) async {
   try {
     results = parser.parse(args);
     if (results.wasParsed('help')) {
-      stdout.writeln(parser.usage);
+      log.info('Usage of the `fluttergen` command:\n${parser.usage}');
       return;
     } else if (results.wasParsed('version')) {
-      stdout.writeln('[FlutterGen] v$packageVersion');
+      log.info('v$packageVersion');
       return;
     }
   } on FormatException catch (e) {
-    stderr.writeAll(
-      <String>[e.message, 'usage: flutter_gen [options...]', ''],
-      '\n',
-    );
-    return;
+    throw '$e\n\n${parser.usage}';
   }
 
   final pubspecPath = safeCast<String>(results['config']);
@@ -65,9 +70,5 @@ void main(List<String> args) async {
   }
   final buildFile = buildPath == null ? null : File(buildPath).absolute;
 
-  try {
-    await FlutterGenerator(pubspecFile, buildFile: buildFile).build();
-  } on InvalidSettingsException catch (e) {
-    stderr.write(e.message);
-  }
+  await FlutterGenerator(pubspecFile, buildFile: buildFile).build();
 }

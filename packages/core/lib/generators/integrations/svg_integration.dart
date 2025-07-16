@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_gen_core/generators/integrations/integration.dart';
+import 'package:flutter_gen_core/utils/log.dart';
 import 'package:vector_graphics_compiler/vector_graphics_compiler.dart';
 
 class SvgIntegration extends Integration {
@@ -138,10 +139,8 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
       final svg = File(asset.fullPath).readAsStringSync();
       final vec = parseWithoutOptimizers(svg);
       return ImageMetadata(vec.width, vec.height);
-    } catch (e) {
-      stderr.writeln(
-        '[WARNING] Failed to parse SVG \'${asset.path}\' metadata: $e',
-      );
+    } catch (e, s) {
+      log.warning('Failed to parse SVG \'${asset.path}\' metadata.', e, s);
       return null;
     }
   }

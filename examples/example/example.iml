@@ -11,10 +11,10 @@
       <excludeFolder url="file://$MODULE_DIR$/build" />
       <excludeFolder url="file://$MODULE_DIR$/android/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/android/.idea" />
-      <excludeFolder url="file://$MODULE_DIR$/ios/Flutter" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/Flutter/ephemeral" />
       <excludeFolder url="file://$MODULE_DIR$/ios/Pods" />
       <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks" />
-      <excludeFolder url="file://$MODULE_DIR$/macos/Flutter" />
+      <excludeFolder url="file://$MODULE_DIR$/macos/Flutter/ephemeral" />
       <excludeFolder url="file://$MODULE_DIR$/macos/Pods" />
       <excludeFolder url="file://$MODULE_DIR$/macos/.symlinks" />
     </content>
