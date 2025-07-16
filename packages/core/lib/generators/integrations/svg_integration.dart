@@ -104,12 +104,15 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
   @override
   String get className => 'SvgGenImage';
 
+  static const vectorCompileTransformer = 'vector_graphics_compiler';
+
   @override
   String classInstantiate(AssetType asset) {
     // Query extra information about the SVG.
     final info = parseMetadata ? _getMetadata(asset) : null;
     final buffer = StringBuffer(className);
-    if (asset.extension == '.vec') {
+    if (asset.extension == '.vec' ||
+        asset.transformers.contains(vectorCompileTransformer)) {
       buffer.write('.vec');
     }
     buffer.write('(');

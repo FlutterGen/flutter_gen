@@ -204,7 +204,10 @@ flutter:
     - assets/images/
     - assets/images/chip3/chip.jpg
     - assets/images/chip4/chip.jpg
-    - assets/images/icons/paint.svg
+    - path: assets/images/icons/paint.svg
+    - path: assets/images/icons/transformed.svg
+      transformers:
+        - package: vector_graphics_compiler
     - assets/images/icons/dart@test.svg
     - assets/json/fruits.json
     - assets/flare/Penguin.flr
@@ -380,7 +383,7 @@ flutter_gen:
     image: false
 ```
 
-If you are using SVG images with [flutter_svg](https://pub.dev/packages/flutter_svg) you can use the integration feature.
+If you are using SVG images with [flutter_svg](https://pub.dev/packages/flutter_svg) you can use the integration feature. This feature also supports using `vector_graphics_compiler` transformer and the produced code will use the `AssetBytesLoader` for such transformed assets.
 
 ```yaml
 # pubspec.yaml
@@ -391,6 +394,9 @@ flutter_gen:
 flutter:
   assets:
     - assets/images/icons/paint.svg
+    - path: assets/images/icons/transformed.svg
+      transformers:
+        - package: vector_graphics_compiler
 ```
 
 ```dart
