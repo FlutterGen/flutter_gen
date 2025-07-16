@@ -30,8 +30,11 @@ class $AssetsImagesIconsGen {
   SvgGenImage get fuchsia =>
       const SvgGenImage('assets/images/icons/fuchsia.svg');
 
+  /// File path: assets/images/icons/kmm.svg
+  SvgGenImage get kmm => const SvgGenImage.vec('assets/images/icons/kmm.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [dartTest, fuchsia];
+  List<SvgGenImage> get values => [dartTest, fuchsia, kmm];
 }
 
 class Assets {
