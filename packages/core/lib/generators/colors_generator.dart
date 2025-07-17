@@ -24,6 +24,7 @@ String generateColors(
 
   final buffer = StringBuffer();
   final className = colorsConfig.outputs.className;
+  buffer.writeln('// dart format width=${formatter.pageWidth}');
   buffer.writeln(header);
   buffer.writeln(ignore);
   buffer.writeln("import 'package:flutter/painting.dart';");

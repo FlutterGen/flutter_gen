@@ -145,6 +145,7 @@ Future<String> generateAssets(
   }
 
   final buffer = StringBuffer();
+  buffer.writeln('// dart format width=${formatter.pageWidth}\n');
   buffer.writeln(header);
   buffer.writeln(ignore);
   buffer.writeln(importsBuffer.toString());
