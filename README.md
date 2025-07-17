@@ -135,7 +135,7 @@ fluttergen -c example/pubspec.yaml
 ## Configuration file
 
 [FlutterGen] generates dart files based on the key **`flutter`** and **`flutter_gen`** of [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).  
-Default configuration can be found [here](https://github.com/FlutterGen/flutter_gen/tree/main/packages/core/lib/settings/config_default.dart). 
+Default configuration can be found [here](https://github.com/FlutterGen/flutter_gen/tree/main/packages/core/lib/settings/config_default.dart).
 
 ```yaml
 # pubspec.yaml
@@ -172,7 +172,6 @@ flutter:
 ### build.yaml
 
 You can also configure generate options in the `build.yaml`, it will be read before the `pubspec.yaml` if it exists.
-
 
 ```yaml
 # build.yaml
@@ -279,7 +278,9 @@ Widget build(BuildContext context) {
   );
 }
 ```
+
 or
+
 ```dart
 // Explicit usage for `Image`/`SvgPicture`/`Lottie`.
 Widget build(BuildContext context) {
@@ -341,6 +342,32 @@ Which can now be used at runtime without parsing the information from the actual
 Widget build(BuildContext context) {
   return Assets.images.logo.size!.width;
 }
+```
+
+You can use `parse_animation` to generate more animation details.
+It will automatically parse all animation information for GIF and WebP files,
+including frames, duration, etc. As this option significantly increases generation time,
+The option is disabled by default; enabling it will significantly increase the generation elapse.
+
+```yaml
+flutter_gen:
+  images:
+    parse_animation: true # <- Add this line (default: false)
+    # This option implies parse_metadata: true when parsing images.
+```
+
+For GIF and WebP animation, several new nullable field is added to the
+generated class. For example:
+
+```dart
+AssetGenImage get animated => 
+  const AssetGenImage(
+    'assets/images/animated.webp',
+    size: Size(209.0, 49.0),
+    isAnimation: true,
+    duration: Duration(milliseconds: 1000),
+    frames: 15,
+  );
 ```
 
 #### Usage Example
@@ -581,7 +608,9 @@ Plugin issues that are not specific to [FlutterGen] can be filed in the [Flutter
 ### Known Issues
 
 #### Bad State: No Element when using build_runner
+
 If you get an error message like this:
+
 ```
 [SEVERE] flutter_gen_runner:flutter_gen_runner on $package$:
 
@@ -619,8 +648,6 @@ template-arb-file: app_en.arb
 output-localization-file: app_localizations.dart
 synthetic-package: false <--- ⚠️Add this line⚠️
 ```
-
-If you get 
 
 ## Contributing
 

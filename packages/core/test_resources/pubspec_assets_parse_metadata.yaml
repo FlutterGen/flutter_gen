@@ -4,6 +4,9 @@ flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
   parse_metadata: true # Optional (default: false)
 
+  images:
+    parse_animation: true # Optional (default: false)
+
   integrations:
     flutter_svg: true
 
@@ -23,3 +26,4 @@ flutter:
     - assets/flare/
     - assets/movie/
     - assets/unknown/unknown_mime_type.bk
+    - assets/images/animated

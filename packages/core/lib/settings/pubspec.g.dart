@@ -74,6 +74,7 @@ FlutterGen _$FlutterGenFromJson(Map json) => $checkedCreate(
             'output',
             'line_length',
             'parse_metadata',
+            'images',
             'assets',
             'fonts',
             'integrations',
@@ -82,6 +83,7 @@ FlutterGen _$FlutterGenFromJson(Map json) => $checkedCreate(
           requiredKeys: const [
             'output',
             'parse_metadata',
+            'images',
             'assets',
             'fonts',
             'integrations',
@@ -93,6 +95,8 @@ FlutterGen _$FlutterGenFromJson(Map json) => $checkedCreate(
           lineLength:
               $checkedConvert('line_length', (v) => (v as num?)?.toInt()),
           parseMetadata: $checkedConvert('parse_metadata', (v) => v as bool),
+          images: $checkedConvert(
+              'images', (v) => FlutterGenImages.fromJson(v as Map)),
           assets: $checkedConvert(
               'assets', (v) => FlutterGenAssets.fromJson(v as Map)),
           fonts: $checkedConvert(
@@ -160,6 +164,23 @@ FlutterGenAssets _$FlutterGenAssetsFromJson(Map json) => $checkedCreate(
       fieldKeyMap: const {
         'packageParameterEnabled': 'package_parameter_enabled'
       },
+    );
+
+FlutterGenImages _$FlutterGenImagesFromJson(Map json) => $checkedCreate(
+      'FlutterGenImages',
+      json,
+      ($checkedConvert) {
+        $checkKeys(
+          json,
+          allowedKeys: const ['parse_animation'],
+          requiredKeys: const ['parse_animation'],
+        );
+        final val = FlutterGenImages(
+          parseAnimation: $checkedConvert('parse_animation', (v) => v as bool),
+        );
+        return val;
+      },
+      fieldKeyMap: const {'parseAnimation': 'parse_animation'},
     );
 
 FlutterGenFonts _$FlutterGenFontsFromJson(Map json) => $checkedCreate(

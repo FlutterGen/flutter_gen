@@ -12,6 +12,10 @@ flutter_gen:
     flutter_svg: false
     rive: false
     lottie: false
+  
+  images:
+    # Optional
+    parse_animation: false
 
   assets:
     enabled: true # Optional

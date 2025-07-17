@@ -5,8 +5,10 @@ import 'package:flutter_gen_core/utils/log.dart';
 import 'package:vector_graphics_compiler/vector_graphics_compiler.dart';
 
 class SvgIntegration extends Integration {
-  SvgIntegration(String packageName, {super.parseMetadata})
-      : super(packageName);
+  SvgIntegration(
+    String packageName, {
+    super.parseMetadata,
+  }) : super(packageName);
 
   String get packageExpression => isPackage ? ' = package' : '';
 
@@ -138,7 +140,10 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
       // but it's also the same way it will be eventually rendered by Flutter.
       final svg = File(asset.fullPath).readAsStringSync();
       final vec = parseWithoutOptimizers(svg);
-      return ImageMetadata(vec.width, vec.height);
+      return ImageMetadata(
+        width: vec.width,
+        height: vec.height,
+      );
     } catch (e, s) {
       log.warning('Failed to parse SVG \'${asset.path}\' metadata.', e, s);
       return null;

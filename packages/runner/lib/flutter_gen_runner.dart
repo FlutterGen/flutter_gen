@@ -34,39 +34,39 @@ class FlutterGenBuilder extends Builder {
 
   @override
   Future<void> build(BuildStep buildStep) async {
-    if (_config == null) {
-      return;
-    }
-    final state = await _createState(_config, buildStep);
-    if (state.shouldSkipGenerate(_currentState)) {
-      return;
-    }
-    _currentState = state;
+    if (_config case final config?) {
+      final state = await _createState(config, buildStep);
+      if (state.shouldSkipGenerate(_currentState)) {
+        return;
+      }
+      _currentState = state;
 
-    await generator.build(
-      config: _config,
-      writer: (contents, path) {
-        buildStep.writeAsString(_output(buildStep, path), contents);
-      },
-    );
+      await generator.build(
+        config: config,
+        writer: (contents, path) {
+          buildStep.writeAsString(_output(buildStep, path), contents);
+        },
+      );
+    }
   }
 
   @override
   Map<String, List<String>> get buildExtensions {
-    if (_config == null) {
+    if (_config case final config?) {
+      final output = config.pubspec.flutterGen.output;
+      return {
+        r'$package$': [
+          for (final name in [
+            generator.assetsName,
+            generator.colorsName,
+            generator.fontsName,
+          ])
+            join(output, name),
+        ],
+      };
+    } else {
       return {};
     }
-    final output = _config.pubspec.flutterGen.output;
-    return {
-      r'$package$': [
-        for (final name in [
-          generator.assetsName,
-          generator.colorsName,
-          generator.fontsName,
-        ])
-          join(output, name),
-      ],
-    };
   }
 
   Future<_FlutterGenBuilderState> _createState(
