@@ -234,8 +234,9 @@ void main() {
 
       final integrationWithPackage = RiveIntegration('package_name');
       expect(
-        integrationWithPackage.classOutput
-            .contains('\'packages/package_name/\$_assetName\','),
+        integrationWithPackage.classOutput.contains(
+          '\'packages/package_name/\$_assetName\',',
+        ),
         isTrue,
       );
     });

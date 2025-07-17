@@ -181,7 +181,7 @@ targets:
   $default:
     builders:
       flutter_gen_runner: # or flutter_gen
-        options: 
+        options:
           output: lib/build_gen/ # Optional (default: lib/gen/)
           line_length: 120 # Optional
 ```
@@ -340,8 +340,10 @@ For image based assets, a new nullable `size` field is added to the
 generated class. For example:
 
 ```dart
-AssetGenImage get logo => 
-  const AssetGenImage('assets/images/logo.png', size: Size(209.0, 49.0));
+AssetGenImage get logo => const AssetGenImage(
+  'assets/images/logo.png',
+  size: Size(209.0, 49.0),
+);
 ```
 
 Which can now be used at runtime without parsing the information from the actual asset.
@@ -368,7 +370,7 @@ For GIF and WebP animation, several new nullable field is added to the
 generated class. For example:
 
 ```dart
-AssetGenImage get animated => 
+AssetGenImage get animated =>
   const AssetGenImage(
     'assets/images/animated.webp',
     size: Size(209.0, 49.0),
@@ -446,7 +448,7 @@ Widget build(BuildContext context) {
 **Available Integrations**
 
 | Packages                                            | File extension             | Setting             | Usage                                     |
-|-----------------------------------------------------|----------------------------|---------------------|-------------------------------------------|
+| --------------------------------------------------- | -------------------------- | ------------------- | ----------------------------------------- |
 | [flutter_svg](https://pub.dev/packages/flutter_svg) | .svg                       | `flutter_svg: true` | Assets.images.icons.paint.**svg()**       |
 | [rive](https://pub.dev/packages/rive)               | .riv                       | `rive: true`        | Assets.rive.vehicles.**rive()**           |
 | [lottie](https://pub.dev/packages/lottie)           | .json, .zip, .lottie, .tgs | `lottie: true`      | Assets.lottie.hamburgerArrow.**lottie()** |
@@ -468,7 +470,7 @@ final json = await rootBundle.loadString(Assets.json.fruits);
 # pubspec.yaml
 flutter_gen:
   assets:
-    outputs: 
+    outputs:
       # Assets.imagesChip
       # style: camel-case
 
@@ -633,7 +635,7 @@ targets:
   $default:
     sources:
       include:
-        - pubspec.yaml  # add this line
+        - pubspec.yaml # add this line
         - ...
 ```
 

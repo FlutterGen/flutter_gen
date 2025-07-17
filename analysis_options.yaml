@@ -10,6 +10,9 @@ analyzer:
     unnecessary_import: error
     unawaited_futures: error
 
+formatter:
+  trailing_commas: preserve
+
 linter:
   rules:
     # always_use_package_imports: true

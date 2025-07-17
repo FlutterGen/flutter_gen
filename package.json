@@ -7,8 +7,12 @@
     "prepare": "husky install"
   },
   "lint-staged": {
+    "**/*.+(md|yml|yaml|json)": [
+      "pnpm run format"
+    ],
     "!(packages/core/test_resources/actual_data/**/*)*.dart": [
-      "melos format"
+      "melos format",
+      "dart run packages/core/scripts/generate_facts.dart"
     ]
   },
   "devDependencies": {
@@ -17,5 +21,5 @@
     "prettier": "^3.0.3",
     "prettier-plugin-packagejson": "^2.4.5"
   },
-  "packageManager": "pnpm@8.15.9"
+  "packageManager": "pnpm@10.13.1"
 }
