@@ -7,7 +7,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "**/*.md|**/*.yaml": [
+    "**/*.+(md|yml|yaml|json)": [
       "pnpm run format"
     ],
     "!(packages/core/test_resources/actual_data/**/*)*.dart": [
