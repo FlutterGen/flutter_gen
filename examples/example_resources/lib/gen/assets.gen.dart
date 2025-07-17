@@ -41,14 +41,8 @@ class $AssetsImagesGen {
   RiveGenImage get skills => const RiveGenImage('assets/images/skills.riv');
 
   /// List of all assets
-  List<dynamic> get values => [
-        cat,
-        dart,
-        favorite,
-        flutter3,
-        runningCarOnRoad,
-        skills,
-      ];
+  List<dynamic> get values =>
+      [cat, dart, favorite, flutter3, runningCarOnRoad, skills];
 }
 
 class $AssetsUnknownGen {
@@ -72,7 +66,12 @@ class ResAssets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName, {this.size, this.flavors = const {}});
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+    this.animation,
+  });
 
   final String _assetName;
 
@@ -80,6 +79,7 @@ class AssetGenImage {
 
   final Size? size;
   final Set<String> flavors;
+  final AssetGenImageAnimation? animation;
 
   Image image({
     Key? key,
@@ -140,7 +140,11 @@ class AssetGenImage {
     @Deprecated('Do not specify package for a generated library asset')
     String? package = package,
   }) {
-    return AssetImage(_assetName, bundle: bundle, package: package);
+    return AssetImage(
+      _assetName,
+      bundle: bundle,
+      package: package,
+    );
   }
 
   String get path => _assetName;
@@ -148,12 +152,30 @@ class AssetGenImage {
   String get keyName => 'packages/example_resources/$_assetName';
 }
 
-class SvgGenImage {
-  const SvgGenImage(this._assetName, {this.size, this.flavors = const {}})
-      : _isVecFormat = false;
+class AssetGenImageAnimation {
+  const AssetGenImageAnimation({
+    required this.isAnimation,
+    required this.duration,
+    required this.frames,
+  });
 
-  const SvgGenImage.vec(this._assetName, {this.size, this.flavors = const {}})
-      : _isVecFormat = true;
+  final bool isAnimation;
+  final Duration duration;
+  final int frames;
+}
+
+class SvgGenImage {
+  const SvgGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  }) : _isVecFormat = false;
+
+  const SvgGenImage.vec(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  }) : _isVecFormat = true;
 
   final String _assetName;
   final Size? size;
@@ -225,7 +247,10 @@ class SvgGenImage {
 }
 
 class RiveGenImage {
-  const RiveGenImage(this._assetName, {this.flavors = const {}});
+  const RiveGenImage(
+    this._assetName, {
+    this.flavors = const {},
+  });
 
   final String _assetName;
   final Set<String> flavors;
@@ -265,7 +290,10 @@ class RiveGenImage {
 }
 
 class LottieGenImage {
-  const LottieGenImage(this._assetName, {this.flavors = const {}});
+  const LottieGenImage(
+    this._assetName, {
+    this.flavors = const {},
+  });
 
   final String _assetName;
   final Set<String> flavors;
@@ -284,8 +312,11 @@ class LottieGenImage {
     _lottie.LottieImageProviderFactory? imageProviderFactory,
     Key? key,
     AssetBundle? bundle,
-    Widget Function(BuildContext, Widget, _lottie.LottieComposition?)?
-        frameBuilder,
+    Widget Function(
+      BuildContext,
+      Widget,
+      _lottie.LottieComposition?,
+    )? frameBuilder,
     ImageErrorWidgetBuilder? errorBuilder,
     double? width,
     double? height,
