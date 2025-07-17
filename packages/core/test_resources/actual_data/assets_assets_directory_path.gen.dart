@@ -1,3 +1,5 @@
+// dart format width=80
+
 /// GENERATED CODE - DO NOT MODIFY BY HAND
 /// *****************************************************
 ///  FlutterGen
@@ -5,7 +7,7 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
+// ignore_for_file: deprecated_member_use,directives_ordering,implicit_dynamic_list_literal,unnecessary_import
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -78,11 +80,7 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  });
+  const AssetGenImage(this._assetName, {this.size, this.flavors = const {}});
 
   final String _assetName;
 
@@ -142,15 +140,8 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;
@@ -159,17 +150,11 @@ class AssetGenImage {
 }
 
 class SvgGenImage {
-  const SvgGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = false;
+  const SvgGenImage(this._assetName, {this.size, this.flavors = const {}})
+    : _isVecFormat = false;
 
-  const SvgGenImage.vec(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = true;
+  const SvgGenImage.vec(this._assetName, {this.size, this.flavors = const {}})
+    : _isVecFormat = true;
 
   final String _assetName;
   final Size? size;
@@ -225,7 +210,8 @@ class SvgGenImage {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      colorFilter: colorFilter ??
+      colorFilter:
+          colorFilter ??
           (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
