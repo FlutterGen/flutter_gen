@@ -7,6 +7,9 @@
     "prepare": "husky install"
   },
   "lint-staged": {
+    "**/*.md|**/*.yaml": [
+      "pnpm run format"
+    ],
     "!(packages/core/test_resources/actual_data/**/*)*.dart": [
       "melos format"
     ]
