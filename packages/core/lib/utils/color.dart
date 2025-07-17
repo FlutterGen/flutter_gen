@@ -40,18 +40,26 @@ Map<int, String> accentSwatchFromPrimaryHex(String primaryHex) {
   final baseDark = primary * primary;
   final baseTriad = primary.tetrad();
   return {
-    100:
-        _mix(baseDark, baseTriad[3], 15).saturate(80).lighten(48).toHexString(),
-    200:
-        _mix(baseDark, baseTriad[3], 15).saturate(80).lighten(36).toHexString(),
-    400: _mix(baseDark, baseTriad[3], 15)
-        .saturate(100)
-        .lighten(31)
-        .toHexString(),
-    700: _mix(baseDark, baseTriad[3], 15)
-        .saturate(100)
-        .lighten(28)
-        .toHexString(),
+    100: _mix(
+      baseDark,
+      baseTriad[3],
+      15,
+    ).saturate(80).lighten(48).toHexString(),
+    200: _mix(
+      baseDark,
+      baseTriad[3],
+      15,
+    ).saturate(80).lighten(36).toHexString(),
+    400: _mix(
+      baseDark,
+      baseTriad[3],
+      15,
+    ).saturate(100).lighten(31).toHexString(),
+    700: _mix(
+      baseDark,
+      baseTriad[3],
+      15,
+    ).saturate(100).lighten(28).toHexString(),
   };
 }
 
@@ -98,11 +106,7 @@ extension _ColorExt on Color {
 }
 
 // https://github.com/bgrins/TinyColor/blob/96592a5cacdbf4d4d16cd7d39d4d6dd28da9bd5f/tinycolor.js#L701
-Color _mix(
-  Color color1,
-  Color color2,
-  int amount,
-) {
+Color _mix(Color color1, Color color2, int amount) {
   assert(amount >= 0 && amount <= 100);
   final p = amount / 100;
   final c1 = color1.toRgbColor();

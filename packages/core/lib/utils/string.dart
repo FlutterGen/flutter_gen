@@ -21,15 +21,7 @@ String camelCase(String s) => s.camelCase();
 String snakeCase(String s) => s.snakeCase();
 
 List<String> _intoWords(String path) {
-  const symbols = [
-    ' ',
-    '.',
-    '/',
-    '_',
-    r'\',
-    '-',
-    '@',
-  ];
+  const symbols = [' ', '.', '/', '_', r'\', '-', '@'];
   final upperAlphaRegex = RegExp(r'[A-Z]');
   final lowerAlphaRegex = RegExp(r'[a-z]');
   final buffer = StringBuffer();

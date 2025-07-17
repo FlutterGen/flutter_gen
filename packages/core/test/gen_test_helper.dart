@@ -81,10 +81,7 @@ Future<(String, String)> expectedAssetsGen(
     build: build,
   );
   final (actual, expected) = results;
-  expect(
-    generated.readAsStringSync(),
-    isNotEmpty,
-  );
+  expect(generated.readAsStringSync(), isNotEmpty);
   expect(actual, expected);
   return (actual, expected);
 }
@@ -163,10 +160,7 @@ Future<(String, String)> runFontsGen(
   final config = loadPubspecConfig(pubspecFile, buildFile: buildFile);
   final formatter = buildDartFormatterFromConfig(config);
 
-  final actual = generateFonts(
-    FontsGenConfig.fromConfig(config),
-    formatter,
-  );
+  final actual = generateFonts(FontsGenConfig.fromConfig(config), formatter);
   final expected = formatter.format(File(fact).readAsStringSync());
   return (actual, expected);
 }
@@ -189,10 +183,7 @@ Future<(String, String)> expectedFontsGen(
 }
 
 /// Verify generated package name.
-String? expectedPackageNameGen(
-  String pubspec,
-  String? fact,
-) {
+String? expectedPackageNameGen(String pubspec, String? fact) {
   final pubspecFile = File(pubspec);
   final config = AssetsGenConfig.fromConfig(
     pubspecFile,

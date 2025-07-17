@@ -8,8 +8,9 @@ late final Directory dir;
 
 void main() async {
   dir = File.fromUri(Platform.script).parent.parent.directory('test_resources');
-  final configFiles =
-      dir.listSync().whereType<File>().where((e) => e.extension == '.yaml');
+  final configFiles = dir.listSync().whereType<File>().where(
+        (e) => e.extension == '.yaml',
+      );
   for (final file in configFiles) {
     final File pubspecFile;
     final File? buildFile;

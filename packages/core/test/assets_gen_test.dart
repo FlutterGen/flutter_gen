@@ -65,10 +65,7 @@ void main() {
           "@Deprecated('Do not specify package for a generated library asset')",
         ),
       );
-      expect(
-        content,
-        contains('String? package = package,'),
-      );
+      expect(content, contains('String? package = package,'));
     });
 
     test('Assets with directory path enabled', () async {
