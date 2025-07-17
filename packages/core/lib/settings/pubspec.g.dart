@@ -44,9 +44,15 @@ Flutter _$FlutterFromJson(Map json) => $checkedCreate(
               (v) => (v as List<dynamic>)
                   .map((e) => FlutterFonts.fromJson(e as Map))
                   .toList()),
+          deferredComponents: $checkedConvert(
+              'deferred-components',
+              (v) => (v as List<dynamic>?)
+                  ?.map((e) => FlutterDeferredComponents.fromJson(e as Map))
+                  .toList()),
         );
         return val;
       },
+      fieldKeyMap: const {'deferredComponents': 'deferred-components'},
     );
 
 FlutterFonts _$FlutterFontsFromJson(Map json) => $checkedCreate(
@@ -295,5 +301,24 @@ FlutterGenElementFontsOutputs _$FlutterGenElementFontsOutputsFromJson(
       fieldKeyMap: const {
         'className': 'class_name',
         'packageParameterEnabled': 'package_parameter_enabled'
+      },
+    );
+
+FlutterDeferredComponents _$FlutterDeferredComponentsFromJson(Map json) =>
+    $checkedCreate(
+      'FlutterDeferredComponents',
+      json,
+      ($checkedConvert) {
+        $checkKeys(
+          json,
+          allowedKeys: const ['name', 'assets'],
+          requiredKeys: const ['name'],
+        );
+        final val = FlutterDeferredComponents(
+          name: $checkedConvert('name', (v) => v as String),
+          assets: $checkedConvert('assets',
+              (v) => (v as List<dynamic>?)?.map((e) => e as Object).toList()),
+        );
+        return val;
       },
     );

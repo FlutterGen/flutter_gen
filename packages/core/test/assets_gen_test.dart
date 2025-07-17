@@ -102,6 +102,11 @@ void main() {
       await expectedAssetsGen(pubspec);
     });
 
+    test('Assets with deferred components assets', () async {
+      const pubspec = 'test_resources/pubspec_assets_deferred_components.yaml';
+      await expectedAssetsGen(pubspec);
+    });
+
     test('Assets with duplicate flavoring entries', () async {
       const pubspec =
           'test_resources/pubspec_assets_flavored_duplicate_entry.yaml';
