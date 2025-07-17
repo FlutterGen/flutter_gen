@@ -14,20 +14,21 @@ dependencies:
 
   flutter_svg: ^2.0.0
   lottie: ^3.0.0
-  rive: ^0.11.0
+  rive: ^0.13.20
 
 dev_dependencies:
+  lints: any
   flutter_test:
     sdk: flutter
+
   flutter_gen_runner:
     path: ../../packages/runner
 
-  lints: ^2.0.0
   build_runner: ^2.0.0
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
-  line_length: 80 # Optional (default: 80)
+#  line_length: 80 # Optional
 
   integrations:
     flutter_svg: true

@@ -1,19 +1,35 @@
 import 'dart:io';
 
+// import 'package:collection/collection.dart';
+// import 'package:dart_style/dart_style.dart' show TrailingCommas;
 import 'package:flutter_gen_core/settings/config_default.dart';
 import 'package:flutter_gen_core/settings/pubspec.dart';
+import 'package:flutter_gen_core/utils/cast.dart' show safeCast;
 import 'package:flutter_gen_core/utils/error.dart';
 import 'package:flutter_gen_core/utils/log.dart';
 import 'package:flutter_gen_core/utils/map.dart';
 import 'package:flutter_gen_core/version.gen.dart';
 import 'package:path/path.dart';
+import 'package:pub_semver/pub_semver.dart' show VersionConstraint;
 import 'package:yaml/yaml.dart';
 
 class Config {
-  const Config._({required this.pubspec, required this.pubspecFile});
+  const Config._({
+    required this.pubspec,
+    required this.pubspecFile,
+    required this.sdkConstraint,
+    // required this.formatterTrailingCommas,
+    required this.formatterPageWidth,
+  });
 
   final Pubspec pubspec;
   final File pubspecFile;
+  final VersionConstraint? sdkConstraint;
+
+  // TODO(ANYONE): Allow passing the trailing commas option after the SDK constraint was bumped to ^3.7.
+  // final TrailingCommas? formatterTrailingCommas;
+
+  final int? formatterPageWidth;
 }
 
 Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
@@ -24,10 +40,16 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
   log.info('v$packageVersion Loading ...');
   log.info('Reading options from $pubspecLocaleHint');
 
-  final defaultMap = loadYaml(configDefaultYamlContent) as Map?;
+  VersionConstraint? sdkConstraint;
+
+  final defaultMap = loadYaml(configDefaultYamlContent) as YamlMap?;
 
   final pubspecContent = pubspecFile.readAsStringSync();
-  final pubspecMap = loadYaml(pubspecContent) as Map?;
+  final pubspecMap = loadYaml(pubspecContent) as YamlMap?;
+  if (safeCast<String>(pubspecMap?['environment']?['sdk']) case final sdk?) {
+    sdkConstraint = VersionConstraint.parse(sdk);
+  }
+
   Map mergedMap = mergeMap([defaultMap, pubspecMap]);
 
   YamlMap? getBuildFileOptions(File file) {
@@ -76,7 +98,44 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
   }
 
   final pubspec = Pubspec.fromJson(mergedMap);
-  return Config._(pubspec: pubspec, pubspecFile: pubspecFile);
+
+  final pubspecLockFile = File(
+    normalize(join(basename(pubspecFile.parent.path), 'pubspec.lock')),
+  );
+  final pubspecLockContent = switch (pubspecLockFile.existsSync()) {
+    true => pubspecLockFile.readAsStringSync(),
+    false => '',
+  };
+  final pubspecLockMap = loadYaml(pubspecLockContent) as YamlMap?;
+  if (safeCast<String>(pubspecLockMap?['sdks']?['dart']) case final sdk?) {
+    sdkConstraint ??= VersionConstraint.parse(sdk);
+  }
+
+  final analysisOptionsFile = File(
+    normalize(join(basename(pubspecFile.parent.path), 'analysis_options.yaml')),
+  );
+  final analysisOptionsContent = switch (analysisOptionsFile.existsSync()) {
+    true => analysisOptionsFile.readAsStringSync(),
+    false => '',
+  };
+  final analysisOptionsMap = loadYaml(analysisOptionsContent) as YamlMap?;
+  // final formatterTrailingCommas = switch (safeCast<String>(
+  //   analysisOptionsMap?['formatter']?['trailing_commas'],
+  // )) {
+  //   final s? => TrailingCommas.values.firstWhereOrNull((e) => e.name == s),
+  //   _ => null,
+  // };
+  final formatterPageWidth = safeCast<int>(
+    analysisOptionsMap?['formatter']?['page_width'],
+  );
+
+  return Config._(
+    pubspec: pubspec,
+    pubspecFile: pubspecFile,
+    sdkConstraint: sdkConstraint,
+    // formatterTrailingCommas: formatterTrailingCommas,
+    formatterPageWidth: formatterPageWidth,
+  );
 }
 
 Config? loadPubspecConfigOrNull(File pubspecFile, {File? buildFile}) {

@@ -84,7 +84,7 @@ Future<String> generateAssets(
   final deprecatedPackageParam =
       config.flutterGen.assets.packageParameterEnabled != null;
   if (deprecatedStyle || deprecatedPackageParam) {
-    final deprecationBuffer = StringBuffer();
+    final deprecationBuffer = StringBuffer('\n');
     if (deprecatedStyle) {
       deprecationBuffer.writeln(
         sBuildDeprecation(
@@ -145,6 +145,7 @@ Future<String> generateAssets(
   }
 
   final buffer = StringBuffer();
+  buffer.writeln('// dart format width=${formatter.pageWidth}\n');
   buffer.writeln(header);
   buffer.writeln(ignore);
   buffer.writeln(importsBuffer.toString());

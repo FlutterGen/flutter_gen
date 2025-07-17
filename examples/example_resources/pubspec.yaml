@@ -11,7 +11,7 @@ dependencies:
 
   flutter_svg: ^2.0.0
   lottie: ^3.0.0
-  rive: ^0.11.0
+  rive: ^0.13.20
 
 dev_dependencies:
   flutter_gen_runner:
@@ -21,7 +21,6 @@ dev_dependencies:
 
 flutter_gen:
   output: lib/gen/
-  line_length: 80
 
   integrations:
     flutter_svg: true

@@ -143,7 +143,7 @@ Default configuration can be found [here](https://github.com/FlutterGen/flutter_
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
-  line_length: 80 # Optional (default: 80)
+  # line_length: 80 # Optional
 
   # Optional
   integrations:
@@ -184,7 +184,7 @@ targets:
       flutter_gen_runner: # or flutter_gen
         options: 
           output: lib/build_gen/ # Optional (default: lib/gen/)
-          line_length: 120 # Optional (default: 80)
+          line_length: 120 # Optional
 ```
 
 ## Available Parsers

@@ -2,12 +2,9 @@ const configDefaultYamlContent = '''
 name: UNKNOWN
 
 flutter_gen:
-  # Optional
-  output: lib/gen/
-  # Optional
-  line_length: 80
-  # Optional
-  parse_metadata: false
+  output: lib/gen/ # Optional
+#  line_length: 80 # Optional
+  parse_metadata: false # Optional
 
   # Optional
   integrations:
@@ -17,37 +14,28 @@ flutter_gen:
     lottie: false
 
   assets:
-    # Optional
-    enabled: true
-    # Optional
-    outputs:
-      # Optional
+    enabled: true # Optional
+    outputs: # Optional
       # Set to true if you want this package to be a package dependency
       # See: https://flutter.dev/docs/development/ui/assets-and-images#from-packages
-      package_parameter_enabled: false
-      # Optional
+      package_parameter_enabled: false # Optional
       # Available values:
       # - camel-case
       # - snake-case
       # - dot-delimiter
-      style: dot-delimiter
+      style: dot-delimiter # Optional
       class_name: Assets
     exclude: []
 
   fonts:
-    # Optional
-    enabled: true
-    # Optional
-    outputs:
+    enabled: true # Optional
+    outputs: # Optional
       class_name: FontFamily
 
   colors:
-    # Optional
-    enabled: true
-    # Optional
-    inputs: []
-    # Optional
-    outputs:
+    enabled: true # Optional
+    inputs: [] # Optional
+    outputs: # Optional
       class_name: ColorName
 
 flutter:

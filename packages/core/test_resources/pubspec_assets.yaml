@@ -1,8 +1,11 @@
 name: test
 
+environment:
+  sdk: ^3.4.0
+
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
-  line_length: 80 # Optional (default: 80)
+  line_length: 80 # Optional
 
   integrations:
     flutter_svg: true

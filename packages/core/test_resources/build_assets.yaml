@@ -6,4 +6,4 @@ targets:
       flutter_gen:
         options:
           output: lib/build_gen/
-          line_length: 120
+          line_length: 80

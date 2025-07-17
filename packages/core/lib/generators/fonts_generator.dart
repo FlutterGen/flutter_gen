@@ -45,6 +45,7 @@ String generateFonts(
 
   final buffer = StringBuffer();
   final className = fontsConfig.outputs.className;
+  buffer.writeln('// dart format width=${formatter.pageWidth}');
   buffer.writeln(header);
   buffer.writeln(ignore);
   buffer.writeln('class $className {');
