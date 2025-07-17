@@ -19,7 +19,7 @@ class $PicturesGen {
 
   /// File path: pictures/chip5.jpg
   AssetGenImage get chip5 =>
-      const AssetGenImage('pictures/chip5.jpg', size: Size(600.0, 403.0));
+      const AssetGenImage('pictures/chip5.jpg', size: const Size(600.0, 403.0));
 
   /// List of all assets
   List<AssetGenImage> get values => [chip5];
@@ -38,9 +38,14 @@ class $AssetsFlareGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// Directory path: assets/images/animated
+  $AssetsImagesAnimatedGen get animated => const $AssetsImagesAnimatedGen();
+
   /// File path: assets/images/chip1.jpg
-  AssetGenImage get chip1 =>
-      const AssetGenImage('assets/images/chip1.jpg', size: Size(600.0, 403.0));
+  AssetGenImage get chip1 => const AssetGenImage(
+    'assets/images/chip1.jpg',
+    size: const Size(600.0, 403.0),
+  );
 
   /// File path: assets/images/chip2.jpg
   AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
@@ -55,8 +60,10 @@ class $AssetsImagesGen {
   $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
 
   /// File path: assets/images/logo.png
-  AssetGenImage get logo =>
-      const AssetGenImage('assets/images/logo.png', size: Size(209.0, 49.0));
+  AssetGenImage get logo => const AssetGenImage(
+    'assets/images/logo.png',
+    size: const Size(209.0, 49.0),
+  );
 
   /// File path: assets/images/profile.jpg
   AssetGenImage get profileJpg =>
@@ -109,13 +116,31 @@ class $AssetsUnknownGen {
   List<String> get values => [unknownMimeType];
 }
 
+class $AssetsImagesAnimatedGen {
+  const $AssetsImagesAnimatedGen();
+
+  /// File path: assets/images/animated/emoji_hugging_face.webp
+  AssetGenImage get emojiHuggingFace => const AssetGenImage(
+    'assets/images/animated/emoji_hugging_face.webp',
+    size: const Size(512.0, 512.0),
+    animation: const AssetGenImageAnimation(
+      isAnimation: true,
+      duration: Duration(milliseconds: 2970),
+      frames: 45,
+    ),
+  );
+
+  /// List of all assets
+  List<AssetGenImage> get values => [emojiHuggingFace];
+}
+
 class $AssetsImagesChip3Gen {
   const $AssetsImagesChip3Gen();
 
   /// File path: assets/images/chip3/chip3.jpg
   AssetGenImage get chip3 => const AssetGenImage(
     'assets/images/chip3/chip3.jpg',
-    size: Size(600.0, 403.0),
+    size: const Size(600.0, 403.0),
   );
 
   /// List of all assets
@@ -128,7 +153,7 @@ class $AssetsImagesChip4Gen {
   /// File path: assets/images/chip4/chip4.jpg
   AssetGenImage get chip4 => const AssetGenImage(
     'assets/images/chip4/chip4.jpg',
-    size: Size(600.0, 403.0),
+    size: const Size(600.0, 403.0),
   );
 
   /// List of all assets
@@ -182,12 +207,18 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName, {this.size, this.flavors = const {}});
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+    this.animation,
+  });
 
   final String _assetName;
 
   final Size? size;
   final Set<String> flavors;
+  final AssetGenImageAnimation? animation;
 
   Image image({
     Key? key,
@@ -249,6 +280,18 @@ class AssetGenImage {
   String get path => _assetName;
 
   String get keyName => _assetName;
+}
+
+class AssetGenImageAnimation {
+  const AssetGenImageAnimation({
+    required this.isAnimation,
+    required this.duration,
+    required this.frames,
+  });
+
+  final bool isAnimation;
+  final Duration duration;
+  final int frames;
 }
 
 class SvgGenImage {
