@@ -23,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "${{ env.version }}"
+          node-version: '${{ env.version }}'
 
       - name: Validate Renovate Config
         run: npx --yes --package renovate -- renovate-config-validator

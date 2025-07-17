@@ -18,6 +18,7 @@ dev_dependencies:
     path: ../../packages/runner
 
   build_runner: ^2.0.0
+  lints: any
 
 flutter_gen:
   output: lib/gen/

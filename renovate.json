@@ -7,16 +7,11 @@
     ":semanticCommitScopeDisabled"
   ],
   "timezone": "Asia/Tokyo",
-  "schedule": [
-    "* * * * 3"
-  ],
+  "schedule": ["* * * * 3"],
   "branchConcurrentLimit": 5,
   "branchPrefix": "upgrade-renovate-",
   "dependencyDashboard": false,
-  "ignorePaths": [
-    ".github/",
-    "examples/**"
-  ],
+  "ignorePaths": [".github/", "examples/**"],
   "major": {
     "minimumReleaseAge": "30 days"
   },
