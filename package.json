@@ -11,7 +11,8 @@
       "pnpm run format"
     ],
     "!(packages/core/test_resources/actual_data/**/*)*.dart": [
-      "melos format"
+      "melos format",
+      "dart run packages/core/scripts/generate_facts.dart"
     ]
   },
   "devDependencies": {
