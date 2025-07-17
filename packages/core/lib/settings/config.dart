@@ -108,7 +108,7 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
   };
   final pubspecLockMap = loadYaml(pubspecLockContent) as YamlMap?;
   if (safeCast<String>(pubspecLockMap?['sdks']?['dart']) case final sdk?) {
-    sdkConstraint = VersionConstraint.parse(sdk);
+    sdkConstraint ??= VersionConstraint.parse(sdk);
   }
 
   final analysisOptionsFile = File(
