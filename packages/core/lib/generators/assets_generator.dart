@@ -33,7 +33,7 @@ class AssetsGenConfig {
       pubspecFile.parent.absolute.path,
       config.pubspec.packageName,
       config.pubspec.flutterGen,
-      _buildAssetsList(config),
+      _buildFlutterAssetsList(config.pubspec.flutter),
       config.pubspec.flutterGen.assets.exclude.map(Glob.new).toList(),
     );
   }
@@ -48,15 +48,16 @@ class AssetsGenConfig {
       flutterGen.assets.outputs.packageParameterEnabled ? _packageName : '';
 }
 
-/// Merge the deferred assets with the main assets.
-List<Object> _buildAssetsList(Config config) {
+/// Build assets from the main list and the deferred components.
+List<Object> _buildFlutterAssetsList(Flutter flutter) {
+  final flutterAssets = flutter.assets;
   // We may have several deferred components, with a list of assets for each.
   // So before spreading the list of deferred components, we need to spread
   // the list of assets for each deferred component.
-  final deferredComponents = config.pubspec.flutter.deferredComponents ?? [];
-  return deferredComponents.fold<List<Object>>(
-    config.pubspec.flutter.assets,
-    (list, deferredComponent) => list + (deferredComponent.assets ?? []),
+  final deferredComponents = flutter.deferredComponents ?? [];
+  return deferredComponents.fold(
+    flutterAssets,
+    (list, component) => list + (component.assets ?? []),
   );
 }
 
