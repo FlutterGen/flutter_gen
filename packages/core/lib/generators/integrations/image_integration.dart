@@ -13,8 +13,8 @@ import 'package:image_size_getter/image_size_getter.dart';
 class ImageIntegration extends Integration {
   ImageIntegration(
     String packageName, {
+    required super.parseMetadata,
     required this.parseAnimation,
-    super.parseMetadata,
   }) : super(packageName);
 
   final bool parseAnimation;

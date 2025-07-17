@@ -5,8 +5,10 @@ import 'package:flutter_gen_core/utils/log.dart';
 import 'package:vector_graphics_compiler/vector_graphics_compiler.dart';
 
 class SvgIntegration extends Integration {
-  SvgIntegration(String packageName, {super.parseMetadata})
-      : super(packageName);
+  SvgIntegration(
+    String packageName, {
+    super.parseMetadata,
+  }) : super(packageName);
 
   String get packageExpression => isPackage ? ' = package' : '';
 
