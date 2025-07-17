@@ -13,11 +13,16 @@ DartFormatter buildDartFormatterFromConfig(Config config) {
     sdkConstraint = VersionConstraint.parse('^$version');
   }
   final useShort = sdkConstraint.allowsAny(VersionConstraint.parse('<3.7.0'));
+
+  final pageWidth =
+      config.pubspec.flutterGen.lineLength ?? config.formatterPageWidth;
+
   return DartFormatter(
     languageVersion: useShort
         ? DartFormatter.latestShortStyleLanguageVersion
         : DartFormatter.latestLanguageVersion,
-    pageWidth: config.pubspec.flutterGen.lineLength,
+    pageWidth: pageWidth,
+    // trailingCommas: config.formatterTrailingCommas,
     lineEnding: '\n',
   );
 }

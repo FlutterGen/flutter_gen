@@ -1,5 +1,7 @@
 import 'dart:io';
 
+// import 'package:collection/collection.dart';
+// import 'package:dart_style/dart_style.dart' show TrailingCommas;
 import 'package:flutter_gen_core/settings/config_default.dart';
 import 'package:flutter_gen_core/settings/pubspec.dart';
 import 'package:flutter_gen_core/utils/cast.dart' show safeCast;
@@ -16,11 +18,18 @@ class Config {
     required this.pubspec,
     required this.pubspecFile,
     required this.sdkConstraint,
+    // required this.formatterTrailingCommas,
+    required this.formatterPageWidth,
   });
 
   final Pubspec pubspec;
   final File pubspecFile;
   final VersionConstraint? sdkConstraint;
+
+  // TODO(ANYONE): Allow passing the trailing commas option after the SDK constraint was bumped to ^3.7.
+  // final TrailingCommas? formatterTrailingCommas;
+
+  final int? formatterPageWidth;
 }
 
 Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
@@ -102,10 +111,30 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
     sdkConstraint = VersionConstraint.parse(sdk);
   }
 
+  final analysisOptionsFile = File(
+    normalize(join(basename(pubspecFile.parent.path), 'analysis_options.yaml')),
+  );
+  final analysisOptionsContent = switch (analysisOptionsFile.existsSync()) {
+    true => analysisOptionsFile.readAsStringSync(),
+    false => '',
+  };
+  final analysisOptionsMap = loadYaml(analysisOptionsContent) as YamlMap?;
+  // final formatterTrailingCommas = switch (safeCast<String>(
+  //   analysisOptionsMap?['formatter']?['trailing_commas'],
+  // )) {
+  //   final s? => TrailingCommas.values.firstWhereOrNull((e) => e.name == s),
+  //   _ => null,
+  // };
+  final formatterPageWidth = safeCast<int>(
+    analysisOptionsMap?['formatter']?['page_width'],
+  );
+
   return Config._(
     pubspec: pubspec,
     pubspecFile: pubspecFile,
     sdkConstraint: sdkConstraint,
+    // formatterTrailingCommas: formatterTrailingCommas,
+    formatterPageWidth: formatterPageWidth,
   );
 }
 
