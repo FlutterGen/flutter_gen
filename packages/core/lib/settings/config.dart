@@ -2,18 +2,25 @@ import 'dart:io';
 
 import 'package:flutter_gen_core/settings/config_default.dart';
 import 'package:flutter_gen_core/settings/pubspec.dart';
+import 'package:flutter_gen_core/utils/cast.dart' show safeCast;
 import 'package:flutter_gen_core/utils/error.dart';
 import 'package:flutter_gen_core/utils/log.dart';
 import 'package:flutter_gen_core/utils/map.dart';
 import 'package:flutter_gen_core/version.gen.dart';
 import 'package:path/path.dart';
+import 'package:pub_semver/pub_semver.dart' show VersionConstraint;
 import 'package:yaml/yaml.dart';
 
 class Config {
-  const Config._({required this.pubspec, required this.pubspecFile});
+  const Config._({
+    required this.pubspec,
+    required this.pubspecFile,
+    required this.sdkConstraint,
+  });
 
   final Pubspec pubspec;
   final File pubspecFile;
+  final VersionConstraint? sdkConstraint;
 }
 
 Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
@@ -24,10 +31,16 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
   log.info('v$packageVersion Loading ...');
   log.info('Reading options from $pubspecLocaleHint');
 
-  final defaultMap = loadYaml(configDefaultYamlContent) as Map?;
+  VersionConstraint? sdkConstraint;
+
+  final defaultMap = loadYaml(configDefaultYamlContent) as YamlMap?;
 
   final pubspecContent = pubspecFile.readAsStringSync();
-  final pubspecMap = loadYaml(pubspecContent) as Map?;
+  final pubspecMap = loadYaml(pubspecContent) as YamlMap?;
+  if (safeCast<String>(pubspecMap?['environment']?['sdk']) case final sdk?) {
+    sdkConstraint = VersionConstraint.parse(sdk);
+  }
+
   Map mergedMap = mergeMap([defaultMap, pubspecMap]);
 
   YamlMap? getBuildFileOptions(File file) {
@@ -76,7 +89,24 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
   }
 
   final pubspec = Pubspec.fromJson(mergedMap);
-  return Config._(pubspec: pubspec, pubspecFile: pubspecFile);
+
+  final pubspecLockFile = File(
+    normalize(join(basename(pubspecFile.parent.path), 'pubspec.lock')),
+  );
+  final pubspecLockContent = switch (pubspecLockFile.existsSync()) {
+    true => pubspecLockFile.readAsStringSync(),
+    false => '',
+  };
+  final pubspecLockMap = loadYaml(pubspecLockContent) as YamlMap?;
+  if (safeCast<String>(pubspecLockMap?['sdks']?['dart']) case final sdk?) {
+    sdkConstraint = VersionConstraint.parse(sdk);
+  }
+
+  return Config._(
+    pubspec: pubspec,
+    pubspecFile: pubspecFile,
+    sdkConstraint: sdkConstraint,
+  );
 }
 
 Config? loadPubspecConfigOrNull(File pubspecFile, {File? buildFile}) {
