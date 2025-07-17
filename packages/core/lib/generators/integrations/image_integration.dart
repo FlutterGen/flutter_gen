@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_gen_core/generators/integrations/integration.dart';
+import 'package:flutter_gen_core/utils/log.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_size_getter/file_input.dart';
 import 'package:image_size_getter/image_size_getter.dart';
@@ -196,9 +197,8 @@ class AssetGenImageAnimation {
         height: size.height.toDouble(),
         animation: animation,
       );
-    } catch (e) {
-      stderr
-          .writeln('[WARNING] Failed to parse \'${asset.path}\' metadata: $e');
+    } catch (e, s) {
+      log.warning('Failed to parse \'${asset.path}\' metadata.', e, s);
     }
     return null;
   }

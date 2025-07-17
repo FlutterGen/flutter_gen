@@ -1,6 +1,5 @@
 import 'dart:io' show Platform;
 
-import 'package:flutter_gen_core/generators/generator_helper.dart' as helper;
 import 'package:flutter_gen_core/version.gen.dart';
 import 'package:test/test.dart';
 import 'package:test_process/test_process.dart';
@@ -39,6 +38,10 @@ void main() {
     );
     expect(
       await process.stdout.next,
+      equals('[FlutterGen] Usage of the `fluttergen` command:'),
+    );
+    expect(
+      await process.stdout.next,
       equals('-c, --config          Set the path of pubspec.yaml.'),
     );
     final line = await process.stdout.next;
@@ -62,13 +65,13 @@ void main() {
     );
     expect(
       await process.stderr.next,
-      equals('Could not find an option named "--wrong".'),
+      equals('Unhandled exception:'),
     );
     expect(
       await process.stderr.next,
-      equals('usage: flutter_gen [options...]'),
+      equals('FormatException: Could not find an option named "--wrong".'),
     );
-    await process.shouldExit(0);
+    await process.shouldExit(255);
   });
 
   test('Execute deprecated config with fluttergen', () async {
@@ -80,10 +83,17 @@ void main() {
         'test/deprecated_configs.yaml',
       ],
     );
-    final errors = (await process.stderr.rest.toList()).join('\n');
-    expect(errors, contains(helper.sDeprecationHeader));
-    expect(errors, contains('style'));
-    expect(errors, contains('package_parameter_enabled'));
-    await process.shouldExit(0);
+    expect(
+      await process.stderr.next,
+      equals('Unhandled exception:'),
+    );
+    expect(
+      await process.stderr.next,
+      startsWith('InvalidSettingsException: '),
+    );
+    final rest = (await process.stderr.rest.toList()).join('\n');
+    expect(rest, contains('style'));
+    expect(rest, contains('package_parameter_enabled'));
+    await process.shouldExit(255);
   });
 }

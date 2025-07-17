@@ -1,7 +1,7 @@
 // Copy from https://pub.dev/packages/merge_map
 
 /// Exposes the [mergeMap] function, which... merges Maps.
-_copyValues<K, V>(
+void _copyValues<K, V>(
   Map<K, V> from,
   Map<K, V> to,
   bool recursive,

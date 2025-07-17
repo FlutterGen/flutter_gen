@@ -115,8 +115,8 @@ class FlutterGen {
   @JsonKey(name: 'output', required: true)
   final String output;
 
-  @JsonKey(name: 'line_length', required: true)
-  final int lineLength;
+  @JsonKey(name: 'line_length')
+  final int? lineLength;
 
   @JsonKey(name: 'parse_metadata', required: true)
   final bool parseMetadata;

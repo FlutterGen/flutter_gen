@@ -2,7 +2,6 @@ name: test
 
 flutter_gen:
   output: lib/gen/
-  line_length: 80
 
   integrations:
     flutter_svg: true
@@ -11,3 +10,6 @@ flutter:
   assets:
     - assets/images/icons/dart@test.svg
     - assets/images/icons/fuchsia.svg
+    - path: assets/images/icons/kmm.svg
+      transformers:
+        - package: vector_graphics_compiler

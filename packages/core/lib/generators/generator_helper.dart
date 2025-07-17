@@ -10,11 +10,18 @@ String get header {
 ''';
 }
 
+const _ignoredRules = <String>[
+  'deprecated_member_use',
+  'directives_ordering',
+  'implicit_dynamic_list_literal',
+  'unnecessary_import',
+];
+
 String get ignore {
   return '''// coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
-  
+// ignore_for_file: ${_ignoredRules.join(',')}
+
 ''';
 }
 
@@ -22,34 +29,6 @@ String import(Import package) {
   return 'import \'${package.import}\''
       '${package.alias != null ? ' as ${package.alias}' : ''};';
 }
-
-const sDeprecationHeader = '''
-                                                                                        
-                ░░░░                                                                    
-                                                                                        
-                                            ██                                          
-                                          ██░░██                                        
-  ░░          ░░                        ██░░░░░░██                            ░░░░      
-                                      ██░░░░░░░░░░██                                    
-                                      ██░░░░░░░░░░██                                    
-                                    ██░░░░░░░░░░░░░░██                                  
-                                  ██░░░░░░██████░░░░░░██                                
-                                  ██░░░░░░██████░░░░░░██                                
-                                ██░░░░░░░░██████░░░░░░░░██                              
-                                ██░░░░░░░░██████░░░░░░░░██                              
-                              ██░░░░░░░░░░██████░░░░░░░░░░██                            
-                            ██░░░░░░░░░░░░██████░░░░░░░░░░░░██                          
-                            ██░░░░░░░░░░░░██████░░░░░░░░░░░░██                          
-                          ██░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░██                        
-                          ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██                        
-                        ██░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░██                      
-                        ██░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░██                      
-                      ██░░░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░░░██                    
-        ░░            ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██                    
-                        ██████████████████████████████████████████                      
-                                                                                        
-                                                                                        
-                  ░░''';
 
 String sBuildDeprecation(
   String deprecated,

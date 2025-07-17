@@ -33,7 +33,9 @@ void main() async {
       overrideOutputPath: p.join(dir.path, 'actual_data'),
     );
     await generator.build().catchError((e, s) {
-      print('$e\n$s');
+      stderr.writeln('[FAILED] ${file.name} - ${buildFile?.name ?? 'N/A'}');
+      stderr.writeln('$e');
+      stderr.writeln('$s');
     });
   }
 }

@@ -85,8 +85,7 @@ Future<String> generateAssets(
   final deprecatedPackageParam =
       config.flutterGen.assets.packageParameterEnabled != null;
   if (deprecatedStyle || deprecatedPackageParam) {
-    final deprecationBuffer = StringBuffer();
-    deprecationBuffer.writeln(sDeprecationHeader);
+    final deprecationBuffer = StringBuffer('\n');
     if (deprecatedStyle) {
       deprecationBuffer.writeln(
         sBuildDeprecation(
@@ -147,6 +146,7 @@ Future<String> generateAssets(
   }
 
   final buffer = StringBuffer();
+  buffer.writeln('// dart format width=${formatter.pageWidth}\n');
   buffer.writeln(header);
   buffer.writeln(ignore);
   buffer.writeln(importsBuffer.toString());
@@ -177,24 +177,33 @@ List<FlavoredAsset> _getAssetRelativePathList(
 ) {
   // Normalize.
   final normalizedAssets = <Object>{...assets.whereType<String>()};
-  final normalizingMap = <String, Set<String>>{};
-  // Resolve flavored assets.
+  final normalizingMap =
+      <String, ({Set<String> flavors, Set<String> transformers})>{};
+  // Resolve flavored or transformed assets.
   for (final map in assets.whereType<YamlMap>()) {
     final path = (map['path'] as String).trim();
     final flavors =
         (map['flavors'] as YamlList?)?.toSet().cast<String>() ?? <String>{};
+    final transformers = (map['transformers'] as YamlList?)
+            ?.map(((t) => (t as YamlMap)['package'] as String))
+            .toSet() ??
+        {};
     if (normalizingMap.containsKey(path)) {
       // https://github.com/flutter/flutter/blob/5187cab7bdd434ca74abb45895d17e9fa553678a/packages/flutter_tools/lib/src/asset.dart#L1137-L1139
       throw StateError(
         'Multiple assets entries include the file "$path", '
-        'but they specify different lists of flavors.',
+        'but they specify different lists of flavors or transformers.',
       );
     }
-    normalizingMap[path] = flavors;
+    normalizingMap[path] = (flavors: flavors, transformers: transformers);
   }
   for (final entry in normalizingMap.entries) {
     normalizedAssets.add(
-      YamlMap.wrap({'path': entry.key, 'flavors': entry.value}),
+      YamlMap.wrap({
+        'path': entry.key,
+        'flavors': entry.value.flavors,
+        'transformers': entry.value.transformers,
+      }),
     );
   }
 
@@ -202,7 +211,11 @@ List<FlavoredAsset> _getAssetRelativePathList(
   for (final asset in normalizedAssets) {
     final FlavoredAsset tempAsset;
     if (asset is YamlMap) {
-      tempAsset = FlavoredAsset(path: asset['path'], flavors: asset['flavors']);
+      tempAsset = FlavoredAsset(
+        path: asset['path'],
+        flavors: asset['flavors'],
+        transformers: asset['transformers'],
+      );
     } else {
       tempAsset = FlavoredAsset(path: (asset as String).trim());
     }
@@ -239,14 +252,24 @@ AssetType _constructAssetTree(
 ) {
   // Relative path is the key
   final assetTypeMap = <String, AssetType>{
-    '.': AssetType(rootPath: rootPath, path: '.', flavors: {}),
+    '.': AssetType(
+      rootPath: rootPath,
+      path: '.',
+      flavors: {},
+      transformers: {},
+    ),
   };
   for (final asset in assetRelativePathList) {
     String path = asset.path;
     while (path != '.') {
       assetTypeMap.putIfAbsent(
         path,
-        () => AssetType(rootPath: rootPath, path: path, flavors: asset.flavors),
+        () => AssetType(
+          rootPath: rootPath,
+          path: path,
+          flavors: asset.flavors,
+          transformers: asset.transformers,
+        ),
       );
       path = dirname(path);
     }
@@ -463,6 +486,7 @@ Future<String> _flatStyleDefinition(
             rootPath: config.rootPath,
             path: assetPath.path,
             flavors: assetPath.flavors,
+            transformers: assetPath.transformers,
           ),
         )
         .mapToUniqueAssetType(style)

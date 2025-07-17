@@ -1,3 +1,5 @@
+// dart format width=80
+
 /// GENERATED CODE - DO NOT MODIFY BY HAND
 /// *****************************************************
 ///  FlutterGen
@@ -5,7 +7,7 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
+// ignore_for_file: deprecated_member_use,directives_ordering,implicit_dynamic_list_literal,unnecessary_import
 
 import 'package:flutter/widgets.dart';
 
@@ -30,8 +32,13 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/profile.png');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [chip1, chip2, logo, profileJpg, profilePng];
+  List<AssetGenImage> get values => [
+    chip1,
+    chip2,
+    logo,
+    profileJpg,
+    profilePng,
+  ];
 }
 
 class Assets {
@@ -41,18 +48,12 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-    this.animation,
-  });
+  const AssetGenImage(this._assetName, {this.size, this.flavors = const {}});
 
   final String _assetName;
 
   final Size? size;
   final Set<String> flavors;
-  final AssetGenImageAnimation? animation;
 
   Image image({
     Key? key,
@@ -107,30 +108,11 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;
 
   String get keyName => _assetName;
-}
-
-class AssetGenImageAnimation {
-  const AssetGenImageAnimation({
-    required this.isAnimation,
-    required this.duration,
-    required this.frames,
-  });
-
-  final bool isAnimation;
-  final Duration duration;
-  final int frames;
 }

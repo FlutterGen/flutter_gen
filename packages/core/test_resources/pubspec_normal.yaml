@@ -1,8 +1,10 @@
 name: example
 
+environment:
+  sdk: ^3.8.0
+
 flutter_gen:
   output: lib/gen/
-  line_length: 80
 
   integrations:
     flutter_svg: true

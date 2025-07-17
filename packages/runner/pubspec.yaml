@@ -20,4 +20,3 @@ dependencies:
 
 dev_dependencies:
   lints: any # Ignoring the version to allow editing across SDK versions.
-  build_test: ^2.0.0
