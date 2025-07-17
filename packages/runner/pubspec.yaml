@@ -11,7 +11,7 @@ environment:
 
 dependencies:
   flutter_gen_core: 5.10.0
-  build: ^2.0.0
+  build: '>=2.0.0 <4.0.0'
   collection: ^1.17.0
   crypto: ^3.0.0
   glob: ^2.0.0
