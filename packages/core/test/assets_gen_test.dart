@@ -104,12 +104,7 @@ void main() {
 
     test('Assets with deferred components assets', () async {
       const pubspec = 'test_resources/pubspec_assets_deferred_components.yaml';
-      const fact =
-          'test_resources/actual_data/assets_deferred_components.gen.dart';
-      const generated =
-          'test_resources/lib/gen/assets_deferred_components.gen.dart';
-
-      await expectedAssetsGen(pubspec, generated, fact);
+      await expectedAssetsGen(pubspec);
     });
 
     test('Assets with duplicate flavoring entries', () async {

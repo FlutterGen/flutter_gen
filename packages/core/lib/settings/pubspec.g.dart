@@ -311,6 +311,7 @@ FlutterDeferredComponents _$FlutterDeferredComponentsFromJson(Map json) =>
       ($checkedConvert) {
         $checkKeys(
           json,
+          allowedKeys: const ['name', 'assets'],
           requiredKeys: const ['name'],
         );
         final val = FlutterDeferredComponents(
