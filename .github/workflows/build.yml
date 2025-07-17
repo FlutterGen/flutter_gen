@@ -23,53 +23,48 @@ jobs:
           flutter-version: ${{ steps.asdf.outputs.flutter }}
           channel: stable
           cache: true
-      - uses: dart-lang/setup-dart@v1
-        with:
-          sdk: ${{ steps.asdf.outputs.dart }}
 
-      - name: Set environment
+      - name: Set environment for MacOS & Ubuntu
         if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
         run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
-      - name: Set environment
+      - name: Set environment for Windows
         if: startsWith(matrix.os, 'windows')
         run: echo "%LOCALAPPDATA%\Pub\Cache\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
-      - name: Get dependencies for macos and ubuntu
-        if: startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu')
+      - name: Get dependencies
         run: |
           dart pub global activate melos
           melos bootstrap
 
-      - name: Get dependencies for Windows
-        if: startsWith(matrix.os, 'windows')
+      - name: Generate test data and see if changes
         run: |
-          dart pub global activate melos
-          # FIXME: CI randomly fail
-          melos exec -c 1 -- flutter pub get
-          melos bootstrap
+          melos gen:actual_data
+          git --no-pager diff --exit-code packages/core/test_resources/actual_data
 
-      - name: Run tests for our dart project.
+      - name: Run tests for Dart packages
         if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          melos test
+        run: melos test:dart --no-select
+
+      - name: Run tests for Flutter packages
+        if: startsWith(matrix.os, 'ubuntu')
+        run: melos test:flutter --no-select
 
       - name: Run coverage
         if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          melos coverage
+        run: melos coverage
 
-      - uses: codecov/codecov-action@v4
+      - uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./packages/core/coverage.lcov
 
-      - name: Generate example
+      - name: Generate example then check formats and changes
         run: |
           melos run gen:examples:command --no-select
           melos run gen:examples:build_runner --no-select
+          dart format --set-exit-if-changed examples
+          git --no-pager diff --exit-code examples
 
-      - name: Check for any formatting and statically analyze the code.
-        run: |
-          melos format
-          melos analyze
+      - name: Statically analyze the code
+        run: melos analyze

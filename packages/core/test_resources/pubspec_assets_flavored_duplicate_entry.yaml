@@ -2,11 +2,9 @@ name: test
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
-  line_length: 80 # Optional (default: 80)
 
   integrations:
     flutter_svg: true
-    flare_flutter: true
 
 flutter:
   assets:

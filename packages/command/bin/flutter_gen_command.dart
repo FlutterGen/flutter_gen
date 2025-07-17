@@ -2,10 +2,20 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:flutter_gen_core/flutter_generator.dart';
-import 'package:flutter_gen_core/utils/cast.dart';
-import 'package:flutter_gen_core/utils/version.dart';
+import 'package:flutter_gen_core/utils/cast.dart' show safeCast;
+import 'package:flutter_gen_core/utils/log.dart' show log;
+import 'package:flutter_gen_core/version.gen.dart' show packageVersion;
+import 'package:logging/logging.dart' show Level;
 
-void main(List<String> args) {
+void main(List<String> args) async {
+  log.onRecord.listen((record) {
+    if (record.level >= Level.WARNING) {
+      stderr.writeln('[FlutterGen] [${record.level.name}] ${record.message}');
+    } else {
+      stdout.writeln('[FlutterGen] ${record.message}');
+    }
+  });
+
   final parser = ArgParser();
   parser.addOption(
     'config',
@@ -18,7 +28,6 @@ void main(List<String> args) {
     'build',
     abbr: 'b',
     help: 'Set the path of build.yaml.',
-    defaultsTo: 'build.yaml',
   );
 
   parser.addFlag(
@@ -39,16 +48,14 @@ void main(List<String> args) {
   try {
     results = parser.parse(args);
     if (results.wasParsed('help')) {
-      stdout.writeln(parser.usage);
+      log.info('Usage of the `fluttergen` command:\n${parser.usage}');
       return;
     } else if (results.wasParsed('version')) {
-      stdout.writeln(flutterGenVersion);
+      log.info('v$packageVersion');
       return;
     }
   } on FormatException catch (e) {
-    stderr.writeAll(
-        <String>[e.message, 'usage: flutter_gen [options...]', ''], '\n');
-    return;
+    throw '$e\n\n${parser.usage}';
   }
 
   final pubspecPath = safeCast<String>(results['config']);
@@ -57,11 +64,11 @@ void main(List<String> args) {
   }
   final pubspecFile = File(pubspecPath).absolute;
 
-  final buildPath = safeCast<String>(results['build']);
-  if (buildPath == null || buildPath.trim().isEmpty) {
+  final buildPath = safeCast<String>(results['build'])?.trim();
+  if (buildPath?.isEmpty ?? false) {
     throw ArgumentError('Invalid value $buildPath', 'build');
   }
-  final buildFile = File(buildPath).absolute;
+  final buildFile = buildPath == null ? null : File(buildPath).absolute;
 
-  FlutterGenerator(pubspecFile, buildFile: buildFile).build();
+  await FlutterGenerator(pubspecFile, buildFile: buildFile).build();
 }

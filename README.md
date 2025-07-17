@@ -53,6 +53,38 @@ Widget build(BuildContext context) {
 
 ## Installation
 
+### As a part of build_runner
+
+1. Add [build_runner] and [FlutterGen] to your package's pubspec.yaml file:
+
+   ```yaml
+   dev_dependencies:
+     build_runner:
+     flutter_gen_runner:
+   ```
+
+2. Install [FlutterGen]
+
+   ```sh
+   flutter pub get
+   ```
+
+3. Use [FlutterGen]
+
+   ```sh
+   dart run build_runner build
+   ```
+
+### Pub Global
+
+Works with macOS, Linux and Windows.
+
+```sh
+dart pub global activate flutter_gen
+```
+
+You might need to [set up your path](https://dart.dev/tools/pub/cmd/pub-global#running-a-script-from-your-path).
+
 ### Homebrew
 
 Works with macOS and Linux.
@@ -77,38 +109,6 @@ asdf install fluttergen latest
 ```
 
 See also: [FlutterGen/asdf-fluttergen](https://github.com/FlutterGen/asdf-fluttergen)
-
-### Pub Global
-
-Works with macOS, Linux and Windows.
-
-```sh
-dart pub global activate flutter_gen
-```
-
-You might need to [set up your path](https://dart.dev/tools/pub/cmd/pub-global#running-a-script-from-your-path).
-
-### As a part of build_runner
-
-1. Add [build_runner] and [FlutterGen] to your package's pubspec.yaml file:
-
-```
-dev_dependencies:
-  build_runner:
-  flutter_gen_runner:
-```
-
-2. Install [FlutterGen]
-
-```sh
-flutter pub get
-```
-
-3. Use [FlutterGen]
-
-```sh
-dart run build_runner build
-```
 
 ### GitHub Actions
 
@@ -135,7 +135,7 @@ fluttergen -c example/pubspec.yaml
 ## Configuration file
 
 [FlutterGen] generates dart files based on the key **`flutter`** and **`flutter_gen`** of [`pubspec.yaml`](https://dart.dev/tools/pub/pubspec).  
-Default configuration can be found [here](https://github.com/FlutterGen/flutter_gen/tree/main/packages/core/lib/settings/config_default.dart). 
+Default configuration can be found [here](https://github.com/FlutterGen/flutter_gen/tree/main/packages/core/lib/settings/config_default.dart).
 
 ```yaml
 # pubspec.yaml
@@ -143,12 +143,12 @@ Default configuration can be found [here](https://github.com/FlutterGen/flutter_
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
-  line_length: 80 # Optional (default: 80)
+  # line_length: 80 # Optional
 
   # Optional
   integrations:
+    image: true
     flutter_svg: true
-    flare_flutter: true
     rive: true
     lottie: true
 
@@ -173,7 +173,6 @@ flutter:
 
 You can also configure generate options in the `build.yaml`, it will be read before the `pubspec.yaml` if it exists.
 
-
 ```yaml
 # build.yaml
 # ...
@@ -181,10 +180,10 @@ You can also configure generate options in the `build.yaml`, it will be read bef
 targets:
   $default:
     builders:
-      flutter_gen:
+      flutter_gen_runner: # or flutter_gen
         options: 
           output: lib/build_gen/ # Optional (default: lib/gen/)
-          line_length: 120 # Optional (default: 80)
+          line_length: 120 # Optional
 ```
 
 ## Available Parsers
@@ -204,7 +203,10 @@ flutter:
     - assets/images/
     - assets/images/chip3/chip.jpg
     - assets/images/chip4/chip.jpg
-    - assets/images/icons/paint.svg
+    - path: assets/images/icons/paint.svg
+    - path: assets/images/icons/transformed.svg
+      transformers:
+        - package: vector_graphics_compiler
     - assets/images/icons/dart@test.svg
     - assets/json/fruits.json
     - assets/flare/Penguin.flr
@@ -264,7 +266,7 @@ This would add the package constant to the generated class. For example:
 
 ```dart
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const String package = 'test';
 
@@ -284,7 +286,9 @@ Widget build(BuildContext context) {
   );
 }
 ```
+
 or
+
 ```dart
 // Explicit usage for `Image`/`SvgPicture`/`Lottie`.
 Widget build(BuildContext context) {
@@ -348,6 +352,32 @@ Widget build(BuildContext context) {
 }
 ```
 
+You can use `parse_animation` to generate more animation details.
+It will automatically parse all animation information for GIF and WebP files,
+including frames, duration, etc. As this option significantly increases generation time,
+The option is disabled by default; enabling it will significantly increase the generation elapse.
+
+```yaml
+flutter_gen:
+  images:
+    parse_animation: true # <- Add this line (default: false)
+    # This option implies parse_metadata: true when parsing images.
+```
+
+For GIF and WebP animation, several new nullable field is added to the
+generated class. For example:
+
+```dart
+AssetGenImage get animated => 
+  const AssetGenImage(
+    'assets/images/animated.webp',
+    size: Size(209.0, 49.0),
+    isAnimation: true,
+    duration: Duration(milliseconds: 1000),
+    frames: 15,
+  );
+```
+
 #### Usage Example
 
 [FlutterGen] generates [Image](https://api.flutter.dev/flutter/widgets/Image-class.html) class if the asset is Flutter supported image format.
@@ -379,7 +409,16 @@ Widget build(BuildContext context) {
 
 ```
 
-If you are using SVG images with [flutter_svg](https://pub.dev/packages/flutter_svg) you can use the integration feature.
+If you do not want to generate `AssetGenImage`, set `flutter_gen > integrations > image` to `false`.
+
+```yaml
+# pubspec.yaml
+flutter_gen:
+  integrations:
+    image: false
+```
+
+If you are using SVG images with [flutter_svg](https://pub.dev/packages/flutter_svg) you can use the integration feature. This feature also supports using `vector_graphics_compiler` transformer and the produced code will use the `AssetBytesLoader` for such transformed assets.
 
 ```yaml
 # pubspec.yaml
@@ -390,6 +429,9 @@ flutter_gen:
 flutter:
   assets:
     - assets/images/icons/paint.svg
+    - path: assets/images/icons/transformed.svg
+      transformers:
+        - package: vector_graphics_compiler
 ```
 
 ```dart
@@ -403,13 +445,13 @@ Widget build(BuildContext context) {
 
 **Available Integrations**
 
-| Packages                                                | File extension | Setting               | Usage                                     |
-|---------------------------------------------------------|----------------|-----------------------|-------------------------------------------|
-| [flutter_svg](https://pub.dev/packages/flutter_svg)     | .svg           | `flutter_svg: true`   | Assets.images.icons.paint.**svg()**       |
-| [flare_flutter](https://pub.dev/packages/flare_flutter) | .flr           | `flare_flutter: true` | Assets.flare.penguin.**flare()**          |
-| [rive](https://pub.dev/packages/rive)                   | .flr           | `rive: true`          | Assets.rive.vehicles.**rive()**           |
-| [lottie](https://pub.dev/packages/lottie)               | .json          | `lottie: true`        | Assets.lottie.hamburgerArrow.**lottie()** |
+| Packages                                            | File extension             | Setting             | Usage                                     |
+|-----------------------------------------------------|----------------------------|---------------------|-------------------------------------------|
+| [flutter_svg](https://pub.dev/packages/flutter_svg) | .svg                       | `flutter_svg: true` | Assets.images.icons.paint.**svg()**       |
+| [rive](https://pub.dev/packages/rive)               | .riv                       | `rive: true`        | Assets.rive.vehicles.**rive()**           |
+| [lottie](https://pub.dev/packages/lottie)           | .json, .zip, .lottie, .tgs | `lottie: true`      | Assets.lottie.hamburgerArrow.**lottie()** |
 
+**Note:** For [lottie](https://pub.dev/packages/lottie) integration with `.lottie` and `.tgs` files, you must add a custom decoder via `decoder` parameter, see [lottie's document](https://pub.dev/packages/lottie#telegram-stickers-tgs-and-dotlottie-lottie) for more information.
 
 In other cases, the asset is generated as String class.
 
@@ -519,7 +561,7 @@ Text(
 
 ### Colors
 
-[FlutterGen] supports generating colors from [XML](example/assets/color/colors.xml) format files.  
+[FlutterGen] supports generating colors from [XML](examples/example/assets/color/colors.xml) format files.  
 _Ignore duplicated._
 
 ```yaml
@@ -574,7 +616,9 @@ Plugin issues that are not specific to [FlutterGen] can be filed in the [Flutter
 ### Known Issues
 
 #### Bad State: No Element when using build_runner
+
 If you get an error message like this:
+
 ```
 [SEVERE] flutter_gen_runner:flutter_gen_runner on $package$:
 
@@ -612,8 +656,6 @@ template-arb-file: app_en.arb
 output-localization-file: app_localizations.dart
 synthetic-package: false <--- ⚠️Add this line⚠️
 ```
-
-If you get 
 
 ## Contributing
 

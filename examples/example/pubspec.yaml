@@ -3,35 +3,35 @@ description: A sample project using FlutterGen.
 publish_to: 'none'
 
 environment:
-  sdk: '>=3.2.0 <4.0.0'
-  flutter: '>=3.16.0'
+  sdk: ^3.4.0
 
 dependencies:
   flutter:
     sdk: flutter
 
-  flutter_svg: ^2.0.0
-  flare_flutter: ^3.0.0
-  rive: ^0.11.0
-  lottie: ^2.0.0
-
   example_resources:
     path: ../example_resources
 
+  flutter_svg: ^2.0.0
+  lottie: ^3.0.0
+  rive: ^0.13.20
+
 dev_dependencies:
-  lints: ^2.0.0
-  build_runner: ^2.0.0
-  flutter_gen_runner: ^5.8.0
+  lints: any
   flutter_test:
     sdk: flutter
 
+  flutter_gen_runner:
+    path: ../../packages/runner
+
+  build_runner: ^2.0.0
+
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
-  line_length: 80 # Optional (default: 80)
+#  line_length: 80 # Optional
 
   integrations:
     flutter_svg: true
-    flare_flutter: true
     rive: true
     lottie: true
 

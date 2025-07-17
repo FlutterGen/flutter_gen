@@ -1,25 +1,29 @@
 {
   "extends": [
-    "config:base",
+    "config:recommended",
     "group:monorepos",
     ":semanticCommits",
     ":semanticCommitTypeAll(upgrade)",
     ":semanticCommitScopeDisabled"
   ],
   "timezone": "Asia/Tokyo",
-  "schedule": ["every weekend"],
+  "schedule": [
+    "* * * * 3"
+  ],
   "branchConcurrentLimit": 5,
   "branchPrefix": "upgrade-renovate-",
   "dependencyDashboard": false,
-  "ignorePaths": [".github/"],
+  "ignorePaths": [
+    ".github/",
+    "examples/**"
+  ],
   "major": {
-    "stabilityDays": 7
+    "minimumReleaseAge": "30 days"
   },
   "minor": {
-    "stabilityDays": 3
+    "minimumReleaseAge": "14 days"
   },
   "patch": {
-    "stabilityDays": 2
-  },
-  "ignorePaths": ["examples/**"]
+    "enabled": false
+  }
 }

@@ -1,16 +1,19 @@
 import 'dart:io';
 
 import 'package:flutter_gen_core/generators/integrations/integration.dart';
+import 'package:flutter_gen_core/utils/log.dart';
 import 'package:vector_graphics_compiler/vector_graphics_compiler.dart';
 
 class SvgIntegration extends Integration {
-  SvgIntegration(String packageName, {super.parseMetadata})
-      : super(packageName);
+  SvgIntegration(
+    String packageName, {
+    super.parseMetadata,
+  }) : super(packageName);
 
   String get packageExpression => isPackage ? ' = package' : '';
 
   @override
-  List<Import> get requiredImports => [
+  List<Import> get requiredImports => const [
         Import('package:flutter/widgets.dart'),
         Import('package:flutter/services.dart'),
         Import('package:flutter_svg/flutter_svg.dart', alias: '_svg'),
@@ -26,7 +29,7 @@ class SvgIntegration extends Integration {
     this.size,
     this.flavors = const {},
   }) : _isVecFormat = false;
-  
+
   const SvgGenImage.vec(
     this._assetName, {
     this.size,
@@ -44,8 +47,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    ${isPackage ? deprecationMessagePackage : ''}
-    String? package$packageExpression,
+    ${isPackage ? '$deprecationMessagePackage\n' : ''}String? package$packageExpression,
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,
@@ -55,6 +57,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
     String? semanticsLabel,
     bool excludeFromSemantics = false,
     _svg.SvgTheme? theme,
+    _svg.ColorMapper? colorMapper,
     ColorFilter? colorFilter,
     Clip clipBehavior = Clip.hardEdge,
     @deprecated Color? color,
@@ -74,6 +77,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
         assetBundle: bundle,
         packageName: package,
         theme: theme,
+        colorMapper: colorMapper,
       );
     }
     return _svg.SvgPicture(
@@ -102,12 +106,15 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
   @override
   String get className => 'SvgGenImage';
 
+  static const vectorCompileTransformer = 'vector_graphics_compiler';
+
   @override
   String classInstantiate(AssetType asset) {
     // Query extra information about the SVG.
     final info = parseMetadata ? _getMetadata(asset) : null;
     final buffer = StringBuffer(className);
-    if (asset.extension == '.vec') {
+    if (asset.extension == '.vec' ||
+        asset.transformers.contains(vectorCompileTransformer)) {
       buffer.write('.vec');
     }
     buffer.write('(');
@@ -133,11 +140,12 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
       // but it's also the same way it will be eventually rendered by Flutter.
       final svg = File(asset.fullPath).readAsStringSync();
       final vec = parseWithoutOptimizers(svg);
-      return ImageMetadata(vec.width, vec.height);
-    } catch (e) {
-      stderr.writeln(
-        '[WARNING] Failed to parse SVG \'${asset.path}\' metadata: $e',
+      return ImageMetadata(
+        width: vec.width,
+        height: vec.height,
       );
+    } catch (e, s) {
+      log.warning('Failed to parse SVG \'${asset.path}\' metadata.', e, s);
       return null;
     }
   }

@@ -31,14 +31,6 @@ void main() async {
               SizedBox(
                 width: 200,
                 height: 200,
-                child: MyAssets.flare.penguin.flare(
-                  animation: 'walk',
-                  fit: BoxFit.contain,
-                ),
-              ),
-              SizedBox(
-                width: 200,
-                height: 200,
                 child: MyAssets.rive.vehicles.rive(
                   fit: BoxFit.contain,
                 ),
@@ -100,13 +92,6 @@ void main() async {
                 height: 200,
                 child: ResAssets.images.skills.rive(
                   fit: BoxFit.contain,
-                ),
-              ),
-              SizedBox(
-                width: 200,
-                height: 200,
-                child: ResAssets.images.favorite.flare(
-                  shouldClip: false,
                 ),
               ),
               SizedBox(

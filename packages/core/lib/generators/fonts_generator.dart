@@ -39,11 +39,13 @@ String generateFonts(
   final fontsConfig = config.flutterGen.fonts;
   if (fonts.isEmpty) {
     throw InvalidSettingsException(
-        'The value of "flutter/fonts:" is incorrect.');
+      'The value of "flutter/fonts:" is incorrect.',
+    );
   }
 
   final buffer = StringBuffer();
   final className = fontsConfig.outputs.className;
+  buffer.writeln('// dart format width=${formatter.pageWidth}');
   buffer.writeln(header);
   buffer.writeln(ignore);
   buffer.writeln('class $className {');

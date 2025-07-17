@@ -1,3 +1,36 @@
+## 5.10.0
+
+**Feature**
+- [#659](https://github.com/FlutterGen/flutter_gen/pull/659) Add support Telegram Sticker `.tgs` in Lottie Integration. by [@dungngminh](https://github.com/dungngminh)
+
+**Bug fix**
+- [#653](https://github.com/FlutterGen/flutter_gen/pull/653) Constraints `dart_style` to `>=2.3.7`. by [@AlexV525](https://github.com/AlexV525)
+- [#656](https://github.com/FlutterGen/flutter_gen/pull/656) Add missing parameters in Lottie integration from lottie 3.0.0. by [@dungngminh](https://github.com/dungngminh)
+- [#658](https://github.com/FlutterGen/flutter_gen/pull/658) Update required dart version. by [@koji-1009](https://github.com/koji-1009)
+
+## 5.9.0
+
+**Feature**
+- [#587](https://github.com/FlutterGen/flutter_gen/pull/587) Support Lottie ZIP archive files. by [@AlexV525](https://github.com/AlexV525)
+- [#599](https://github.com/FlutterGen/flutter_gen/pull/599) Use `FilterQuality.medium` for the image integration. by [@AlexV525](https://github.com/AlexV525)
+- [#615](https://github.com/FlutterGen/flutter_gen/pull/615) Support `dart_style` v3. by [@AlexV525](https://github.com/AlexV525)
+- [#618](https://github.com/FlutterGen/flutter_gen/pull/618) Remove Flare integration. by [@AlexV525](https://github.com/AlexV525)
+- [#619](https://github.com/FlutterGen/flutter_gen/pull/619) Generate package path for directory. by [@AlexV525](https://github.com/AlexV525)
+- [#620](https://github.com/FlutterGen/flutter_gen/pull/620) Format Dart files with the current Dart version instead of the latest supported. by [@AlexV525](https://github.com/AlexV525)
+- [#621](https://github.com/FlutterGen/flutter_gen/pull/621) Adds `.lottie` support. by [@AlexV525](https://github.com/AlexV525)
+- [#635](https://github.com/FlutterGen/flutter_gen/pull/635) Support `archive` v4. by [@AlexV525](https://github.com/AlexV525)
+- [#645](https://github.com/FlutterGen/flutter_gen/pull/645) Allows not enable the image integration. by [@AlexV525](https://github.com/AlexV525)
+
+**Development**
+- [#593](https://github.com/FlutterGen/flutter_gen/pull/593) Better stdouts. by [@AlexV525](https://github.com/AlexV525)
+- [#622](https://github.com/FlutterGen/flutter_gen/pull/622) Fix invalid codecov config. by [@AlexV525](https://github.com/AlexV525)
+- [#630](https://github.com/FlutterGen/flutter_gen/pull/630) Update proper EOF. by [@AlexV525](https://github.com/AlexV525)
+- [#643](https://github.com/FlutterGen/flutter_gen/pull/643) Improvements with code lints. by [@AlexV525](https://github.com/AlexV525)
+- [#644](https://github.com/FlutterGen/flutter_gen/pull/644) Format code. by [@AlexV525](https://github.com/AlexV525)
+
+**Bug fix**
+- [#592](https://github.com/FlutterGen/flutter_gen/pull/592) Accept both `flutter_gen` and `flutter_gen_runner` as the entry of build.yaml. by [@b2nkuu](https://github.com/b2nkuu)
+
 ## 5.8.0
 
 **Feature**

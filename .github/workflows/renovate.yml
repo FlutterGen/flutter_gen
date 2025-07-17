@@ -1,0 +1,29 @@
+name: Validate Renovate Config
+
+on:
+  push:
+    paths:
+      - 'renovate.json'
+  pull_request:
+    paths:
+      - 'renovate.json'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Read .node-version
+        id: node_version
+        run: echo "version=$(cat .node-version)" >> $GITHUB_ENV
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "${{ env.version }}"
+
+      - name: Validate Renovate Config
+        run: npx --yes --package renovate -- renovate-config-validator

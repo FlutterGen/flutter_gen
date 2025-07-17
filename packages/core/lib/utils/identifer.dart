@@ -7,7 +7,7 @@
 /// 2. Built-in identifiers.
 /// 3. Limited reserved words.
 /// 4. Reserved words, which can’t be identifiers.
-///
+// ignore: unnecessary_library_name
 library identifer;
 
 // 1. Contextual keywords, which have meaning only in specific places. They’re
@@ -42,7 +42,7 @@ const builtinKeywords = <String>{
   'sealed',
   'set',
   'static',
-  'typedef'
+  'typedef',
 };
 
 // 3. Limited reserved words. Can’t use as an identifier in any function body
@@ -83,7 +83,7 @@ const reservedKeywords = <String>{
   'void',
   'when',
   'while',
-  'with'
+  'with',
 };
 
 /// List of keywords that can't be used as identifiers.

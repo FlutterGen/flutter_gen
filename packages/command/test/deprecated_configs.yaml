@@ -1,0 +1,9 @@
+flutter:
+  assets:
+    - assets/
+
+flutter_gen:
+  assets:
+    enabled: true
+    style: snake-case
+    package_parameter_enabled: true

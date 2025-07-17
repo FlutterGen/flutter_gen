@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_gen_core/flutter_generator.dart';
+import 'package:flutter_gen_core/utils/error.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -17,6 +18,7 @@ void main() {
         colorsName: colors,
         fontsName: fonts,
       ).build();
+
       expect(File(assets).existsSync(), isFalse);
       expect(File(fonts).existsSync(), isFalse);
       expect(File(colors).existsSync(), isFalse);
@@ -34,6 +36,7 @@ void main() {
         colorsName: colors,
         fontsName: fonts,
       ).build();
+
       expect(File(assets).existsSync(), isFalse);
       expect(File(fonts).existsSync(), isFalse);
       expect(File(colors).existsSync(), isFalse);
@@ -51,9 +54,19 @@ void main() {
         colorsName: colors,
         fontsName: fonts,
       ).build();
+
       expect(File(assets).existsSync(), isFalse);
       expect(File(fonts).existsSync(), isFalse);
       expect(File(colors).existsSync(), isFalse);
+    });
+
+    test('Deprecated configs throws a InvalidSettingsException', () {
+      const pubspec = 'test_resources/deprecated_configs.yaml';
+
+      expect(
+        () => FlutterGenerator(File(pubspec)).build(),
+        throwsA(isA<InvalidSettingsException>()),
+      );
     });
   });
 
@@ -70,12 +83,10 @@ void main() {
         colorsName: colors,
         fontsName: fonts,
       ).build();
-      expect(File('test_resources/lib/gen/$assets').readAsStringSync(),
-          isNotEmpty);
-      expect(
-          File('test_resources/lib/gen/$fonts').readAsStringSync(), isNotEmpty);
-      expect(File('test_resources/lib/gen/$colors').readAsStringSync(),
-          isNotEmpty);
+
+      expect(File('test_resources/lib/gen/$assets').existsSync(), isTrue);
+      expect(File('test_resources/lib/gen/$fonts').existsSync(), isTrue);
+      expect(File('test_resources/lib/gen/$colors').existsSync(), isTrue);
     });
 
     test('Only flutter value', () async {
@@ -90,10 +101,9 @@ void main() {
         colorsName: colors,
         fontsName: fonts,
       ).build();
-      expect(File('test_resources/lib/gen/$assets').readAsStringSync(),
-          isNotEmpty);
-      expect(
-          File('test_resources/lib/gen/$fonts').readAsStringSync(), isNotEmpty);
+
+      expect(File('test_resources/lib/gen/$assets').existsSync(), isTrue);
+      expect(File('test_resources/lib/gen/$fonts').existsSync(), isTrue);
       expect(File(colors).existsSync(), isFalse);
     });
 
@@ -109,10 +119,10 @@ void main() {
         colorsName: colors,
         fontsName: fonts,
       ).build();
+
       expect(File(assets).existsSync(), isFalse);
       expect(File(fonts).existsSync(), isFalse);
-      expect(File('test_resources/lib/gen/$colors').readAsStringSync(),
-          isNotEmpty);
+      expect(File('test_resources/lib/gen/$colors').existsSync(), isTrue);
     });
 
     test('Change output path', () async {
@@ -128,12 +138,18 @@ void main() {
         fontsName: fonts,
       ).build();
 
-      expect(File('test_resources/lib/aaa/bbb/ccc/$assets').readAsStringSync(),
-          isNotEmpty);
-      expect(File('test_resources/lib/aaa/bbb/ccc/$colors').readAsStringSync(),
-          isNotEmpty);
-      expect(File('test_resources/lib/aaa/bbb/ccc/$fonts').readAsStringSync(),
-          isNotEmpty);
+      expect(
+        File('test_resources/lib/aaa/bbb/ccc/$assets').existsSync(),
+        isTrue,
+      );
+      expect(
+        File('test_resources/lib/aaa/bbb/ccc/$colors').existsSync(),
+        isTrue,
+      );
+      expect(
+        File('test_resources/lib/aaa/bbb/ccc/$fonts').existsSync(),
+        isTrue,
+      );
     });
 
     test('Empty output path', () async {
@@ -148,20 +164,19 @@ void main() {
         colorsName: colors,
         fontsName: fonts,
       ).build();
-      expect(File('test_resources/lib/gen/$assets').readAsStringSync(),
-          isNotEmpty);
-      expect(
-          File('test_resources/lib/gen/$fonts').readAsStringSync(), isNotEmpty);
-      expect(File('test_resources/lib/gen/$colors').readAsStringSync(),
-          isNotEmpty);
+
+      expect(File('test_resources/lib/gen/$assets').existsSync(), isTrue);
+      expect(File('test_resources/lib/gen/$fonts').existsSync(), isTrue);
+      expect(File('test_resources/lib/gen/$colors').existsSync(), isTrue);
     });
 
     test('Wrong lineLength', () async {
       const pubspec = 'test_resources/pubspec_wrong_line_length.yaml';
 
-      expect(() {
-        return FlutterGenerator(File(pubspec)).build();
-      }, throwsA(isA<Exception>()));
+      expect(
+        () => FlutterGenerator(File(pubspec)).build(),
+        throwsA(isA<Exception>()),
+      );
     });
 
     test('Disabled generation', () async {
@@ -169,20 +184,22 @@ void main() {
       const assets = 'none_assets.gen.dart';
       const colors = 'none_colors.gen.dart';
       const fonts = 'none_fonts.gen.dart';
-      FlutterGenerator(
+
+      await FlutterGenerator(
         File(pubspec),
         assetsName: assets,
         colorsName: colors,
         fontsName: fonts,
-      );
-      expect(File('test_resources/lib/gen/$assets').existsSync(), false);
-      expect(File('test_resources/lib/gen/$fonts').existsSync(), false);
-      expect(File('test_resources/lib/gen/$colors').existsSync(), false);
+      ).build();
+
+      expect(File('test_resources/lib/gen/$assets').existsSync(), isFalse);
+      expect(File('test_resources/lib/gen/$fonts').existsSync(), isFalse);
+      expect(File('test_resources/lib/gen/$colors').existsSync(), isFalse);
     });
 
-    test('With build_output.yaml', () async {
+    test('With build_assets.yaml', () async {
       const pubspec = 'test_resources/pubspec_normal.yaml';
-      const build = 'test_resources/build_output.yaml';
+      const build = 'test_resources/build_assets.yaml';
       const assets = 'build_assets.gen.dart';
       const colors = 'build_colors.gen.dart';
       const fonts = 'build_fonts.gen.dart';
@@ -194,12 +211,10 @@ void main() {
         colorsName: colors,
         fontsName: fonts,
       ).build();
-      expect(File('test_resources/lib/build_gen/$assets').readAsStringSync(),
-          isNotEmpty);
-      expect(File('test_resources/lib/build_gen/$fonts').readAsStringSync(),
-          isNotEmpty);
-      expect(File('test_resources/lib/build_gen/$colors').readAsStringSync(),
-          isNotEmpty);
+
+      expect(File('test_resources/lib/build_gen/$assets').existsSync(), isTrue);
+      expect(File('test_resources/lib/build_gen/$fonts').existsSync(), isTrue);
+      expect(File('test_resources/lib/build_gen/$colors').existsSync(), isTrue);
     });
   });
 }

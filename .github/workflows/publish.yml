@@ -1,0 +1,23 @@
+name: Publish to pub.dev
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    permissions:
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+      - uses: flutter-actions/setup-flutter@v4.0
+      - name: Install dependencies
+        run: dart pub get
+      - name: Prepare Melos workspace
+        uses: bluefireteam/melos-action@v3
+      - name: Publish
+        run: melos run publish:force --no-select

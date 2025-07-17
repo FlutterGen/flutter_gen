@@ -1,8 +1,10 @@
 extension StringExt on String {
   String camelCase() {
     final words = _intoWords(this)
-        .map((w) =>
-            '${w.substring(0, 1).toUpperCase()}${w.substring(1).toLowerCase()}')
+        .map(
+          (w) => '${w.substring(0, 1).toUpperCase()}'
+              '${w.substring(1).toLowerCase()}',
+        )
         .toList();
     words[0] = words[0].toLowerCase();
     return words.join();
@@ -15,6 +17,7 @@ extension StringExt on String {
 }
 
 String camelCase(String s) => s.camelCase();
+
 String snakeCase(String s) => s.snakeCase();
 
 List<String> _intoWords(String path) {
