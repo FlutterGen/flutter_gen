@@ -4,7 +4,7 @@
 
 - [#576](https://github.com/FlutterGen/flutter_gen/pull/576) Add support for deferred components. by [@ianmaciel](https://github.com/ianmaciel)
 - [#676](https://github.com/FlutterGen/flutter_gen/pull/676) Add new option `parse_animation` to parse metadata for animated images. by [@HuanDu](https://github.com/huandu)
-- [#680](https://github.com/FlutterGen/flutter_gen/pull/680) Add svg `ColorMapper` to svg loader. by [@AlexV525](https://github.com/AlexV525)
+- [#680](https://github.com/FlutterGen/flutter_gen/pull/680) Add svg `ColorMapper` to svg loader. by [@sysint64](https://github.com/sysint64)
 - [#685](https://github.com/FlutterGen/flutter_gen/pull/685) Use `.vec` SVG class for `vector_graphics_compiler` transformed assets. by [@Albert221](https://github.com/Albert221)
 - [#697](https://github.com/FlutterGen/flutter_gen/pull/697) Refactor how generated files are being formatted. by [@AlexV525](https://github.com/AlexV525)
 
