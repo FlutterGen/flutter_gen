@@ -1,3 +1,9 @@
+## 5.12.0
+
+**Development**
+
+- [#707](https://github.com/FlutterGen/flutter_gen/pull/707) Allow `build 4.0.0`. by [@BetterB0y](https://github.com/BetterB0y)
+
 ## 5.11.0
 
 **Feature**
