@@ -7,7 +7,6 @@ import 'package:lottie/lottie.dart';
 import 'package:rive/rive.dart' as rive;
 
 void main() {
-  print(MyAssets.images.chip4.chip4.flavors);
   runApp(const MyApp());
 }
 
