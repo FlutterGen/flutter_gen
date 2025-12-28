@@ -18,6 +18,8 @@ dependencies:
 
 dev_dependencies:
   lints: any
+  flutter_test:
+    sdk: flutter
 
   flutter_gen_runner:
     path: ../../packages/runner
