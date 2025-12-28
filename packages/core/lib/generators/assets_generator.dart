@@ -90,6 +90,7 @@ Future<String> generateAssets(
     if (config.flutterGen.integrations.rive)
       RiveIntegration(
         config.packageParameterLiteral,
+        resolvedVersion: config.integrationResolvedVersions[RiveIntegration],
       ),
     if (config.flutterGen.integrations.lottie)
       LottieIntegration(

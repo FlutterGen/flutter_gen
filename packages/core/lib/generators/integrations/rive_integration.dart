@@ -1,7 +1,25 @@
 import 'package:flutter_gen_core/generators/integrations/integration.dart';
+import 'package:pub_semver/pub_semver.dart' show Version;
 
-class RiveIntegration extends Integration {
-  RiveIntegration(String packageName) : super(packageName);
+/// Create Rive integration based on the resolved version.
+abstract final class RiveIntegration extends Integration {
+  factory RiveIntegration(
+    String packageName, {
+    Version? resolvedVersion,
+  }) {
+    return switch (resolvedVersion) {
+      final v? when v < Version(0, 14, 0) =>
+        RiveIntegrationClassic(packageName),
+      _ => RiveIntegration0140(packageName),
+    };
+  }
+
+  RiveIntegration._(String packageName) : super(packageName);
+}
+
+/// Rive integration for versions before 0.14.0.
+final class RiveIntegrationClassic extends RiveIntegration {
+  RiveIntegrationClassic(String packageName) : super._(packageName);
 
   String? get packageExpression => isPackage ? 'packages/$packageName/' : null;
 
@@ -65,4 +83,35 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 
   @override
   bool get isConstConstructor => true;
+}
+
+/// Rive integration for versions equal to or above 0.14.0.
+final class RiveIntegration0140 extends RiveIntegrationClassic {
+  RiveIntegration0140(String packageName) : super(packageName);
+
+  @override
+  String get _classDefinition => '''class RiveGenImage {
+  const RiveGenImage(
+    this._assetName, {
+    this.flavors = const {},
+  });
+
+  final String _assetName;
+  final Set<String> flavors;
+
+${isPackage ? "\n  static const String package = '$packageName';" : ''}
+
+  _rive.FileLoader riveFileLoader({
+    _rive.Factory? factory,
+  }) {
+    return _rive.FileLoader.fromAsset(
+      ${isPackage ? '\'$packageExpression\$_assetName\'' : '_assetName'},
+      riveFactory: factory ?? _rive.Factory.rive,
+    );
+  }
+
+  String get path => _assetName;
+
+  String get keyName => ${isPackage ? '\'$packageExpression\$_assetName\'' : '_assetName'};
+}''';
 }
