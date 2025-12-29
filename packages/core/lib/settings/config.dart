@@ -105,7 +105,7 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
   final pubspec = Pubspec.fromJson(mergedMap);
 
   final pubspecLockFile = File(
-    normalize(join(basename(pubspecFile.parent.path), 'pubspec.lock')),
+    normalize(join(pubspecFile.parent.path, 'pubspec.lock')),
   );
   final pubspecLockContent = switch (pubspecLockFile.existsSync()) {
     true => pubspecLockFile.readAsStringSync(),
