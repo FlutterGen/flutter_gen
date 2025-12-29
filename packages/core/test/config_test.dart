@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_gen_core/generators/integrations/lottie_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/rive_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/svg_integration.dart';
+import 'package:flutter_gen_core/generators/registry.dart';
 import 'package:flutter_gen_core/settings/config.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
@@ -99,9 +100,11 @@ void main() {
       final config = loadPubspecConfig(pubspecFile);
 
       // Verify that only integration types from the registry are in the maps
+      final expectedTypes = integrationPackages.keys.toList();
+      
       for (final key in config.integrationVersionConstraints.keys) {
         expect(
-          [RiveIntegration, SvgIntegration, LottieIntegration].contains(key),
+          expectedTypes.contains(key),
           isTrue,
           reason: 'Unexpected integration type: $key',
         );
@@ -109,7 +112,7 @@ void main() {
       
       for (final key in config.integrationResolvedVersions.keys) {
         expect(
-          [RiveIntegration, SvgIntegration, LottieIntegration].contains(key),
+          expectedTypes.contains(key),
           isTrue,
           reason: 'Unexpected integration type: $key',
         );

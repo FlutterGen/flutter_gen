@@ -6,8 +6,7 @@ environment:
 dependencies:
   rive: ^0.13.0
   flutter_svg: ^2.0.0
-  lottie:
-    version: ^5.0.0
+  lottie: ^5.0.0
 
 flutter_gen:
   output: lib/gen/
