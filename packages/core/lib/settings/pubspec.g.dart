@@ -18,6 +18,8 @@ Pubspec _$PubspecFromJson(Map json) => $checkedCreate(
           packageName: $checkedConvert('name', (v) => v as String),
           environment: $checkedConvert(
               'environment', (v) => _environmentFromJson(v as Map?)),
+          dependenciesVersionConstraint: $checkedConvert(
+              'dependencies', (v) => _dependenciesFromJson(v as Map?)),
           flutterGen: $checkedConvert(
               'flutter_gen', (v) => FlutterGen.fromJson(v as Map)),
           flutter:
@@ -25,7 +27,11 @@ Pubspec _$PubspecFromJson(Map json) => $checkedCreate(
         );
         return val;
       },
-      fieldKeyMap: const {'packageName': 'name', 'flutterGen': 'flutter_gen'},
+      fieldKeyMap: const {
+        'packageName': 'name',
+        'dependenciesVersionConstraint': 'dependencies',
+        'flutterGen': 'flutter_gen'
+      },
     );
 
 Flutter _$FlutterFromJson(Map json) => $checkedCreate(

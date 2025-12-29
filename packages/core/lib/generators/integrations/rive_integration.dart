@@ -1,17 +1,35 @@
 import 'package:flutter_gen_core/generators/integrations/integration.dart';
-import 'package:pub_semver/pub_semver.dart' show Version;
+import 'package:pub_semver/pub_semver.dart' show Version, VersionConstraint;
+
+typedef RiveIntegrationLatest = RiveIntegration0140;
 
 /// Create Rive integration based on the resolved version.
 abstract final class RiveIntegration extends Integration {
   factory RiveIntegration(
     String packageName, {
     Version? resolvedVersion,
+    VersionConstraint? resolvedVersionConstraint,
   }) {
-    return switch (resolvedVersion) {
+    // Resolve integration by version.
+    RiveIntegration? integration = switch (resolvedVersion) {
       final v? when v < Version(0, 14, 0) =>
         RiveIntegrationClassic(packageName),
-      _ => RiveIntegration0140(packageName),
+      Version() => RiveIntegrationLatest(packageName),
+      null => null,
     };
+
+    // Resolve integration by version constraint.
+    integration ??= switch (resolvedVersionConstraint) {
+      final c? when c.allows(Version(0, 14, 0)) =>
+        RiveIntegrationLatest(packageName),
+      VersionConstraint() => RiveIntegrationClassic(packageName),
+      null => null,
+    };
+
+    // Use the latest integration as the fallback.
+    integration ??= RiveIntegrationLatest(packageName);
+
+    return integration;
   }
 
   RiveIntegration._(String packageName) : super(packageName);

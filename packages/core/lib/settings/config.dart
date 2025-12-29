@@ -20,6 +20,7 @@ class Config {
     required this.pubspecFile,
     required this.sdkConstraint,
     required this.integrationResolvedVersions,
+    required this.integrationVersionConstraints,
     // required this.formatterTrailingCommas,
     required this.formatterPageWidth,
   });
@@ -28,6 +29,7 @@ class Config {
   final File pubspecFile;
   final VersionConstraint? sdkConstraint;
   final Map<Type, Version> integrationResolvedVersions;
+  final Map<Type, VersionConstraint> integrationVersionConstraints;
 
   // TODO(ANYONE): Allow passing the trailing commas option after the SDK constraint was bumped to ^3.7.
   // final TrailingCommas? formatterTrailingCommas;
@@ -114,13 +116,16 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
     sdkConstraint ??= VersionConstraint.parse(sdk);
   }
 
+  final pubspecLockPackages = safeCast<YamlMap>(pubspecLockMap?['packages']);
+  final integrationVersionConstraints = <Type, VersionConstraint>{};
   final integrationResolvedVersions = <Type, Version>{};
-  if (pubspecLockMap?['packages'] case final YamlMap packages) {
-    for (final entry in integrationPackages.entries) {
-      if (packages[entry.value]?['version'] case final String v) {
-        final version = Version.parse(v);
-        integrationResolvedVersions[entry.key] = version;
-      }
+  for (final entry in integrationPackages.entries) {
+    if (pubspec.dependenciesVersionConstraint[entry.value] case final c?) {
+      integrationVersionConstraints[entry.key] = c;
+    }
+    if (pubspecLockPackages?[entry.value]?['version'] case final String v) {
+      final version = Version.parse(v);
+      integrationResolvedVersions[entry.key] = version;
     }
   }
 
@@ -147,6 +152,7 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
     pubspecFile: pubspecFile,
     sdkConstraint: sdkConstraint,
     integrationResolvedVersions: integrationResolvedVersions,
+    integrationVersionConstraints: integrationVersionConstraints,
     // formatterTrailingCommas: formatterTrailingCommas,
     formatterPageWidth: formatterPageWidth,
   );

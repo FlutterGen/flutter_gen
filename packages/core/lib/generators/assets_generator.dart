@@ -17,7 +17,7 @@ import 'package:flutter_gen_core/utils/error.dart';
 import 'package:flutter_gen_core/utils/string.dart';
 import 'package:glob/glob.dart';
 import 'package:path/path.dart';
-import 'package:pub_semver/pub_semver.dart' show Version;
+import 'package:pub_semver/pub_semver.dart' show Version, VersionConstraint;
 import 'package:yaml/yaml.dart';
 
 class AssetsGenConfig {
@@ -28,6 +28,7 @@ class AssetsGenConfig {
     this.assets,
     this.exclude,
     this.integrationResolvedVersions,
+    this.integrationResolvedVersionConstraints,
   );
 
   factory AssetsGenConfig.fromConfig(File pubspecFile, Config config) {
@@ -38,6 +39,7 @@ class AssetsGenConfig {
       _buildFlutterAssetsList(config.pubspec.flutter),
       config.pubspec.flutterGen.assets.exclude.map(Glob.new).toList(),
       config.integrationResolvedVersions,
+      config.integrationVersionConstraints,
     );
   }
 
@@ -47,6 +49,7 @@ class AssetsGenConfig {
   final List<Object> assets;
   final List<Glob> exclude;
   final Map<Type, Version> integrationResolvedVersions;
+  final Map<Type, VersionConstraint> integrationResolvedVersionConstraints;
 
   String get packageParameterLiteral =>
       flutterGen.assets.outputs.packageParameterEnabled ? _packageName : '';
@@ -91,6 +94,8 @@ Future<String> generateAssets(
       RiveIntegration(
         config.packageParameterLiteral,
         resolvedVersion: config.integrationResolvedVersions[RiveIntegration],
+        resolvedVersionConstraint:
+            config.integrationResolvedVersionConstraints[RiveIntegration],
       ),
     if (config.flutterGen.integrations.lottie)
       LottieIntegration(
