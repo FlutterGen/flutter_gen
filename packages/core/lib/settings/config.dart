@@ -130,7 +130,7 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
   }
 
   final analysisOptionsFile = File(
-    normalize(join(basename(pubspecFile.parent.path), 'analysis_options.yaml')),
+    normalize(join(pubspecFile.parent.path, 'analysis_options.yaml')),
   );
   final analysisOptionsContent = switch (analysisOptionsFile.existsSync()) {
     true => analysisOptionsFile.readAsStringSync(),
