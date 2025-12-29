@@ -465,12 +465,14 @@ void main() {
       // This validates the full flow from config loading to integration creation
       
       // Create a RiveIntegration with both resolved version and constraint
+      // When resolvedVersion is 0.13.0 (< 0.14.0), it should use Classic
+      // even if resolvedVersionConstraint would allow 0.14.0
       final integrationWithBoth = RiveIntegration(
         '',
         resolvedVersion: Version(0, 13, 0),
         resolvedVersionConstraint: VersionConstraint.parse('^0.14.0'),
       );
-      // Should prefer resolvedVersion over resolvedVersionConstraint
+      // resolvedVersion takes priority: 0.13.0 < 0.14.0 => Classic
       expect(integrationWithBoth, isA<RiveIntegrationClassic>());
       
       // Create a RiveIntegration with only resolvedVersion

@@ -92,17 +92,28 @@ void main() {
       expect(config.integrationVersionConstraints, isA<Map>());
     });
 
-    test('handles dependencies without version constraints', () {
+    test('verifies only expected integration types are present', () {
       final pubspecFile = File(
         'test_resources/pubspec_integration_versions.yaml',
       );
       final config = loadPubspecConfig(pubspecFile);
 
-      // Packages not in dependencies should not be in the maps
-      expect(
-        config.integrationVersionConstraints.containsKey(null),
-        isFalse,
-      );
+      // Verify that only integration types from the registry are in the maps
+      for (final key in config.integrationVersionConstraints.keys) {
+        expect(
+          [RiveIntegration, SvgIntegration, LottieIntegration].contains(key),
+          isTrue,
+          reason: 'Unexpected integration type: $key',
+        );
+      }
+      
+      for (final key in config.integrationResolvedVersions.keys) {
+        expect(
+          [RiveIntegration, SvgIntegration, LottieIntegration].contains(key),
+          isTrue,
+          reason: 'Unexpected integration type: $key',
+        );
+      }
     });
 
     test('integration versions are used in AssetsGenConfig', () {
