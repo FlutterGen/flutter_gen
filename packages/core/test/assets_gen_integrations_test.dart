@@ -3,6 +3,7 @@ import 'package:flutter_gen_core/generators/integrations/lottie_integration.dart
 import 'package:flutter_gen_core/generators/integrations/rive_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/svg_integration.dart';
 import 'package:path/path.dart' as p;
+import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 
 import 'gen_test_helper.dart';
@@ -237,6 +238,167 @@ void main() {
         integrationWithPackage.classOutput.contains(
           '\'packages/package_name/\$_assetName\',',
         ),
+        isTrue,
+      );
+    });
+
+    test('RiveIntegration version resolution with resolvedVersion', () {
+      // Test with version < 0.14.0 (should return RiveIntegrationClassic)
+      final classicIntegration = RiveIntegration(
+        '',
+        resolvedVersion: Version(0, 13, 0),
+      );
+      expect(classicIntegration, isA<RiveIntegrationClassic>());
+      final classicOutput = classicIntegration.classOutput;
+      expect(classicOutput.contains('rive({'), isTrue);
+      expect(classicOutput.contains('RiveAnimation.asset'), isTrue);
+      expect(classicOutput.contains('riveFileLoader'), isFalse);
+
+      // Test with version >= 0.14.0 (should return RiveIntegration0140)
+      final latestIntegration = RiveIntegration(
+        '',
+        resolvedVersion: Version(0, 14, 0),
+      );
+      expect(latestIntegration, isA<RiveIntegration0140>());
+      final latestOutput = latestIntegration.classOutput;
+      expect(latestOutput.contains('riveFileLoader({'), isTrue);
+      expect(latestOutput.contains('FileLoader.fromAsset'), isTrue);
+      expect(latestOutput.contains('rive({'), isFalse);
+
+      // Test with version > 0.14.0
+      final newerIntegration = RiveIntegration(
+        '',
+        resolvedVersion: Version(0, 15, 0),
+      );
+      expect(newerIntegration, isA<RiveIntegration0140>());
+      final newerOutput = newerIntegration.classOutput;
+      expect(newerOutput.contains('riveFileLoader({'), isTrue);
+    });
+
+    test('RiveIntegration version constraint resolution', () {
+      // Test with constraint that allows 0.14.0 (should return RiveIntegration0140)
+      final allowsLatest = RiveIntegration(
+        '',
+        resolvedVersionConstraint: VersionConstraint.parse('^0.14.0'),
+      );
+      expect(allowsLatest, isA<RiveIntegration0140>());
+      expect(allowsLatest.classOutput.contains('riveFileLoader({'), isTrue);
+
+      // Test with constraint that doesn't allow 0.14.0 (should return RiveIntegrationClassic)
+      final classicOnly = RiveIntegration(
+        '',
+        resolvedVersionConstraint: VersionConstraint.parse('>=0.13.0 <0.14.0'),
+      );
+      expect(classicOnly, isA<RiveIntegrationClassic>());
+      expect(classicOnly.classOutput.contains('rive({'), isTrue);
+
+      // Test with constraint like ^0.12.0 (doesn't allow 0.14.0)
+      final olderConstraint = RiveIntegration(
+        '',
+        resolvedVersionConstraint: VersionConstraint.parse('^0.12.0'),
+      );
+      expect(olderConstraint, isA<RiveIntegrationClassic>());
+      expect(olderConstraint.classOutput.contains('rive({'), isTrue);
+    });
+
+    test('RiveIntegration version resolution priority', () {
+      // resolvedVersion should take priority over resolvedVersionConstraint
+      final integration = RiveIntegration(
+        '',
+        resolvedVersion: Version(0, 13, 0),
+        resolvedVersionConstraint: VersionConstraint.parse('^0.14.0'),
+      );
+      expect(integration, isA<RiveIntegrationClassic>());
+      expect(integration.classOutput.contains('rive({'), isTrue);
+
+      // When resolvedVersion is null, fall back to resolvedVersionConstraint
+      final fallbackIntegration = RiveIntegration(
+        '',
+        resolvedVersionConstraint: VersionConstraint.parse('^0.14.0'),
+      );
+      expect(fallbackIntegration, isA<RiveIntegration0140>());
+      expect(fallbackIntegration.classOutput.contains('riveFileLoader({'), isTrue);
+    });
+
+    test('RiveIntegration fallback behavior', () {
+      // Test with no version information (should return RiveIntegration0140 as fallback)
+      final fallbackIntegration = RiveIntegration('');
+      expect(fallbackIntegration, isA<RiveIntegration0140>());
+      expect(fallbackIntegration.classOutput.contains('riveFileLoader({'), isTrue);
+    });
+
+    test('RiveIntegrationClassic classOutput structure', () {
+      final integration = RiveIntegrationClassic('');
+      final output = integration.classOutput;
+
+      // Check for Classic-specific content
+      expect(output.contains('class RiveGenImage {'), isTrue);
+      expect(output.contains('final String _assetName;'), isTrue);
+      expect(output.contains('final Set<String> flavors;'), isTrue);
+      expect(output.contains('rive({'), isTrue);
+      expect(output.contains('_rive.RiveAnimation rive({'), isTrue);
+      expect(output.contains('_rive.RiveAnimation.asset'), isTrue);
+      expect(output.contains('artboard:'), isTrue);
+      expect(output.contains('animations:'), isTrue);
+      expect(output.contains('stateMachines:'), isTrue);
+      expect(output.contains('String get path =>'), isTrue);
+      expect(output.contains('String get keyName =>'), isTrue);
+
+      // Ensure it doesn't have 0.14.0+ specific content
+      expect(output.contains('riveFileLoader'), isFalse);
+      expect(output.contains('FileLoader.fromAsset'), isFalse);
+    });
+
+    test('RiveIntegrationClassic classOutput with package', () {
+      final integration = RiveIntegrationClassic('test_package');
+      final output = integration.classOutput;
+
+      // Check for package-specific content
+      expect(
+        output.contains("static const String package = 'test_package';"),
+        isTrue,
+      );
+      expect(
+        output.contains("'packages/test_package/\$_assetName'"),
+        isTrue,
+      );
+    });
+
+    test('RiveIntegration0140 classOutput structure', () {
+      final integration = RiveIntegration0140('');
+      final output = integration.classOutput;
+
+      // Check for 0.14.0+ specific content
+      expect(output.contains('class RiveGenImage {'), isTrue);
+      expect(output.contains('final String _assetName;'), isTrue);
+      expect(output.contains('final Set<String> flavors;'), isTrue);
+      expect(output.contains('riveFileLoader({'), isTrue);
+      expect(output.contains('_rive.FileLoader riveFileLoader({'), isTrue);
+      expect(output.contains('_rive.FileLoader.fromAsset'), isTrue);
+      expect(output.contains('_rive.Factory? factory,'), isTrue);
+      expect(output.contains('riveFactory: factory ?? _rive.Factory.rive'), isTrue);
+      expect(output.contains('String get path =>'), isTrue);
+      expect(output.contains('String get keyName =>'), isTrue);
+
+      // Ensure it doesn't have Classic-specific content
+      expect(output.contains('rive({'), isFalse);
+      expect(output.contains('RiveAnimation.asset'), isFalse);
+      expect(output.contains('artboard:'), isFalse);
+      expect(output.contains('animations:'), isFalse);
+      expect(output.contains('stateMachines:'), isFalse);
+    });
+
+    test('RiveIntegration0140 classOutput with package', () {
+      final integration = RiveIntegration0140('test_package');
+      final output = integration.classOutput;
+
+      // Check for package-specific content
+      expect(
+        output.contains("static const String package = 'test_package';"),
+        isTrue,
+      );
+      expect(
+        output.contains("'packages/test_package/\$_assetName'"),
         isTrue,
       );
     });

@@ -2,6 +2,7 @@ import 'dart:io';
 
 // import 'package:collection/collection.dart';
 // import 'package:dart_style/dart_style.dart' show TrailingCommas;
+import 'package:flutter_gen_core/generators/registry.dart';
 import 'package:flutter_gen_core/settings/config_default.dart';
 import 'package:flutter_gen_core/settings/pubspec.dart';
 import 'package:flutter_gen_core/utils/cast.dart' show safeCast;
@@ -10,7 +11,7 @@ import 'package:flutter_gen_core/utils/log.dart';
 import 'package:flutter_gen_core/utils/map.dart';
 import 'package:flutter_gen_core/version.gen.dart';
 import 'package:path/path.dart';
-import 'package:pub_semver/pub_semver.dart' show VersionConstraint;
+import 'package:pub_semver/pub_semver.dart' show VersionConstraint, Version;
 import 'package:yaml/yaml.dart';
 
 class Config {
@@ -18,6 +19,8 @@ class Config {
     required this.pubspec,
     required this.pubspecFile,
     required this.sdkConstraint,
+    required this.integrationResolvedVersions,
+    required this.integrationVersionConstraints,
     // required this.formatterTrailingCommas,
     required this.formatterPageWidth,
   });
@@ -25,6 +28,8 @@ class Config {
   final Pubspec pubspec;
   final File pubspecFile;
   final VersionConstraint? sdkConstraint;
+  final Map<Type, Version> integrationResolvedVersions;
+  final Map<Type, VersionConstraint> integrationVersionConstraints;
 
   // TODO(ANYONE): Allow passing the trailing commas option after the SDK constraint was bumped to ^3.7.
   // final TrailingCommas? formatterTrailingCommas;
@@ -111,6 +116,19 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
     sdkConstraint ??= VersionConstraint.parse(sdk);
   }
 
+  final pubspecLockPackages = safeCast<YamlMap>(pubspecLockMap?['packages']);
+  final integrationVersionConstraints = <Type, VersionConstraint>{};
+  final integrationResolvedVersions = <Type, Version>{};
+  for (final entry in integrationPackages.entries) {
+    if (pubspec.dependenciesVersionConstraint[entry.value] case final c?) {
+      integrationVersionConstraints[entry.key] = c;
+    }
+    if (pubspecLockPackages?[entry.value]?['version'] case final String v) {
+      final version = Version.parse(v);
+      integrationResolvedVersions[entry.key] = version;
+    }
+  }
+
   final analysisOptionsFile = File(
     normalize(join(basename(pubspecFile.parent.path), 'analysis_options.yaml')),
   );
@@ -133,6 +151,8 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
     pubspec: pubspec,
     pubspecFile: pubspecFile,
     sdkConstraint: sdkConstraint,
+    integrationResolvedVersions: integrationResolvedVersions,
+    integrationVersionConstraints: integrationVersionConstraints,
     // formatterTrailingCommas: formatterTrailingCommas,
     formatterPageWidth: formatterPageWidth,
   );
