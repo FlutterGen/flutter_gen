@@ -249,15 +249,10 @@ void main() {
         resolvedVersion: Version(0, 13, 0),
       );
       expect(classicIntegration, isA<RiveIntegrationClassic>());
-      expect(classicIntegration.classOutput.contains('rive({'), isTrue);
-      expect(
-        classicIntegration.classOutput.contains('RiveAnimation.asset'),
-        isTrue,
-      );
-      expect(
-        classicIntegration.classOutput.contains('riveFileLoader'),
-        isFalse,
-      );
+      final classicOutput = classicIntegration.classOutput;
+      expect(classicOutput.contains('rive({'), isTrue);
+      expect(classicOutput.contains('RiveAnimation.asset'), isTrue);
+      expect(classicOutput.contains('riveFileLoader'), isFalse);
 
       // Test with version >= 0.14.0 (should return RiveIntegration0140)
       final latestIntegration = RiveIntegration(
@@ -265,12 +260,10 @@ void main() {
         resolvedVersion: Version(0, 14, 0),
       );
       expect(latestIntegration, isA<RiveIntegration0140>());
-      expect(latestIntegration.classOutput.contains('riveFileLoader({'), isTrue);
-      expect(
-        latestIntegration.classOutput.contains('FileLoader.fromAsset'),
-        isTrue,
-      );
-      expect(latestIntegration.classOutput.contains('rive({'), isFalse);
+      final latestOutput = latestIntegration.classOutput;
+      expect(latestOutput.contains('riveFileLoader({'), isTrue);
+      expect(latestOutput.contains('FileLoader.fromAsset'), isTrue);
+      expect(latestOutput.contains('rive({'), isFalse);
 
       // Test with version > 0.14.0
       final newerIntegration = RiveIntegration(
@@ -278,14 +271,11 @@ void main() {
         resolvedVersion: Version(0, 15, 0),
       );
       expect(newerIntegration, isA<RiveIntegration0140>());
-      expect(
-        newerIntegration.classOutput.contains('riveFileLoader({'),
-        isTrue,
-      );
+      final newerOutput = newerIntegration.classOutput;
+      expect(newerOutput.contains('riveFileLoader({'), isTrue);
     });
 
-    test('RiveIntegration version resolution with resolvedVersionConstraint',
-        () {
+    test('RiveIntegration version constraint resolution', () {
       // Test with constraint that allows 0.14.0 (should return RiveIntegration0140)
       final allowsLatest = RiveIntegration(
         '',
