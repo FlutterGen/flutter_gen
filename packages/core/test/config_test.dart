@@ -12,7 +12,7 @@ void main() {
   group('Config integration version resolution', () {
     test('resolves versions from pubspec.lock', () {
       final pubspecFile = File(
-        'test_resources/pubspec_integration_versions.yaml',
+        'test_resources/integration_versions/pubspec.yaml',
       );
       final config = loadPubspecConfig(pubspecFile);
 
@@ -33,7 +33,7 @@ void main() {
 
     test('resolves version constraints from pubspec.yaml', () {
       final pubspecFile = File(
-        'test_resources/pubspec_integration_versions.yaml',
+        'test_resources/integration_versions/pubspec.yaml',
       );
       final config = loadPubspecConfig(pubspecFile);
 
@@ -54,7 +54,7 @@ void main() {
 
     test('resolves Rive 0.14.0 versions correctly', () {
       final pubspecFile = File(
-        'test_resources/pubspec_integration_versions_rive_014.yaml',
+        'test_resources/integration_versions_rive_014/pubspec.yaml',
       );
       final config = loadPubspecConfig(pubspecFile);
 
@@ -95,7 +95,7 @@ void main() {
 
     test('verifies only expected integration types are present', () {
       final pubspecFile = File(
-        'test_resources/pubspec_integration_versions.yaml',
+        'test_resources/integration_versions/pubspec.yaml',
       );
       final config = loadPubspecConfig(pubspecFile);
 
@@ -121,7 +121,7 @@ void main() {
 
     test('integration versions are used in AssetsGenConfig', () {
       final pubspecFile = File(
-        'test_resources/pubspec_integration_versions.yaml',
+        'test_resources/integration_versions/pubspec.yaml',
       );
       final config = loadPubspecConfig(pubspecFile);
 
