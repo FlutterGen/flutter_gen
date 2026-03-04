@@ -1,3 +1,9 @@
+## 5.13.0
+
+**Development**
+
+- [#727](https://github.com/FlutterGen/flutter_gen/pull/727) Allow `rive 0.14.0`. by [@AlexV525](https://github.com/AlexV525)
+
 ## 5.12.0
 
 **Development**
@@ -444,7 +450,7 @@
 
 ## 3.1.2
 
-- [#117](https://github.com/FlutterGen/flutter_gen/issues/117) Update to analyzer 2.0.0.  
+- [#117](https://github.com/FlutterGen/flutter_gen/issues/117) Update to analyzer 2.0.0.
   [flutter_gen_runner (flutter_gen_core) 3.1.2 -> analyzer 2.0.0 workaround](https://github.com/FlutterGen/flutter_gen/issues/121)
 
   ```yaml
