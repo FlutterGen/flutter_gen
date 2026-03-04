@@ -1,9 +1,11 @@
 name: FlutterGen
 
 packages:
-  - packages/**
-  - integrations/**
-  - examples/**
+  - packages/command
+  - packages/core
+  - packages/runner
+  - examples/example
+  - examples/example_resources
 
 ide:
   intellij:

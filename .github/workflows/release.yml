@@ -41,8 +41,7 @@ jobs:
 
       - name: Get dependencies
         run: |
-          dart pub global activate melos
-          melos bootstrap
+          dart run melos bs
 
       - name: Running build
         run: |

@@ -5,7 +5,7 @@ environment:
 
 dependencies:
   rive: ^0.14.0
-  flutter_svg: ">=2.0.0 <3.0.0"
+  flutter_svg: '>=2.0.0 <3.0.0'
 
 flutter_gen:
   output: lib/gen/

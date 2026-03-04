@@ -34,25 +34,24 @@ jobs:
 
       - name: Get dependencies
         run: |
-          dart pub global activate melos
-          melos bootstrap
+          dart run melos bs
 
       - name: Generate test data and see if changes
         run: |
-          melos gen:actual_data
+          dart run melos gen:actual_data
           git --no-pager diff --exit-code packages/core/test_resources/actual_data
 
       - name: Run tests for Dart packages
         if: startsWith(matrix.os, 'ubuntu')
-        run: melos test:dart --no-select
+        run: dart run melos test:dart --no-select
 
       - name: Run tests for Flutter packages
         if: startsWith(matrix.os, 'ubuntu')
-        run: melos test:flutter --no-select
+        run: dart run melos test:flutter --no-select
 
       - name: Run coverage
         if: startsWith(matrix.os, 'ubuntu')
-        run: melos coverage
+        run: dart run melos coverage
 
       - uses: codecov/codecov-action@v5
         with:
@@ -61,10 +60,10 @@ jobs:
 
       - name: Generate example then check formats and changes
         run: |
-          melos run gen:examples:command --no-select
-          melos run gen:examples:build_runner --no-select
+          dart run melos run gen:examples:command --no-select
+          dart run melos run gen:examples:build_runner --no-select
           dart format --set-exit-if-changed examples
           git --no-pager diff --exit-code examples
 
       - name: Statically analyze the code
-        run: melos analyze
+        run: dart run melos analyze

@@ -18,6 +18,6 @@ jobs:
       - name: Install dependencies
         run: dart pub get
       - name: Prepare Melos workspace
-        uses: bluefireteam/melos-action@v3
+        run: dart run melos bs
       - name: Publish
-        run: melos run publish:force --no-select
+        run: dart run melos publish:force --no-select
