@@ -1,9 +1,12 @@
 import 'package:collection/collection.dart';
 import 'package:flutter_gen_core/settings/asset_type.dart';
+import 'package:flutter_gen_core/settings/config_default.dart'
+    show configDefaultYamlContent;
 import 'package:flutter_gen_core/settings/flavored_asset.dart';
 import 'package:flutter_gen_core/settings/pubspec.dart';
 import 'package:flutter_gen_core/utils/error.dart'
     show InvalidSettingsException;
+import 'package:flutter_gen_core/utils/map.dart' show mergeMap;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
@@ -120,8 +123,9 @@ void main() {
   });
 
   group('Pubspec.dependenciesVersionConstraint', () {
+    final defaultMap = loadYaml(configDefaultYamlContent) as YamlMap?;
     test('parses string version constraints', () {
-      final yaml = loadYaml('''
+      Map yaml = loadYaml('''
 name: test
 environment:
   sdk: ^3.0.0
@@ -135,6 +139,7 @@ flutter:
   assets:
     - assets/
 ''');
+      yaml = mergeMap([defaultMap, yaml]);
       final pubspec = Pubspec.fromJson(yaml);
 
       expect(pubspec.dependenciesVersionConstraint['rive'], isNotNull);
@@ -157,7 +162,7 @@ flutter:
     });
 
     test('parses map with version key', () {
-      final yaml = loadYaml('''
+      Map yaml = loadYaml('''
 name: test
 environment:
   sdk: ^3.0.0
@@ -172,6 +177,7 @@ flutter:
   assets:
     - assets/
 ''');
+      yaml = mergeMap([defaultMap, yaml]);
       final pubspec = Pubspec.fromJson(yaml);
 
       expect(pubspec.dependenciesVersionConstraint['rive'], isNotNull);
@@ -188,7 +194,7 @@ flutter:
     });
 
     test('handles path dependencies without version', () {
-      final yaml = loadYaml('''
+      Map yaml = loadYaml('''
 name: test
 environment:
   sdk: ^3.0.0
@@ -202,6 +208,7 @@ flutter:
   assets:
     - assets/
 ''');
+      yaml = mergeMap([defaultMap, yaml]);
       final pubspec = Pubspec.fromJson(yaml);
 
       // Path dependency should be null since no version constraint
@@ -216,7 +223,7 @@ flutter:
     });
 
     test('handles git dependencies without version', () {
-      final yaml = loadYaml('''
+      Map yaml = loadYaml('''
 name: test
 environment:
   sdk: ^3.0.0
@@ -232,6 +239,7 @@ flutter:
   assets:
     - assets/
 ''');
+      yaml = mergeMap([defaultMap, yaml]);
       final pubspec = Pubspec.fromJson(yaml);
 
       // Git dependency should be null since no version constraint
@@ -246,7 +254,7 @@ flutter:
     });
 
     test('handles invalid version strings gracefully', () {
-      final yaml = loadYaml('''
+      Map yaml = loadYaml('''
 name: test
 environment:
   sdk: ^3.0.0
@@ -259,6 +267,7 @@ flutter:
   assets:
     - assets/
 ''');
+      yaml = mergeMap([defaultMap, yaml]);
       final pubspec = Pubspec.fromJson(yaml);
 
       // Invalid version should be null
@@ -269,7 +278,7 @@ flutter:
     });
 
     test('handles dependencies with invalid version', () {
-      final yaml = loadYaml('''
+      Map yaml = loadYaml('''
 name: test
 environment:
   sdk: ^3.0.0
@@ -283,6 +292,7 @@ flutter:
   assets:
     - assets/
 ''');
+      yaml = mergeMap([defaultMap, yaml]);
       final pubspec = Pubspec.fromJson(yaml);
 
       // Invalid version in map should be null
@@ -293,7 +303,7 @@ flutter:
     });
 
     test('handles null dependencies', () {
-      final yaml = loadYaml('''
+      Map yaml = loadYaml('''
 name: test
 environment:
   sdk: ^3.0.0
@@ -303,6 +313,7 @@ flutter:
   assets:
     - assets/
 ''');
+      yaml = mergeMap([defaultMap, yaml]);
       final pubspec = Pubspec.fromJson(yaml);
 
       // Should return empty map for null dependencies
@@ -310,7 +321,7 @@ flutter:
     });
 
     test('handles mixed dependency formats', () {
-      final yaml = loadYaml('''
+      Map yaml = loadYaml('''
 name: test
 environment:
   sdk: ^3.0.0
@@ -329,6 +340,7 @@ flutter:
   assets:
     - assets/
 ''');
+      yaml = mergeMap([defaultMap, yaml]);
       final pubspec = Pubspec.fromJson(yaml);
 
       expect(
