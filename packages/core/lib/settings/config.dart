@@ -10,6 +10,8 @@ import 'package:flutter_gen_core/utils/error.dart';
 import 'package:flutter_gen_core/utils/log.dart';
 import 'package:flutter_gen_core/utils/map.dart';
 import 'package:flutter_gen_core/version.gen.dart';
+import 'package:json_annotation/json_annotation.dart'
+    show CheckedFromJsonException;
 import 'package:path/path.dart';
 import 'package:pub_semver/pub_semver.dart' show VersionConstraint, Version;
 import 'package:yaml/yaml.dart';
@@ -164,6 +166,8 @@ Config? loadPubspecConfigOrNull(File pubspecFile, {File? buildFile}) {
   } on FileSystemException catch (e, s) {
     log.severe('File system error when reading files.', e, s);
   } on InvalidSettingsException catch (e, s) {
+    log.severe('Invalid settings in files.', e, s);
+  } on CheckedFromJsonException catch (e, s) {
     log.severe('Invalid settings in files.', e, s);
   }
   return null;
