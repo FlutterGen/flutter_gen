@@ -32,26 +32,25 @@ jobs:
         if: startsWith(matrix.os, 'windows')
         run: echo "%LOCALAPPDATA%\Pub\Cache\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
-      - name: Get dependencies
-        run: |
-          dart run melos bs
+      - name: Prepare workspace
+        uses: bluefireteam/melos-action@v3
 
       - name: Generate test data and see if changes
         run: |
-          dart run melos gen:actual_data
+          melos gen:actual_data
           git --no-pager diff --exit-code packages/core/test_resources/actual_data
 
       - name: Run tests for Dart packages
         if: startsWith(matrix.os, 'ubuntu')
-        run: dart run melos test:dart --no-select
+        run: melos test:dart --no-select
 
       - name: Run tests for Flutter packages
         if: startsWith(matrix.os, 'ubuntu')
-        run: dart run melos test:flutter --no-select
+        run: melos test:flutter --no-select
 
       - name: Run coverage
         if: startsWith(matrix.os, 'ubuntu')
-        run: dart run melos coverage
+        run: melos coverage
 
       - uses: codecov/codecov-action@v5
         with:
@@ -60,10 +59,10 @@ jobs:
 
       - name: Generate example then check formats and changes
         run: |
-          dart run melos run gen:examples:command --no-select
-          dart run melos run gen:examples:build_runner --no-select
+          melos run gen:examples:command --no-select
+          melos run gen:examples:build_runner --no-select
           dart format --set-exit-if-changed examples
           git --no-pager diff --exit-code examples
 
       - name: Statically analyze the code
-        run: dart run melos analyze
+        run: melos analyze

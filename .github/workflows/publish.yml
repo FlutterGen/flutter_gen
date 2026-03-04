@@ -17,7 +17,7 @@ jobs:
       - uses: flutter-actions/setup-flutter@v4.0
       - name: Install dependencies
         run: dart pub get
-      - name: Prepare Melos workspace
-        run: dart run melos bs
+      - name: Prepare workspace
+        uses: bluefireteam/melos-action@v3
       - name: Publish
-        run: dart run melos publish:force --no-select
+        run: melos publish:force --no-select
