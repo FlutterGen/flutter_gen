@@ -19,7 +19,7 @@
     "husky": "8.0.3",
     "lint-staged": "^16.0.0",
     "prettier": "^3.0.3",
-    "prettier-plugin-packagejson": "^2.4.5"
+    "prettier-plugin-packagejson": "^3.0.0"
   },
   "packageManager": "pnpm@10.30.3"
 }
