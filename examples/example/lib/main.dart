@@ -1,12 +1,12 @@
-import 'package:example/gen/assets.gen.dart';
+import 'package:example/gen/assets.gen.dart' hide RiveGenImage;
 import 'package:example/gen/colors.gen.dart';
 import 'package:example/gen/fonts.gen.dart';
-import 'package:example_resources/gen/assets.gen.dart';
+import 'package:example_resources/gen/assets.gen.dart' hide RiveGenImage;
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:rive/rive.dart' as rive;
 
 void main() {
-  print(MyAssets.images.chip4.chip4.flavors);
   runApp(const MyApp());
 }
 
@@ -35,9 +35,7 @@ class MyApp extends StatelessWidget {
                 SizedBox(
                   width: 200,
                   height: 200,
-                  child: MyAssets.rive.vehicles.rive(
-                    fit: BoxFit.contain,
-                  ),
+                  child: _RiveWidget(MyAssets.rive.vehicles.riveFileLoader()),
                 ),
                 SizedBox(
                   width: 200,
@@ -101,9 +99,7 @@ class MyApp extends StatelessWidget {
                 SizedBox(
                   width: 200,
                   height: 200,
-                  child: ResAssets.images.skills.rive(
-                    fit: BoxFit.contain,
-                  ),
+                  child: _RiveWidget(ResAssets.images.skills.riveFileLoader()),
                 ),
                 SizedBox(
                   width: 200,
@@ -128,6 +124,44 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+final class _RiveWidget extends StatefulWidget {
+  const _RiveWidget(this.riveFileLoader);
+
+  final rive.FileLoader riveFileLoader;
+
+  @override
+  State<_RiveWidget> createState() => _RiveWidgetState();
+}
+
+class _RiveWidgetState extends State<_RiveWidget> {
+  @override
+  void didUpdateWidget(covariant _RiveWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    oldWidget.riveFileLoader.dispose();
+  }
+
+  @override
+  void dispose() {
+    widget.riveFileLoader.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return rive.RiveWidgetBuilder(
+      fileLoader: widget.riveFileLoader,
+      builder: (context, state) => switch (state) {
+        rive.RiveLoading() => const CircularProgressIndicator(),
+        rive.RiveFailed() => Text('Failed to load: ${state.error}'),
+        rive.RiveLoaded() => rive.RiveWidget(
+            controller: state.controller,
+            fit: rive.Fit.cover,
+          ),
+      },
     );
   }
 }

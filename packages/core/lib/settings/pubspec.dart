@@ -10,6 +10,7 @@ class Pubspec {
   const Pubspec({
     required this.packageName,
     required this.environment,
+    required this.dependenciesVersionConstraint,
     required this.flutterGen,
     required this.flutter,
   });
@@ -21,6 +22,9 @@ class Pubspec {
 
   @JsonKey(name: 'environment', fromJson: _environmentFromJson)
   final Map<String, VersionConstraint?> environment;
+
+  @JsonKey(name: 'dependencies', fromJson: _dependenciesFromJson)
+  final Map<String, VersionConstraint?> dependenciesVersionConstraint;
 
   @JsonKey(name: 'flutter_gen', required: true)
   final FlutterGen flutterGen;
@@ -66,6 +70,29 @@ Map<String, VersionConstraint?> _environmentFromJson(Map? source) {
         'VersionConstraint',
         '`$value` is not a String.',
       );
+    }
+    return MapEntry(key, constraint);
+  });
+}
+
+Map<String, VersionConstraint?> _dependenciesFromJson(Map? source) {
+  if (source == null) {
+    return {};
+  }
+  return source.map((k, value) {
+    final key = k as String;
+    VersionConstraint? constraint;
+    if (value case final String version) {
+      try {
+        constraint = VersionConstraint.parse(version);
+      } catch (_) {}
+    }
+    if (constraint == null) {
+      if (value case {'version': final String version}) {
+        try {
+          constraint = VersionConstraint.parse(version);
+        } catch (_) {}
+      }
     }
     return MapEntry(key, constraint);
   });

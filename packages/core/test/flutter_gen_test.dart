@@ -172,11 +172,14 @@ void main() {
 
     test('Wrong lineLength', () async {
       const pubspec = 'test_resources/pubspec_wrong_line_length.yaml';
+      const assets = 'pubspec_wrong_line_length_assets.gen.dart';
+      const colors = 'pubspec_wrong_line_length_colors.gen.dart';
+      const fonts = 'pubspec_wrong_line_length_fonts.gen.dart';
 
-      expect(
-        () => FlutterGenerator(File(pubspec)).build(),
-        throwsA(isA<Exception>()),
-      );
+      await FlutterGenerator(File(pubspec)).build();
+      expect(File('test_resources/lib/gen/$assets').existsSync(), false);
+      expect(File('test_resources/lib/gen/$fonts').existsSync(), false);
+      expect(File('test_resources/lib/gen/$colors').existsSync(), false);
     });
 
     test('Disabled generation', () async {

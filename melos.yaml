@@ -1,9 +1,11 @@
 name: FlutterGen
 
 packages:
-  - packages/**
-  - integrations/**
-  - examples/**
+  - packages/command
+  - packages/core
+  - packages/runner
+  - examples/example
+  - examples/example_resources
 
 ide:
   intellij:
@@ -41,7 +43,7 @@ scripts:
     description: flutter build apk
 
   gen:build_runner:
-    exec: dart run build_runner build --delete-conflicting-outputs
+    exec: dart run build_runner build -d
     packageFilters:
       ignore:
         - example
@@ -58,14 +60,14 @@ scripts:
     description: dart ../../packages/command/bin/flutter_gen_command.dart
 
   gen:examples:build_runner:
-    run: flutter pub run build_runner build --delete-conflicting-outputs
+    run: dart run build_runner build -d
     exec:
       concurrency: 1
     packageFilters:
       scope:
         - example
         - example_resources
-    description: flutter pub run build_runner build --delete-conflicting-outputs
+    description: dart run build_runner build --delete-conflicting-outputs
 
   gen:actual_data:
     run: dart packages/core/scripts/generate_facts.dart
