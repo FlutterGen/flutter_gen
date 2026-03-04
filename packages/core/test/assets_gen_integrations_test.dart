@@ -514,11 +514,18 @@ void main() {
       expect(caretNew, isA<RiveIntegration0140>());
 
       // Test with >= constraint that includes 0.14.0
-      final rangeIncludesNew = RiveIntegration(
+      final rangeIncludesNew1 = RiveIntegration(
         '',
         resolvedVersionConstraint: VersionConstraint.parse('>=0.13.0 <1.0.0'),
       );
-      expect(rangeIncludesNew, isA<RiveIntegration0140>());
+      expect(rangeIncludesNew1, isA<RiveIntegration0140>());
+
+      // Test with >= constraint that allows 0.14.0.
+      final rangeIncludesNew2 = RiveIntegration(
+        '',
+        resolvedVersionConstraint: VersionConstraint.parse('>=0.13.0 <=0.14.0'),
+      );
+      expect(rangeIncludesNew2, isA<RiveIntegration0140>());
 
       // Test with >= constraint that excludes 0.14.0
       final rangeExcludesNew = RiveIntegration(
