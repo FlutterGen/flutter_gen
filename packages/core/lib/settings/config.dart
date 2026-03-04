@@ -10,6 +10,8 @@ import 'package:flutter_gen_core/utils/error.dart';
 import 'package:flutter_gen_core/utils/log.dart';
 import 'package:flutter_gen_core/utils/map.dart';
 import 'package:flutter_gen_core/version.gen.dart';
+import 'package:json_annotation/json_annotation.dart'
+    show CheckedFromJsonException;
 import 'package:path/path.dart';
 import 'package:pub_semver/pub_semver.dart' show VersionConstraint, Version;
 import 'package:yaml/yaml.dart';
@@ -105,7 +107,7 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
   final pubspec = Pubspec.fromJson(mergedMap);
 
   final pubspecLockFile = File(
-    normalize(join(basename(pubspecFile.parent.path), 'pubspec.lock')),
+    normalize(join(pubspecFile.parent.path, 'pubspec.lock')),
   );
   final pubspecLockContent = switch (pubspecLockFile.existsSync()) {
     true => pubspecLockFile.readAsStringSync(),
@@ -130,7 +132,7 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
   }
 
   final analysisOptionsFile = File(
-    normalize(join(basename(pubspecFile.parent.path), 'analysis_options.yaml')),
+    normalize(join(pubspecFile.parent.path, 'analysis_options.yaml')),
   );
   final analysisOptionsContent = switch (analysisOptionsFile.existsSync()) {
     true => analysisOptionsFile.readAsStringSync(),
@@ -164,6 +166,8 @@ Config? loadPubspecConfigOrNull(File pubspecFile, {File? buildFile}) {
   } on FileSystemException catch (e, s) {
     log.severe('File system error when reading files.', e, s);
   } on InvalidSettingsException catch (e, s) {
+    log.severe('Invalid settings in files.', e, s);
+  } on CheckedFromJsonException catch (e, s) {
     log.severe('Invalid settings in files.', e, s);
   }
   return null;

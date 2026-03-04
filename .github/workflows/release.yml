@@ -39,10 +39,8 @@ jobs:
       - name: Set environment
         run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
-      - name: Get dependencies
-        run: |
-          dart pub global activate melos
-          melos bootstrap
+      - name: Prepare workspace
+        uses: bluefireteam/melos-action@v3
 
       - name: Running build
         run: |

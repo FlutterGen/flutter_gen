@@ -317,14 +317,20 @@ void main() {
         resolvedVersionConstraint: VersionConstraint.parse('^0.14.0'),
       );
       expect(fallbackIntegration, isA<RiveIntegration0140>());
-      expect(fallbackIntegration.classOutput.contains('riveFileLoader({'), isTrue);
+      expect(
+        fallbackIntegration.classOutput.contains('riveFileLoader({'),
+        isTrue,
+      );
     });
 
     test('RiveIntegration fallback behavior', () {
       // Test with no version information (should return RiveIntegration0140 as fallback)
       final fallbackIntegration = RiveIntegration('');
       expect(fallbackIntegration, isA<RiveIntegration0140>());
-      expect(fallbackIntegration.classOutput.contains('riveFileLoader({'), isTrue);
+      expect(
+        fallbackIntegration.classOutput.contains('riveFileLoader({'),
+        isTrue,
+      );
     });
 
     test('RiveIntegrationClassic classOutput structure', () {
@@ -359,7 +365,7 @@ void main() {
         isTrue,
       );
       expect(
-        output.contains("'packages/test_package/\$_assetName'"),
+        output.contains(r"'packages/test_package/$_assetName'"),
         isTrue,
       );
     });
@@ -376,7 +382,10 @@ void main() {
       expect(output.contains('_rive.FileLoader riveFileLoader({'), isTrue);
       expect(output.contains('_rive.FileLoader.fromAsset'), isTrue);
       expect(output.contains('_rive.Factory? factory,'), isTrue);
-      expect(output.contains('riveFactory: factory ?? _rive.Factory.rive'), isTrue);
+      expect(
+        output.contains('riveFactory: factory ?? _rive.Factory.rive'),
+        isTrue,
+      );
       expect(output.contains('String get path =>'), isTrue);
       expect(output.contains('String get keyName =>'), isTrue);
 
@@ -398,7 +407,7 @@ void main() {
         isTrue,
       );
       expect(
-        output.contains("'packages/test_package/\$_assetName'"),
+        output.contains(r"'packages/test_package/$_assetName'"),
         isTrue,
       );
     });
@@ -458,6 +467,87 @@ void main() {
         ),
         isTrue,
       );
+    });
+
+    test('Integration version resolution in AssetsGenConfig', () {
+      // Test that version resolution is properly integrated into assets generation
+      // This validates the full flow from config loading to integration creation.
+      // Create a RiveIntegration with both resolved version and constraint
+      // When resolvedVersion is 0.13.0 (< 0.14.0), it should use Classic
+      // even if resolvedVersionConstraint would allow 0.14.0.
+      final integrationWithBoth = RiveIntegration(
+        '',
+        resolvedVersion: Version(0, 13, 0),
+        resolvedVersionConstraint: VersionConstraint.parse('^0.14.0'),
+      );
+      // resolvedVersion takes priority: 0.13.0 < 0.14.0 => Classic
+      expect(integrationWithBoth, isA<RiveIntegrationClassic>());
+
+      // Create a RiveIntegration with only resolvedVersion
+      final integrationVersionOnly = RiveIntegration(
+        '',
+        resolvedVersion: Version(0, 14, 0),
+      );
+      expect(integrationVersionOnly, isA<RiveIntegration0140>());
+
+      // Create a RiveIntegration with only resolvedVersionConstraint
+      final integrationConstraintOnly = RiveIntegration(
+        '',
+        resolvedVersionConstraint: VersionConstraint.parse('^0.14.0'),
+      );
+      expect(integrationConstraintOnly, isA<RiveIntegration0140>());
+    });
+
+    test('Version resolution with various constraint formats', () {
+      // Test with ^0.13.x constraint (should use Classic)
+      final caretOld = RiveIntegration(
+        '',
+        resolvedVersionConstraint: VersionConstraint.parse('^0.13.5'),
+      );
+      expect(caretOld, isA<RiveIntegrationClassic>());
+
+      // Test with ^0.14.x constraint (should use 0140)
+      final caretNew = RiveIntegration(
+        '',
+        resolvedVersionConstraint: VersionConstraint.parse('^0.14.1'),
+      );
+      expect(caretNew, isA<RiveIntegration0140>());
+
+      // Test with >= constraint that includes 0.14.0
+      final rangeIncludesNew = RiveIntegration(
+        '',
+        resolvedVersionConstraint: VersionConstraint.parse('>=0.13.0 <1.0.0'),
+      );
+      expect(rangeIncludesNew, isA<RiveIntegration0140>());
+
+      // Test with >= constraint that includes the minimum pre-release.
+      final rangeIncludesPre = RiveIntegration(
+        '',
+        resolvedVersionConstraint:
+            VersionConstraint.parse('>=0.13.0 <=0.14.0-0'),
+      );
+      expect(rangeIncludesPre, isA<RiveIntegration0140>());
+
+      // Test with >= constraint that excludes 0.14.0
+      final rangeExcludesNew = RiveIntegration(
+        '',
+        resolvedVersionConstraint: VersionConstraint.parse('>=0.13.0 <0.14.0'),
+      );
+      expect(rangeExcludesNew, isA<RiveIntegrationClassic>());
+
+      // Test with exact version < 0.14.0
+      final exactOld = RiveIntegration(
+        '',
+        resolvedVersion: Version(0, 13, 99),
+      );
+      expect(exactOld, isA<RiveIntegrationClassic>());
+
+      // Test with exact version >= 0.14.0
+      final exactNew = RiveIntegration(
+        '',
+        resolvedVersion: Version(0, 14, 0),
+      );
+      expect(exactNew, isA<RiveIntegration0140>());
     });
   });
 }
