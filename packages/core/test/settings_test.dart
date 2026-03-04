@@ -136,19 +136,19 @@ flutter:
     - assets/
 ''');
       final pubspec = Pubspec.fromJson(yaml);
-      
+
       expect(pubspec.dependenciesVersionConstraint['rive'], isNotNull);
       expect(
         pubspec.dependenciesVersionConstraint['rive'],
         equals(VersionConstraint.parse('^0.13.0')),
       );
-      
+
       expect(pubspec.dependenciesVersionConstraint['flutter_svg'], isNotNull);
       expect(
         pubspec.dependenciesVersionConstraint['flutter_svg'],
         equals(VersionConstraint.parse('^2.0.0')),
       );
-      
+
       expect(pubspec.dependenciesVersionConstraint['lottie'], isNotNull);
       expect(
         pubspec.dependenciesVersionConstraint['lottie'],
@@ -173,13 +173,13 @@ flutter:
     - assets/
 ''');
       final pubspec = Pubspec.fromJson(yaml);
-      
+
       expect(pubspec.dependenciesVersionConstraint['rive'], isNotNull);
       expect(
         pubspec.dependenciesVersionConstraint['rive'],
         equals(VersionConstraint.parse('^0.14.0')),
       );
-      
+
       expect(pubspec.dependenciesVersionConstraint['flutter_svg'], isNotNull);
       expect(
         pubspec.dependenciesVersionConstraint['flutter_svg'],
@@ -203,10 +203,10 @@ flutter:
     - assets/
 ''');
       final pubspec = Pubspec.fromJson(yaml);
-      
+
       // Path dependency should be null since no version constraint
       expect(pubspec.dependenciesVersionConstraint['rive'], isNull);
-      
+
       // String version should still work
       expect(pubspec.dependenciesVersionConstraint['flutter_svg'], isNotNull);
       expect(
@@ -233,10 +233,10 @@ flutter:
     - assets/
 ''');
       final pubspec = Pubspec.fromJson(yaml);
-      
+
       // Git dependency should be null since no version constraint
       expect(pubspec.dependenciesVersionConstraint['rive'], isNull);
-      
+
       // String version should still work
       expect(pubspec.dependenciesVersionConstraint['lottie'], isNotNull);
       expect(
@@ -260,15 +260,15 @@ flutter:
     - assets/
 ''');
       final pubspec = Pubspec.fromJson(yaml);
-      
+
       // Invalid version should be null
       expect(pubspec.dependenciesVersionConstraint['rive'], isNull);
-      
+
       // Valid version should work
       expect(pubspec.dependenciesVersionConstraint['flutter_svg'], isNotNull);
     });
 
-    test('handles dependencies with version key containing invalid version', () {
+    test('handles dependencies with invalid version', () {
       final yaml = loadYaml('''
 name: test
 environment:
@@ -284,10 +284,10 @@ flutter:
     - assets/
 ''');
       final pubspec = Pubspec.fromJson(yaml);
-      
+
       // Invalid version in map should be null
       expect(pubspec.dependenciesVersionConstraint['rive'], isNull);
-      
+
       // Valid string version should work
       expect(pubspec.dependenciesVersionConstraint['lottie'], isNotNull);
     });
@@ -304,7 +304,7 @@ flutter:
     - assets/
 ''');
       final pubspec = Pubspec.fromJson(yaml);
-      
+
       // Should return empty map for null dependencies
       expect(pubspec.dependenciesVersionConstraint, isEmpty);
     });
@@ -330,7 +330,7 @@ flutter:
     - assets/
 ''');
       final pubspec = Pubspec.fromJson(yaml);
-      
+
       expect(
         pubspec.dependenciesVersionConstraint['rive'],
         equals(VersionConstraint.parse('^0.13.0')),

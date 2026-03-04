@@ -101,7 +101,7 @@ void main() {
 
       // Verify that only integration types from the registry are in the maps
       final expectedTypes = integrationPackages.keys.toList();
-      
+
       for (final key in config.integrationVersionConstraints.keys) {
         expect(
           expectedTypes.contains(key),
@@ -109,7 +109,7 @@ void main() {
           reason: 'Unexpected integration type: $key',
         );
       }
-      
+
       for (final key in config.integrationResolvedVersions.keys) {
         expect(
           expectedTypes.contains(key),
