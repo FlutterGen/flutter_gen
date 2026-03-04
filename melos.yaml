@@ -75,8 +75,8 @@ scripts:
 
   test:
     run: |
-      melos test:dart --no-select
-      melos test:flutter --no-select
+      dart run melos test:dart --no-select
+      dart run melos test:flutter --no-select
     description: dart & flutter test
 
   test:dart:
