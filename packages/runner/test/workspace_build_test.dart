@@ -185,6 +185,46 @@ targets:
       isFalse,
     );
   });
+
+  test('overwrites existing generated files in workspace mode', () async {
+    final workspaceDir = await _createWorkspaceFixture();
+    addTearDown(() async {
+      if (workspaceDir.existsSync()) {
+        workspaceDir.deleteSync(recursive: true);
+      }
+    });
+
+    final appDir = Directory(p.join(workspaceDir.path, 'packages', 'app'));
+    final generatedFile = File(
+      p.join(appDir.path, 'lib', 'gen', 'assets.gen.dart'),
+    );
+    generatedFile.parent.createSync(recursive: true);
+    generatedFile.writeAsStringSync('// stale contents\n');
+
+    await _runProcess(
+      'flutter',
+      ['pub', 'get'],
+      workingDirectory: workspaceDir.path,
+    );
+
+    await _runProcess(
+      'dart',
+      [
+        'run',
+        'build_runner',
+        'build',
+        '--workspace',
+        '--delete-conflicting-outputs',
+      ],
+      workingDirectory: workspaceDir.path,
+    );
+
+    expect(generatedFile.existsSync(), isTrue);
+    expect(
+      generatedFile.readAsStringSync(),
+      isNot(contains('// stale contents')),
+    );
+  });
 }
 
 Future<Directory> _createWorkspaceFixture() async {

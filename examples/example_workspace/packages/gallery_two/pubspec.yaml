@@ -13,7 +13,7 @@ dev_dependencies:
   lints: any
 
   build_runner: ^2.12.2
-  flutter_gen_runner: any
+  flutter_gen_runner: # overrode
 
 flutter_gen:
   output: lib/gen/
@@ -21,14 +21,6 @@ flutter_gen:
     enabled: true
     outputs:
       class_name: GalleryTwoAssets
-      package_parameter_enabled: false
-      style: dot-delimiter
-    exclude: []
-  fonts:
-    enabled: false
-  colors:
-    enabled: false
-    inputs: []
 
 flutter:
   assets:

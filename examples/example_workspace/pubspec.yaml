@@ -12,3 +12,9 @@ dev_dependencies:
   lints: any
 
   build_runner: ^2.12.2
+
+dependency_overrides:
+  flutter_gen_core:
+    path: ../../packages/core
+  flutter_gen_runner:
+    path: ../../packages/runner

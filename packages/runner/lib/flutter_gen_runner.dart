@@ -307,11 +307,18 @@ class FlutterGenPostProcessBuilder extends PostProcessBuilder {
     }
 
     // Materialize the exact output set described by the manifest.
+    //
+    // These files are intentionally managed outside build_runner's declared
+    // output model because their paths are configuration-dependent. Writing them
+    // directly avoids `InvalidOutputException` when the same files already
+    // exist, for example after a previous `fluttergen` command run or a stale
+    // checked-out generated file.
     for (final output in manifest.outputs) {
-      await buildStep.writeAsString(
-        AssetId(manifest.packageName, output.path),
-        output.contents,
-      );
+      final file = File(join(manifest.packageRoot, output.path));
+      if (!file.parent.existsSync()) {
+        file.parent.createSync(recursive: true);
+      }
+      file.writeAsStringSync(output.contents);
     }
 
     if (!ownerFile.parent.existsSync()) {

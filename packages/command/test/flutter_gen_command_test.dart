@@ -202,7 +202,12 @@ Future<Directory> _copyExampleWorkspace() async {
   final source = Directory(
     p.normalize(
       p.join(
-          Directory.current.path, '..', '..', 'examples', 'example_workspace'),
+        Directory.current.path,
+        '..',
+        '..',
+        'examples',
+        'example_workspace',
+      ),
     ),
   );
   final destination = await Directory.systemTemp.createTemp(
