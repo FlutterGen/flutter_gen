@@ -9,4 +9,6 @@ workspace:
   - packages/gallery_two
 
 dev_dependencies:
+  lints: any
+
   build_runner: ^2.12.2
