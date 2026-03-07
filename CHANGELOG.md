@@ -3,6 +3,7 @@
 **Feature**
 
 - Add `build_runner --workspace` support for `flutter_gen_runner` using a manifest + post-process materialization pipeline.
+- Add `fluttergen --workspace` support to the command package, including package-local `build.yaml` overrides for each workspace member.
 
 **Development**
 

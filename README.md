@@ -171,7 +171,27 @@ Run `fluttergen` after the configuration [`pubspec.yaml`](https://dart.dev/tools
 fluttergen -h
 
 fluttergen -c example/pubspec.yaml
+
+fluttergen --workspace -c pubspec.yaml
 ```
+
+Use `--workspace` to treat the config file as a workspace root pubspec and run
+generation for each listed workspace member. Without `--workspace`, the command
+generates for exactly one package.
+
+When `--workspace` is enabled, the root `pubspec.yaml` is used only to discover
+workspace members from its `workspace:` section. FlutterGen then switches to
+each member package and loads that package's own `pubspec.yaml` and, if
+present, its local `build.yaml`.
+
+That means workspace-wide command execution behaves like this:
+
+- Root `pubspec.yaml`: selects which packages to visit.
+- Member `pubspec.yaml`: provides `flutter` and `flutter_gen` configuration.
+- Member `build.yaml`: overrides generator options for that member only.
+
+The `--build` option is only available in single-package mode. In workspace
+mode, put any overrides in each package's local `build.yaml` instead.
 
 ## Configuration file
 
