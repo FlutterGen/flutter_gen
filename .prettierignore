@@ -1,3 +1,6 @@
+pnpm-lock.yaml
+**/pubspec.lock
+
 .dart_tool/
 build/
 packages/**/android/
