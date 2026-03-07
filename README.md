@@ -114,6 +114,12 @@ FlutterGen will resolve each package from the active build target instead of the
 process working directory, so package-local `pubspec.yaml` configuration and
 output paths continue to work in workspace builds.
 
+If generated source files were removed manually while `.dart_tool/build` is
+still present, run `dart run build_runner clean` from the workspace root before
+running `build --workspace` again. The current post-process builder flow can
+re-materialize files reliably after a clean build, but a warm incremental build
+may skip unchanged manifests.
+
 For workspace builds, use Dart `>=3.7.0` together with `build_runner >=2.12.0`.
 
 ### Pub Global

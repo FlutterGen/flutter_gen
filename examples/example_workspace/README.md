@@ -27,8 +27,14 @@ flutter pub get
 Generate all workspace members from the workspace root:
 
 ```sh
-dart run build_runner build --workspace --delete-conflicting-outputs
+dart run build_runner clean
+dart run build_runner build --workspace
 ```
+
+The explicit `clean` step is recommended if generated files were deleted
+manually. With the current `build_runner` post-process builder model, a warm
+incremental build may skip unchanged manifests and therefore not recreate
+missing generated source files on its own.
 
 Generated files will be written to:
 
