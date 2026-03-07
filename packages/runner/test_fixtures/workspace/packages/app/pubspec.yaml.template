@@ -1,0 +1,46 @@
+name: fixture_app
+publish_to: 'none'
+resolution: workspace
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_gen_runner:
+    path: __RUNNER_PATH__
+
+dependency_overrides:
+  flutter_gen_core:
+    path: __CORE_PATH__
+
+flutter_gen:
+  output: lib/gen/
+  assets:
+    enabled: true
+    outputs:
+      class_name: FixtureAssets
+      package_parameter_enabled: false
+      style: dot-delimiter
+    exclude: []
+  fonts:
+    enabled: true
+    outputs:
+      class_name: FixtureFonts
+  colors:
+    enabled: true
+    outputs:
+      class_name: FixtureColors
+    inputs:
+      - assets/color/colors.xml
+
+flutter:
+  assets:
+    - assets/images/
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf

@@ -1,3 +1,13 @@
+## Next
+
+**Feature**
+
+- Add `build_runner --workspace` support for `flutter_gen_runner` using a manifest + post-process materialization pipeline.
+
+**Development**
+
+- Document and align the minimum supported versions for the new build pipeline: Dart `>=3.7.0` and `build_runner >=2.12.0`.
+
 ## 5.13.0+1
 
 **Development**

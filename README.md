@@ -58,10 +58,16 @@ Widget build(BuildContext context) {
 1. Add [build_runner] and [FlutterGen] to your package's pubspec.yaml file:
 
    ```yaml
+   environment:
+     sdk: ^3.7.0
+
    dev_dependencies:
-     build_runner:
+     build_runner: ^2.12.0
      flutter_gen_runner:
    ```
+
+   `flutter_gen_runner` now relies on post-process builders with
+   `build_to: source`, so `build_runner >=2.12.0` is required.
 
 2. Install [FlutterGen]
 
@@ -74,6 +80,41 @@ Widget build(BuildContext context) {
    ```sh
    dart run build_runner build
    ```
+
+#### Pub workspaces
+
+FlutterGen also supports [`dart pub` workspaces](https://dart.dev/tools/pub/workspaces).
+Run `build_runner` from the workspace root, and make sure each workspace member
+that should be built has `resolution: workspace` in its `pubspec.yaml`.
+
+```yaml
+# workspace root pubspec.yaml
+environment:
+  sdk: ^3.7.0
+
+workspace:
+  - packages/app
+```
+
+```yaml
+# packages/app/pubspec.yaml
+name: app
+resolution: workspace
+
+dev_dependencies:
+  flutter_gen_runner:
+  build_runner: ^2.12.0
+```
+
+```sh
+dart run build_runner build --workspace
+```
+
+FlutterGen will resolve each package from the active build target instead of the
+process working directory, so package-local `pubspec.yaml` configuration and
+output paths continue to work in workspace builds.
+
+For workspace builds, use Dart `>=3.7.0` together with `build_runner >=2.12.0`.
 
 ### Pub Global
 
@@ -171,7 +212,9 @@ flutter:
 
 ### build.yaml
 
-You can also configure generate options in the `build.yaml`, it will be read before the `pubspec.yaml` if it exists.
+When using `build_runner`, you can also configure generator options in the
+target `build.yaml`. These builder options are applied on top of the
+`pubspec.yaml` configuration for the current target.
 
 ```yaml
 # build.yaml
