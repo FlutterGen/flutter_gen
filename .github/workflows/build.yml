@@ -61,6 +61,8 @@ jobs:
         run: |
           melos run gen:examples:command --no-select
           melos run gen:examples:build_runner --no-select
+          melos run gen:examples:workspace:command --no-select
+          melos run gen:examples:workspace:build_runner --no-select
           dart format --set-exit-if-changed examples
           git --no-pager diff --exit-code examples
 

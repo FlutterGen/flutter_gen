@@ -1,0 +1,33 @@
+name: gallery_one
+publish_to: 'none'
+resolution: workspace
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  build_runner: ^2.12.2
+  flutter_gen_runner: any
+
+flutter_gen:
+  output: lib/gen/
+  assets:
+    enabled: true
+    outputs:
+      class_name: GalleryOneAssets
+      package_parameter_enabled: false
+      style: dot-delimiter
+    exclude: []
+  fonts:
+    enabled: false
+  colors:
+    enabled: false
+    inputs: []
+
+flutter:
+  assets:
+    - assets/images/

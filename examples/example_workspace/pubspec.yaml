@@ -1,0 +1,12 @@
+name: example_workspace_root
+publish_to: 'none'
+
+environment:
+  sdk: ^3.7.0
+
+workspace:
+  - packages/gallery_one
+  - packages/gallery_two
+
+dev_dependencies:
+  build_runner: ^2.12.2
