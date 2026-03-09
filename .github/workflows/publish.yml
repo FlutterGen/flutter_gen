@@ -3,7 +3,7 @@ name: Publish to pub.dev
 on:
   push:
     tags:
-      - 'v\s*.\s*.\s*(\+\s*)?'
+      - 'v\d+\.\d+\.\d+(\+\d+)?'
   workflow_dispatch:
 
 jobs:
