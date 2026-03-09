@@ -3,7 +3,7 @@ name: Publish to pub.dev
 on:
   push:
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v\s*.\s*.\s*(\+\s*)?'
   workflow_dispatch:
 
 jobs:
