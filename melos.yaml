@@ -6,6 +6,7 @@ packages:
   - packages/runner
   - examples/example
   - examples/example_resources
+  - examples/example_workspace
 
 ide:
   intellij:
@@ -48,6 +49,7 @@ scripts:
       ignore:
         - example
         - example_resources
+        - example_workspace_root
       dependsOn: build_runner
     description: dart run build_runner build --delete-conflicting-outputs
 
@@ -60,7 +62,7 @@ scripts:
     description: dart ../../packages/command/bin/flutter_gen_command.dart
 
   gen:examples:build_runner:
-    run: dart run build_runner build -d
+    run: dart run build_runner clean; dart run build_runner build -d
     exec:
       concurrency: 1
     packageFilters:
@@ -68,6 +70,18 @@ scripts:
         - example
         - example_resources
     description: dart run build_runner build --delete-conflicting-outputs
+
+  gen:examples:workspace:command:
+    exec: dart ../../packages/command/bin/flutter_gen_command.dart --workspace -c pubspec.yaml
+    packageFilters:
+      scope: example_workspace_root
+    description: dart ../../packages/command/bin/flutter_gen_command.dart --workspace -c pubspec.yaml
+
+  gen:examples:workspace:build_runner:
+    exec: dart run build_runner clean; dart run build_runner build --workspace -d
+    packageFilters:
+      scope: example_workspace_root
+    description: dart run build_runner build --workspace --delete-conflicting-outputs
 
   gen:actual_data:
     run: dart packages/core/scripts/generate_facts.dart

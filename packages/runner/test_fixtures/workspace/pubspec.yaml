@@ -1,0 +1,12 @@
+name: workspace_root
+publish_to: 'none'
+
+environment:
+  sdk: ^3.7.0
+
+workspace:
+  - packages/app
+  - packages/unused
+
+dev_dependencies:
+  build_runner: ^2.12.2

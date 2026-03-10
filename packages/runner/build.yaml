@@ -8,6 +8,14 @@ builders:
   flutter_gen_runner:
     import: 'package:flutter_gen_runner/flutter_gen_runner.dart'
     builder_factories: ['build']
-    build_extensions: { '$package$': ['.gen.dart'] }
+    build_extensions: { '$package$': ['.flutter_gen.manifest.json'] }
     auto_apply: dependents
+    build_to: cache
+    applies_builders: ['flutter_gen_runner:flutter_gen_runner_post_process']
+
+post_process_builders:
+  flutter_gen_runner_post_process:
+    import: 'package:flutter_gen_runner/flutter_gen_runner.dart'
+    builder_factory: 'postProcessBuild'
+    input_extensions: ['.flutter_gen.manifest.json']
     build_to: source
