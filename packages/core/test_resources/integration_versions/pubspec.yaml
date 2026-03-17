@@ -4,7 +4,7 @@ environment:
   sdk: ^3.0.0
 
 dependencies:
-  rive: ^0.13.0
+  rive: 0.14.4
   flutter_svg: ^2.0.0
   lottie: ^5.0.0
 
