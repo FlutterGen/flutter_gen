@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_gen_core/generators/integrations/lottie_integration.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_gen_core/generators/integrations/rive_integration.dart';
 import 'package:flutter_gen_core/generators/integrations/svg_integration.dart';
 import 'package:flutter_gen_core/generators/registry.dart';
 import 'package:flutter_gen_core/settings/config.dart';
+import 'package:flutter_gen_core/utils/error.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 
@@ -228,4 +230,242 @@ sdks:
       }
     });
   });
+
+  group('ConfigLoadInput', () {
+    test('ignores a missing explicit build file', () {
+      final tempDir = Directory.systemTemp.createTempSync('flutter_gen_test');
+      try {
+        final tempPubspec = File('${tempDir.path}/pubspec.yaml');
+        tempPubspec.writeAsStringSync('''
+name: missing_build_file_test
+environment:
+  sdk: ^3.7.0
+flutter_gen:
+  output: lib/gen/
+flutter:
+  assets:
+    - assets/
+''');
+
+        final config = loadPubspecConfig(
+          tempPubspec,
+          buildFile: File('${tempDir.path}/missing_build.yaml'),
+        );
+
+        expect(config.pubspec.flutterGen.output, equals('lib/gen/'));
+      } finally {
+        tempDir.deleteSync(recursive: true);
+      }
+    });
+
+    test('merges builder options and analysis options from direct input', () {
+      final config = loadPubspecConfigFromInput(
+        ConfigLoadInput(
+          pubspecFile: File('/virtual/pkg/pubspec.yaml'),
+          pubspecContent: '''
+name: input_test
+environment:
+  sdk: ^3.7.0
+dependencies:
+  rive: ^0.13.0
+flutter_gen:
+  output: lib/gen/
+  integrations:
+    rive: true
+flutter:
+  assets:
+    - assets/images/
+''',
+          buildOptions: {
+            'output': 'lib/build_gen/',
+          },
+          pubspecLockContent: '''
+packages:
+  rive:
+    version: "0.13.5"
+sdks:
+  dart: ">=3.7.0 <4.0.0"
+''',
+          analysisOptionsContent: '''
+formatter:
+  page_width: 120
+''',
+        ),
+      );
+
+      expect(config.pubspec.flutterGen.output, equals('lib/build_gen/'));
+      expect(config.formatterPageWidth, equals(120));
+      expect(
+        config.integrationResolvedVersions[RiveIntegration],
+        equals(Version(0, 13, 5)),
+      );
+      expect(
+        config.integrationVersionConstraints[RiveIntegration],
+        equals(VersionConstraint.parse('^0.13.0')),
+      );
+      expect(config.sdkConstraint, equals(VersionConstraint.parse('^3.7.0')));
+    });
+
+    test('falls back to pubspec.lock sdk when pubspec omits sdk', () {
+      final config = loadPubspecConfigFromInput(
+        ConfigLoadInput(
+          pubspecFile: File('/virtual/pkg/pubspec.yaml'),
+          pubspecContent: '''
+name: lock_sdk_test
+flutter_gen:
+  output: lib/gen/
+flutter:
+  assets:
+    - assets/images/
+''',
+          pubspecLockContent: '''
+sdks:
+  dart: ">=3.6.0 <4.0.0"
+''',
+        ),
+      );
+
+      expect(
+        config.sdkConstraint,
+        equals(VersionConstraint.parse('>=3.6.0 <4.0.0')),
+      );
+    });
+
+    test('ignores empty builder options in direct input', () {
+      final config = loadPubspecConfigFromInput(
+        ConfigLoadInput(
+          pubspecFile: File('/virtual/pkg/pubspec.yaml'),
+          pubspecContent: '''
+name: empty_build_options_test
+flutter:
+  assets:
+    - assets/
+flutter_gen:
+  output: lib/gen/
+''',
+          buildOptions: const {},
+        ),
+      );
+
+      expect(config.pubspec.flutterGen.output, equals('lib/gen/'));
+    });
+
+    test('returns null for invalid json mapping in direct input', () {
+      final config = loadPubspecConfigFromInputOrNull(
+        ConfigLoadInput(
+          pubspecFile: File('/virtual/pkg/pubspec.yaml'),
+          pubspecContent: '''
+name: invalid_json_test
+environment:
+  dart: ^3.7.0
+flutter_gen:
+  output: lib/gen/
+flutter:
+  assets:
+    - assets/
+''',
+        ),
+      );
+
+      expect(config, isNull);
+    });
+
+    test(
+        'returns null when direct input path access throws FileSystemException',
+        () {
+      final config = loadPubspecConfigFromInputOrNull(
+        ConfigLoadInput(
+          pubspecFile: _ThrowingFile.parent(
+            path: '/virtual/pkg/pubspec.yaml',
+            error: const FileSystemException('boom'),
+          ),
+          pubspecContent: '''
+name: file_system_error_test
+flutter_gen:
+  output: lib/gen/
+flutter:
+  assets:
+    - assets/
+''',
+        ),
+      );
+
+      expect(config, isNull);
+    });
+
+    test(
+        'returns null when direct input path access throws InvalidSettingsException',
+        () {
+      final config = loadPubspecConfigFromInputOrNull(
+        ConfigLoadInput(
+          pubspecFile: _ThrowingFile.parent(
+            path: '/virtual/pkg/pubspec.yaml',
+            error: const InvalidSettingsException('boom'),
+          ),
+          pubspecContent: '''
+name: invalid_settings_direct_test
+flutter_gen:
+  output: lib/gen/
+flutter:
+  assets:
+    - assets/
+''',
+        ),
+      );
+
+      expect(config, isNull);
+    });
+  });
+
+  group('loadPubspecConfigOrNull', () {
+    test('returns null when file reading throws InvalidSettingsException', () {
+      final config = loadPubspecConfigOrNull(
+        _ThrowingFile.read(
+          path: '/virtual/pkg/pubspec.yaml',
+          error: const InvalidSettingsException('boom'),
+        ),
+      );
+
+      expect(config, isNull);
+    });
+  });
+}
+
+class _ThrowingFile implements File {
+  _ThrowingFile.read({
+    required this.path,
+    required Object error,
+  })  : _readError = error,
+        _parentError = null;
+
+  _ThrowingFile.parent({
+    required this.path,
+    required Object error,
+  })  : _parentError = error,
+        _readError = null;
+
+  final Object? _readError;
+  final Object? _parentError;
+
+  @override
+  final String path;
+
+  @override
+  Directory get parent {
+    if (_parentError case final Object error) {
+      throw error;
+    }
+    return Directory(Uri.file(path).resolve('.').toFilePath());
+  }
+
+  @override
+  String readAsStringSync({Encoding encoding = utf8}) {
+    if (_readError case final Object error) {
+      throw error;
+    }
+    return '';
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => null;
 }

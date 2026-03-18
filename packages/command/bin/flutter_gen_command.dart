@@ -5,7 +5,11 @@ import 'package:flutter_gen_core/flutter_generator.dart';
 import 'package:flutter_gen_core/utils/cast.dart' show safeCast;
 import 'package:flutter_gen_core/utils/log.dart' show log;
 import 'package:flutter_gen_core/version.gen.dart' show packageVersion;
+import 'package:glob/glob.dart';
+import 'package:glob/list_local_fs.dart';
 import 'package:logging/logging.dart' show Level;
+import 'package:path/path.dart' as p;
+import 'package:yaml/yaml.dart';
 
 void main(List<String> args) async {
   log.onRecord.listen((record) {
@@ -28,6 +32,13 @@ void main(List<String> args) async {
     'build',
     abbr: 'b',
     help: 'Set the path of build.yaml.',
+  );
+
+  parser.addFlag(
+    'workspace',
+    abbr: 'w',
+    help: 'Generate for every workspace member listed in the config pubspec.',
+    defaultsTo: false,
   );
 
   parser.addFlag(
@@ -70,5 +81,79 @@ void main(List<String> args) async {
   }
   final buildFile = buildPath == null ? null : File(buildPath).absolute;
 
-  await FlutterGenerator(pubspecFile, buildFile: buildFile).build();
+  final workspace = results['workspace'] as bool;
+  if (workspace && buildFile != null) {
+    throw ArgumentError(
+      'The --build option is not supported together with --workspace. '
+          'Use package-local build.yaml files inside each workspace member instead.',
+      'build',
+    );
+  }
+
+  if (workspace) {
+    await _runWorkspace(pubspecFile);
+    return;
+  }
+
+  await _runSinglePackage(pubspecFile, buildFile: buildFile);
+}
+
+Future<void> _runWorkspace(File workspacePubspecFile) async {
+  final workspacePubspecMap =
+      loadYaml(await workspacePubspecFile.readAsString()) as YamlMap?;
+  final entries = (workspacePubspecMap?['workspace'] as YamlList?)
+          ?.whereType<String>()
+          .toList() ??
+      const <String>[];
+
+  if (entries.isEmpty) {
+    throw ArgumentError(
+      'No workspace members were found in ${workspacePubspecFile.path}.',
+      'config',
+    );
+  }
+
+  final workspaceRoot = workspacePubspecFile.parent;
+  final packagePubspecs = <File>{};
+  for (final entry in entries) {
+    final glob = Glob(entry);
+    for (final entity in glob.listSync(root: workspaceRoot.path)) {
+      if (entity is! Directory) {
+        continue;
+      }
+      final pubspecFile = File(p.join(entity.path, 'pubspec.yaml'));
+      if (pubspecFile.existsSync()) {
+        packagePubspecs.add(pubspecFile.absolute);
+      }
+    }
+  }
+
+  if (packagePubspecs.isEmpty) {
+    throw ArgumentError(
+      'No workspace member pubspec.yaml files were found from '
+          '${workspacePubspecFile.path}.',
+      'config',
+    );
+  }
+
+  final orderedPubspecs = packagePubspecs.toList()
+    ..sort((a, b) => a.path.compareTo(b.path));
+  for (final packagePubspec in orderedPubspecs) {
+    await _runSinglePackage(packagePubspec);
+  }
+}
+
+Future<void> _runSinglePackage(
+  File pubspecFile, {
+  File? buildFile,
+}) async {
+  await FlutterGenerator(
+    pubspecFile,
+    buildFile: buildFile ?? _packageLocalBuildFile(pubspecFile),
+  ).build();
+}
+
+File? _packageLocalBuildFile(File pubspecFile) {
+  final buildFile = File(p.join(pubspecFile.parent.path, 'build.yaml'));
+  return buildFile.existsSync() ? buildFile : null;
 }

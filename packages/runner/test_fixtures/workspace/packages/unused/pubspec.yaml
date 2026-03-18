@@ -1,0 +1,6 @@
+name: unused_package
+publish_to: 'none'
+resolution: workspace
+
+environment:
+  sdk: ^3.7.0

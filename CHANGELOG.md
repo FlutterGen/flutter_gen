@@ -1,3 +1,15 @@
+## Next
+
+**Feature**
+
+- Add `build_runner --workspace` support for `flutter_gen_runner` using a manifest + post-process materialization pipeline.
+- Add `fluttergen --workspace` support to the command package, including package-local `build.yaml` overrides for each workspace member.
+
+**Development**
+
+- Document and align the minimum supported versions for the new build pipeline: Dart `>=3.7.0` and `build_runner >=2.12.0`.
+- Document the current `build_runner --workspace` rebuild limitation for manually deleted generated files and recommend `build_runner clean` before rebuilding.
+
 ## 5.13.0+1
 
 **Development**

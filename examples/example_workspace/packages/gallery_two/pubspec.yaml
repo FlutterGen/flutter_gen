@@ -1,0 +1,27 @@
+name: gallery_two
+publish_to: 'none'
+resolution: workspace
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  lints: any
+
+  build_runner: ^2.12.2
+  flutter_gen_runner: # overrode
+
+flutter_gen:
+  output: lib/gen/
+  assets:
+    enabled: true
+    outputs:
+      class_name: GalleryTwoAssets
+
+flutter:
+  assets:
+    - assets/images/
