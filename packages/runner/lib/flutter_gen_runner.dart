@@ -132,7 +132,7 @@ class FlutterGenBuilder extends Builder {
       writer: (contents, path) {
         outputs.add(
           FlutterGenManifestOutput(
-            path: relative(path, from: packageRoot),
+            path: _packageRelativePath(path, from: packageRoot),
             contents: contents,
           ),
         );
@@ -255,6 +255,10 @@ class FlutterGenBuilder extends Builder {
     } on UnsupportedError {
       return null;
     }
+  }
+
+  String _packageRelativePath(String path, {required String from}) {
+    return split(relative(path, from: from)).join('/');
   }
 
   Future<String?> _findPackageRootFromCwd(String packageName) async {
@@ -440,7 +444,11 @@ class FlutterGenPostProcessBuilder extends PostProcessBuilder {
     if (paths is! List) {
       return <String>{};
     }
-    return paths.whereType<String>().toSet();
+    return paths.whereType<String>().map(_packageRelativePath).toSet();
+  }
+
+  String _packageRelativePath(String path) {
+    return split(path).join('/');
   }
 
   /// Guards cleanup against deleting files outside the active package.
