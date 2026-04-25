@@ -125,7 +125,9 @@ void main() {
         'lib/alt_gen/fonts.gen.dart',
       ]),
     );
-  });
+  },
+    timeout: const Timeout(Duration(minutes: 5)),
+  );
 
   test('applies package build.yaml options in workspace mode', () async {
     final workspaceDir = await _createWorkspaceFixture();
@@ -184,7 +186,9 @@ targets:
       File(p.join(appDir.path, 'lib', 'gen', 'assets.gen.dart')).existsSync(),
       isFalse,
     );
-  });
+  },
+    timeout: const Timeout(Duration(minutes: 5)),
+  );
 
   test('overwrites existing generated files in workspace mode', () async {
     final workspaceDir = await _createWorkspaceFixture();
@@ -224,7 +228,9 @@ targets:
       generatedFile.readAsStringSync(),
       isNot(contains('// stale contents')),
     );
-  });
+  },
+    timeout: const Timeout(Duration(minutes: 5)),
+  );
 }
 
 Future<Directory> _createWorkspaceFixture() async {

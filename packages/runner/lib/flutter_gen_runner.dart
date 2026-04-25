@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io' show File;
+import 'dart:io' show Directory, File;
 import 'dart:isolate';
 
 import 'package:build/build.dart';
@@ -41,17 +41,6 @@ class FlutterGenBuilder extends Builder {
 
   final BuilderOptions _options;
 
-  /// We resolve package roots from the runtime package configuration of the
-  /// build script isolate.
-  ///
-  /// `buildStep.packageConfig` is package-aware, but the URIs exposed there are
-  /// asset-style URIs. The legacy generator code still needs a real file-system
-  /// root so it can reuse the existing `dart:io` based generation pipeline.
-  /// Loading the isolate package config once gives us stable `file:` package
-  /// roots for all packages in the build graph, including workspace members.
-  static final Future<PackageConfig> _runtimePackageConfig =
-      loadPackageConfigUri(Isolate.packageConfigSync!);
-
   @override
   Future<void> build(BuildStep buildStep) async {
     // Resolve the package being built from the current BuildStep instead of the
@@ -90,16 +79,16 @@ class FlutterGenBuilder extends Builder {
     );
 
     // `Config` still carries a `File pubspecFile` because the lower-level core
-    // generator APIs remain file-system based. We construct a package-local file
-    // path here after resolving the correct package root above.
+    // generator APIs remain file-system based. We construct a package-local
+    // file path here after resolving the correct package root above.
     final pubspecFile = File(join(packageRoot, 'pubspec.yaml'));
     final config = loadPubspecConfigFromInputOrNull(
       ConfigLoadInput(
         pubspecFile: pubspecFile,
         pubspecContent: pubspecContent,
-        // BuilderOptions are now the supported way to pass build.yaml options in
-        // the build_runner path. This keeps config target-local and workspace
-        // aware without relying on process cwd.
+        // BuilderOptions are now the supported way to pass build.yaml options
+        // in the build_runner path. This keeps config target-local and
+        // workspace aware without relying on process cwd.
         buildOptions: _options.config,
         pubspecLockContent: pubspecLockContent,
         analysisOptionsContent: analysisOptionsContent,
@@ -143,7 +132,7 @@ class FlutterGenBuilder extends Builder {
       writer: (contents, path) {
         outputs.add(
           FlutterGenManifestOutput(
-            path: relative(path, from: packageRoot),
+            path: _packageRelativePath(path, from: packageRoot),
             contents: contents,
           ),
         );
@@ -214,14 +203,125 @@ class FlutterGenBuilder extends Builder {
   }
 
   Future<String> _packageRoot(BuildStep buildStep) async {
-    final packageConfig = await _runtimePackageConfig;
-    final package = packageConfig[buildStep.inputId.package];
-    if (package == null) {
-      throw StateError(
-        'Unable to resolve package root for ${buildStep.inputId.package}.',
-      );
+    final packageName = buildStep.inputId.package;
+
+    // Prefer build_runner's package config because it describes the active
+    // build graph, even when the build script runs in an AOT isolate.
+    final buildStepPackageConfig = await buildStep.packageConfig;
+    final buildStepPackage = buildStepPackageConfig[packageName];
+    final buildStepRoot = _tryFilePath(buildStepPackage?.root);
+    if (buildStepRoot != null) {
+      return normalize(buildStepRoot);
     }
-    return normalize(package.root.toFilePath());
+
+    // Fall back to the runtime isolate config when it still exposes a usable
+    // `file:` root for the target package.
+    final runtimePackageConfig = await _loadRuntimePackageConfig();
+    final runtimePackage = runtimePackageConfig?[packageName];
+    final runtimeRoot = _tryFilePath(runtimePackage?.root);
+    if (runtimeRoot != null) {
+      return normalize(runtimeRoot);
+    }
+
+    // Last resort for AOT/Windows edge cases: discover the package from the
+    // current working directory and nearby package config files.
+    final discoveredRoot = await _findPackageRootFromCwd(packageName);
+    if (discoveredRoot != null) {
+      return normalize(discoveredRoot);
+    }
+
+    throw StateError(
+      'Unable to resolve package root for $packageName. '
+      'buildStep.packageConfig, runtime package config, and current working '
+      'directory discovery did not provide a usable file: root.',
+    );
+  }
+
+  Future<PackageConfig?> _loadRuntimePackageConfig() async {
+    final packageConfigUri = Isolate.packageConfigSync;
+    if (packageConfigUri == null) {
+      return null;
+    }
+    return loadPackageConfigUri(packageConfigUri);
+  }
+
+  String? _tryFilePath(Uri? uri) {
+    if (uri == null || uri.scheme != 'file') {
+      return null;
+    }
+
+    try {
+      return uri.toFilePath();
+    } on UnsupportedError {
+      return null;
+    }
+  }
+
+  String _packageRelativePath(String path, {required String from}) {
+    return split(relative(path, from: from)).join('/');
+  }
+
+  Future<String?> _findPackageRootFromCwd(String packageName) async {
+    var dir = Directory.current.absolute;
+
+    while (true) {
+      final packageConfigRoot = await _findPackageRootFromPackageConfig(
+        packageName,
+        File(join(dir.path, '.dart_tool', 'package_config.json')),
+      );
+      if (packageConfigRoot != null) {
+        return packageConfigRoot;
+      }
+
+      final pubspecRoot = _findPackageRootFromPubspec(
+        packageName,
+        File(join(dir.path, 'pubspec.yaml')),
+      );
+      if (pubspecRoot != null) {
+        return pubspecRoot;
+      }
+
+      final parent = dir.parent;
+      if (parent.path == dir.path) {
+        return null;
+      }
+      dir = parent;
+    }
+  }
+
+  Future<String?> _findPackageRootFromPackageConfig(
+    String packageName,
+    File packageConfigFile,
+  ) async {
+    if (!packageConfigFile.existsSync()) {
+      return null;
+    }
+
+    try {
+      final packageConfig = await loadPackageConfigUri(packageConfigFile.uri);
+      return _tryFilePath(packageConfig[packageName]?.root);
+    } on Object {
+      return null;
+    }
+  }
+
+  String? _findPackageRootFromPubspec(
+    String packageName,
+    File pubspecFile,
+  ) {
+    if (!pubspecFile.existsSync()) {
+      return null;
+    }
+
+    try {
+      final pubspec = loadYaml(pubspecFile.readAsStringSync());
+      if (pubspec is YamlMap && pubspec['name'] == packageName) {
+        return pubspecFile.parent.path;
+      }
+    } on Object {
+      return null;
+    }
+    return null;
   }
 
   /// Reads an optional package-local asset if it exists.
@@ -292,8 +392,8 @@ class FlutterGenPostProcessBuilder extends PostProcessBuilder {
     final nextOutputs = manifest.outputs.map((output) => output.path).toSet();
 
     // Explicit stale cleanup is required because these source outputs are not
-    // regular declared outputs of the original builder. build_runner manages the
-    // manifest lifecycle, but FlutterGen owns the lifecycle of the final
+    // regular declared outputs of the original builder. build_runner manages
+    // the manifest lifecycle, but FlutterGen owns the lifecycle of the final
     // materialized files.
     for (final output in previousOutputs.difference(nextOutputs)) {
       final absolutePath = normalize(join(manifest.packageRoot, output));
@@ -309,8 +409,8 @@ class FlutterGenPostProcessBuilder extends PostProcessBuilder {
     // Materialize the exact output set described by the manifest.
     //
     // These files are intentionally managed outside build_runner's declared
-    // output model because their paths are configuration-dependent. Writing them
-    // directly avoids `InvalidOutputException` when the same files already
+    // output model because their paths are configuration-dependent. Writing
+    // them directly avoids `InvalidOutputException` when the same files already
     // exist, for example after a previous `fluttergen` command run or a stale
     // checked-out generated file.
     for (final output in manifest.outputs) {
@@ -344,7 +444,11 @@ class FlutterGenPostProcessBuilder extends PostProcessBuilder {
     if (paths is! List) {
       return <String>{};
     }
-    return paths.whereType<String>().toSet();
+    return paths.whereType<String>().map(_packageRelativePath).toSet();
+  }
+
+  String _packageRelativePath(String path) {
+    return split(path).join('/');
   }
 
   /// Guards cleanup against deleting files outside the active package.
@@ -356,10 +460,11 @@ class FlutterGenPostProcessBuilder extends PostProcessBuilder {
   }
 }
 
-/// Self-contained description of the desired FlutterGen outputs for one package.
+/// Self-contained description of the desired FlutterGen outputs for one
+/// package.
 ///
-/// The manifest is designed to be replayable by the post-process builder with no
-/// additional context: package root, package name, and final rendered file
+/// The manifest is designed to be replayable by the post-process builder with
+/// no additional context: package root, package name, and final rendered file
 /// contents are all embedded here.
 class FlutterGenManifest {
   const FlutterGenManifest({
