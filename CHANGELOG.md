@@ -1,3 +1,9 @@
+## 5.14.1
+
+**Development**
+
+- Fix package root resolution after build_runner 2.14.0 AOT changes. by [@Carapacik](https://github.com/Carapacik)
+
 ## 5.14.0
 
 **Feature**
