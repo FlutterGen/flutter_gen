@@ -12,7 +12,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/material.dart';
 
 class MyColorName {
-  MyColorName._();
+  const MyColorName._();
 
   /// Color: #000000
   static const Color black = Color(0xFF000000);

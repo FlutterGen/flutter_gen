@@ -49,7 +49,7 @@ String generateFonts(
   buffer.writeln(header);
   buffer.writeln(ignore);
   buffer.writeln('class $className {');
-  buffer.writeln('$className._();');
+  buffer.writeln('const $className._();');
   buffer.writeln();
 
   final isPackage = config.packageParameterLiteral.isNotEmpty;
