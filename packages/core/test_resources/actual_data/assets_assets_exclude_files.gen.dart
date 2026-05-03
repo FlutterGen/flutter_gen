@@ -65,7 +65,6 @@ class $AssetsImagesChip4Gen {
 }
 
 abstract final class Assets {
-
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
   static const $PicturesGen pictures = $PicturesGen();

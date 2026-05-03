@@ -20,6 +20,5 @@ class $AssetsImagesGen {
 }
 
 abstract final class GalleryTwoAssets {
-
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }

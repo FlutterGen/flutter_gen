@@ -20,6 +20,5 @@ class $AssetsUnknownGen {
 }
 
 abstract final class Assets {
-
   static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
 }

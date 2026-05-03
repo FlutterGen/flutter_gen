@@ -196,7 +196,6 @@ class $AssetsImagesIconsGen {
 }
 
 abstract final class Assets {
-
   static const $AssetsFlareGen flare = $AssetsFlareGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();

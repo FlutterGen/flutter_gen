@@ -202,7 +202,6 @@ class $AssetsImagesIconsGen {
 }
 
 abstract final class Assets {
-
   static const String changelog = 'CHANGELOG.md';
   static const $AssetsDeferredComponentGen deferredComponent =
       $AssetsDeferredComponentGen();

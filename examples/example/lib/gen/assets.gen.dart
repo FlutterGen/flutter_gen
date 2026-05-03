@@ -221,7 +221,6 @@ class $AssetsLottieWrongGen {
 }
 
 abstract final class MyAssets {
-
   static const String readme = 'README.md';
   static const $AssetsFlareGen flare = $AssetsFlareGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();

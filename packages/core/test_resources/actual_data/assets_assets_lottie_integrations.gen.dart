@@ -41,7 +41,6 @@ class $AssetsLottieGen {
 }
 
 abstract final class Assets {
-
   static const $AssetsLottieGen lottie = $AssetsLottieGen();
 }
 

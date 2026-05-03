@@ -57,7 +57,6 @@ class $AssetsUnknownGen {
 }
 
 abstract final class ResAssets {
-
   static const String package = 'example_resources';
 
   static const $AssetsImagesGen images = $AssetsImagesGen();

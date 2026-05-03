@@ -74,7 +74,6 @@ class $AssetsImagesIconsGen {
 }
 
 abstract final class Assets {
-
   static const String package = 'test';
 
   static const $AssetsImagesGen images = $AssetsImagesGen();

@@ -23,7 +23,6 @@ class $AssetsRiveGen {
 }
 
 abstract final class Assets {
-
   static const $AssetsRiveGen rive = $AssetsRiveGen();
 }
 

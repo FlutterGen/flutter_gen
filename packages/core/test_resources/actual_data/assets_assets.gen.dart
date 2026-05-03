@@ -145,7 +145,6 @@ class $AssetsImagesIconsGen {
 }
 
 abstract final class Assets {
-
   static const String changelog = 'CHANGELOG.md';
   static const $AssetsFlareGen flare = $AssetsFlareGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
