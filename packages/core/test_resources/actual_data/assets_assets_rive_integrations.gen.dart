@@ -22,8 +22,7 @@ class $AssetsRiveGen {
   List<RiveGenImage> get values => [vehicles];
 }
 
-class Assets {
-  const Assets._();
+abstract final class Assets {
 
   static const $AssetsRiveGen rive = $AssetsRiveGen();
 }

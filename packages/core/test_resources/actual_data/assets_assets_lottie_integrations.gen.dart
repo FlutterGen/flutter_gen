@@ -33,15 +33,14 @@ class $AssetsLottieGen {
 
   /// List of all assets
   List<LottieGenImage> get values => [
-    xuiIZ9X1Rf,
-    catCat,
-    hamburgerArrow,
-    spinningCarrousel,
-  ];
+        xuiIZ9X1Rf,
+        catCat,
+        hamburgerArrow,
+        spinningCarrousel,
+      ];
 }
 
-class Assets {
-  const Assets._();
+abstract final class Assets {
 
   static const $AssetsLottieGen lottie = $AssetsLottieGen();
 }
@@ -65,7 +64,7 @@ class LottieGenImage {
     Key? key,
     AssetBundle? bundle,
     Widget Function(BuildContext, Widget, _lottie.LottieComposition?)?
-    frameBuilder,
+        frameBuilder,
     ImageErrorWidgetBuilder? errorBuilder,
     double? width,
     double? height,

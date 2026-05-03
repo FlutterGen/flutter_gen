@@ -55,12 +55,12 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-    chip1,
-    chip2,
-    logo,
-    profileJpg,
-    profilePng,
-  ];
+        chip1,
+        chip2,
+        logo,
+        profileJpg,
+        profilePng,
+      ];
 }
 
 class $AssetsJsonGen {
@@ -119,8 +119,7 @@ class $AssetsImagesIconsGen {
   List<SvgGenImage> get values => [dartTest, fuchsia, kmm, paint];
 }
 
-class Assets {
-  const Assets._();
+abstract final class Assets {
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
@@ -217,10 +216,10 @@ class AssetGenImageAnimation {
 
 class SvgGenImage {
   const SvgGenImage(this._assetName, {this.size, this.flavors = const {}})
-    : _isVecFormat = false;
+      : _isVecFormat = false;
 
   const SvgGenImage.vec(this._assetName, {this.size, this.flavors = const {}})
-    : _isVecFormat = true;
+      : _isVecFormat = true;
 
   final String _assetName;
   final Size? size;
@@ -276,8 +275,7 @@ class SvgGenImage {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      colorFilter:
-          colorFilter ??
+      colorFilter: colorFilter ??
           (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,

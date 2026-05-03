@@ -30,8 +30,7 @@ String generateColors(
   buffer.writeln("import 'package:flutter/painting.dart';");
   buffer.writeln("import 'package:flutter/material.dart';");
   buffer.writeln();
-  buffer.writeln('class $className {');
-  buffer.writeln('const $className._();');
+  buffer.writeln('abstract final class $className {');
   buffer.writeln();
 
   final colorList = <_Color>[];

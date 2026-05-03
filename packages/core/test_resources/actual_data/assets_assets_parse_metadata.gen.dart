@@ -43,9 +43,9 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/chip1.jpg
   AssetGenImage get chip1 => const AssetGenImage(
-    'assets/images/chip1.jpg',
-    size: const Size(600.0, 403.0),
-  );
+        'assets/images/chip1.jpg',
+        size: const Size(600.0, 403.0),
+      );
 
   /// File path: assets/images/chip2.jpg
   AssetGenImage get chip2 => const AssetGenImage('assets/images/chip2.jpg');
@@ -61,9 +61,9 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage(
-    'assets/images/logo.png',
-    size: const Size(209.0, 49.0),
-  );
+        'assets/images/logo.png',
+        size: const Size(209.0, 49.0),
+      );
 
   /// File path: assets/images/profile.jpg
   AssetGenImage get profileJpg =>
@@ -75,12 +75,12 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-    chip1,
-    chip2,
-    logo,
-    profileJpg,
-    profilePng,
-  ];
+        chip1,
+        chip2,
+        logo,
+        profileJpg,
+        profilePng,
+      ];
 }
 
 class $AssetsJsonGen {
@@ -121,14 +121,14 @@ class $AssetsImagesAnimatedGen {
 
   /// File path: assets/images/animated/emoji_hugging_face.webp
   AssetGenImage get emojiHuggingFace => const AssetGenImage(
-    'assets/images/animated/emoji_hugging_face.webp',
-    size: const Size(512.0, 512.0),
-    animation: const AssetGenImageAnimation(
-      isAnimation: true,
-      duration: Duration(milliseconds: 2970),
-      frames: 45,
-    ),
-  );
+        'assets/images/animated/emoji_hugging_face.webp',
+        size: const Size(512.0, 512.0),
+        animation: const AssetGenImageAnimation(
+          isAnimation: true,
+          duration: Duration(milliseconds: 2970),
+          frames: 45,
+        ),
+      );
 
   /// List of all assets
   List<AssetGenImage> get values => [emojiHuggingFace];
@@ -139,9 +139,9 @@ class $AssetsImagesChip3Gen {
 
   /// File path: assets/images/chip3/chip3.jpg
   AssetGenImage get chip3 => const AssetGenImage(
-    'assets/images/chip3/chip3.jpg',
-    size: const Size(600.0, 403.0),
-  );
+        'assets/images/chip3/chip3.jpg',
+        size: const Size(600.0, 403.0),
+      );
 
   /// List of all assets
   List<AssetGenImage> get values => [chip3];
@@ -152,9 +152,9 @@ class $AssetsImagesChip4Gen {
 
   /// File path: assets/images/chip4/chip4.jpg
   AssetGenImage get chip4 => const AssetGenImage(
-    'assets/images/chip4/chip4.jpg',
-    size: const Size(600.0, 403.0),
-  );
+        'assets/images/chip4/chip4.jpg',
+        size: const Size(600.0, 403.0),
+      );
 
   /// List of all assets
   List<AssetGenImage> get values => [chip4];
@@ -165,15 +165,15 @@ class $AssetsImagesIconsGen {
 
   /// File path: assets/images/icons/dart@test.svg
   SvgGenImage get dartTest => const SvgGenImage(
-    'assets/images/icons/dart@test.svg',
-    size: Size(512.001, 512.001),
-  );
+        'assets/images/icons/dart@test.svg',
+        size: Size(512.001, 512.001),
+      );
 
   /// File path: assets/images/icons/fuchsia.svg
   SvgGenImage get fuchsia => const SvgGenImage(
-    'assets/images/icons/fuchsia.svg',
-    size: Size(50.0, 50.0),
-  );
+        'assets/images/icons/fuchsia.svg',
+        size: Size(50.0, 50.0),
+      );
 
   /// File path: assets/images/icons/invalid.svg
   SvgGenImage get invalid =>
@@ -181,22 +181,21 @@ class $AssetsImagesIconsGen {
 
   /// File path: assets/images/icons/kmm.svg
   SvgGenImage get kmm => const SvgGenImage(
-    'assets/images/icons/kmm.svg',
-    size: Size(755.0, 310.0),
-  );
+        'assets/images/icons/kmm.svg',
+        size: Size(755.0, 310.0),
+      );
 
   /// File path: assets/images/icons/paint.svg
   SvgGenImage get paint => const SvgGenImage(
-    'assets/images/icons/paint.svg',
-    size: Size(472.0, 392.0),
-  );
+        'assets/images/icons/paint.svg',
+        size: Size(472.0, 392.0),
+      );
 
   /// List of all assets
   List<SvgGenImage> get values => [dartTest, fuchsia, invalid, kmm, paint];
 }
 
-class Assets {
-  const Assets._();
+abstract final class Assets {
 
   static const $AssetsFlareGen flare = $AssetsFlareGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
@@ -296,10 +295,10 @@ class AssetGenImageAnimation {
 
 class SvgGenImage {
   const SvgGenImage(this._assetName, {this.size, this.flavors = const {}})
-    : _isVecFormat = false;
+      : _isVecFormat = false;
 
   const SvgGenImage.vec(this._assetName, {this.size, this.flavors = const {}})
-    : _isVecFormat = true;
+      : _isVecFormat = true;
 
   final String _assetName;
   final Size? size;
@@ -355,8 +354,7 @@ class SvgGenImage {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      colorFilter:
-          colorFilter ??
+      colorFilter: colorFilter ??
           (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,

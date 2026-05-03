@@ -33,16 +33,15 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-    chip1,
-    chip2,
-    logo,
-    profileJpg,
-    profilePng,
-  ];
+        chip1,
+        chip2,
+        logo,
+        profileJpg,
+        profilePng,
+      ];
 }
 
-class Assets {
-  const Assets._();
+abstract final class Assets {
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }

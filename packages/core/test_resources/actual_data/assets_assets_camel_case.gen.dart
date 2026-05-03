@@ -11,8 +11,7 @@
 
 import 'package:flutter/widgets.dart';
 
-class Assets {
-  const Assets._();
+abstract final class Assets {
 
   /// File path: assets/images/chip1.jpg
   static const AssetGenImage imagesChip1 = AssetGenImage(
@@ -74,21 +73,21 @@ class Assets {
 
   /// List of all assets
   static List<dynamic> get values => [
-    imagesChip1,
-    imagesChip2,
-    imagesChip3Chip3,
-    imagesChip4Chip4,
-    imagesIconsDartTest,
-    imagesIconsFuchsia,
-    imagesIconsKmm,
-    imagesIconsPaint,
-    imagesLogo,
-    imagesProfileJpg,
-    imagesProfilePng,
-    jsonList,
-    jsonMap,
-    picturesChip5,
-  ];
+        imagesChip1,
+        imagesChip2,
+        imagesChip3Chip3,
+        imagesChip4Chip4,
+        imagesIconsDartTest,
+        imagesIconsFuchsia,
+        imagesIconsKmm,
+        imagesIconsPaint,
+        imagesLogo,
+        imagesProfileJpg,
+        imagesProfilePng,
+        jsonList,
+        jsonMap,
+        picturesChip5,
+      ];
 }
 
 class AssetGenImage {
