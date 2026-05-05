@@ -137,9 +137,7 @@ class $AssetsImagesIconsGen {
   List<SvgGenImage> get values => [dartTest, fuchsia, kmm, paint];
 }
 
-class BuildAssets {
-  const BuildAssets._();
-
+abstract final class BuildAssets {
   static const String changelog = 'CHANGELOG.md';
   static const $AssetsFlareGen flare = $AssetsFlareGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();

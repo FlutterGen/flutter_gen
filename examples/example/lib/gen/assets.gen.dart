@@ -220,9 +220,7 @@ class $AssetsLottieWrongGen {
   List<String> get values => [dummy, rocketLottieV439];
 }
 
-class MyAssets {
-  const MyAssets._();
-
+abstract final class MyAssets {
   static const String readme = 'README.md';
   static const $AssetsFlareGen flare = $AssetsFlareGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();

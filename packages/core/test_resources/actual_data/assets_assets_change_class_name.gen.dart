@@ -41,9 +41,7 @@ class $AssetsImagesGen {
   ];
 }
 
-class MyAssets {
-  const MyAssets._();
-
+abstract final class MyAssets {
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 

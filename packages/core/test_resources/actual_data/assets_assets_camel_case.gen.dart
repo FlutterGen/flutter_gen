@@ -11,9 +11,7 @@
 
 import 'package:flutter/widgets.dart';
 
-class Assets {
-  const Assets._();
-
+abstract final class Assets {
   /// File path: assets/images/chip1.jpg
   static const AssetGenImage imagesChip1 = AssetGenImage(
     'assets/images/chip1.jpg',
