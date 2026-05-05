@@ -33,7 +33,11 @@ scripts:
 
   format:
     run: |
-      dart format --set-exit-if-changed .
+      find . -name "*.dart" \
+        -not -path "*/actual_data/*" \
+        -not -path "*/.dart_tool/*" \
+        -not -path "*/build/*" \
+        -print0 | xargs -0 dart format --set-exit-if-changed
       git --no-pager diff --exit-code
     description: Format Dart files and exit if unstaged changes exist
 

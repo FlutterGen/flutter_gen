@@ -52,12 +52,12 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-        chip1,
-        chip2,
-        logo,
-        profileJpg,
-        profilePng,
-      ];
+    chip1,
+    chip2,
+    logo,
+    profileJpg,
+    profilePng,
+  ];
 }
 
 class $AssetsJsonGen {

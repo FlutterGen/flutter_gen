@@ -72,21 +72,21 @@ abstract final class Assets {
 
   /// List of all assets
   static List<dynamic> get values => [
-        imagesChip1,
-        imagesChip2,
-        imagesChip3Chip3,
-        imagesChip4Chip4,
-        imagesIconsDartTest,
-        imagesIconsFuchsia,
-        imagesIconsKmm,
-        imagesIconsPaint,
-        imagesLogo,
-        imagesProfileJpg,
-        imagesProfilePng,
-        jsonList,
-        jsonMap,
-        picturesChip5,
-      ];
+    imagesChip1,
+    imagesChip2,
+    imagesChip3Chip3,
+    imagesChip4Chip4,
+    imagesIconsDartTest,
+    imagesIconsFuchsia,
+    imagesIconsKmm,
+    imagesIconsPaint,
+    imagesLogo,
+    imagesProfileJpg,
+    imagesProfilePng,
+    jsonList,
+    jsonMap,
+    picturesChip5,
+  ];
 }
 
 class AssetGenImage {
