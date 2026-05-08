@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:flutter_gen_core/flutter_generator.dart';
-import 'package:flutter_gen_core/utils/cast.dart' show safeCast;
-import 'package:flutter_gen_core/utils/log.dart' show log;
-import 'package:flutter_gen_core/version.gen.dart' show packageVersion;
+import 'package:flutter_assets_gen_core/flutter_assets_generator.dart';
+import 'package:flutter_assets_gen_core/utils/cast.dart' show safeCast;
+import 'package:flutter_assets_gen_core/utils/log.dart' show log;
+import 'package:flutter_assets_gen_core/version.gen.dart' show packageVersion;
 import 'package:glob/glob.dart';
 import 'package:glob/list_local_fs.dart';
 import 'package:logging/logging.dart' show Level;

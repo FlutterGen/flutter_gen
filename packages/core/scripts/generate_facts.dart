@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dartx/dartx_io.dart';
-import 'package:flutter_gen_core/flutter_generator.dart';
+import 'package:flutter_assets_gen_core/flutter_assets_generator.dart';
 import 'package:path/path.dart' as p;
 
 late final Directory dir;

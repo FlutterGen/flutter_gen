@@ -2,14 +2,14 @@ import 'dart:io';
 
 // import 'package:collection/collection.dart';
 // import 'package:dart_style/dart_style.dart' show TrailingCommas;
-import 'package:flutter_gen_core/generators/registry.dart';
-import 'package:flutter_gen_core/settings/config_default.dart';
-import 'package:flutter_gen_core/settings/pubspec.dart';
-import 'package:flutter_gen_core/utils/cast.dart' show safeCast;
-import 'package:flutter_gen_core/utils/error.dart';
-import 'package:flutter_gen_core/utils/log.dart';
-import 'package:flutter_gen_core/utils/map.dart';
-import 'package:flutter_gen_core/version.gen.dart';
+import 'package:flutter_assets_gen_core/generators/registry.dart';
+import 'package:flutter_assets_gen_core/settings/config_default.dart';
+import 'package:flutter_assets_gen_core/settings/pubspec.dart';
+import 'package:flutter_assets_gen_core/utils/cast.dart' show safeCast;
+import 'package:flutter_assets_gen_core/utils/error.dart';
+import 'package:flutter_assets_gen_core/utils/log.dart';
+import 'package:flutter_assets_gen_core/utils/map.dart';
+import 'package:flutter_assets_gen_core/version.gen.dart';
 import 'package:json_annotation/json_annotation.dart'
     show CheckedFromJsonException;
 import 'package:path/path.dart';
@@ -63,8 +63,8 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
     final buildContent = file.readAsStringSync();
     final rawMap = loadYaml(buildContent) as Map?;
     final builders = rawMap?['targets']?[r'$default']?['builders'];
-    final optionBuildMap = (builders?['flutter_gen_runner'] ??
-        builders?['flutter_gen'])?['options'];
+    final optionBuildMap = (builders?['flutter_assets_gen_runner'] ??
+        builders?['flutter_assets_gen'])?['options'];
     if (optionBuildMap is YamlMap && optionBuildMap.isNotEmpty) {
       return optionBuildMap;
     }
@@ -161,7 +161,7 @@ Config loadPubspecConfigFromInput(ConfigLoadInput input) {
       when buildOptions.isNotEmpty) {
     mergedMap = mergeMap([
       mergedMap,
-      {'flutter_gen': buildOptions},
+      {'flutter_assets_gen': buildOptions},
     ]);
     log.info('Reading options from BuilderOptions');
   }

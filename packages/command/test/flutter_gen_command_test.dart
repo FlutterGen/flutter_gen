@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter_gen_core/version.gen.dart';
+import 'package:flutter_assets_gen_core/version.gen.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:test_process/test_process.dart';
@@ -11,7 +11,7 @@ void main() {
   test('Execute fluttergen', () async {
     final process = await TestProcess.start(
       'dart',
-      ['bin/flutter_gen_command.dart'],
+      ['bin/flutter_assets_gen_command.dart'],
     );
     expect(
       await process.stdout.next,
@@ -23,7 +23,7 @@ void main() {
   test('Execute fluttergen --config pubspec.yaml', () async {
     var process = await TestProcess.start(
       'dart',
-      ['bin/flutter_gen_command.dart', '--config', 'pubspec.yaml'],
+      ['bin/flutter_assets_gen_command.dart', '--config', 'pubspec.yaml'],
     );
     expect(
       await process.stdout.next,
@@ -35,7 +35,7 @@ void main() {
   test('Execute fluttergen --help', () async {
     var process = await TestProcess.start(
       'dart',
-      ['bin/flutter_gen_command.dart', '--help'],
+      ['bin/flutter_assets_gen_command.dart', '--help'],
     );
     expect(
       await process.stdout.next,
@@ -52,7 +52,7 @@ void main() {
   test('Execute fluttergen --version', () async {
     var process = await TestProcess.start(
       'dart',
-      ['bin/flutter_gen_command.dart', '--version'],
+      ['bin/flutter_assets_gen_command.dart', '--version'],
     );
     expect(await process.stdout.next, equals('[FlutterGen] v$packageVersion'));
     await process.shouldExit(0);
@@ -61,7 +61,7 @@ void main() {
   test('Execute wrong arguments with fluttergen --wrong', () async {
     var process = await TestProcess.start(
       'dart',
-      ['bin/flutter_gen_command.dart', '--wrong'],
+      ['bin/flutter_assets_gen_command.dart', '--wrong'],
     );
     expect(
       await process.stderr.next,
@@ -78,7 +78,7 @@ void main() {
     final process = await TestProcess.start(
       'dart',
       [
-        'bin/flutter_gen_command.dart',
+        'bin/flutter_assets_gen_command.dart',
         '--config',
         'test/deprecated_configs.yaml',
       ],
@@ -111,7 +111,7 @@ void main() {
       'dart',
       [
         'run',
-        p.join(Directory.current.path, 'bin', 'flutter_gen_command.dart'),
+        p.join(Directory.current.path, 'bin', 'flutter_assets_gen_command.dart'),
         '--workspace',
         '--config',
         p.join(workspaceDir.path, 'pubspec.yaml'),
@@ -167,7 +167,7 @@ void main() {
 targets:
   $default:
     builders:
-      flutter_gen_runner:
+      flutter_assets_gen_runner:
         options:
           output: lib/build_gen/
 ''');
@@ -176,7 +176,7 @@ targets:
       'dart',
       [
         'run',
-        p.join(Directory.current.path, 'bin', 'flutter_gen_command.dart'),
+        p.join(Directory.current.path, 'bin', 'flutter_assets_gen_command.dart'),
         '--config',
         p.join(galleryOneDir.path, 'pubspec.yaml'),
       ],

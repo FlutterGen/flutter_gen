@@ -26,7 +26,7 @@ class Pubspec {
   @JsonKey(name: 'dependencies', fromJson: _dependenciesFromJson)
   final Map<String, VersionConstraint?> dependenciesVersionConstraint;
 
-  @JsonKey(name: 'flutter_gen', required: true)
+  @JsonKey(name: 'flutter_assets_gen', required: true)
   final FlutterGen flutterGen;
 
   @JsonKey(name: 'flutter', required: true)

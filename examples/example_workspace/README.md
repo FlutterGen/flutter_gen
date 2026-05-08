@@ -7,7 +7,7 @@ A minimal pub workspace example for FlutterGen.
 - `packages/gallery_one`: generates asset accessors for `flutter3.jpg`
 - `packages/gallery_two`: generates asset accessors for `dart.svg`
 
-Both packages use `flutter_gen_runner` through `build_runner --workspace`.
+Both packages use `flutter_assets_gen_runner` through `build_runner --workspace`.
 
 ## Version requirements
 

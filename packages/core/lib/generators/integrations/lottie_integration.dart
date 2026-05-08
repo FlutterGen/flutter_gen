@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:archive/archive_io.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter_gen_core/generators/integrations/integration.dart';
+import 'package:flutter_assets_gen_core/generators/integrations/integration.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 

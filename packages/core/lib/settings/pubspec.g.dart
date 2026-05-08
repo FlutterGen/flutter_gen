@@ -12,7 +12,7 @@ Pubspec _$PubspecFromJson(Map json) => $checkedCreate(
       ($checkedConvert) {
         $checkKeys(
           json,
-          requiredKeys: const ['name', 'flutter_gen', 'flutter'],
+          requiredKeys: const ['name', 'flutter_assets_gen', 'flutter'],
         );
         final val = Pubspec(
           packageName: $checkedConvert('name', (v) => v as String),
@@ -21,7 +21,7 @@ Pubspec _$PubspecFromJson(Map json) => $checkedCreate(
           dependenciesVersionConstraint: $checkedConvert(
               'dependencies', (v) => _dependenciesFromJson(v as Map?)),
           flutterGen: $checkedConvert(
-              'flutter_gen', (v) => FlutterGen.fromJson(v as Map)),
+              'flutter_assets_gen', (v) => FlutterGen.fromJson(v as Map)),
           flutter:
               $checkedConvert('flutter', (v) => Flutter.fromJson(v as Map)),
         );
@@ -30,7 +30,7 @@ Pubspec _$PubspecFromJson(Map json) => $checkedCreate(
       fieldKeyMap: const {
         'packageName': 'name',
         'dependenciesVersionConstraint': 'dependencies',
-        'flutterGen': 'flutter_gen'
+        'flutterGen': 'flutter_assets_gen'
       },
     );
 

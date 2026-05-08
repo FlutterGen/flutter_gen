@@ -1,6 +1,6 @@
 import 'package:dartx/dartx.dart';
-import 'package:flutter_gen_core/utils/identifer.dart';
-import 'package:flutter_gen_core/utils/string.dart';
+import 'package:flutter_assets_gen_core/utils/identifer.dart';
+import 'package:flutter_assets_gen_core/utils/string.dart';
 import 'package:mime/mime.dart' show lookupMimeType;
 import 'package:path/path.dart' as p;
 

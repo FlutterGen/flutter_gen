@@ -21,12 +21,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_gen_runner:
+  flutter_assets_gen_runner:
     path: ../../packages/runner
 
   build_runner: ^2.0.0
 
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
 
   integrations:

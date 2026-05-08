@@ -2,11 +2,11 @@
 
 import 'package:dart_style/dart_style.dart';
 import 'package:dartx/dartx.dart';
-import 'package:flutter_gen_core/generators/generator_helper.dart';
-import 'package:flutter_gen_core/settings/config.dart';
-import 'package:flutter_gen_core/settings/pubspec.dart';
-import 'package:flutter_gen_core/utils/error.dart';
-import 'package:flutter_gen_core/utils/string.dart';
+import 'package:flutter_assets_gen_core/generators/generator_helper.dart';
+import 'package:flutter_assets_gen_core/settings/config.dart';
+import 'package:flutter_assets_gen_core/settings/pubspec.dart';
+import 'package:flutter_assets_gen_core/utils/error.dart';
+import 'package:flutter_assets_gen_core/utils/string.dart';
 
 class FontsGenConfig {
   FontsGenConfig._(

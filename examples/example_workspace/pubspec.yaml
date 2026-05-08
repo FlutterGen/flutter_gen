@@ -14,7 +14,7 @@ dev_dependencies:
   build_runner: ^2.12.2
 
 dependency_overrides:
-  flutter_gen_core:
+  flutter_assets_gen_core:
     path: ../../packages/core
-  flutter_gen_runner:
+  flutter_assets_gen_runner:
     path: ../../packages/runner

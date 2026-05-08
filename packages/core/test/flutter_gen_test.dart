@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter_gen_core/flutter_generator.dart';
-import 'package:flutter_gen_core/utils/error.dart';
+import 'package:flutter_assets_gen_core/flutter_assets_generator.dart';
+import 'package:flutter_assets_gen_core/utils/error.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -107,11 +107,11 @@ void main() {
       expect(File(colors).existsSync(), isFalse);
     });
 
-    test('Only flutter_gen value', () async {
-      const pubspec = 'test_resources/pubspec_only_flutter_gen_value.yaml';
-      const assets = 'pubspec_only_flutter_gen_value_assets.gen.dart';
-      const colors = 'pubspec_only_flutter_gen_value_colors.gen.dart';
-      const fonts = 'pubspec_only_flutter_gen_value_colors.gen.dart';
+    test('Only flutter_assets_gen value', () async {
+      const pubspec = 'test_resources/pubspec_only_flutter_assets_gen_value.yaml';
+      const assets = 'pubspec_only_flutter_assets_gen_value_assets.gen.dart';
+      const colors = 'pubspec_only_flutter_assets_gen_value_colors.gen.dart';
+      const fonts = 'pubspec_only_flutter_assets_gen_value_colors.gen.dart';
 
       await FlutterGenerator(
         File(pubspec),

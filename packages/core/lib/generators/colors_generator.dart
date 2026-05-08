@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
 import 'package:dartx/dartx.dart';
-import 'package:flutter_gen_core/generators/generator_helper.dart';
-import 'package:flutter_gen_core/settings/color_path.dart';
-import 'package:flutter_gen_core/settings/pubspec.dart';
-import 'package:flutter_gen_core/utils/color.dart';
-import 'package:flutter_gen_core/utils/error.dart';
-import 'package:flutter_gen_core/utils/string.dart';
+import 'package:flutter_assets_gen_core/generators/generator_helper.dart';
+import 'package:flutter_assets_gen_core/settings/color_path.dart';
+import 'package:flutter_assets_gen_core/settings/pubspec.dart';
+import 'package:flutter_assets_gen_core/utils/color.dart';
+import 'package:flutter_assets_gen_core/utils/error.dart';
+import 'package:flutter_assets_gen_core/utils/string.dart';
 import 'package:path/path.dart';
 import 'package:xml/xml.dart';
 
@@ -18,7 +18,7 @@ String generateColors(
 ) {
   if (colorsConfig.inputs.isEmpty) {
     throw const InvalidSettingsException(
-      'The value of "flutter_gen/colors:" is incorrect.',
+      'The value of "flutter_assets_gen/colors:" is incorrect.',
     );
   }
 

@@ -1,6 +1,6 @@
 name: test
 
-flutter_gen:
+flutter_assets_gen:
   integrations:
     flutter_svg: true
   assets:

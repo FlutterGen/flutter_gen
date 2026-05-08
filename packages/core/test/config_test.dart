@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter_gen_core/generators/integrations/lottie_integration.dart';
-import 'package:flutter_gen_core/generators/integrations/rive_integration.dart';
-import 'package:flutter_gen_core/generators/integrations/svg_integration.dart';
-import 'package:flutter_gen_core/generators/registry.dart';
-import 'package:flutter_gen_core/settings/config.dart';
-import 'package:flutter_gen_core/utils/error.dart';
+import 'package:flutter_assets_gen_core/generators/integrations/lottie_integration.dart';
+import 'package:flutter_assets_gen_core/generators/integrations/rive_integration.dart';
+import 'package:flutter_assets_gen_core/generators/integrations/svg_integration.dart';
+import 'package:flutter_assets_gen_core/generators/registry.dart';
+import 'package:flutter_assets_gen_core/settings/config.dart';
+import 'package:flutter_assets_gen_core/utils/error.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 
@@ -144,7 +144,7 @@ void main() {
 
     test('version resolution with only constraint and no lock', () {
       // Create a temporary pubspec file without a lock
-      final tempDir = Directory.systemTemp.createTempSync('flutter_gen_test');
+      final tempDir = Directory.systemTemp.createTempSync('flutter_assets_gen_test');
       try {
         final tempPubspec = File('${tempDir.path}/pubspec.yaml');
         tempPubspec.writeAsStringSync('''
@@ -153,7 +153,7 @@ environment:
   sdk: ^3.0.0
 dependencies:
   rive: ^0.13.0
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/
   integrations:
     rive: true
@@ -181,7 +181,7 @@ flutter:
     test('version resolution with lock but no constraint', () {
       // This tests the case where pubspec.lock has a version
       // but pubspec.yaml doesn't specify a constraint (e.g., path dependency)
-      final tempDir = Directory.systemTemp.createTempSync('flutter_gen_test');
+      final tempDir = Directory.systemTemp.createTempSync('flutter_assets_gen_test');
       try {
         final tempPubspec = File('${tempDir.path}/pubspec.yaml');
         tempPubspec.writeAsStringSync('''
@@ -191,7 +191,7 @@ environment:
 dependencies:
   rive:
     path: ../rive
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/
   integrations:
     rive: true
@@ -233,14 +233,14 @@ sdks:
 
   group('ConfigLoadInput', () {
     test('ignores a missing explicit build file', () {
-      final tempDir = Directory.systemTemp.createTempSync('flutter_gen_test');
+      final tempDir = Directory.systemTemp.createTempSync('flutter_assets_gen_test');
       try {
         final tempPubspec = File('${tempDir.path}/pubspec.yaml');
         tempPubspec.writeAsStringSync('''
 name: missing_build_file_test
 environment:
   sdk: ^3.7.0
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/
 flutter:
   assets:
@@ -268,7 +268,7 @@ environment:
   sdk: ^3.7.0
 dependencies:
   rive: ^0.13.0
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/
   integrations:
     rive: true
@@ -312,7 +312,7 @@ formatter:
           pubspecFile: File('/virtual/pkg/pubspec.yaml'),
           pubspecContent: '''
 name: lock_sdk_test
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/
 flutter:
   assets:
@@ -340,7 +340,7 @@ name: empty_build_options_test
 flutter:
   assets:
     - assets/
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/
 ''',
           buildOptions: const {},
@@ -358,7 +358,7 @@ flutter_gen:
 name: invalid_json_test
 environment:
   dart: ^3.7.0
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/
 flutter:
   assets:
@@ -381,7 +381,7 @@ flutter:
           ),
           pubspecContent: '''
 name: file_system_error_test
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/
 flutter:
   assets:
@@ -404,7 +404,7 @@ flutter:
           ),
           pubspecContent: '''
 name: invalid_settings_direct_test
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/
 flutter:
   assets:

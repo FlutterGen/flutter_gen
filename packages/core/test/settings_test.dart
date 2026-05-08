@@ -1,12 +1,12 @@
 import 'package:collection/collection.dart';
-import 'package:flutter_gen_core/settings/asset_type.dart';
-import 'package:flutter_gen_core/settings/config_default.dart'
+import 'package:flutter_assets_gen_core/settings/asset_type.dart';
+import 'package:flutter_assets_gen_core/settings/config_default.dart'
     show configDefaultYamlContent;
-import 'package:flutter_gen_core/settings/flavored_asset.dart';
-import 'package:flutter_gen_core/settings/pubspec.dart';
-import 'package:flutter_gen_core/utils/error.dart'
+import 'package:flutter_assets_gen_core/settings/flavored_asset.dart';
+import 'package:flutter_assets_gen_core/settings/pubspec.dart';
+import 'package:flutter_assets_gen_core/utils/error.dart'
     show InvalidSettingsException;
-import 'package:flutter_gen_core/utils/map.dart' show mergeMap;
+import 'package:flutter_assets_gen_core/utils/map.dart' show mergeMap;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
@@ -133,7 +133,7 @@ dependencies:
   rive: ^0.13.0
   flutter_svg: ^2.0.0
   lottie: ">=1.0.0 <2.0.0"
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/
 flutter:
   assets:
@@ -171,7 +171,7 @@ dependencies:
     version: ^0.14.0
   flutter_svg:
     version: ">=2.0.0 <3.0.0"
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/
 flutter:
   assets:
@@ -202,7 +202,7 @@ dependencies:
   rive:
     path: ../rive
   flutter_svg: ^2.0.0
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/
 flutter:
   assets:
@@ -233,7 +233,7 @@ dependencies:
       url: https://github.com/example/rive.git
       ref: main
   lottie: ^5.0.0
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/
 flutter:
   assets:
@@ -261,7 +261,7 @@ environment:
 dependencies:
   rive: invalid_version
   flutter_svg: ^2.0.0
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/
 flutter:
   assets:
@@ -286,7 +286,7 @@ dependencies:
   rive:
     version: invalid_version
   lottie: ^5.0.0
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/
 flutter:
   assets:
@@ -307,7 +307,7 @@ flutter:
 name: test
 environment:
   sdk: ^3.0.0
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/
 flutter:
   assets:
@@ -334,7 +334,7 @@ dependencies:
   another_package:
     git:
       url: https://github.com/example/package.git
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/
 flutter:
   assets:

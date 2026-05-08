@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:dartx/dartx.dart';
-import 'package:flutter_gen_core/generators/assets_generator.dart';
-import 'package:flutter_gen_core/generators/generator_helper.dart';
-import 'package:flutter_gen_core/settings/asset_type.dart';
-import 'package:flutter_gen_core/settings/config.dart';
-import 'package:flutter_gen_core/utils/error.dart';
-import 'package:flutter_gen_core/utils/formatter.dart';
-import 'package:flutter_gen_core/utils/string.dart';
+import 'package:flutter_assets_gen_core/generators/assets_generator.dart';
+import 'package:flutter_assets_gen_core/generators/generator_helper.dart';
+import 'package:flutter_assets_gen_core/settings/asset_type.dart';
+import 'package:flutter_assets_gen_core/settings/config.dart';
+import 'package:flutter_assets_gen_core/utils/error.dart';
+import 'package:flutter_assets_gen_core/utils/formatter.dart';
+import 'package:flutter_assets_gen_core/utils/string.dart';
 import 'package:test/test.dart';
 
 import 'gen_test_helper.dart';
@@ -247,7 +247,7 @@ void main() {
           'style',
           'asset',
           'asset.output',
-          'https://github.com/FlutterGen/flutter_gen/pull/294',
+          'https://github.com/FlutterGen/flutter_assets_gen/pull/294',
           [
             '  assets:',
             '    outputs:',
@@ -259,10 +259,10 @@ void main() {
 | ⚠️ Error                                                        |
 | The style option has been moved from `asset` to `asset.output`. |
 | It should be changed in the `pubspec.yaml`.                     |
-| https://github.com/FlutterGen/flutter_gen/pull/294              |
+| https://github.com/FlutterGen/flutter_assets_gen/pull/294              |
 |                                                                 |
 | ```yaml                                                         |
-| flutter_gen:                                                    |
+| flutter_assets_gen:                                                    |
 |   assets:                                                       |
 |     outputs:                                                    |
 |       style: snake-case                                         |

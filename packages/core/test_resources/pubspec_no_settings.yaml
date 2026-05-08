@@ -17,5 +17,5 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
-  flutter_gen:
+  flutter_assets_gen:
     path: ../

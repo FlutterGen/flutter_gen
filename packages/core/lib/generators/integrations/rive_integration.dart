@@ -1,4 +1,4 @@
-import 'package:flutter_gen_core/generators/integrations/integration.dart';
+import 'package:flutter_assets_gen_core/generators/integrations/integration.dart';
 import 'package:pub_semver/pub_semver.dart'
     show Version, VersionConstraint, VersionRange;
 

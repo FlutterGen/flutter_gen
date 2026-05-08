@@ -1,12 +1,12 @@
 import 'dart:io' show Directory, File;
 
-import 'package:flutter_gen_core/generators/assets_generator.dart';
-import 'package:flutter_gen_core/generators/colors_generator.dart';
-import 'package:flutter_gen_core/generators/fonts_generator.dart';
-import 'package:flutter_gen_core/settings/config.dart';
-import 'package:flutter_gen_core/utils/file.dart';
-import 'package:flutter_gen_core/utils/formatter.dart';
-import 'package:flutter_gen_core/utils/log.dart';
+import 'package:flutter_assets_gen_core/generators/assets_generator.dart';
+import 'package:flutter_assets_gen_core/generators/colors_generator.dart';
+import 'package:flutter_assets_gen_core/generators/fonts_generator.dart';
+import 'package:flutter_assets_gen_core/settings/config.dart';
+import 'package:flutter_assets_gen_core/utils/file.dart';
+import 'package:flutter_assets_gen_core/utils/formatter.dart';
+import 'package:flutter_assets_gen_core/utils/log.dart';
 import 'package:path/path.dart' show join, normalize;
 
 class FlutterGenerator {

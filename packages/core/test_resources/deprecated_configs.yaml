@@ -4,7 +4,7 @@ flutter:
   assets:
     - assets/
 
-flutter_gen:
+flutter_assets_gen:
   assets:
     enabled: true
     style: snake-case

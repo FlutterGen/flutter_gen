@@ -37,8 +37,8 @@ void main() {
         appDir.path,
         '.dart_tool',
         'flutter_build',
-        'flutter_gen',
-        'flutter_gen_owner.json',
+        'flutter_assets_gen',
+        'flutter_assets_gen_owner.json',
       ),
     );
 
@@ -143,7 +143,7 @@ void main() {
 targets:
   $default:
     builders:
-      flutter_gen_runner:
+      flutter_assets_gen_runner:
         options:
           output: lib/build_gen/
 ''');
@@ -238,7 +238,7 @@ Future<Directory> _createWorkspaceFixture() async {
   final fixtureDir =
       Directory(p.join(runnerDir.path, 'test_fixtures', 'workspace'));
   final tempDir =
-      await Directory.systemTemp.createTemp('flutter_gen_workspace_fixture_');
+      await Directory.systemTemp.createTemp('flutter_assets_gen_workspace_fixture_');
 
   await _copyDirectory(fixtureDir, tempDir);
 

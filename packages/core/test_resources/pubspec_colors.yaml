@@ -3,7 +3,7 @@ name: test
 environment:
   sdk: ^3.6.0
 
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
 
   colors:

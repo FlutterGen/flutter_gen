@@ -1,19 +1,19 @@
-name: flutter_gen
-description: The Flutter code generator for your assets, fonts, colors, … — Get rid of all String-based APIs.
-version: 5.14.1
-homepage: https://github.com/FlutterGen/flutter_gen
-repository: https://github.com/FlutterGen/flutter_gen/tree/main/packages/command
-documentation: https://github.com/FlutterGen/flutter_gen
-issue_tracker: https://github.com/FlutterGen/flutter_gen/issues
+name: flutter_assets_gen
+description: A specialized asset generator for Flutter with support for multiple asset classes and custom groupings.
+version: 1.0.0
+homepage: https://github.com/Sumat-Dev/flutter_assets_gen
+repository: https://github.com/Sumat-Dev/flutter_assets_gen/tree/main/packages/command
+documentation: https://github.com/Sumat-Dev/flutter_assets_gen
+issue_tracker: https://github.com/Sumat-Dev/flutter_assets_gen/issues
 
 environment:
   sdk: ^3.4.0
 
 executables:
-  fluttergen: flutter_gen_command
+  flutter_assets_gen: flutter_assets_gen_command
 
 dependencies:
-  flutter_gen_core: 5.14.1
+  flutter_assets_gen_core: ^1.0.0
 
   args: ^2.0.0
   glob: ^2.1.3

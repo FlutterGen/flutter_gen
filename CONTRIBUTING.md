@@ -1,6 +1,6 @@
 # Contributing to FlutterGen
 
-_See also: [Contributor Covenant Code of Conduct](https://github.com/FlutterGen/flutter_gen/blob/main/CODE_OF_CONDUCT.md)_
+_See also: [Contributor Covenant Code of Conduct](https://github.com/FlutterGen/flutter_assets_gen/blob/main/CODE_OF_CONDUCT.md)_
 
 ## Things you will need
 
@@ -33,7 +33,7 @@ $ melos bootstrap
 To run `pub get` to make sure its dependencies have been downloaded, and use `dart command`.
 
 ```sh
-$ dart packages/command/bin/flutter_gen_command.dart --config example/pubspec.yaml
+$ dart packages/command/bin/flutter_assets_gen_command.dart --config example/pubspec.yaml
 ```
 
 Or melos
@@ -75,7 +75,7 @@ keep the code consistent and avoid common pitfalls.
 To send us a pull request:
 
 - `git pull-request` (if you are using [Hub](http://github.com/github/hub/)) or
-  go to `https://github.com/FlutterGen/flutter_gen` and click the
+  go to `https://github.com/FlutterGen/flutter_assets_gen` and click the
   "Compare & pull request" button
 
 Please make sure all your checkins have detailed commit messages explaining the patch.

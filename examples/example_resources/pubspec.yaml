@@ -14,13 +14,13 @@ dependencies:
   rive: ^0.14.0
 
 dev_dependencies:
-  flutter_gen_runner:
+  flutter_assets_gen_runner:
     path: ../../packages/runner
 
   build_runner: ^2.0.0
   lints: any
 
-flutter_gen:
+flutter_assets_gen:
   output: lib/gen/
 
   integrations:

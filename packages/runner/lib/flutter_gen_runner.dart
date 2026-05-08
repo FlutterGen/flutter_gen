@@ -3,8 +3,8 @@ import 'dart:io' show Directory, File;
 import 'dart:isolate';
 
 import 'package:build/build.dart';
-import 'package:flutter_gen_core/flutter_generator.dart';
-import 'package:flutter_gen_core/settings/config.dart';
+import 'package:flutter_assets_gen_core/flutter_assets_generator.dart';
+import 'package:flutter_assets_gen_core/settings/config.dart';
 import 'package:glob/glob.dart';
 import 'package:package_config/package_config.dart';
 import 'package:path/path.dart';
@@ -25,7 +25,7 @@ PostProcessBuilder postProcessBuild(BuilderOptions options) =>
 /// 3. A [PostProcessBuilder] consumes that manifest and writes the actual
 ///    source outputs into the package.
 ///
-/// This indirection is required because `flutter_gen.output` is configuration
+/// This indirection is required because `flutter_assets_gen.output` is configuration
 /// driven. A normal builder must declare its outputs up front in
 /// [buildExtensions], but FlutterGen's real `.gen.dart` paths are only known
 /// after reading the package's `pubspec.yaml` / builder options. The manifest
@@ -34,7 +34,7 @@ PostProcessBuilder postProcessBuild(BuilderOptions options) =>
 class FlutterGenBuilder extends Builder {
   FlutterGenBuilder(this._options);
 
-  static const _manifestExtension = '.flutter_gen.manifest.json';
+  static const _manifestExtension = '.flutter_assets_gen.manifest.json';
   static const _assetsName = 'assets.gen.dart';
   static const _colorsName = 'colors.gen.dart';
   static const _fontsName = 'fonts.gen.dart';
@@ -362,8 +362,8 @@ class FlutterGenBuilder extends Builder {
 /// model to write source outputs whose paths are not statically known to the
 /// original builder.
 class FlutterGenPostProcessBuilder extends PostProcessBuilder {
-  static const _manifestExtension = '.flutter_gen.manifest.json';
-  static const _ownerFileName = 'flutter_gen_owner.json';
+  static const _manifestExtension = '.flutter_assets_gen.manifest.json';
+  static const _ownerFileName = 'flutter_assets_gen_owner.json';
 
   @override
   Iterable<String> get inputExtensions => const [_manifestExtension];
@@ -383,7 +383,7 @@ class FlutterGenPostProcessBuilder extends PostProcessBuilder {
         manifest.packageRoot,
         '.dart_tool',
         'flutter_build',
-        'flutter_gen',
+        'flutter_assets_gen',
         _ownerFileName,
       ),
     );

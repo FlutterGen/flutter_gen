@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:dartx/dartx_io.dart';
-import 'package:flutter_gen_core/flutter_generator.dart';
-import 'package:flutter_gen_core/generators/assets_generator.dart';
-import 'package:flutter_gen_core/generators/colors_generator.dart';
-import 'package:flutter_gen_core/generators/fonts_generator.dart';
-import 'package:flutter_gen_core/settings/config.dart';
-import 'package:flutter_gen_core/utils/formatter.dart';
+import 'package:flutter_assets_gen_core/flutter_assets_generator.dart';
+import 'package:flutter_assets_gen_core/generators/assets_generator.dart';
+import 'package:flutter_assets_gen_core/generators/colors_generator.dart';
+import 'package:flutter_assets_gen_core/generators/fonts_generator.dart';
+import 'package:flutter_assets_gen_core/settings/config.dart';
+import 'package:flutter_assets_gen_core/utils/formatter.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 

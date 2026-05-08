@@ -1,4 +1,8 @@
-name: flutter_gen_repository
+name: flutter_assets_gen_repository
+description: A specialized asset generator for Flutter with support for multiple asset classes and custom groupings.
+version: 1.0.0
+homepage: https://github.com/Sumat-Dev/flutter_assets_gen
+repository: https://github.com/Sumat-Dev/flutter_assets_gen
 
 environment:
   sdk: ^3.4.0

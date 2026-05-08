@@ -1,21 +1,21 @@
 targets:
   $default:
     builders:
-      flutter_gen_runner:
+      flutter_assets_gen_runner:
         enabled: true
 
 builders:
-  flutter_gen_runner:
-    import: 'package:flutter_gen_runner/flutter_gen_runner.dart'
+  flutter_assets_gen_runner:
+    import: 'package:flutter_assets_gen_runner/flutter_assets_gen_runner.dart'
     builder_factories: ['build']
-    build_extensions: { '$package$': ['.flutter_gen.manifest.json'] }
+    build_extensions: { '$package$': ['.flutter_assets_gen.manifest.json'] }
     auto_apply: dependents
     build_to: cache
-    applies_builders: ['flutter_gen_runner:flutter_gen_runner_post_process']
+    applies_builders: ['flutter_assets_gen_runner:flutter_assets_gen_runner_post_process']
 
 post_process_builders:
-  flutter_gen_runner_post_process:
-    import: 'package:flutter_gen_runner/flutter_gen_runner.dart'
+  flutter_assets_gen_runner_post_process:
+    import: 'package:flutter_assets_gen_runner/flutter_assets_gen_runner.dart'
     builder_factory: 'postProcessBuild'
-    input_extensions: ['.flutter_gen.manifest.json']
+    input_extensions: ['.flutter_assets_gen.manifest.json']
     build_to: source
