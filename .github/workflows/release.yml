@@ -6,13 +6,13 @@ on:
       - 'v*.*.*'
   workflow_dispatch:
 
-permissions:
-  pull-requests: write
-  contents: write
+permissions: {}
 
 jobs:
   build:
     name: Build for ${{ matrix.os }}
+    permissions:
+      contents: write
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -89,13 +89,13 @@ jobs:
           owner: ${{ github.repository_owner }}
 
       - id: version
-        run: echo "::set-output name=version::${GITHUB_REF##*/}"
+        run: echo "version=${GITHUB_REF##*/}" >> "$GITHUB_OUTPUT"
 
       - id: checksum
         shell: bash
         run: |
-          echo ::set-output name=sha256_linux::$(cat fluttergen-linux.sha256 | awk '{ print $1 }')
-          echo ::set-output name=sha256_macos::$(cat fluttergen-macos.sha256 | awk '{ print $1 }')
+          echo "sha256_linux=$(cat fluttergen-linux.sha256 | awk '{ print $1 }')" >> "$GITHUB_OUTPUT"
+          echo "sha256_macos=$(cat fluttergen-macos.sha256 | awk '{ print $1 }')" >> "$GITHUB_OUTPUT"
       - uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ steps.app-token.outputs.token }}
