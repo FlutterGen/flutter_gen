@@ -50,9 +50,7 @@ class $AssetsImagesIconsGen {
   List<SvgGenImage> get values => [dartTest, fuchsia];
 }
 
-class Assets {
-  const Assets._();
-
+abstract final class Assets {
   static const String package = 'test';
 
   static const $AssetsImagesGen images = $AssetsImagesGen();

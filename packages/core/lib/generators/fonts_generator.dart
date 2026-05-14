@@ -48,8 +48,7 @@ String generateFonts(
   buffer.writeln('// dart format width=${formatter.pageWidth}');
   buffer.writeln(header);
   buffer.writeln(ignore);
-  buffer.writeln('class $className {');
-  buffer.writeln('$className._();');
+  buffer.writeln('abstract final class $className {');
   buffer.writeln();
 
   final isPackage = config.packageParameterLiteral.isNotEmpty;

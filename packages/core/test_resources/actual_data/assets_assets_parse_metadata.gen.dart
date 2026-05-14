@@ -195,9 +195,7 @@ class $AssetsImagesIconsGen {
   List<SvgGenImage> get values => [dartTest, fuchsia, invalid, kmm, paint];
 }
 
-class Assets {
-  const Assets._();
-
+abstract final class Assets {
   static const $AssetsFlareGen flare = $AssetsFlareGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();

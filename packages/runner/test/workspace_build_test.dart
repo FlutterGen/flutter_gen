@@ -5,141 +5,145 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
 void main() {
-  test('supports build_runner --workspace and cleans stale outputs', () async {
-    final workspaceDir = await _createWorkspaceFixture();
-    addTearDown(() async {
-      if (workspaceDir.existsSync()) {
-        workspaceDir.deleteSync(recursive: true);
-      }
-    });
+  test(
+    'supports build_runner --workspace and cleans stale outputs',
+    () async {
+      final workspaceDir = await _createWorkspaceFixture();
+      addTearDown(() async {
+        if (workspaceDir.existsSync()) {
+          workspaceDir.deleteSync(recursive: true);
+        }
+      });
 
-    await _runProcess(
-      'flutter',
-      ['pub', 'get'],
-      workingDirectory: workspaceDir.path,
-    );
+      await _runProcess(
+        'flutter',
+        ['pub', 'get'],
+        workingDirectory: workspaceDir.path,
+      );
 
-    await _runProcess(
-      'dart',
-      [
-        'run',
-        'build_runner',
-        'build',
-        '--workspace',
-        '--delete-conflicting-outputs',
-      ],
-      workingDirectory: workspaceDir.path,
-    );
+      await _runProcess(
+        'dart',
+        [
+          'run',
+          'build_runner',
+          'build',
+          '--workspace',
+          '--delete-conflicting-outputs',
+        ],
+        workingDirectory: workspaceDir.path,
+      );
 
-    final appDir = Directory(p.join(workspaceDir.path, 'packages', 'app'));
-    final ownerFile = File(
-      p.join(
-        appDir.path,
-        '.dart_tool',
-        'flutter_build',
-        'flutter_gen',
-        'flutter_gen_owner.json',
-      ),
-    );
+      final appDir = Directory(p.join(workspaceDir.path, 'packages', 'app'));
+      final ownerFile = File(
+        p.join(
+          appDir.path,
+          '.dart_tool',
+          'flutter_build',
+          'flutter_gen',
+          'flutter_gen_owner.json',
+        ),
+      );
 
-    expect(
-      File(p.join(appDir.path, 'lib', 'gen', 'assets.gen.dart')).existsSync(),
-      isTrue,
-    );
-    expect(
-      File(p.join(appDir.path, 'lib', 'gen', 'colors.gen.dart')).existsSync(),
-      isTrue,
-    );
-    expect(
-      File(p.join(appDir.path, 'lib', 'gen', 'fonts.gen.dart')).existsSync(),
-      isTrue,
-    );
-    expect(ownerFile.existsSync(), isTrue);
+      expect(
+        File(p.join(appDir.path, 'lib', 'gen', 'assets.gen.dart')).existsSync(),
+        isTrue,
+      );
+      expect(
+        File(p.join(appDir.path, 'lib', 'gen', 'colors.gen.dart')).existsSync(),
+        isTrue,
+      );
+      expect(
+        File(p.join(appDir.path, 'lib', 'gen', 'fonts.gen.dart')).existsSync(),
+        isTrue,
+      );
+      expect(ownerFile.existsSync(), isTrue);
 
-    final initialOwner =
-        jsonDecode(ownerFile.readAsStringSync()) as Map<String, Object?>;
-    expect(
-      initialOwner['paths'],
-      containsAll([
-        'lib/gen/assets.gen.dart',
-        'lib/gen/colors.gen.dart',
-        'lib/gen/fonts.gen.dart',
-      ]),
-    );
+      final initialOwner =
+          jsonDecode(ownerFile.readAsStringSync()) as Map<String, Object?>;
+      expect(
+        initialOwner['paths'],
+        containsAll([
+          'lib/gen/assets.gen.dart',
+          'lib/gen/colors.gen.dart',
+          'lib/gen/fonts.gen.dart',
+        ]),
+      );
 
-    final appPubspec = File(p.join(appDir.path, 'pubspec.yaml'));
-    appPubspec.writeAsStringSync(
-      appPubspec
-          .readAsStringSync()
-          .replaceFirst('output: lib/gen/', 'output: lib/alt_gen/'),
-    );
+      final appPubspec = File(p.join(appDir.path, 'pubspec.yaml'));
+      appPubspec.writeAsStringSync(
+        appPubspec
+            .readAsStringSync()
+            .replaceFirst('output: lib/gen/', 'output: lib/alt_gen/'),
+      );
 
-    await _runProcess(
-      'dart',
-      [
-        'run',
-        'build_runner',
-        'build',
-        '--workspace',
-        '--delete-conflicting-outputs',
-      ],
-      workingDirectory: workspaceDir.path,
-    );
+      await _runProcess(
+        'dart',
+        [
+          'run',
+          'build_runner',
+          'build',
+          '--workspace',
+          '--delete-conflicting-outputs',
+        ],
+        workingDirectory: workspaceDir.path,
+      );
 
-    expect(
-      File(p.join(appDir.path, 'lib', 'gen', 'assets.gen.dart')).existsSync(),
-      isFalse,
-    );
-    expect(
-      File(p.join(appDir.path, 'lib', 'gen', 'colors.gen.dart')).existsSync(),
-      isFalse,
-    );
-    expect(
-      File(p.join(appDir.path, 'lib', 'gen', 'fonts.gen.dart')).existsSync(),
-      isFalse,
-    );
+      expect(
+        File(p.join(appDir.path, 'lib', 'gen', 'assets.gen.dart')).existsSync(),
+        isFalse,
+      );
+      expect(
+        File(p.join(appDir.path, 'lib', 'gen', 'colors.gen.dart')).existsSync(),
+        isFalse,
+      );
+      expect(
+        File(p.join(appDir.path, 'lib', 'gen', 'fonts.gen.dart')).existsSync(),
+        isFalse,
+      );
 
-    expect(
-      File(p.join(appDir.path, 'lib', 'alt_gen', 'assets.gen.dart'))
-          .existsSync(),
-      isTrue,
-    );
-    expect(
-      File(p.join(appDir.path, 'lib', 'alt_gen', 'colors.gen.dart'))
-          .existsSync(),
-      isTrue,
-    );
-    expect(
-      File(p.join(appDir.path, 'lib', 'alt_gen', 'fonts.gen.dart'))
-          .existsSync(),
-      isTrue,
-    );
+      expect(
+        File(p.join(appDir.path, 'lib', 'alt_gen', 'assets.gen.dart'))
+            .existsSync(),
+        isTrue,
+      );
+      expect(
+        File(p.join(appDir.path, 'lib', 'alt_gen', 'colors.gen.dart'))
+            .existsSync(),
+        isTrue,
+      );
+      expect(
+        File(p.join(appDir.path, 'lib', 'alt_gen', 'fonts.gen.dart'))
+            .existsSync(),
+        isTrue,
+      );
 
-    final updatedOwner =
-        jsonDecode(ownerFile.readAsStringSync()) as Map<String, Object?>;
-    expect(
-      updatedOwner['paths'],
-      containsAll([
-        'lib/alt_gen/assets.gen.dart',
-        'lib/alt_gen/colors.gen.dart',
-        'lib/alt_gen/fonts.gen.dart',
-      ]),
-    );
-  },
+      final updatedOwner =
+          jsonDecode(ownerFile.readAsStringSync()) as Map<String, Object?>;
+      expect(
+        updatedOwner['paths'],
+        containsAll([
+          'lib/alt_gen/assets.gen.dart',
+          'lib/alt_gen/colors.gen.dart',
+          'lib/alt_gen/fonts.gen.dart',
+        ]),
+      );
+    },
     timeout: const Timeout(Duration(minutes: 5)),
   );
 
-  test('applies package build.yaml options in workspace mode', () async {
-    final workspaceDir = await _createWorkspaceFixture();
-    addTearDown(() async {
-      if (workspaceDir.existsSync()) {
-        workspaceDir.deleteSync(recursive: true);
-      }
-    });
+  test(
+    'applies package build.yaml options in workspace mode',
+    () async {
+      final workspaceDir = await _createWorkspaceFixture();
+      addTearDown(() async {
+        if (workspaceDir.existsSync()) {
+          workspaceDir.deleteSync(recursive: true);
+        }
+      });
 
-    final appDir = Directory(p.join(workspaceDir.path, 'packages', 'app'));
-    final appBuildYaml = File(p.join(appDir.path, 'build.yaml'));
-    appBuildYaml.writeAsStringSync(r'''
+      final appDir = Directory(p.join(workspaceDir.path, 'packages', 'app'));
+      final appBuildYaml = File(p.join(appDir.path, 'build.yaml'));
+      appBuildYaml.writeAsStringSync(r'''
 targets:
   $default:
     builders:
@@ -148,87 +152,89 @@ targets:
           output: lib/build_gen/
 ''');
 
-    await _runProcess(
-      'flutter',
-      ['pub', 'get'],
-      workingDirectory: workspaceDir.path,
-    );
+      await _runProcess(
+        'flutter',
+        ['pub', 'get'],
+        workingDirectory: workspaceDir.path,
+      );
 
-    await _runProcess(
-      'dart',
-      [
-        'run',
-        'build_runner',
-        'build',
-        '--workspace',
-        '--delete-conflicting-outputs',
-      ],
-      workingDirectory: workspaceDir.path,
-    );
+      await _runProcess(
+        'dart',
+        [
+          'run',
+          'build_runner',
+          'build',
+          '--workspace',
+          '--delete-conflicting-outputs',
+        ],
+        workingDirectory: workspaceDir.path,
+      );
 
-    expect(
-      File(p.join(appDir.path, 'lib', 'build_gen', 'assets.gen.dart'))
-          .existsSync(),
-      isTrue,
-    );
-    expect(
-      File(p.join(appDir.path, 'lib', 'build_gen', 'colors.gen.dart'))
-          .existsSync(),
-      isTrue,
-    );
-    expect(
-      File(p.join(appDir.path, 'lib', 'build_gen', 'fonts.gen.dart'))
-          .existsSync(),
-      isTrue,
-    );
+      expect(
+        File(p.join(appDir.path, 'lib', 'build_gen', 'assets.gen.dart'))
+            .existsSync(),
+        isTrue,
+      );
+      expect(
+        File(p.join(appDir.path, 'lib', 'build_gen', 'colors.gen.dart'))
+            .existsSync(),
+        isTrue,
+      );
+      expect(
+        File(p.join(appDir.path, 'lib', 'build_gen', 'fonts.gen.dart'))
+            .existsSync(),
+        isTrue,
+      );
 
-    expect(
-      File(p.join(appDir.path, 'lib', 'gen', 'assets.gen.dart')).existsSync(),
-      isFalse,
-    );
-  },
+      expect(
+        File(p.join(appDir.path, 'lib', 'gen', 'assets.gen.dart')).existsSync(),
+        isFalse,
+      );
+    },
     timeout: const Timeout(Duration(minutes: 5)),
   );
 
-  test('overwrites existing generated files in workspace mode', () async {
-    final workspaceDir = await _createWorkspaceFixture();
-    addTearDown(() async {
-      if (workspaceDir.existsSync()) {
-        workspaceDir.deleteSync(recursive: true);
-      }
-    });
+  test(
+    'overwrites existing generated files in workspace mode',
+    () async {
+      final workspaceDir = await _createWorkspaceFixture();
+      addTearDown(() async {
+        if (workspaceDir.existsSync()) {
+          workspaceDir.deleteSync(recursive: true);
+        }
+      });
 
-    final appDir = Directory(p.join(workspaceDir.path, 'packages', 'app'));
-    final generatedFile = File(
-      p.join(appDir.path, 'lib', 'gen', 'assets.gen.dart'),
-    );
-    generatedFile.parent.createSync(recursive: true);
-    generatedFile.writeAsStringSync('// stale contents\n');
+      final appDir = Directory(p.join(workspaceDir.path, 'packages', 'app'));
+      final generatedFile = File(
+        p.join(appDir.path, 'lib', 'gen', 'assets.gen.dart'),
+      );
+      generatedFile.parent.createSync(recursive: true);
+      generatedFile.writeAsStringSync('// stale contents\n');
 
-    await _runProcess(
-      'flutter',
-      ['pub', 'get'],
-      workingDirectory: workspaceDir.path,
-    );
+      await _runProcess(
+        'flutter',
+        ['pub', 'get'],
+        workingDirectory: workspaceDir.path,
+      );
 
-    await _runProcess(
-      'dart',
-      [
-        'run',
-        'build_runner',
-        'build',
-        '--workspace',
-        '--delete-conflicting-outputs',
-      ],
-      workingDirectory: workspaceDir.path,
-    );
+      await _runProcess(
+        'dart',
+        [
+          'run',
+          'build_runner',
+          'build',
+          '--workspace',
+          '--delete-conflicting-outputs',
+        ],
+        workingDirectory: workspaceDir.path,
+      );
 
-    expect(generatedFile.existsSync(), isTrue);
-    expect(
-      generatedFile.readAsStringSync(),
-      isNot(contains('// stale contents')),
-    );
-  },
+      expect(generatedFile.existsSync(), isTrue);
+      expect(
+        generatedFile.readAsStringSync(),
+        isNot(contains('// stale contents')),
+      );
+    },
     timeout: const Timeout(Duration(minutes: 5)),
   );
 }

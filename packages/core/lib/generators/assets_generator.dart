@@ -592,8 +592,7 @@ String _assetsClassDefinition(
   String? packageName,
 ) {
   return '''
-class $className {
-  const $className._();
+abstract final class $className {
 ${packageName != null ? "\n  static const String package = '$packageName';" : ''}
 
   $statementsBlock

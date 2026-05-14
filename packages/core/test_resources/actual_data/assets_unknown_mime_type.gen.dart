@@ -19,8 +19,6 @@ class $AssetsUnknownGen {
   List<String> get values => [unknownMimeType];
 }
 
-class Assets {
-  const Assets._();
-
+abstract final class Assets {
   static const $AssetsUnknownGen unknown = $AssetsUnknownGen();
 }
