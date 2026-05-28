@@ -13,95 +13,13 @@ class SvgIntegration extends Integration {
   String get packageExpression => isPackage ? ' = package' : '';
 
   @override
-  List<Import> get requiredImports => const [
-        Import('package:flutter/widgets.dart'),
-        Import('package:flutter/services.dart'),
-        Import('package:flutter_svg/flutter_svg.dart', alias: '_svg'),
-        Import('package:vector_graphics/vector_graphics.dart', alias: '_vg'),
+  List<Import> get requiredImports => [
+        const Import(
+            'package:flutter_gen_interface/flutter_gen_interface.dart'),
       ];
 
   @override
-  String get classOutput => _classDefinition;
-
-  String get _classDefinition => '''class SvgGenImage {
-  const SvgGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = false;
-
-  const SvgGenImage.vec(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = true;
-
-  final String _assetName;
-  final Size? size;
-  final Set<String> flavors;
-  final bool _isVecFormat;
-
-${isPackage ? "\n  static const String package = '$packageName';" : ''}
-
-  _svg.SvgPicture svg({
-    Key? key,
-    bool matchTextDirection = false,
-    AssetBundle? bundle,
-    ${isPackage ? '$deprecationMessagePackage\n' : ''}String? package$packageExpression,
-    double? width,
-    double? height,
-    BoxFit fit = BoxFit.contain,
-    AlignmentGeometry alignment = Alignment.center,
-    bool allowDrawingOutsideViewBox = false,
-    WidgetBuilder? placeholderBuilder,
-    String? semanticsLabel,
-    bool excludeFromSemantics = false,
-    _svg.SvgTheme? theme,
-    _svg.ColorMapper? colorMapper,
-    ColorFilter? colorFilter,
-    Clip clipBehavior = Clip.hardEdge,
-    @deprecated Color? color,
-    @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
-    @deprecated bool cacheColorFilter = false,
-  }) {
-    final _svg.BytesLoader loader;
-    if (_isVecFormat) {
-      loader = _vg.AssetBytesLoader(
-        _assetName,
-        assetBundle: bundle,
-        packageName: package,
-      );
-    } else {
-      loader = _svg.SvgAssetLoader(
-        _assetName,
-        assetBundle: bundle,
-        packageName: package,
-        theme: theme,
-        colorMapper: colorMapper,
-      );
-    }
-    return _svg.SvgPicture(
-      loader,
-      key: key,
-      matchTextDirection: matchTextDirection,
-      width: width,
-      height: height,
-      fit: fit,
-      alignment: alignment,
-      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
-      placeholderBuilder: placeholderBuilder,
-      semanticsLabel: semanticsLabel,
-      excludeFromSemantics: excludeFromSemantics,
-      colorFilter: colorFilter ?? (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
-      clipBehavior: clipBehavior,
-      cacheColorFilter: cacheColorFilter,
-    );
-  }
-
-  String get path => _assetName;
-
-  String get keyName => ${isPackage ? '\'packages/$packageName/\$_assetName\'' : '_assetName'};
-}''';
+  String get classOutput => '';
 
   @override
   String get className => 'SvgGenImage';
@@ -127,7 +45,10 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
       final flavors = asset.flavors.map((e) => '\'$e\'').join(', ');
       buffer.write(flavors);
       buffer.write('}');
-      buffer.write(','); // Better formatting.
+      if (!isPackage) buffer.write(','); // Better formatting.
+    }
+    if (isPackage) {
+      buffer.write(', package: \'$packageName\',');
     }
     buffer.write(')');
     return buffer.toString();

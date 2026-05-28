@@ -4,6 +4,7 @@ packages:
   - packages/command
   - packages/core
   - packages/runner
+  - packages/flutter_gen_interface
   - examples/example
   - examples/example_resources
   - examples/example_workspace
@@ -132,6 +133,7 @@ scripts:
         - flutter_gen
         - flutter_gen_core
         - flutter_gen_runner
+        - flutter_gen_interface
 
   publish:dry:
     run: dart pub publish --dry-run
@@ -143,3 +145,4 @@ scripts:
         - flutter_gen
         - flutter_gen_core
         - flutter_gen_runner
+        - flutter_gen_interface

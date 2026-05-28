@@ -1,0 +1,22 @@
+name: flutter_gen_interface
+description: "A package exposing the XXXGenImage classes used by flutter_gen so modular packages can share the same inheritance tree."
+version: 1.0.0
+homepage: https://github.com/FlutterGen/flutter_gen
+repository: https://github.com/FlutterGen/flutter_gen/tree/main/packages/flutter_gen_interface
+documentation: https://github.com/FlutterGen/flutter_gen
+issue_tracker: https://github.com/FlutterGen/flutter_gen/issues
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_svg: '>=2.0.0 <3.0.0'
+  vector_graphics: '>=1.1.9 <2.0.0'
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lints: any # Ignoring the version to allow editing across SDK versions.

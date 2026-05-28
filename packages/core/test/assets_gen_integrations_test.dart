@@ -174,21 +174,6 @@ void main() {
         isFalse,
       );
       expect(integration.isConstConstructor, isTrue);
-      expect(integration.classOutput.contains('String? package,'), isTrue);
-
-      final integrationWithPackage = SvgIntegration('package_name');
-      expect(
-        integrationWithPackage.classOutput.contains(
-          'String? package = package,',
-        ),
-        isTrue,
-      );
-      expect(
-        integrationWithPackage.classOutput.contains(
-          "static const String package = 'package_name';",
-        ),
-        isTrue,
-      );
     });
 
     test('Assets with Rive integrations on pubspec.yaml', () async {

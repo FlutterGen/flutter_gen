@@ -1,5 +1,10 @@
 ## 5.14.1
 
+**Feature**
+
+- [#759](https://github.com/FlutterGen/flutter_gen/issues/759) Added `flutter_gen_interface` to allow generated asset classes to implement a shared custom interface for Modular Architectures & Design Systems.
+
+
 **Development**
 
 - Fix package root resolution after build_runner 2.14.0 AOT changes. by [@Carapacik](https://github.com/Carapacik)
