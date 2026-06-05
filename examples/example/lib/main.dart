@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // Auto generated font from FlutterGen.
         fontFamily: MyFontFamily.raleway,
-        primarySwatch: MyColorName.crimsonRed,
+        primarySwatch: MyColorName.crimsonRedSwatch,
       ),
       home: Scaffold(
         appBar: AppBar(

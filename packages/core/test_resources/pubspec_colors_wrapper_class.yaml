@@ -1,0 +1,12 @@
+name: test
+
+flutter_gen:
+  output: lib/gen/ # Optional (default: lib/gen/)
+
+  colors:
+    outputs:
+      style: wrapper-class
+      class_name: Colour
+    inputs:
+      - assets/color/colors.xml
+      - assets/color/colors2.xml

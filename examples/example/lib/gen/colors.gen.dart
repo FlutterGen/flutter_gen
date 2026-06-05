@@ -11,21 +11,26 @@
 import 'package:flutter/painting.dart';
 import 'package:flutter/material.dart';
 
-abstract final class MyColorName {
+class MyColorName extends Color {
+  const MyColorName(super.value);
+
   /// Color: #000000
-  static const Color black = Color(0xFF000000);
+  static const black = MyColorName(0xFF000000);
 
   /// Color: #4D000000
-  static const Color black30 = Color(0x4D000000);
+  static const black30 = MyColorName(0x4D000000);
 
   /// Color: #66000000
-  static const Color black40 = Color(0x66000000);
+  static const black40 = MyColorName(0x66000000);
 
   /// Color: #80000000
-  static const Color black50 = Color(0x80000000);
+  static const black50 = MyColorName(0x80000000);
 
   /// Color: #99000000
-  static const Color black60 = Color(0x99000000);
+  static const black60 = MyColorName(0x99000000);
+
+  /// Color: #CF2A2A
+  static const crimsonRed = MyColorName(0xFFCF2A2A);
 
   /// MaterialColor:
   ///   50: #FFF9E5E5
@@ -38,7 +43,7 @@ abstract final class MyColorName {
   ///   700: #FFC31F1F
   ///   800: #FFBD1919
   ///   900: #FFB20F0F
-  static const MaterialColor crimsonRed = MaterialColor(
+  static const MaterialColor crimsonRedSwatch = MaterialColor(
     0xFFCF2A2A,
     <int, Color>{
       50: Color(0xFFF9E5E5),
@@ -55,13 +60,16 @@ abstract final class MyColorName {
   );
 
   /// Color: #979797
-  static const Color gray410 = Color(0xFF979797);
+  static const gray410 = MyColorName(0xFF979797);
 
   /// Color: #EEEEEE
-  static const Color gray70 = Color(0xFFEEEEEE);
+  static const gray70 = MyColorName(0xFFEEEEEE);
 
   /// Color: #FFFFFF
-  static const Color white = Color(0xFFFFFFFF);
+  static const white = MyColorName(0xFFFFFFFF);
+
+  /// Color: #DF9527
+  static const yellowOcher = MyColorName(0xFFDF9527);
 
   /// MaterialColor:
   ///   50: #FFFBF2E5
@@ -74,7 +82,7 @@ abstract final class MyColorName {
   ///   700: #FFD7821D
   ///   800: #FFD27817
   ///   900: #FFCA670E
-  static const MaterialColor yellowOcher = MaterialColor(
+  static const MaterialColor yellowOcherSwatch = MaterialColor(
     0xFFDF9527,
     <int, Color>{
       50: Color(0xFFFBF2E5),
@@ -95,7 +103,8 @@ abstract final class MyColorName {
   ///   200: #FFFFBCA3
   ///   400: #FFFFA989
   ///   700: #FFFF9E7A
-  static const MaterialAccentColor yellowOcherAccent = MaterialAccentColor(
+  static const MaterialAccentColor yellowOcherAccentSwatch =
+      MaterialAccentColor(
     0xFFFFBCA3,
     <int, Color>{
       100: Color(0xFFFFE8E0),
