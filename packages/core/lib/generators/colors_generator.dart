@@ -106,8 +106,7 @@ class _Color {
   _Color.fromXmlElement(XmlElement element)
       : this(
           element.getAttribute('name')!,
-          // ignore: deprecated_member_use
-          element.text,
+          element.innerText,
           element.getAttribute('type')?.split(' ') ?? List.empty(),
         );
 
