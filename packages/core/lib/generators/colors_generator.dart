@@ -74,28 +74,17 @@ String _colorStatement(
 ) {
   final isWrapper =
       style == FlutterGenElementColorsOutputsStyle.wrapperClassStyle;
-  // In the wrapper-class style every color is exposed as a base constant of the
-  // generated type, including material colors whose swatch is emitted as well.
-  final colorType = isWrapper ? className : 'Color';
+  // In the wrapper-class style only normal colors change: they are constructed
+  // with the generated type's constructor and need no type annotation. Material
+  // and material-accent colors are emitted exactly as in the plain style.
   final name = color.name.camelCase();
 
   final buffer = StringBuffer();
-  if (color.isNormal || isWrapper) {
-    final comment = '/// Color: ${color.hex}';
-    // The wrapper type is inferred from the constructor, so no annotation.
-    final declaration = isWrapper ? 'static const' : 'static const Color';
-    final statement =
-        '''$declaration $name = $colorType(${colorFromHex(color.hex)});''';
-
-    buffer.writeln(comment);
-    buffer.writeln(statement);
-  }
   if (color.isMaterial) {
     final swatch = swatchFromPrimaryHex(color.hex);
-    final swatchName = isWrapper ? '${name}Swatch' : name;
     final statement = '''/// MaterialColor:
         ${swatch.entries.map((e) => '///   ${e.key}: ${hexFromColor(e.value)}').join('\n')}
-        static const MaterialColor $swatchName = MaterialColor(
+        static const MaterialColor $name = MaterialColor(
     ${swatch[500]},
     <int, Color>{
       ${swatch.entries.map((e) => '${e.key}: Color(${e.value}),').join('\n')}
@@ -105,15 +94,25 @@ String _colorStatement(
   }
   if (color.isMaterialAccent) {
     final accentSwatch = accentSwatchFromPrimaryHex(color.hex);
-    final accentName = isWrapper ? '${name}AccentSwatch' : '${name}Accent';
     final statement = '''/// MaterialAccentColor:
         ${accentSwatch.entries.map((e) => '///   ${e.key}: ${hexFromColor(e.value)}').join('\n')}
-        static const MaterialAccentColor $accentName = MaterialAccentColor(
+        static const MaterialAccentColor ${name}Accent = MaterialAccentColor(
    ${accentSwatch[200]},
    <int, Color>{
      ${accentSwatch.entries.map((e) => '${e.key}: Color(${e.value}),').join('\n')}
     },
   );''';
+    buffer.writeln(statement);
+  }
+  if (color.isNormal) {
+    final comment = '/// Color: ${color.hex}';
+    // The wrapper type is inferred from the constructor, so no annotation.
+    final declaration = isWrapper ? 'static const' : 'static const Color';
+    final colorType = isWrapper ? className : 'Color';
+    final statement =
+        '''$declaration $name = $colorType(${colorFromHex(color.hex)});''';
+
+    buffer.writeln(comment);
     buffer.writeln(statement);
   }
   return buffer.toString();

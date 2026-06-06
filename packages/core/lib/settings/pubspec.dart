@@ -349,8 +349,8 @@ enum FlutterGenElementColorsOutputsStyle {
   plainStyle('plain'),
 
   /// Generates a class that `extends Color` with a forwarding const
-  /// constructor, exposing each color as a `static const` of the generated
-  /// type. Material colors additionally expose a `<name>Swatch`.
+  /// constructor, exposing each normal color as a `static const` of the
+  /// generated type. Material colors are emitted as in the plain style.
   wrapperClassStyle('wrapper-class'),
   ;
 

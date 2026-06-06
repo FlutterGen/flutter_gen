@@ -29,9 +29,6 @@ class Colour extends Color {
   /// Color: #99000000
   static const black60 = Colour(0x99000000);
 
-  /// Color: #CF2A2A
-  static const crimsonRed = Colour(0xFFCF2A2A);
-
   /// MaterialColor:
   ///   50: #FFF9E5E5
   ///   100: #FFF1BFBF
@@ -43,7 +40,7 @@ class Colour extends Color {
   ///   700: #FFC31F1F
   ///   800: #FFBD1919
   ///   900: #FFB20F0F
-  static const MaterialColor crimsonRedSwatch =
+  static const MaterialColor crimsonRed =
       MaterialColor(0xFFCF2A2A, <int, Color>{
         50: Color(0xFFF9E5E5),
         100: Color(0xFFF1BFBF),
@@ -66,9 +63,6 @@ class Colour extends Color {
   /// Color: #FFFFFF
   static const white = Colour(0xFFFFFFFF);
 
-  /// Color: #DF9527
-  static const yellowOcher = Colour(0xFFDF9527);
-
   /// MaterialColor:
   ///   50: #FFFBF2E5
   ///   100: #FFF5DFBE
@@ -80,7 +74,7 @@ class Colour extends Color {
   ///   700: #FFD7821D
   ///   800: #FFD27817
   ///   900: #FFCA670E
-  static const MaterialColor yellowOcherSwatch =
+  static const MaterialColor yellowOcher =
       MaterialColor(0xFFDF9527, <int, Color>{
         50: Color(0xFFFBF2E5),
         100: Color(0xFFF5DFBE),
@@ -99,7 +93,7 @@ class Colour extends Color {
   ///   200: #FFFFBCA3
   ///   400: #FFFFA989
   ///   700: #FFFF9E7A
-  static const MaterialAccentColor yellowOcherAccentSwatch =
+  static const MaterialAccentColor yellowOcherAccent =
       MaterialAccentColor(0xFFFFBCA3, <int, Color>{
         100: Color(0xFFFFE8E0),
         200: Color(0xFFFFBCA3),

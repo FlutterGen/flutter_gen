@@ -692,18 +692,16 @@ flutter_gen:
   ```
 
 - **`wrapper-class`**: generates a class that `extends Color` with a forwarding
-  const constructor, so every color is a `static const` of the generated type.
-  Material colors additionally expose a `<name>Swatch`
-  (`MaterialColor`) / `<name>AccentSwatch` (`MaterialAccentColor`) alongside the
-  base color.
+  const constructor, so each normal color is a `static const` of the generated
+  type. Material colors (`MaterialColor` / `MaterialAccentColor`) are emitted
+  exactly as in the `plain` style.
 
   ```dart
   class ColorName extends Color {
     const ColorName(super.value);
 
     static const denim = ColorName(0xFF1560BD);
-    static const cinnamon = ColorName(0xFF955E1C);
-    static const MaterialColor cinnamonSwatch = MaterialColor(/* ... */);
+    static const MaterialColor cinnamon = MaterialColor(/* ... */);
   }
   ```
 

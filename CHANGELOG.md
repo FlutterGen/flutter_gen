@@ -2,7 +2,7 @@
 
 **Feature**
 
-- Add `colors/outputs/style` option. The new `wrapper-class` style generates a color class that `extends Color` with a forwarding const constructor, exposing each color as a `static const` of the generated type and emitting a `<name>Swatch` for material colors. The default `plain` style is unchanged.
+- Add `colors/outputs/style` option. The new `wrapper-class` style generates a color class that `extends Color` with a forwarding const constructor, exposing each normal color as a `static const` of the generated type. Material colors are emitted as in the default `plain` style, which is unchanged.
 
 ## 5.14.1
 
