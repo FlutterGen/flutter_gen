@@ -1,13 +1,19 @@
 // Verify flutter_gen_core works against every supported major `xml` version.
 //
-// The package declares `xml: '>=6.0.0 <8.0.0'`, but `dart pub get` is
-// conservative and resolves to the 6.x line by default (because the package
-// still supports older SDKs, while xml 7.x requires Dart >= 3.11). As a result
-// the normal `melos test` only ever exercises one of the two majors.
+// The package declares `xml: '>=6.0.0 <8.0.0'`, but a normal `dart pub get`
+// only ever resolves one major: `image` (a transitive dependency) pins `xml`,
+// so its newest releases force `xml` 7.x. As a result the normal `melos test`
+// never exercises the 6.x line.
 //
 // This script pins each major in turn via a temporary `pubspec_overrides.yaml`
 // (gitignored) and runs the core test suite against it, so a regression on
 // either xml 6.x or 7.x is caught.
+//
+// The 6.x pass also pins `image` below 4.9.0: `image` 4.9.0+ requires `xml`
+// ^7.0.1, so a downstream package constrained to `xml` 6.x resolves `image`
+// to its last 6.x-compatible release (4.8.0). Pinning only `xml` would instead
+// leave the newest `image` overridden onto an incompatible `xml` and fail to
+// compile, which is not a real resolution any consumer could hit.
 //
 // It is pure Dart (only `dart:io`) so it runs identically on Linux, macOS and
 // Windows. The xml 7.x pass requires Dart >= 3.11; on older toolchains it is
@@ -33,7 +39,15 @@ Future<void> main() async {
   }
 
   try {
-    await _runPass('^6.0.0', coreDir, override);
+    // image 4.9.0+ requires xml ^7.0.1, so the xml 6.x pass must also pin
+    // image to its last 6.x-compatible release. This mirrors what pub resolves
+    // for a downstream package constrained to xml 6.x.
+    await _runPass(
+      '^6.0.0',
+      coreDir,
+      override,
+      extraOverrides: {'image': "'>=4.5.4 <4.9.0'"},
+    );
 
     final dart = _dartVersion();
     if (dart.major > 3 || (dart.major == 3 && dart.minor >= 11)) {
@@ -56,12 +70,15 @@ Future<void> main() async {
 Future<void> _runPass(
   String constraint,
   Directory coreDir,
-  File override,
-) async {
+  File override, {
+  Map<String, String> extraOverrides = const {},
+}) async {
   stdout.writeln('\n========================================================');
   stdout.writeln(' flutter_gen_core test pass — pinning xml: $constraint');
   stdout.writeln('========================================================');
-  override.writeAsStringSync('dependency_overrides:\n  xml: $constraint\n');
+  final overrides = StringBuffer('dependency_overrides:\n  xml: $constraint\n');
+  extraOverrides.forEach((name, c) => overrides.writeln('  $name: $c'));
+  override.writeAsStringSync(overrides.toString());
   await _dart(['pub', 'get'], coreDir);
   stdout.writeln('-> resolved xml ${_resolvedXmlVersion(coreDir)}');
   await _dart(['test'], coreDir);
