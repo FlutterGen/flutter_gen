@@ -122,6 +122,10 @@ scripts:
       bash ./scripts/coverage.sh packages/core
     description: bash ./scripts/coverage.sh packages/core
 
+  test:xml-matrix:
+    run: dart scripts/test_xml_versions.dart
+    description: Run flutter_gen_core tests against both supported xml majors (6.x and 7.x)
+
   publish:force:
     run: dart pub publish -f
     exec:
