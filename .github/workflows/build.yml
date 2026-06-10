@@ -44,6 +44,10 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu')
         run: melos test:dart --no-select
 
+      - name: Test flutter_gen_core against both xml majors (6.x and 7.x)
+        if: startsWith(matrix.os, 'ubuntu')
+        run: melos test:xml-matrix
+
       - name: Run tests for Flutter packages
         if: startsWith(matrix.os, 'ubuntu')
         run: melos test:flutter --no-select
