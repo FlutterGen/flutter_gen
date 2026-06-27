@@ -12,6 +12,7 @@
   "branchPrefix": "upgrade-renovate-",
   "dependencyDashboard": false,
   "ignorePaths": [".github/", "examples/**"],
+  "ignoreDeps": ["rive"],
   "major": {
     "minimumReleaseAge": "30 days"
   },
