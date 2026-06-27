@@ -77,7 +77,6 @@ Future<String> generateAssets(
       'The value of "flutter/assets:" is incorrect.',
     );
   }
-
   final integrations = <Integration>[
     if (config.flutterGen.integrations.image)
       ImageIntegration(
@@ -165,7 +164,15 @@ Future<String> generateAssets(
 
   final importsBuffer = StringBuffer();
   for (final e in imports.sorted((a, b) => a.import.compareTo(b.import))) {
-    importsBuffer.writeln(import(e));
+    if (e.import ==
+        'package:flutter_gen_interface/flutter_gen_interface.dart') {
+      importsBuffer.writeln(
+          'import \'package:flutter_gen_interface/flutter_gen_interface.dart\';');
+      importsBuffer.writeln(
+          'export \'package:flutter_gen_interface/flutter_gen_interface.dart\';');
+    } else {
+      importsBuffer.writeln(import(e));
+    }
   }
 
   final buffer = StringBuffer();

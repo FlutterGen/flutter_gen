@@ -1,3 +1,9 @@
+## 5.15.0
+
+**Feature**
+
+- [#759](https://github.com/FlutterGen/flutter_gen/issues/759) Added `flutter_gen_interface` to allow generated asset classes to implement a shared custom interface for Modular Architectures & Design Systems.
+
 ## 5.14.1
 
 **Development**
