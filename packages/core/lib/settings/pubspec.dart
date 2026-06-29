@@ -186,7 +186,7 @@ class FlutterGenColors {
   final List<String> inputs;
 
   @JsonKey(name: 'outputs', required: true)
-  final FlutterGenElementOutputs outputs;
+  final FlutterGenElementColorsOutputs outputs;
 }
 
 @JsonSerializable()
@@ -341,6 +341,45 @@ class FlutterGenElementFontsOutputs extends FlutterGenElementOutputs {
 
   @JsonKey(name: 'package_parameter_enabled', defaultValue: false)
   final bool packageParameterEnabled;
+}
+
+enum FlutterGenElementColorsOutputsStyle {
+  /// The default style. Generates an `abstract final class` exposing each
+  /// color as a `static const Color`.
+  plainStyle('plain'),
+
+  /// Generates a class that `extends Color` with a forwarding const
+  /// constructor, exposing each normal color as a `static const` of the
+  /// generated type. Material colors are emitted as in the plain style.
+  wrapperClassStyle('wrapper-class'),
+  ;
+
+  const FlutterGenElementColorsOutputsStyle(this.name);
+
+  factory FlutterGenElementColorsOutputsStyle.fromJson(String json) {
+    return values.firstWhere(
+      (e) => e.name == json,
+      orElse: () => throw ArgumentError.value(json, 'style'),
+    );
+  }
+
+  final String name;
+
+  String toJson() => name;
+}
+
+@JsonSerializable()
+class FlutterGenElementColorsOutputs extends FlutterGenElementOutputs {
+  const FlutterGenElementColorsOutputs({
+    required super.className,
+    required this.style,
+  });
+
+  factory FlutterGenElementColorsOutputs.fromJson(Map json) =>
+      _$FlutterGenElementColorsOutputsFromJson(json);
+
+  @JsonKey(name: 'style', required: true)
+  final FlutterGenElementColorsOutputsStyle style;
 }
 
 @JsonSerializable()

@@ -139,8 +139,8 @@ FlutterGenColors _$FlutterGenColorsFromJson(Map json) => $checkedCreate(
           enabled: $checkedConvert('enabled', (v) => v as bool),
           inputs: $checkedConvert('inputs',
               (v) => (v as List<dynamic>).map((e) => e as String).toList()),
-          outputs: $checkedConvert(
-              'outputs', (v) => FlutterGenElementOutputs.fromJson(v as Map)),
+          outputs: $checkedConvert('outputs',
+              (v) => FlutterGenElementColorsOutputs.fromJson(v as Map)),
         );
         return val;
       },
@@ -308,6 +308,27 @@ FlutterGenElementFontsOutputs _$FlutterGenElementFontsOutputsFromJson(
         'className': 'class_name',
         'packageParameterEnabled': 'package_parameter_enabled'
       },
+    );
+
+FlutterGenElementColorsOutputs _$FlutterGenElementColorsOutputsFromJson(
+        Map json) =>
+    $checkedCreate(
+      'FlutterGenElementColorsOutputs',
+      json,
+      ($checkedConvert) {
+        $checkKeys(
+          json,
+          allowedKeys: const ['class_name', 'style'],
+          requiredKeys: const ['class_name', 'style'],
+        );
+        final val = FlutterGenElementColorsOutputs(
+          className: $checkedConvert('class_name', (v) => v as String),
+          style: $checkedConvert('style',
+              (v) => FlutterGenElementColorsOutputsStyle.fromJson(v as String)),
+        );
+        return val;
+      },
+      fieldKeyMap: const {'className': 'class_name'},
     );
 
 FlutterDeferredComponents _$FlutterDeferredComponentsFromJson(Map json) =>
