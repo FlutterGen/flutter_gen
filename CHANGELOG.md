@@ -11,6 +11,7 @@
 **Development**
 
 - [#757](https://github.com/FlutterGen/flutter_gen/pull/757) Scope `GITHUB_TOKEN` to least privilege in the release workflow.
+- Fix tag glob in the `Release` / `Publish` workflows so pushing a `vMAJOR.MINOR.PATCH[+build|-pre]` tag actually triggers them (previous `publish.yml` used regex syntax that GitHub Actions filter globs never matched).
 - Bump CI toolchain: Flutter `3.44.4`, Node.js `24.18.0`, pnpm `11.9.0`, `lint-staged` `v17`.
 
 ## 5.14.1
