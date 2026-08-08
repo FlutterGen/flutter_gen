@@ -16,7 +16,7 @@ dependencies:
   collection: ^1.17.0
   crypto: ^3.0.0
   glob: ^2.0.0
-  package_config: ^2.1.0
+  package_config: ^3.0.0
   path: ^1.8.0
   yaml: ^3.0.0
 
