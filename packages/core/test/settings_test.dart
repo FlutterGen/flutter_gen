@@ -113,6 +113,29 @@ void main() {
     });
   });
 
+  group(FlutterGenElementColorsOutputsStyle, () {
+    test('fromJson', () {
+      expect(
+        FlutterGenElementColorsOutputsStyle.fromJson('plain'),
+        equals(FlutterGenElementColorsOutputsStyle.plainStyle),
+      );
+      expect(
+        FlutterGenElementColorsOutputsStyle.fromJson('wrapper-class'),
+        equals(FlutterGenElementColorsOutputsStyle.wrapperClassStyle),
+      );
+      expect(
+        () => FlutterGenElementColorsOutputsStyle.fromJson('wrong'),
+        throwsA(isA<ArgumentError>()),
+      );
+    });
+
+    test('toJson', () {
+      for (final style in FlutterGenElementColorsOutputsStyle.values) {
+        expect(style.toJson(), equals(style.name));
+      }
+    });
+  });
+
   group(InvalidSettingsException, () {
     test('toString', () {
       expect(

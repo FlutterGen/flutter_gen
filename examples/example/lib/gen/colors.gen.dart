@@ -11,21 +11,23 @@
 import 'package:flutter/painting.dart';
 import 'package:flutter/material.dart';
 
-abstract final class MyColorName {
+class MyColorName extends Color {
+  const MyColorName(super.value);
+
   /// Color: #000000
-  static const Color black = Color(0xFF000000);
+  static const black = MyColorName(0xFF000000);
 
   /// Color: #4D000000
-  static const Color black30 = Color(0x4D000000);
+  static const black30 = MyColorName(0x4D000000);
 
   /// Color: #66000000
-  static const Color black40 = Color(0x66000000);
+  static const black40 = MyColorName(0x66000000);
 
   /// Color: #80000000
-  static const Color black50 = Color(0x80000000);
+  static const black50 = MyColorName(0x80000000);
 
   /// Color: #99000000
-  static const Color black60 = Color(0x99000000);
+  static const black60 = MyColorName(0x99000000);
 
   /// MaterialColor:
   ///   50: #FFF9E5E5
@@ -55,13 +57,13 @@ abstract final class MyColorName {
   );
 
   /// Color: #979797
-  static const Color gray410 = Color(0xFF979797);
+  static const gray410 = MyColorName(0xFF979797);
 
   /// Color: #EEEEEE
-  static const Color gray70 = Color(0xFFEEEEEE);
+  static const gray70 = MyColorName(0xFFEEEEEE);
 
   /// Color: #FFFFFF
-  static const Color white = Color(0xFFFFFFFF);
+  static const white = MyColorName(0xFFFFFFFF);
 
   /// MaterialColor:
   ///   50: #FFFBF2E5

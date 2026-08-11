@@ -61,5 +61,10 @@ void main() {
       const pubspec = 'test_resources/pubspec_colors_change_class_name.yaml';
       await expectedColorsGen(pubspec);
     });
+
+    test('Wrapper class style', () async {
+      const pubspec = 'test_resources/pubspec_colors_wrapper_class.yaml';
+      await expectedColorsGen(pubspec);
+    });
   });
 }
