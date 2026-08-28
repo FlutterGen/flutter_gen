@@ -59,13 +59,6 @@ void main() {
 
       // The generated classes have `package` fields.
       expect(content, contains("static const String package = 'test';"));
-      expect(
-        content,
-        contains(
-          "@Deprecated('Do not specify package for a generated library asset')",
-        ),
-      );
-      expect(content, contains('String? package = package,'));
     });
 
     test('Assets with directory path enabled', () async {

@@ -174,20 +174,31 @@ void main() {
         isFalse,
       );
       expect(integration.isConstConstructor, isTrue);
+      expect(
+        integration.classOutput.contains(
+          'extension SvgGenImageExtension on SvgGenImage',
+        ),
+        isTrue,
+      );
       expect(integration.classOutput.contains('String? package,'), isTrue);
 
       final integrationWithPackage = SvgIntegration('package_name');
       expect(
         integrationWithPackage.classOutput.contains(
-          'String? package = package,',
+          "@Deprecated('Do not specify package for a generated library asset')",
         ),
         isTrue,
       );
       expect(
-        integrationWithPackage.classOutput.contains(
-          "static const String package = 'package_name';",
+        integrationWithPackage.classInstantiate(
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/path/dog.svg',
+            flavors: {},
+            transformers: {},
+          ),
         ),
-        isTrue,
+        "SvgGenImage('assets/path/dog.svg', package: 'package_name',)",
       );
     });
 

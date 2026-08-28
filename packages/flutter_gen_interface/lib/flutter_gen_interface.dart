@@ -1,43 +1,16 @@
-// dart format width=80
-
-/// GENERATED CODE - DO NOT MODIFY BY HAND
-/// *****************************************************
-///  FlutterGen
-/// *****************************************************
-
-// coverage:ignore-file
-// ignore_for_file: type=lint
-// ignore_for_file: deprecated_member_use,directives_ordering,implicit_dynamic_list_literal,unnecessary_import
-
 import 'package:flutter/widgets.dart';
-
-class $AssetsImagesGen {
-  const $AssetsImagesGen();
-
-  /// File path: assets/images/flutter3.jpg
-  AssetGenImage get flutter3 =>
-      const AssetGenImage('assets/images/flutter3.jpg');
-
-  /// List of all assets
-  List<AssetGenImage> get values => [flutter3];
-}
-
-class GalleryOneAssets {
-  const GalleryOneAssets._();
-
-  static const $AssetsImagesGen images = $AssetsImagesGen();
-}
 
 class AssetGenImage {
   const AssetGenImage(
     this._assetName, {
     this.size,
     this.flavors = const {},
+    this.package,
     this.animation,
   });
 
   final String _assetName;
-
+  final String? package;
   final Size? size;
   final Set<String> flavors;
   final AssetGenImageAnimation? animation;
@@ -88,20 +61,28 @@ class AssetGenImage {
       matchTextDirection: matchTextDirection,
       gaplessPlayback: gaplessPlayback,
       isAntiAlias: isAntiAlias,
-      package: package,
+      package: package ?? this.package,
       filterQuality: filterQuality,
       cacheWidth: cacheWidth,
       cacheHeight: cacheHeight,
     );
   }
 
-  ImageProvider provider({AssetBundle? bundle, String? package}) {
-    return AssetImage(_assetName, bundle: bundle, package: package);
+  ImageProvider provider({
+    AssetBundle? bundle,
+    String? package,
+  }) {
+    return AssetImage(
+      _assetName,
+      bundle: bundle,
+      package: package ?? this.package,
+    );
   }
 
   String get path => _assetName;
 
-  String get keyName => _assetName;
+  String get keyName =>
+      package == null ? _assetName : 'packages/$package/$_assetName';
 }
 
 class AssetGenImageAnimation {
@@ -114,4 +95,33 @@ class AssetGenImageAnimation {
   final bool isAnimation;
   final Duration duration;
   final int frames;
+}
+
+class SvgGenImage {
+  const SvgGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+    this.package,
+  }) : _isVecFormat = false;
+
+  const SvgGenImage.vec(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+    this.package,
+  }) : _isVecFormat = true;
+
+  final String _assetName;
+  final Size? size;
+  final Set<String> flavors;
+  final bool _isVecFormat;
+  final String? package;
+
+  String get path => _assetName;
+
+  String get keyName =>
+      package == null ? _assetName : 'packages/$package/$_assetName';
+
+  bool get isVecFormat => _isVecFormat;
 }

@@ -11,6 +11,8 @@
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gen_interface/flutter_gen_interface.dart';
+export 'package:flutter_gen_interface/flutter_gen_interface.dart';
 import 'package:flutter_svg/flutter_svg.dart' as _svg;
 import 'package:vector_graphics/vector_graphics.dart' as _vg;
 
@@ -43,18 +45,7 @@ abstract final class Assets {
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
-class SvgGenImage {
-  const SvgGenImage(this._assetName, {this.size, this.flavors = const {}})
-    : _isVecFormat = false;
-
-  const SvgGenImage.vec(this._assetName, {this.size, this.flavors = const {}})
-    : _isVecFormat = true;
-
-  final String _assetName;
-  final Size? size;
-  final Set<String> flavors;
-  final bool _isVecFormat;
-
+extension SvgGenImageExtension on SvgGenImage {
   _svg.SvgPicture svg({
     Key? key,
     bool matchTextDirection = false,
@@ -77,17 +68,17 @@ class SvgGenImage {
     @deprecated bool cacheColorFilter = false,
   }) {
     final _svg.BytesLoader loader;
-    if (_isVecFormat) {
+    if (isVecFormat) {
       loader = _vg.AssetBytesLoader(
-        _assetName,
+        path,
         assetBundle: bundle,
-        packageName: package,
+        packageName: package ?? this.package,
       );
     } else {
       loader = _svg.SvgAssetLoader(
-        _assetName,
+        path,
         assetBundle: bundle,
-        packageName: package,
+        packageName: package ?? this.package,
         theme: theme,
         colorMapper: colorMapper,
       );
@@ -104,15 +95,10 @@ class SvgGenImage {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      colorFilter:
-          colorFilter ??
+      colorFilter: colorFilter ??
           (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
     );
   }
-
-  String get path => _assetName;
-
-  String get keyName => _assetName;
 }

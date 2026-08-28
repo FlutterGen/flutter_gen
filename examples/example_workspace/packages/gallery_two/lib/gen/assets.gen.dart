@@ -19,6 +19,8 @@ class $AssetsImagesGen {
   List<String> get values => [dart];
 }
 
-abstract final class GalleryTwoAssets {
+class GalleryTwoAssets {
+  const GalleryTwoAssets._();
+
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }

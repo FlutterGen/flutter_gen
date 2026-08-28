@@ -10,10 +10,9 @@ class SvgIntegration extends Integration {
     super.parseMetadata,
   }) : super(packageName);
 
-  String get packageExpression => isPackage ? ' = package' : '';
-
   @override
   List<Import> get requiredImports => const [
+        Import('package:flutter_gen_interface/flutter_gen_interface.dart'),
         Import('package:flutter/widgets.dart'),
         Import('package:flutter/services.dart'),
         Import('package:flutter_svg/flutter_svg.dart', alias: '_svg'),
@@ -23,31 +22,13 @@ class SvgIntegration extends Integration {
   @override
   String get classOutput => _classDefinition;
 
-  String get _classDefinition => '''class SvgGenImage {
-  const SvgGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = false;
-
-  const SvgGenImage.vec(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = true;
-
-  final String _assetName;
-  final Size? size;
-  final Set<String> flavors;
-  final bool _isVecFormat;
-
-${isPackage ? "\n  static const String package = '$packageName';" : ''}
-
+  String get _classDefinition =>
+      '''extension SvgGenImageExtension on SvgGenImage {
   _svg.SvgPicture svg({
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    ${isPackage ? '$deprecationMessagePackage\n' : ''}String? package$packageExpression,
+    ${isPackage ? '$deprecationMessagePackage\n' : ''}String? package,
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,
@@ -65,17 +46,17 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
     @deprecated bool cacheColorFilter = false,
   }) {
     final _svg.BytesLoader loader;
-    if (_isVecFormat) {
+    if (isVecFormat) {
       loader = _vg.AssetBytesLoader(
-        _assetName,
+        path,
         assetBundle: bundle,
-        packageName: package,
+        packageName: package ?? this.package,
       );
     } else {
       loader = _svg.SvgAssetLoader(
-        _assetName,
+        path,
         assetBundle: bundle,
-        packageName: package,
+        packageName: package ?? this.package,
         theme: theme,
         colorMapper: colorMapper,
       );
@@ -97,10 +78,6 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
       cacheColorFilter: cacheColorFilter,
     );
   }
-
-  String get path => _assetName;
-
-  String get keyName => ${isPackage ? '\'packages/$packageName/\$_assetName\'' : '_assetName'};
 }''';
 
   @override
@@ -127,7 +104,10 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
       final flavors = asset.flavors.map((e) => '\'$e\'').join(', ');
       buffer.write(flavors);
       buffer.write('}');
-      buffer.write(','); // Better formatting.
+      if (!isPackage) buffer.write(','); // Better formatting.
+    }
+    if (isPackage) {
+      buffer.write(', package: \'$packageName\',');
     }
     buffer.write(')');
     return buffer.toString();

@@ -56,7 +56,9 @@ class $AssetsUnknownGen {
   List<String> get values => [unknownMimeType];
 }
 
-abstract final class ResAssets {
+class ResAssets {
+  const ResAssets._();
+
   static const String package = 'example_resources';
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
