@@ -89,6 +89,9 @@ Future<String> generateAssets(
       SvgIntegration(
         config.packageParameterLiteral,
         parseMetadata: config.flutterGen.parseMetadata,
+        resolvedVersion: config.integrationResolvedVersions[SvgIntegration],
+        resolvedVersionConstraint:
+            config.integrationResolvedVersionConstraints[SvgIntegration],
       ),
     if (config.flutterGen.integrations.rive)
       RiveIntegration(

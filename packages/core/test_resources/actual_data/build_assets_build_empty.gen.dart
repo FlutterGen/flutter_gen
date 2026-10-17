@@ -281,6 +281,7 @@ class SvgGenImage {
     AlignmentGeometry alignment = Alignment.center,
     bool allowDrawingOutsideViewBox = false,
     WidgetBuilder? placeholderBuilder,
+    _svg.SvgErrorWidgetBuilder? errorBuilder,
     String? semanticsLabel,
     bool excludeFromSemantics = false,
     _svg.SvgTheme? theme,
@@ -317,6 +318,7 @@ class SvgGenImage {
       alignment: alignment,
       allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
       placeholderBuilder: placeholderBuilder,
+      errorBuilder: errorBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
       colorFilter: colorFilter ??
