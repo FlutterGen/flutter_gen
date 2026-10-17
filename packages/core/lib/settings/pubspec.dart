@@ -256,6 +256,7 @@ class FlutterGenIntegrations {
     required this.flutterSvg,
     required this.rive,
     required this.lottie,
+    this.flutterSvgClass,
   });
 
   factory FlutterGenIntegrations.fromJson(Map json) =>
@@ -272,6 +273,29 @@ class FlutterGenIntegrations {
 
   @JsonKey(name: 'lottie', required: true)
   final bool lottie;
+
+  /// A user-defined subclass of `SvgGenImage` used to instantiate SVG assets.
+  @JsonKey(name: 'flutter_svg_class')
+  final FlutterGenIntegrationClass? flutterSvgClass;
+}
+
+@JsonSerializable()
+class FlutterGenIntegrationClass {
+  const FlutterGenIntegrationClass({
+    required this.name,
+    required this.import,
+  });
+
+  factory FlutterGenIntegrationClass.fromJson(Map json) =>
+      _$FlutterGenIntegrationClassFromJson(json);
+
+  /// The class name, which must extend the generated integration class.
+  @JsonKey(name: 'name', required: true)
+  final String name;
+
+  /// The import URI of the library that declares the class.
+  @JsonKey(name: 'import', required: true)
+  final String import;
 }
 
 @JsonSerializable()

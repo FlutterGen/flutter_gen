@@ -220,7 +220,13 @@ FlutterGenIntegrations _$FlutterGenIntegrationsFromJson(Map json) =>
       ($checkedConvert) {
         $checkKeys(
           json,
-          allowedKeys: const ['image', 'flutter_svg', 'rive', 'lottie'],
+          allowedKeys: const [
+            'image',
+            'flutter_svg',
+            'rive',
+            'lottie',
+            'flutter_svg_class'
+          ],
           requiredKeys: const ['image', 'flutter_svg', 'rive', 'lottie'],
         );
         final val = FlutterGenIntegrations(
@@ -228,10 +234,36 @@ FlutterGenIntegrations _$FlutterGenIntegrationsFromJson(Map json) =>
           flutterSvg: $checkedConvert('flutter_svg', (v) => v as bool),
           rive: $checkedConvert('rive', (v) => v as bool),
           lottie: $checkedConvert('lottie', (v) => v as bool),
+          flutterSvgClass: $checkedConvert(
+              'flutter_svg_class',
+              (v) => v == null
+                  ? null
+                  : FlutterGenIntegrationClass.fromJson(v as Map)),
         );
         return val;
       },
-      fieldKeyMap: const {'flutterSvg': 'flutter_svg'},
+      fieldKeyMap: const {
+        'flutterSvg': 'flutter_svg',
+        'flutterSvgClass': 'flutter_svg_class'
+      },
+    );
+
+FlutterGenIntegrationClass _$FlutterGenIntegrationClassFromJson(Map json) =>
+    $checkedCreate(
+      'FlutterGenIntegrationClass',
+      json,
+      ($checkedConvert) {
+        $checkKeys(
+          json,
+          allowedKeys: const ['name', 'import'],
+          requiredKeys: const ['name', 'import'],
+        );
+        final val = FlutterGenIntegrationClass(
+          name: $checkedConvert('name', (v) => v as String),
+          import: $checkedConvert('import', (v) => v as String),
+        );
+        return val;
+      },
     );
 
 FlutterGenElementOutputs _$FlutterGenElementOutputsFromJson(Map json) =>
