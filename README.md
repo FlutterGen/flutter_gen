@@ -514,6 +514,42 @@ Widget build(BuildContext context) {
 }
 ```
 
+To customize the generated SVG API, set `flutter_svg_class` to a class that extends the generated `SvgGenImage`.
+SVG assets are then typed and instantiated with that class, so overridden methods such as `svg()` and any added methods are available on every asset.
+
+```yaml
+# pubspec.yaml
+flutter_gen:
+  integrations:
+    flutter_svg: true
+    flutter_svg_class:
+      name: AppSvgGenImage
+      import: package:my_app/app_svg_gen_image.dart
+```
+
+```dart
+// lib/app_svg_gen_image.dart
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_app/gen/assets.gen.dart';
+
+class AppSvgGenImage extends SvgGenImage {
+  const AppSvgGenImage(super.assetName, {super.size, super.flavors});
+
+  const AppSvgGenImage.vec(super.assetName, {super.size, super.flavors})
+      : super.vec();
+
+  Widget square(double dimension, {Color? color}) {
+    return svg(
+      width: dimension,
+      height: dimension,
+      colorFilter:
+          color == null ? null : ColorFilter.mode(color, BlendMode.srcIn),
+    );
+  }
+}
+```
+
 **Available Integrations**
 
 | Packages                                            | File extension             | Setting             | Usage                                     |

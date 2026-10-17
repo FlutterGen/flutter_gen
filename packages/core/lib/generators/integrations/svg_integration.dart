@@ -10,6 +10,8 @@ class SvgIntegration extends Integration {
   SvgIntegration(
     String packageName, {
     super.parseMetadata,
+    this.customClassName,
+    this.customClassImport,
     Version? resolvedVersion,
     VersionConstraint? resolvedVersionConstraint,
   })  : supportsErrorBuilder = _resolveErrorBuilderSupport(
@@ -17,6 +19,12 @@ class SvgIntegration extends Integration {
           resolvedVersionConstraint,
         ),
         super(packageName);
+
+  /// A user-defined subclass of `SvgGenImage` used to instantiate assets.
+  final String? customClassName;
+
+  /// The import URI of the library that declares [customClassName].
+  final String? customClassImport;
 
   /// The minimum flutter_svg version that provides `SvgPicture.errorBuilder`.
   static final errorBuilderMinimumSupportVersion = Version(2, 0, 17);
@@ -45,11 +53,15 @@ class SvgIntegration extends Integration {
   String get packageExpression => isPackage ? ' = package' : '';
 
   @override
-  List<Import> get requiredImports => const [
-        Import('package:flutter/widgets.dart'),
-        Import('package:flutter/services.dart'),
-        Import('package:flutter_svg/flutter_svg.dart', alias: '_svg'),
-        Import('package:vector_graphics/vector_graphics.dart', alias: '_vg'),
+  List<Import> get requiredImports => [
+        const Import('package:flutter/widgets.dart'),
+        const Import('package:flutter/services.dart'),
+        const Import('package:flutter_svg/flutter_svg.dart', alias: '_svg'),
+        const Import(
+          'package:vector_graphics/vector_graphics.dart',
+          alias: '_vg',
+        ),
+        if (customClassImport case final import?) Import(import),
       ];
 
   @override
@@ -136,7 +148,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 }''';
 
   @override
-  String get className => 'SvgGenImage';
+  String get className => customClassName ?? 'SvgGenImage';
 
   static const vectorCompileTransformer = 'vector_graphics_compiler';
 

@@ -89,6 +89,9 @@ Future<String> generateAssets(
       SvgIntegration(
         config.packageParameterLiteral,
         parseMetadata: config.flutterGen.parseMetadata,
+        customClassName: config.flutterGen.integrations.flutterSvgClass?.name,
+        customClassImport:
+            config.flutterGen.integrations.flutterSvgClass?.import,
         resolvedVersion: config.integrationResolvedVersions[SvgIntegration],
         resolvedVersionConstraint:
             config.integrationResolvedVersionConstraints[SvgIntegration],

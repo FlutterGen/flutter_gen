@@ -1,0 +1,17 @@
+name: test
+
+flutter_gen:
+  output: lib/gen/
+
+  integrations:
+    flutter_svg: true
+    flutter_svg_class:
+      name: AppSvgGenImage
+      import: package:test/app_svg_gen_image.dart
+
+flutter:
+  assets:
+    - assets/images/icons/fuchsia.svg
+    - path: assets/images/icons/kmm.svg
+      transformers:
+        - package: vector_graphics_compiler

@@ -191,6 +191,47 @@ void main() {
       );
     });
 
+    test('Assets with a custom Svg class on pubspec.yaml', () async {
+      const pubspec = 'test_resources/pubspec_assets_svg_custom_class.yaml';
+      await expectedAssetsGen(pubspec);
+
+      final integration = SvgIntegration(
+        '',
+        customClassName: 'AppSvgGenImage',
+        customClassImport: 'package:test/app_svg_gen_image.dart',
+      );
+      // Assets are typed and instantiated with the custom class.
+      expect(integration.className, 'AppSvgGenImage');
+      expect(
+        integration.classInstantiate(
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/path/dog.svg',
+            flavors: {},
+            transformers: {},
+          ),
+        ),
+        'AppSvgGenImage(\'assets/path/dog.svg\')',
+      );
+      expect(
+        integration.classInstantiate(
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/path/dog.vec',
+            flavors: {},
+            transformers: {},
+          ),
+        ),
+        'AppSvgGenImage.vec(\'assets/path/dog.vec\')',
+      );
+      expect(
+        integration.requiredImports,
+        contains(const Import('package:test/app_svg_gen_image.dart')),
+      );
+      // The base class is still generated for the custom class to extend.
+      expect(integration.classOutput.contains('class SvgGenImage {'), isTrue);
+    });
+
     test('SvgIntegration errorBuilder resolution with resolvedVersion', () {
       // Test with version < 2.0.17 (should not expose errorBuilder)
       final oldIntegration = SvgIntegration(
