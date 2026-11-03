@@ -11,12 +11,12 @@ environment:
 
 dependencies:
   flutter_gen_core: 5.15.0
-  build: ^4.0.0
+  build: '>=4.0.0 <6.0.0'
   build_config: ^1.1.2
   collection: ^1.17.0
   crypto: ^3.0.0
   glob: ^2.0.0
-  package_config: ^2.1.0
+  package_config: '>=2.2.0 <4.0.0'
   path: ^1.8.0
   yaml: ^3.0.0
 
