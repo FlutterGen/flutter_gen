@@ -2,7 +2,7 @@
 
 **Development**
 
-- Allow `build` 5.x and `package_config` 3.x in `flutter_gen_runner` while retaining support for `build` 4.x and `package_config` 2.2.x.
+- [#784](https://github.com/FlutterGen/flutter_gen/pull/784) Allow `build` 5.x and `package_config` 3.x in `flutter_gen_runner` while retaining support for `build` 4.x and `package_config` 2.2.x. by [@Carapacik](https://github.com/Carapacik)
 
 ## 5.15.0
 
