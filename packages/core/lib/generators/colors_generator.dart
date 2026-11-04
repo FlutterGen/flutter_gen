@@ -24,14 +24,22 @@ String generateColors(
 
   final buffer = StringBuffer();
   final className = colorsConfig.outputs.className;
+  final style = colorsConfig.outputs.style;
   buffer.writeln('// dart format width=${formatter.pageWidth}');
   buffer.writeln(header);
   buffer.writeln(ignore);
   buffer.writeln("import 'package:flutter/painting.dart';");
   buffer.writeln("import 'package:flutter/material.dart';");
   buffer.writeln();
-  buffer.writeln('abstract final class $className {');
-  buffer.writeln();
+  switch (style) {
+    case FlutterGenElementColorsOutputsStyle.wrapperClassStyle:
+      buffer.writeln('class $className extends Color {');
+      buffer.writeln('const $className(super.value);');
+      buffer.writeln();
+    case FlutterGenElementColorsOutputsStyle.plainStyle:
+      buffer.writeln('abstract final class $className {');
+      buffer.writeln();
+  }
 
   final colorList = <_Color>[];
   colorsConfig.inputs
@@ -52,20 +60,31 @@ String generateColors(
   colorList
       .distinctBy((color) => color.name)
       .sortedBy((color) => color.name)
-      .map(_colorStatement)
+      .map((color) => _colorStatement(color, className, style))
       .forEach(buffer.write);
 
   buffer.writeln('}');
   return formatter.format(buffer.toString());
 }
 
-String _colorStatement(_Color color) {
+String _colorStatement(
+  _Color color,
+  String className,
+  FlutterGenElementColorsOutputsStyle style,
+) {
+  final isWrapper =
+      style == FlutterGenElementColorsOutputsStyle.wrapperClassStyle;
+  // In the wrapper-class style only normal colors change: they are constructed
+  // with the generated type's constructor and need no type annotation. Material
+  // and material-accent colors are emitted exactly as in the plain style.
+  final name = color.name.camelCase();
+
   final buffer = StringBuffer();
   if (color.isMaterial) {
     final swatch = swatchFromPrimaryHex(color.hex);
-    final statement = '''/// MaterialColor: 
+    final statement = '''/// MaterialColor:
         ${swatch.entries.map((e) => '///   ${e.key}: ${hexFromColor(e.value)}').join('\n')}
-        static const MaterialColor ${color.name.camelCase()} = MaterialColor(
+        static const MaterialColor $name = MaterialColor(
     ${swatch[500]},
     <int, Color>{
       ${swatch.entries.map((e) => '${e.key}: Color(${e.value}),').join('\n')}
@@ -75,9 +94,9 @@ String _colorStatement(_Color color) {
   }
   if (color.isMaterialAccent) {
     final accentSwatch = accentSwatchFromPrimaryHex(color.hex);
-    final statement = '''/// MaterialAccentColor: 
+    final statement = '''/// MaterialAccentColor:
         ${accentSwatch.entries.map((e) => '///   ${e.key}: ${hexFromColor(e.value)}').join('\n')}
-        static const MaterialAccentColor ${color.name.camelCase()}Accent = MaterialAccentColor(
+        static const MaterialAccentColor ${name}Accent = MaterialAccentColor(
    ${accentSwatch[200]},
    <int, Color>{
      ${accentSwatch.entries.map((e) => '${e.key}: Color(${e.value}),').join('\n')}
@@ -87,8 +106,11 @@ String _colorStatement(_Color color) {
   }
   if (color.isNormal) {
     final comment = '/// Color: ${color.hex}';
+    // The wrapper type is inferred from the constructor, so no annotation.
+    final declaration = isWrapper ? 'static const' : 'static const Color';
+    final colorType = isWrapper ? className : 'Color';
     final statement =
-        '''static const Color ${color.name.camelCase()} = Color(${colorFromHex(color.hex)});''';
+        '''$declaration $name = $colorType(${colorFromHex(color.hex)});''';
 
     buffer.writeln(comment);
     buffer.writeln(statement);

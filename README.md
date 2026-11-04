@@ -662,6 +662,49 @@ Currently supported special color types:
 
 These configurations will generate **`colors.gen.dart`** under the **`lib/gen/`** directory by default.
 
+#### Output Style
+
+The shape of the generated class can be customized with `outputs/style`:
+
+```yaml
+# pubspec.yaml
+flutter_gen:
+  colors:
+    outputs:
+      # Available values:
+      # - plain          (default)
+      # - wrapper-class
+      style: plain
+      class_name: ColorName
+    inputs:
+      - assets/color/colors.xml
+```
+
+- **`plain`** (default): generates an `abstract final class` that exposes each
+  color as a `static const Color`. Material colors are emitted directly as
+  `MaterialColor` / `MaterialAccentColor`.
+
+  ```dart
+  abstract final class ColorName {
+    static const Color denim = Color(0xFF1560BD);
+    static const MaterialColor cinnamon = MaterialColor(/* ... */);
+  }
+  ```
+
+- **`wrapper-class`**: generates a class that `extends Color` with a forwarding
+  const constructor, so each normal color is a `static const` of the generated
+  type. Material colors (`MaterialColor` / `MaterialAccentColor`) are emitted
+  exactly as in the `plain` style.
+
+  ```dart
+  class ColorName extends Color {
+    const ColorName(super.value);
+
+    static const denim = ColorName(0xFF1560BD);
+    static const MaterialColor cinnamon = MaterialColor(/* ... */);
+  }
+  ```
+
 #### Usage Example
 
 ```dart

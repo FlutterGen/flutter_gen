@@ -40,6 +40,10 @@ flutter_gen:
     enabled: true # Optional
     inputs: [] # Optional
     outputs: # Optional
+      # Available values:
+      # - wrapper-class
+      # - plain
+      style: plain # Optional
       class_name: ColorName
 
 flutter:

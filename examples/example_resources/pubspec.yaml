@@ -39,6 +39,8 @@ flutter_gen:
 
   colors:
     enabled: true
+    outputs:
+      style: wrapper-class
     inputs:
       - assets/color/colors.xml
 
