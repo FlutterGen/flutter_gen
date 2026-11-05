@@ -232,6 +232,31 @@ sdks:
   });
 
   group('ConfigLoadInput', () {
+    test(
+        'discovers build options beside the pubspec outside the working directory',
+        () {
+      final tempDir = Directory.systemTemp.createTempSync('flutter_gen_test');
+      addTearDown(() => tempDir.deleteSync(recursive: true));
+      final tempPubspec = File('${tempDir.path}/pubspec.yaml')
+        ..writeAsStringSync('''
+name: package_build_options_test
+flutter_gen:
+  output: lib/gen/
+''');
+      File('${tempDir.path}/build.yaml').writeAsStringSync(r'''
+targets:
+  $default:
+    builders:
+      flutter_gen_runner:
+        options:
+          output: lib/build_gen/
+''');
+
+      final config = loadPubspecConfig(tempPubspec);
+
+      expect(config.pubspec.flutterGen.output, 'lib/build_gen/');
+    });
+
     test('ignores a missing explicit build file', () {
       final tempDir = Directory.systemTemp.createTempSync('flutter_gen_test');
       try {

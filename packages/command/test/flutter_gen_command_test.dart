@@ -196,6 +196,78 @@ targets:
       isFalse,
     );
   });
+
+  for (final workspace in [false, true]) {
+    test(
+        'Execute fluttergen ignores unrelated build.yaml (workspace: $workspace)',
+        () async {
+      final workspaceDir = await _copyExampleWorkspace();
+      addTearDown(() => workspaceDir.deleteSync(recursive: true));
+      await _deleteGeneratedDirs(workspaceDir);
+
+      final galleryOneDir = Directory(
+        p.join(workspaceDir.path, 'packages', 'gallery_one'),
+      );
+      File(p.join(galleryOneDir.path, 'build.yaml')).writeAsStringSync(r'''
+targets:
+  $default:
+    builders:
+      unrelated_builder:
+        options:
+          enabled: true
+''');
+
+      final process = await TestProcess.start(
+        'dart',
+        [
+          'run',
+          p.join(Directory.current.path, 'bin', 'flutter_gen_command.dart'),
+          if (workspace) '--workspace',
+          '--config',
+          p.join(
+            workspace ? workspaceDir.path : galleryOneDir.path,
+            'pubspec.yaml',
+          ),
+        ],
+        workingDirectory: workspaceDir.path,
+      );
+
+      await process.shouldExit(0);
+      expect(await process.stderr.rest.toList(), isEmpty);
+      expect(
+        File(p.join(galleryOneDir.path, 'lib', 'gen', 'assets.gen.dart'))
+            .readAsStringSync(),
+        contains('class GalleryOneAssets'),
+      );
+    });
+  }
+
+  test('Execute fluttergen reports an explicit build file without options',
+      () async {
+    final workspaceDir = await _copyExampleWorkspace();
+    addTearDown(() => workspaceDir.deleteSync(recursive: true));
+    final buildFile = File(p.join(workspaceDir.path, 'build.yaml'))
+      ..writeAsStringSync('targets: {}\n');
+
+    final process = await TestProcess.start(
+      'dart',
+      [
+        'run',
+        p.join(Directory.current.path, 'bin', 'flutter_gen_command.dart'),
+        '--config',
+        p.join(workspaceDir.path, 'packages', 'gallery_one', 'pubspec.yaml'),
+        '--build',
+        buildFile.path,
+      ],
+      workingDirectory: workspaceDir.path,
+    );
+
+    await process.shouldExit(0);
+    expect(
+      (await process.stderr.rest.toList()).join('\n'),
+      contains('[SEVERE]'),
+    );
+  });
 }
 
 Future<Directory> _copyExampleWorkspace() async {
