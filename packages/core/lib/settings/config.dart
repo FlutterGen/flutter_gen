@@ -83,8 +83,9 @@ Config loadPubspecConfig(File pubspecFile, {File? buildFile}) {
 
   // Fallback to the build.yaml when no build file has been specified and
   // the default one has valid configurations.
-  if (buildFile == null && getBuildFileOptions(File('build.yaml')) != null) {
-    buildFile = File('build.yaml');
+  final defaultBuildFile = File(join(pubspecFile.parent.path, 'build.yaml'));
+  if (buildFile == null && getBuildFileOptions(defaultBuildFile) != null) {
+    buildFile = defaultBuildFile;
   }
 
   if (buildFile != null) {

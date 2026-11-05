@@ -149,11 +149,6 @@ Future<void> _runSinglePackage(
 }) async {
   await FlutterGenerator(
     pubspecFile,
-    buildFile: buildFile ?? _packageLocalBuildFile(pubspecFile),
+    buildFile: buildFile,
   ).build();
-}
-
-File? _packageLocalBuildFile(File pubspecFile) {
-  final buildFile = File(p.join(pubspecFile.parent.path, 'build.yaml'));
-  return buildFile.existsSync() ? buildFile : null;
 }

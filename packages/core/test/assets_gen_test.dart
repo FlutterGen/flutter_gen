@@ -215,14 +215,26 @@ void main() {
 
     test('fallback to build.yaml if valid', () async {
       const pubspec = 'test_resources/pubspec_assets.yaml';
-      final buildFile = File('build.yaml');
-      final originalBuildContent = buildFile.readAsStringSync();
+      final buildFile = File('test_resources/build.yaml');
+      final originalBuildContent =
+          buildFile.existsSync() ? buildFile.readAsStringSync() : null;
+      addTearDown(() {
+        if (originalBuildContent == null) {
+          buildFile.deleteSync();
+        } else {
+          buildFile.writeAsStringSync(originalBuildContent);
+        }
+      });
+      final generated =
+          File('test_resources/lib/build_gen/assets_assets.gen.dart');
+      if (generated.existsSync()) {
+        generated.deleteSync();
+      }
       buildFile.writeAsStringSync(
         File('test_resources/build_assets.yaml').readAsStringSync(),
       );
-      await expectedAssetsGen(pubspec).whenComplete(() {
-        buildFile.writeAsStringSync(originalBuildContent);
-      });
+      await expectedAssetsGen(pubspec);
+      expect(generated.existsSync(), isTrue);
     });
   });
 
