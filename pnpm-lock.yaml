@@ -177,7 +177,7 @@ importers:
         version: 3.9.6
       prettier-plugin-packagejson:
         specifier: ^3.0.0
-        version: 3.0.0(prettier@3.9.6)
+        version: 3.1.0(prettier@3.9.6)
 
 packages:
 
@@ -215,16 +215,13 @@ packages:
     engines: {node: '>=22.22.1'}
     hasBin: true
 
-  picomatch@4.0.5:
-    resolution: {integrity: sha512-RvwwcruNjI1ncT5xRakeyS9Lf8lcItv34KD+aif+VH9kduAyfYBipGh12274xtenIPZ119/R9BdTBa8gAwSh0A==}
-    engines: {node: '>=12'}
-
   picomatch@4.0.7:
     resolution: {integrity: sha512-qcJu88Q2IWqJsDD529JKMdwGm/dvInW4HvQnRwiH9JtihJvzGOscDtHE3x1pBKeUOTysQ8kVmLnJ2kJu7yhcGA==}
     engines: {node: '>=12'}
 
-  prettier-plugin-packagejson@3.0.0:
-    resolution: {integrity: sha512-z8/QmPSqx/ANvvQMWJSkSq1+ihBXeuwDEYdjX3ZjRJ5Ty1k7vGbFQfhzk2eDe0rwS/TNyRjWK/qnjJEStAOtDw==}
+  prettier-plugin-packagejson@3.1.0:
+    resolution: {integrity: sha512-KxH8E68UGYVW4IDxZk7lLXKxVd8uY6g8ctfu+fNwA+bAKgCN66ZoRIcPtOHXDa1kDj/nLBZIgH8srP/1Yaz9iA==}
+    engines: {node: '>=22'}
     peerDependencies:
       prettier: ^3
     peerDependenciesMeta:
@@ -244,9 +241,9 @@ packages:
   sort-object-keys@2.1.0:
     resolution: {integrity: sha512-SOiEnthkJKPv2L6ec6HMwhUcN0/lppkeYuN1x63PbyPRrgSPIuBJCiYxYyvWRTtjMlOi14vQUCGUJqS6PLVm8g==}
 
-  sort-package-json@3.6.0:
-    resolution: {integrity: sha512-fyJsPLhWvY7u2KsKPZn1PixbXp+1m7V8NWqU8CvgFRbMEX41Ffw1kD8n0CfJiGoaSfoAvbrqRRl/DcHO8omQOQ==}
-    engines: {node: '>=20'}
+  sort-package-json@4.1.0:
+    resolution: {integrity: sha512-CI7HgkV5rCE5dbYYJMuXkxgiSLc3uJczff9ic3kHuY5QRYKUbfsDSKN4DjTpvqejdJEkKLusQ64ykTte5ypr1A==}
+    engines: {node: '>=22'}
     hasBin: true
 
   string-argv@0.3.2:
@@ -272,9 +269,9 @@ snapshots:
 
   detect-newline@4.0.1: {}
 
-  fdir@6.5.0(picomatch@4.0.5):
+  fdir@6.5.0(picomatch@4.0.7):
     optionalDependencies:
-      picomatch: 4.0.5
+      picomatch: 4.0.7
 
   git-hooks-list@4.1.1: {}
 
@@ -290,13 +287,11 @@ snapshots:
     optionalDependencies:
       yaml: 2.9.1
 
-  picomatch@4.0.5: {}
-
   picomatch@4.0.7: {}
 
-  prettier-plugin-packagejson@3.0.0(prettier@3.9.6):
+  prettier-plugin-packagejson@3.1.0(prettier@3.9.6):
     dependencies:
-      sort-package-json: 3.6.0
+      sort-package-json: 4.1.0
     optionalDependencies:
       prettier: 3.9.6
 
@@ -306,7 +301,7 @@ snapshots:
 
   sort-object-keys@2.1.0: {}
 
-  sort-package-json@3.6.0:
+  sort-package-json@4.1.0:
     dependencies:
       detect-indent: 7.0.2
       detect-newline: 4.0.1
@@ -322,8 +317,8 @@ snapshots:
 
   tinyglobby@0.2.15:
     dependencies:
-      fdir: 6.5.0(picomatch@4.0.5)
-      picomatch: 4.0.5
+      fdir: 6.5.0(picomatch@4.0.7)
+      picomatch: 4.0.7
 
   yaml@2.9.1:
     optional: true
