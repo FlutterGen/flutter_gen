@@ -2,22 +2,66 @@ import 'dart:io';
 
 import 'package:flutter_gen_core/generators/integrations/integration.dart';
 import 'package:flutter_gen_core/utils/log.dart';
+import 'package:pub_semver/pub_semver.dart'
+    show Version, VersionConstraint, VersionRange;
 import 'package:vector_graphics_compiler/vector_graphics_compiler.dart';
 
 class SvgIntegration extends Integration {
   SvgIntegration(
     String packageName, {
     super.parseMetadata,
-  }) : super(packageName);
+    this.customClassName,
+    this.customClassImport,
+    Version? resolvedVersion,
+    VersionConstraint? resolvedVersionConstraint,
+  })  : supportsErrorBuilder = _resolveErrorBuilderSupport(
+          resolvedVersion,
+          resolvedVersionConstraint,
+        ),
+        super(packageName);
+
+  /// A user-defined subclass of `SvgGenImage` used to instantiate assets.
+  final String? customClassName;
+
+  /// The import URI of the library that declares [customClassName].
+  final String? customClassImport;
+
+  /// The minimum flutter_svg version that provides `SvgPicture.errorBuilder`.
+  static final errorBuilderMinimumSupportVersion = Version(2, 0, 17);
+
+  /// Whether the generated `svg()` exposes `errorBuilder`.
+  final bool supportsErrorBuilder;
+
+  static bool _resolveErrorBuilderSupport(
+    Version? resolvedVersion,
+    VersionConstraint? resolvedVersionConstraint,
+  ) {
+    // Resolve by version.
+    if (resolvedVersion != null) {
+      return resolvedVersion >= errorBuilderMinimumSupportVersion;
+    }
+    // Resolve by version constraint.
+    if (resolvedVersionConstraint != null) {
+      return resolvedVersionConstraint.allowsAny(
+        VersionRange(min: errorBuilderMinimumSupportVersion, includeMin: true),
+      );
+    }
+    // Use the latest version as the fallback.
+    return true;
+  }
 
   String get packageExpression => isPackage ? ' = package' : '';
 
   @override
-  List<Import> get requiredImports => const [
-        Import('package:flutter/widgets.dart'),
-        Import('package:flutter/services.dart'),
-        Import('package:flutter_svg/flutter_svg.dart', alias: '_svg'),
-        Import('package:vector_graphics/vector_graphics.dart', alias: '_vg'),
+  List<Import> get requiredImports => [
+        const Import('package:flutter/widgets.dart'),
+        const Import('package:flutter/services.dart'),
+        const Import('package:flutter_svg/flutter_svg.dart', alias: '_svg'),
+        const Import(
+          'package:vector_graphics/vector_graphics.dart',
+          alias: '_vg',
+        ),
+        if (customClassImport case final import?) Import(import),
       ];
 
   @override
@@ -54,7 +98,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
     AlignmentGeometry alignment = Alignment.center,
     bool allowDrawingOutsideViewBox = false,
     WidgetBuilder? placeholderBuilder,
-    String? semanticsLabel,
+    ${supportsErrorBuilder ? '_svg.SvgErrorWidgetBuilder? errorBuilder,\n    ' : ''}String? semanticsLabel,
     bool excludeFromSemantics = false,
     _svg.SvgTheme? theme,
     _svg.ColorMapper? colorMapper,
@@ -90,7 +134,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
       alignment: alignment,
       allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
       placeholderBuilder: placeholderBuilder,
-      semanticsLabel: semanticsLabel,
+      ${supportsErrorBuilder ? 'errorBuilder: errorBuilder,\n      ' : ''}semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
       colorFilter: colorFilter ?? (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
@@ -104,7 +148,7 @@ ${isPackage ? "\n  static const String package = '$packageName';" : ''}
 }''';
 
   @override
-  String get className => 'SvgGenImage';
+  String get className => customClassName ?? 'SvgGenImage';
 
   static const vectorCompileTransformer = 'vector_graphics_compiler';
 
