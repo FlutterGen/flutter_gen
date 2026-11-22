@@ -191,6 +191,66 @@ void main() {
       );
     });
 
+    test('SvgIntegration errorBuilder resolution with resolvedVersion', () {
+      // Test with version < 2.0.17 (should not expose errorBuilder)
+      final oldIntegration = SvgIntegration(
+        '',
+        resolvedVersion: Version(2, 0, 16),
+      );
+      expect(oldIntegration.supportsErrorBuilder, isFalse);
+      expect(oldIntegration.classOutput.contains('errorBuilder'), isFalse);
+
+      // Test with version >= 2.0.17 (should expose errorBuilder)
+      final supportedIntegration = SvgIntegration(
+        '',
+        resolvedVersion: Version(2, 0, 17),
+      );
+      expect(supportedIntegration.supportsErrorBuilder, isTrue);
+      expect(
+        supportedIntegration.classOutput.contains(
+          '_svg.SvgErrorWidgetBuilder? errorBuilder,',
+        ),
+        isTrue,
+      );
+      expect(
+        supportedIntegration.classOutput.contains(
+          'errorBuilder: errorBuilder,',
+        ),
+        isTrue,
+      );
+    });
+
+    test('SvgIntegration errorBuilder resolution with version constraint', () {
+      // Test with constraint that allows 2.0.17 (should expose errorBuilder)
+      final allowsSupported = SvgIntegration(
+        '',
+        resolvedVersionConstraint: VersionConstraint.parse('^2.0.0'),
+      );
+      expect(allowsSupported.supportsErrorBuilder, isTrue);
+
+      // Test with constraint that excludes 2.0.17 (should not expose errorBuilder)
+      final excludesSupported = SvgIntegration(
+        '',
+        resolvedVersionConstraint: VersionConstraint.parse('>=2.0.0 <2.0.17'),
+      );
+      expect(excludesSupported.supportsErrorBuilder, isFalse);
+      expect(excludesSupported.classOutput.contains('errorBuilder'), isFalse);
+    });
+
+    test('SvgIntegration errorBuilder resolution priority and fallback', () {
+      // resolvedVersion should take priority over resolvedVersionConstraint
+      final integration = SvgIntegration(
+        '',
+        resolvedVersion: Version(2, 0, 9),
+        resolvedVersionConstraint: VersionConstraint.parse('^2.0.0'),
+      );
+      expect(integration.supportsErrorBuilder, isFalse);
+
+      // Test with no version information (should expose errorBuilder as fallback)
+      final fallbackIntegration = SvgIntegration('');
+      expect(fallbackIntegration.supportsErrorBuilder, isTrue);
+    });
+
     test('Assets with Rive integrations on pubspec.yaml', () async {
       const pubspec = 'test_resources/pubspec_assets_rive_integrations.yaml';
       await expectedAssetsGen(pubspec);
